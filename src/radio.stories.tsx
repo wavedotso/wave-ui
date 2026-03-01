@@ -13,6 +13,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+  args: {},
   render: () => (
     <RadioGroup defaultValue="comfortable">
       <div className="flex flex-col gap-3">
@@ -34,6 +35,7 @@ export const Default: Story = {
 };
 
 export const Disabled: Story = {
+  args: {},
   render: () => (
     <RadioGroup defaultValue="option-1" disabled>
       <div className="flex flex-col gap-3">
@@ -51,6 +53,7 @@ export const Disabled: Story = {
 };
 
 export const Horizontal: Story = {
+  args: {},
   render: () => (
     <RadioGroup defaultValue="light">
       <div className="flex items-center gap-4">

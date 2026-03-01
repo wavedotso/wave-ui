@@ -20,6 +20,8 @@ type SelectListProps = React.ComponentProps<typeof SelectPrimitive.List>
 type SelectLabelProps = React.ComponentProps<typeof SelectPrimitive.GroupLabel>
 type SelectItemProps = React.ComponentProps<typeof SelectPrimitive.Item>
 type SelectSeparatorProps = React.ComponentProps<typeof SelectPrimitive.Separator>
+type SelectScrollUpButtonProps = React.ComponentProps<typeof SelectPrimitive.ScrollUpArrow>
+type SelectScrollDownButtonProps = React.ComponentProps<typeof SelectPrimitive.ScrollDownArrow>
 
 type SelectTriggerProps = SelectTriggerBaseProps & {
   size?: "sm" | "default"
@@ -199,7 +201,7 @@ function SelectSeparator({ className, ...props }: SelectSeparatorProps) {
 function SelectScrollUpButton({
   className,
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.ScrollUpArrow>) {
+}: SelectScrollUpButtonProps) {
   return (
     <SelectPrimitive.ScrollUpArrow
       data-slot="select-scroll-up-button"
@@ -217,7 +219,7 @@ function SelectScrollUpButton({
 function SelectScrollDownButton({
   className,
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.ScrollDownArrow>) {
+}: SelectScrollDownButtonProps) {
   return (
     <SelectPrimitive.ScrollDownArrow
       data-slot="select-scroll-down-button"

@@ -5,13 +5,20 @@ import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar"
 
 import { cn } from "./lib/utils"
 
+type AvatarProps = AvatarPrimitive.Root.Props & {
+  size?: "default" | "sm" | "lg"
+}
+type AvatarImageProps = AvatarPrimitive.Image.Props
+type AvatarFallbackProps = AvatarPrimitive.Fallback.Props
+type AvatarBadgeProps = React.ComponentProps<"span">
+type AvatarGroupProps = React.ComponentProps<"div">
+type AvatarGroupCountProps = React.ComponentProps<"div">
+
 function Avatar({
   className,
   size = "default",
   ...props
-}: AvatarPrimitive.Root.Props & {
-  size?: "default" | "sm" | "lg"
-}) {
+}: AvatarProps) {
   return (
     <AvatarPrimitive.Root
       data-slot="avatar"
@@ -25,7 +32,7 @@ function Avatar({
   )
 }
 
-function AvatarImage({ className, ...props }: AvatarPrimitive.Image.Props) {
+function AvatarImage({ className, ...props }: AvatarImageProps) {
   return (
     <AvatarPrimitive.Image
       data-slot="avatar-image"
@@ -41,7 +48,7 @@ function AvatarImage({ className, ...props }: AvatarPrimitive.Image.Props) {
 function AvatarFallback({
   className,
   ...props
-}: AvatarPrimitive.Fallback.Props) {
+}: AvatarFallbackProps) {
   return (
     <AvatarPrimitive.Fallback
       data-slot="avatar-fallback"
@@ -54,7 +61,7 @@ function AvatarFallback({
   )
 }
 
-function AvatarBadge({ className, ...props }: React.ComponentProps<"span">) {
+function AvatarBadge({ className, ...props }: AvatarBadgeProps) {
   return (
     <span
       data-slot="avatar-badge"
@@ -70,7 +77,7 @@ function AvatarBadge({ className, ...props }: React.ComponentProps<"span">) {
   )
 }
 
-function AvatarGroup({ className, ...props }: React.ComponentProps<"div">) {
+function AvatarGroup({ className, ...props }: AvatarGroupProps) {
   return (
     <div
       data-slot="avatar-group"
@@ -86,7 +93,7 @@ function AvatarGroup({ className, ...props }: React.ComponentProps<"div">) {
 function AvatarGroupCount({
   className,
   ...props
-}: React.ComponentProps<"div">) {
+}: AvatarGroupCountProps) {
   return (
     <div
       data-slot="avatar-group-count"

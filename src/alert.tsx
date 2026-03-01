@@ -19,11 +19,16 @@ const alertVariants = cva(
   }
 )
 
+type AlertProps = React.ComponentProps<"div"> & VariantProps<typeof alertVariants>
+type AlertTitleProps = React.ComponentProps<"div">
+type AlertDescriptionProps = React.ComponentProps<"div">
+type AlertActionProps = React.ComponentProps<"div">
+
 function Alert({
   className,
   variant,
   ...props
-}: React.ComponentProps<"div"> & VariantProps<typeof alertVariants>) {
+}: AlertProps) {
   return (
     <div
       data-slot="alert"
@@ -34,7 +39,7 @@ function Alert({
   )
 }
 
-function AlertTitle({ className, ...props }: React.ComponentProps<"div">) {
+function AlertTitle({ className, ...props }: AlertTitleProps) {
   return (
     <div
       data-slot="alert-title"
@@ -50,7 +55,7 @@ function AlertTitle({ className, ...props }: React.ComponentProps<"div">) {
 function AlertDescription({
   className,
   ...props
-}: React.ComponentProps<"div">) {
+}: AlertDescriptionProps) {
   return (
     <div
       data-slot="alert-description"
@@ -63,7 +68,7 @@ function AlertDescription({
   )
 }
 
-function AlertAction({ className, ...props }: React.ComponentProps<"div">) {
+function AlertAction({ className, ...props }: AlertActionProps) {
   return (
     <div
       data-slot="alert-action"
