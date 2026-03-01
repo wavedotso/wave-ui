@@ -1,0 +1,93 @@
+"use client"
+
+import * as React from "react"
+import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip"
+
+import { cn } from "./lib/utils"
+
+type TooltipProviderProps = React.ComponentProps<typeof TooltipPrimitive.Provider>
+
+type TooltipProps = React.ComponentProps<typeof TooltipPrimitive.Root>
+
+type TooltipTriggerProps = React.ComponentProps<typeof TooltipPrimitive.Trigger>
+
+type TooltipContentProps = React.ComponentProps<typeof TooltipPrimitive.Popup> & {
+  side?: React.ComponentProps<typeof TooltipPrimitive.Positioner>["side"];
+  sideOffset?: React.ComponentProps<typeof TooltipPrimitive.Positioner>["sideOffset"];
+  align?: React.ComponentProps<typeof TooltipPrimitive.Positioner>["align"];
+  alignOffset?: React.ComponentProps<typeof TooltipPrimitive.Positioner>["alignOffset"];
+  anchor?: React.ComponentProps<typeof TooltipPrimitive.Positioner>["anchor"];
+  positionerClassName?: string;
+}
+
+function TooltipProvider({ delay = 0, ...props }: TooltipProviderProps) {
+  return (
+    <TooltipPrimitive.Provider
+      data-slot="tooltip-provider"
+      delay={delay}
+      {...props}
+    />
+  )
+}
+
+function Tooltip(props: TooltipProps) {
+  return <TooltipPrimitive.Root data-slot="tooltip" {...props} />
+}
+
+function TooltipTrigger({ children, ...props }: TooltipTriggerProps) {
+  // If children is a valid React element, use it as the render target
+  // This avoids nested button issues when wrapping Button components
+  if (React.isValidElement(children)) {
+    return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" render={children} {...props} />
+  }
+
+  // Raw text/primitives not supported - warn in development
+  if (process.env.NODE_ENV === "development" && children != null) {
+    console.warn("[TooltipTrigger] Children must be a valid React element, not raw text. Wrap text in a <span> or <button>.")
+  }
+
+  return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props}>{children}</TooltipPrimitive.Trigger>
+}
+
+function TooltipContent({
+  className,
+  positionerClassName,
+  side = "top",
+  sideOffset = 4,
+  align = "center",
+  alignOffset = 0,
+  anchor,
+  children,
+  ...props
+}: TooltipContentProps) {
+  return (
+    <TooltipPrimitive.Portal>
+      <TooltipPrimitive.Positioner
+        anchor={anchor}
+        align={align}
+        alignOffset={alignOffset}
+        side={side}
+        sideOffset={sideOffset}
+        className={cn("isolate z-50", positionerClassName)}
+      >
+        <TooltipPrimitive.Popup
+          data-slot="tooltip-content"
+          className={cn(
+            "data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2 bg-foreground text-background z-50 w-fit max-w-xs origin-(--transform-origin) rounded-md px-3 py-1.5 text-xs",
+            className,
+          )}
+          {...props}
+        >
+          {children}
+        </TooltipPrimitive.Popup>
+      </TooltipPrimitive.Positioner>
+    </TooltipPrimitive.Portal>
+  )
+}
+
+export {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+}

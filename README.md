@@ -1,6 +1,6 @@
 # @waveso/ui
 
-A React component library built on [Base UI](https://base-ui.com) primitives and [Tailwind CSS v4](https://tailwindcss.com). Ships unstyled, accessible components that you theme with CSS variables.
+Wave UI is component library built on [Base UI](https://base-ui.com) primitives and [Tailwind CSS v4](https://tailwindcss.com).
 
 ## Install
 
