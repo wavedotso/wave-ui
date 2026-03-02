@@ -2,7 +2,14 @@
 
 import * as React from "react"
 
+import { AnimatePresence, type HTMLMotionProps, motion } from "motion/react"
+
+import { StarIcon } from "./lib/internal-icons"
 import { cn } from "./lib/utils"
+
+const STAGGER_STEP = 0.05 // 50ms between each item's enter animation
+
+const MasonryStaggerContext = React.createContext<(() => number) | null>(null)
 
 type MasonryProps = React.ComponentProps<"div"> & {
   columns?: number
@@ -10,8 +17,9 @@ type MasonryProps = React.ComponentProps<"div"> & {
   gap?: number
 }
 
-type MasonryItemProps = React.ComponentProps<"div"> & {
+type MasonryItemProps = Omit<HTMLMotionProps<"div">, "children"> & {
   span?: number
+  children?: React.ReactNode
 }
 
 function Masonry({
@@ -24,6 +32,15 @@ function Masonry({
 }: MasonryProps) {
   const containerRef = React.useRef<HTMLDivElement>(null)
   const rafRef = React.useRef<number>(0)
+  const staggerCounterRef = React.useRef(0)
+
+  // Reset counter each render so new items in a batch get fresh 0-based indices
+  staggerCounterRef.current = 0
+
+  const getStaggerIndex = React.useCallback(
+    () => staggerCounterRef.current++,
+    [],
+  )
 
   React.useLayoutEffect(() => {
     const container = containerRef.current
@@ -35,7 +52,10 @@ function Masonry({
     const gapPx = gap * 0.25 * remPx
 
     function reflow() {
-      const items = Array.from(container!.children) as HTMLElement[]
+      const allChildren = Array.from(container!.children) as HTMLElement[]
+      // Skip exiting items — they keep their position during exit animation
+      const items = allChildren.filter((el) => el.dataset.exiting == null)
+
       if (items.length === 0) {
         container!.style.removeProperty("height")
         return
@@ -59,17 +79,25 @@ function Masonry({
         )
       }
 
-      // Single column: use normal flow, no positioning needed
+      // Single column: use normal flow with gap
       if (colCount <= 1) {
+        container!.style.removeProperty("height")
+        container!.style.display = "flex"
+        container!.style.flexDirection = "column"
+        container!.style.gap = `${gapPx}px`
         for (const item of items) {
           item.style.removeProperty("position")
           item.style.removeProperty("top")
           item.style.removeProperty("left")
           item.style.removeProperty("width")
         }
-        container!.style.removeProperty("height")
         return
       }
+
+      // Multi-column: clear single-column styles
+      container!.style.removeProperty("display")
+      container!.style.removeProperty("flex-direction")
+      container!.style.removeProperty("gap")
 
       const colWidth = (containerWidth - (colCount - 1) * gapPx) / colCount
       const columnBottoms = new Array<number>(colCount).fill(0)
@@ -87,7 +115,6 @@ function Masonry({
       }
 
       // First pass: set width on all items for correct height measurement
-      // Top items get their spanning width
       for (const { el, span } of topItems) {
         el.style.position = "absolute"
         el.style.width = `${span * colWidth + (span - 1) * gapPx}px`
@@ -162,7 +189,12 @@ function Masonry({
     ro.observe(container)
 
     const mo = new MutationObserver(scheduleReflow)
-    mo.observe(container, { childList: true, subtree: true })
+    mo.observe(container, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["data-exiting", "data-span"],
+    })
 
     // Detect image/media loads that change item heights
     container.addEventListener("load", scheduleReflow, true)
@@ -173,6 +205,9 @@ function Masonry({
       mo.disconnect()
       container.removeEventListener("load", scheduleReflow, true)
       container.style.removeProperty("height")
+      container.style.removeProperty("display")
+      container.style.removeProperty("flex-direction")
+      container.style.removeProperty("gap")
       const items = Array.from(container.children) as HTMLElement[]
       for (const item of items) {
         item.style.removeProperty("position")
@@ -184,25 +219,73 @@ function Masonry({
   }, [columns, columnWidth, gap])
 
   return (
-    <div
-      ref={containerRef}
-      data-slot="masonry"
-      className={cn("relative", className)}
-      {...props}
-    >
-      {children}
-    </div>
+    <MasonryStaggerContext.Provider value={getStaggerIndex}>
+      <div
+        ref={containerRef}
+        data-slot="masonry"
+        className={cn("relative", className)}
+        {...props}
+      >
+        <AnimatePresence>
+          {children}
+        </AnimatePresence>
+      </div>
+    </MasonryStaggerContext.Provider>
   )
 }
 
-function MasonryItem({ className, span, ...props }: MasonryItemProps) {
+function FeaturedBadge() {
   return (
-    <div
+    <span
+      data-slot="masonry-badge"
+      className="absolute top-2 right-2 z-10 flex size-5 items-center justify-center rounded-full bg-foreground/80 text-background"
+      aria-label="Featured"
+    >
+      <StarIcon width={10} height={10} fill="currentColor" aria-hidden />
+    </span>
+  )
+}
+
+function MasonryItem({
+  className,
+  span,
+  children,
+  ...props
+}: MasonryItemProps) {
+  const isSpanned = span != null && span > 1
+  const getStaggerIndex = React.useContext(MasonryStaggerContext)
+
+  // Capture stagger index once on mount — useState initializer runs exactly once
+  const [staggerDelay] = React.useState(() =>
+    getStaggerIndex ? getStaggerIndex() * STAGGER_STEP : 0,
+  )
+
+  return (
+    <motion.div
       data-slot="masonry-item"
-      data-span={span != null && span > 1 ? span : undefined}
-      className={className}
+      data-span={isSpanned ? span : undefined}
+      className={cn("relative", className)}
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{
+        opacity: 0,
+        y: -40,
+        x: 40,
+        filter: "blur(8px)",
+        scale: 2,
+        position: "absolute",
+      }}
+      transition={{
+        type: "spring",
+        stiffness: 100,
+        damping: 10,
+        delay: staggerDelay,
+      }}
       {...props}
-    />
+    >
+      {children}
+      {isSpanned && <FeaturedBadge />}
+    </motion.div>
   )
 }
 
