@@ -18,6 +18,20 @@ const preview: Preview = {
       },
     },
     layout: 'centered',
+    options: {
+      storySort: {
+        order: [
+          'Actions',
+          'Data Display',
+          'Feedback',
+          'Forms',
+          'Layout',
+          'Navigation',
+          'Overlay',
+          'Utilities',
+        ],
+      },
+    },
   },
   tags: ['autodocs'],
 };

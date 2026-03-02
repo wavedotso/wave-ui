@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import {
@@ -10,10 +10,16 @@ import {
   ComboboxGroup,
   ComboboxLabel,
   ComboboxEmpty,
+  ComboboxSeparator,
   ComboboxChips,
   ComboboxChip,
   ComboboxChipsInput,
+  ComboboxTrigger,
+  ComboboxValue,
+  useComboboxAnchor,
 } from './combobox';
+import { Button } from './button';
+import { Item, ItemContent, ItemDescription, ItemTitle } from './item';
 import { Label } from './label';
 
 const meta = {
@@ -52,6 +58,20 @@ const frameworks = [
       { value: 'hono', label: 'Hono' },
     ],
   },
+];
+
+const countries = [
+  { code: 'ar', value: 'argentina', label: 'Argentina', continent: 'South America' },
+  { code: 'au', value: 'australia', label: 'Australia', continent: 'Oceania' },
+  { code: 'br', value: 'brazil', label: 'Brazil', continent: 'South America' },
+  { code: 'ca', value: 'canada', label: 'Canada', continent: 'North America' },
+  { code: 'cn', value: 'china', label: 'China', continent: 'Asia' },
+  { code: 'fr', value: 'france', label: 'France', continent: 'Europe' },
+  { code: 'de', value: 'germany', label: 'Germany', continent: 'Europe' },
+  { code: 'jp', value: 'japan', label: 'Japan', continent: 'Asia' },
+  { code: 'mx', value: 'mexico', label: 'Mexico', continent: 'North America' },
+  { code: 'gb', value: 'united-kingdom', label: 'United Kingdom', continent: 'Europe' },
+  { code: 'us', value: 'united-states', label: 'United States', continent: 'North America' },
 ];
 
 export const Default: Story = {
@@ -100,7 +120,7 @@ export const WithGroups: Story = {
       <ComboboxContent>
         <ComboboxEmpty>No frameworks found.</ComboboxEmpty>
         <ComboboxList>
-          {(group) => (
+          {(group, index) => (
             <ComboboxGroup key={group.label}>
               <ComboboxLabel>{group.label}</ComboboxLabel>
               {group.items.map((item) => (
@@ -108,6 +128,7 @@ export const WithGroups: Story = {
                   {item.label}
                 </ComboboxItem>
               ))}
+              {index < frameworks.length - 1 && <ComboboxSeparator />}
             </ComboboxGroup>
           )}
         </ComboboxList>
@@ -135,20 +156,25 @@ export const WithClear: Story = {
 };
 
 function MultiSelectDemo() {
-  const [selectedFruits, setSelectedFruits] = useState([fruits[0], fruits[2]]);
-  const chipsRef = useRef<HTMLDivElement | null>(null);
+  const anchor = useComboboxAnchor();
 
   return (
-    <Combobox multiple items={fruits} value={selectedFruits} onValueChange={setSelectedFruits}>
-      <ComboboxChips ref={chipsRef}>
-        {(item) => (
-          <ComboboxChip key={item.value} value={item}>
-            {item.label}
-          </ComboboxChip>
-        )}
-        <ComboboxChipsInput placeholder="Add fruits..." />
+    <Combobox multiple autoHighlight items={fruits} defaultValue={[fruits[0], fruits[2]]}>
+      <ComboboxChips ref={anchor}>
+        <ComboboxValue>
+          {(values: typeof fruits) => (
+            <React.Fragment>
+              {values.map((item) => (
+                <ComboboxChip key={item.value} value={item}>
+                  {item.label}
+                </ComboboxChip>
+              ))}
+              <ComboboxChipsInput placeholder="Add fruits..." />
+            </React.Fragment>
+          )}
+        </ComboboxValue>
       </ComboboxChips>
-      <ComboboxContent anchor={chipsRef}>
+      <ComboboxContent anchor={anchor}>
         <ComboboxEmpty>No fruits found.</ComboboxEmpty>
         <ComboboxList>
           {(item) => (
@@ -164,6 +190,97 @@ function MultiSelectDemo() {
 
 export const MultiSelect: Story = {
   render: () => <MultiSelectDemo />,
+};
+
+export const WithCustomItems: Story = {
+  render: () => (
+    <Combobox
+      items={countries}
+      itemToStringValue={(country: (typeof countries)[number]) => country.label}
+    >
+      <ComboboxInput placeholder="Search countries..." />
+      <ComboboxContent>
+        <ComboboxEmpty>No countries found.</ComboboxEmpty>
+        <ComboboxList>
+          {(country) => (
+            <ComboboxItem key={country.code} value={country}>
+              <Item size="xs" className="p-0">
+                <ItemContent>
+                  <ItemTitle className="whitespace-nowrap">
+                    {country.label}
+                  </ItemTitle>
+                  <ItemDescription>
+                    {country.continent} ({country.code})
+                  </ItemDescription>
+                </ItemContent>
+              </Item>
+            </ComboboxItem>
+          )}
+        </ComboboxList>
+      </ComboboxContent>
+    </Combobox>
+  ),
+};
+
+export const AutoHighlight: Story = {
+  render: () => (
+    <Combobox items={fruits} autoHighlight>
+      <ComboboxInput placeholder="Select a fruit" />
+      <ComboboxContent>
+        <ComboboxEmpty>No fruits found.</ComboboxEmpty>
+        <ComboboxList>
+          {(item) => (
+            <ComboboxItem key={item.value} value={item} label={item.label}>
+              {item.label}
+            </ComboboxItem>
+          )}
+        </ComboboxList>
+      </ComboboxContent>
+    </Combobox>
+  ),
+};
+
+export const Invalid: Story = {
+  render: () => (
+    <Combobox items={fruits}>
+      <ComboboxInput placeholder="Select a fruit" aria-invalid="true" />
+      <ComboboxContent>
+        <ComboboxEmpty>No fruits found.</ComboboxEmpty>
+        <ComboboxList>
+          {(item) => (
+            <ComboboxItem key={item.value} value={item} label={item.label}>
+              {item.label}
+            </ComboboxItem>
+          )}
+        </ComboboxList>
+      </ComboboxContent>
+    </Combobox>
+  ),
+};
+
+export const Popup: Story = {
+  render: () => (
+    <Combobox items={countries} defaultValue={countries[0]}>
+      <ComboboxTrigger
+        render={
+          <Button variant="outline" className="w-64 justify-between font-normal">
+            <ComboboxValue />
+          </Button>
+        }
+      />
+      <ComboboxContent>
+        <ComboboxInput showTrigger={false} placeholder="Search countries..." />
+        <ComboboxEmpty>No countries found.</ComboboxEmpty>
+        <ComboboxList>
+          {(country) => (
+            <ComboboxItem key={country.code} value={country}>
+              {country.label}
+            </ComboboxItem>
+          )}
+        </ComboboxList>
+      </ComboboxContent>
+    </Combobox>
+  ),
 };
 
 export const Disabled: Story = {
