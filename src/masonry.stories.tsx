@@ -99,66 +99,27 @@ export const WideGap: Story = {
   ),
 }
 
-function SpanDemoCard({
-  index,
-  height,
-  span,
-}: {
-  index: number
-  height: number
-  span: number
-}) {
-  return (
-    <div
-      className={`flex flex-col items-center justify-center rounded-xl border shadow-sm ${COLORS[index % COLORS.length]}`}
-      style={{ height }}
-    >
-      <span className="text-sm font-semibold text-muted-foreground">
-        {span > 1 ? `span ${span}` : index + 1}
-      </span>
-    </div>
-  )
-}
-
-export const WithSpanning: Story = {
+export const WithPromoted: Story = {
   render: () => (
     <Masonry columns={4} gap={4} className="w-full">
-      <MasonryItem>
-        <SpanDemoCard index={0} height={160} span={1} />
+      {/* Promoted items — pinned at the top, span multiple columns */}
+      <MasonryItem span={2}>
+        <div className="flex items-center justify-center rounded-xl border-2 border-primary/30 bg-primary/5 shadow-sm" style={{ height: 200 }}>
+          <span className="text-sm font-semibold text-primary">Featured</span>
+        </div>
       </MasonryItem>
       <MasonryItem span={2}>
-        <SpanDemoCard index={1} height={140} span={2} />
+        <div className="flex items-center justify-center rounded-xl border-2 border-amber-500/30 bg-amber-500/5 shadow-sm" style={{ height: 160 }}>
+          <span className="text-sm font-semibold text-amber-600 dark:text-amber-400">Promoted</span>
+        </div>
       </MasonryItem>
-      <MasonryItem>
-        <SpanDemoCard index={2} height={200} span={1} />
-      </MasonryItem>
-      <MasonryItem>
-        <SpanDemoCard index={3} height={120} span={1} />
-      </MasonryItem>
-      <MasonryItem>
-        <SpanDemoCard index={4} height={180} span={1} />
-      </MasonryItem>
-      <MasonryItem span={3}>
-        <SpanDemoCard index={5} height={160} span={3} />
-      </MasonryItem>
-      <MasonryItem>
-        <SpanDemoCard index={6} height={150} span={1} />
-      </MasonryItem>
-      <MasonryItem>
-        <SpanDemoCard index={7} height={190} span={1} />
-      </MasonryItem>
-      <MasonryItem span={2}>
-        <SpanDemoCard index={8} height={130} span={2} />
-      </MasonryItem>
-      <MasonryItem>
-        <SpanDemoCard index={9} height={170} span={1} />
-      </MasonryItem>
-      <MasonryItem>
-        <SpanDemoCard index={10} height={110} span={1} />
-      </MasonryItem>
-      <MasonryItem span={4}>
-        <SpanDemoCard index={11} height={120} span={4} />
-      </MasonryItem>
+
+      {/* Regular items — flow below organically */}
+      {Array.from({ length: 16 }, (_, i) => (
+        <MasonryItem key={i}>
+          <DemoCard index={i} height={HEIGHTS[i % HEIGHTS.length]!} />
+        </MasonryItem>
+      ))}
     </Masonry>
   ),
 }

@@ -74,70 +74,77 @@ function Masonry({
       const colWidth = (containerWidth - (colCount - 1) * gapPx) / colCount
       const columnBottoms = new Array<number>(colCount).fill(0)
 
-      // Read spans and calculate item widths
-      const spans: number[] = []
+      // Partition items: spanning (top-pinned) vs regular
+      const topItems: { el: HTMLElement; span: number }[] = []
+      const regularItems: HTMLElement[] = []
       for (const item of items) {
         const raw = parseInt(item.dataset.span || "1", 10)
-        spans.push(Math.min(Math.max(1, raw), colCount))
-      }
-
-      // First pass: set absolute + correct width for height measurement
-      for (let i = 0; i < items.length; i++) {
-        const s = spans[i]!
-        const itemWidth =
-          s > 1 ? s * colWidth + (s - 1) * gapPx : colWidth
-        items[i]!.style.position = "absolute"
-        items[i]!.style.width = `${itemWidth}px`
-      }
-
-      // Second pass: batch-read heights (single forced layout)
-      const heights: number[] = []
-      for (const item of items) {
-        heights.push(item.offsetHeight)
-      }
-
-      // Third pass: place each item
-      for (let i = 0; i < items.length; i++) {
-        const s = spans[i]!
-        let startCol: number
-        let y: number
-
-        if (s <= 1) {
-          // Single-column: place in shortest column
-          startCol = 0
-          for (let c = 1; c < colCount; c++) {
-            if (columnBottoms[c]! < columnBottoms[startCol]!) {
-              startCol = c
-            }
-          }
-          y = columnBottoms[startCol]!
+        if (raw > 1) {
+          topItems.push({ el: item, span: Math.min(raw, colCount) })
         } else {
-          // Multi-column: find consecutive group with lowest max bottom
-          startCol = 0
-          let bestMax = Infinity
-          for (let start = 0; start <= colCount - s; start++) {
-            let groupMax = 0
-            for (let c = start; c < start + s; c++) {
-              groupMax = Math.max(groupMax, columnBottoms[c]!)
-            }
-            if (groupMax < bestMax) {
-              bestMax = groupMax
-              startCol = start
-            }
-          }
-          y = bestMax
+          regularItems.push(item)
+        }
+      }
+
+      // First pass: set width on all items for correct height measurement
+      // Top items get their spanning width
+      for (const { el, span } of topItems) {
+        el.style.position = "absolute"
+        el.style.width = `${span * colWidth + (span - 1) * gapPx}px`
+      }
+      for (const item of regularItems) {
+        item.style.position = "absolute"
+        item.style.width = `${colWidth}px`
+      }
+
+      // Second pass: batch-read heights
+      const topHeights: number[] = []
+      for (const { el } of topItems) {
+        topHeights.push(el.offsetHeight)
+      }
+      const regularHeights: number[] = []
+      for (const item of regularItems) {
+        regularHeights.push(item.offsetHeight)
+      }
+
+      // Third pass: place top items at Y=0, left-to-right
+      let nextCol = 0
+      for (let i = 0; i < topItems.length; i++) {
+        const { el, span } = topItems[i]!
+        const s = Math.min(span, colCount - nextCol)
+
+        const x = nextCol * (colWidth + gapPx)
+        el.style.top = "0px"
+        el.style.left = `${x}px`
+        // Recalculate width if span was clamped
+        if (s !== span) {
+          el.style.width = `${s * colWidth + (s - 1) * gapPx}px`
         }
 
-        const x = startCol * (colWidth + gapPx)
-
-        items[i]!.style.top = `${y}px`
-        items[i]!.style.left = `${x}px`
-
-        // Update all spanned column bottoms
-        const bottom = y + heights[i]! + gapPx
-        for (let c = startCol; c < startCol + s; c++) {
+        const bottom = topHeights[i]! + gapPx
+        for (let c = nextCol; c < nextCol + s; c++) {
           columnBottoms[c] = bottom
         }
+
+        nextCol += s
+      }
+
+      // Fourth pass: place regular items in shortest column
+      for (let i = 0; i < regularItems.length; i++) {
+        let shortestCol = 0
+        for (let c = 1; c < colCount; c++) {
+          if (columnBottoms[c]! < columnBottoms[shortestCol]!) {
+            shortestCol = c
+          }
+        }
+
+        const x = shortestCol * (colWidth + gapPx)
+        const y = columnBottoms[shortestCol]!
+
+        regularItems[i]!.style.top = `${y}px`
+        regularItems[i]!.style.left = `${x}px`
+
+        columnBottoms[shortestCol] = y + regularHeights[i]! + gapPx
       }
 
       const maxBottom = Math.max(...columnBottoms) - gapPx
