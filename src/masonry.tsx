@@ -238,7 +238,7 @@ function FeaturedBadge() {
   return (
     <span
       data-slot="masonry-badge"
-      className="absolute top-2 right-2 z-10 flex size-5 items-center justify-center rounded-full bg-foreground/80 text-background"
+      className="absolute top-2 right-2 z-10 flex size-5 items-center justify-center pointer-events-none"
       aria-label="Featured"
     >
       <StarIcon width={10} height={10} fill="currentColor" aria-hidden />
@@ -265,21 +265,26 @@ function MasonryItem({
       data-slot="masonry-item"
       data-span={isSpanned ? span : undefined}
       className={cn("relative", className)}
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{
+      initial={{
         opacity: 0,
-        y: -40,
-        x: 40,
-        filter: "blur(8px)",
-        scale: 2,
-        position: "absolute",
+        y: 10,
+        filter: "blur(8px)"
+      }}
+      animate={{
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)"
       }}
       transition={{
         type: "spring",
         stiffness: 100,
         damping: 10,
         delay: staggerDelay,
+      }}
+      exit={{
+        opacity: 0,
+        scale: 1.2,
+        filter: "blur(8px)",
       }}
       {...props}
     >

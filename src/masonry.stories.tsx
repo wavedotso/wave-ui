@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Masonry, MasonryItem } from './masonry'
 import { InfiniteScroll } from './infinite-scroll'
+import { TrashIcon } from './lib/internal-icons'
 
 const meta = {
   title: 'Layout/Masonry',
@@ -153,7 +154,10 @@ function RemovableDemo() {
             <span className="text-sm font-semibold text-foreground">
               {item.id + 1}
             </span>
-            <span className="mt-1 text-xs text-muted-foreground">Click to remove</span>
+            <span className="mt-1 flex items-center gap-1 text-xs text-muted-foreground">
+              <TrashIcon width={12} height={12} aria-hidden />
+              Click to remove
+            </span>
           </button>
         </MasonryItem>
       ))}
