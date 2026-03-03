@@ -1,16 +1,27 @@
-import type { Preview } from 'storybook/preview-api';
+import type { Preview } from '@storybook/react';
 import { withThemeByClassName } from '@storybook/addon-themes';
 
+import { ThemedDocsContainer } from './themed-docs-container';
 import './storybook.css';
+
+const prefersDark =
+  typeof window !== 'undefined' &&
+  window.matchMedia('(prefers-color-scheme: dark)').matches;
 
 const preview: Preview = {
   decorators: [
     withThemeByClassName({
-      themes: { light: '', dark: 'dark' },
-      defaultTheme: 'light',
+      themes: {
+        light: 'light',
+        dark: 'dark',
+      },
+      defaultTheme: prefersDark ? 'dark' : 'light',
     }),
   ],
   parameters: {
+    docs: {
+      container: ThemedDocsContainer,
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -21,6 +32,8 @@ const preview: Preview = {
     options: {
       storySort: {
         order: [
+          'Welcome',
+          'Foundation',
           'Actions',
           'Data Display',
           'Feedback',

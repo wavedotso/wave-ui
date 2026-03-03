@@ -1,0 +1,6 @@
+<script>
+  // Apply dark class before first paint to prevent flash of light theme.
+  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    document.documentElement.classList.add('dark');
+  }
+</script>
