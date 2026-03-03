@@ -1,0 +1,51 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Welcome" />
+
+<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2rem', padding: '2rem 0' }}>
+  <img src="/logomark.svg" alt="Wave" style={{ width: 64, height: 64, borderRadius: 16 }} />
+
+  <div style={{ textAlign: 'center' }}>
+    <h1 style={{ fontSize: '2rem', fontWeight: 700, margin: 0 }}>Wave UI</h1>
+    <p style={{ color: '#a3a3a3', marginTop: '0.5rem', fontSize: '1.1rem' }}>
+      A component library built on Base UI and Tailwind CSS.
+    </p>
+  </div>
+</div>
+
+---
+
+## Getting started
+
+Install the package and its peer dependencies:
+
+```bash
+npm install @waveso/ui @base-ui/react class-variance-authority clsx tailwind-merge
+```
+
+Import and use components:
+
+```tsx
+import { Button } from '@waveso/ui/button';
+
+function App() {
+  return <Button variant="solid">Get started</Button>;
+}
+```
+
+## Architecture
+
+- **Base UI** primitives for accessible, unstyled behavior
+- **Tailwind CSS v4** for styling via utility classes and CSS variables
+- **CVA** for type-safe component variants
+- **Motion** for declarative enter/exit animations
+
+## Design tokens
+
+All colors, radii, and spacing are driven by CSS custom properties. Override them in your
+`globals.css` to match your brand. See the **Foundation / Colors** page for the full palette.
+
+## Browse
+
+Use the sidebar to explore all available components, grouped by category. Every component
+includes auto-generated documentation and interactive stories.
