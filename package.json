@@ -1,6 +1,6 @@
 {
   "name": "@waveso/ui",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Wave UI component library built on Base UI and Tailwind CSS",
   "type": "module",
   "sideEffects": false,
