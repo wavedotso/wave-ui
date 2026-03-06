@@ -5,6 +5,10 @@
   "type": "module",
   "sideEffects": false,
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wavedotso/wave-ui"
+  },
   "exports": {
     "./package.json": "./package.json",
     "./*": {
