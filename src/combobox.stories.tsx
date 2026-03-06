@@ -28,7 +28,7 @@ const meta = {
 } satisfies Meta<typeof Combobox>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj;
 
 const fruits = [
   { value: 'apple', label: 'Apple' },
@@ -82,7 +82,7 @@ export const Default: Story = {
         <ComboboxEmpty>No fruits found.</ComboboxEmpty>
         <ComboboxList>
           {(item) => (
-            <ComboboxItem key={item.value} value={item} label={item.label}>
+            <ComboboxItem key={item.value} value={item}>
               {item.label}
             </ComboboxItem>
           )}
@@ -102,7 +102,7 @@ export const WithLabel: Story = {
           <ComboboxEmpty>No fruits found.</ComboboxEmpty>
           <ComboboxList>
             {(item) => (
-              <ComboboxItem key={item.value} value={item} label={item.label}>
+              <ComboboxItem key={item.value} value={item}>
                 {item.label}
               </ComboboxItem>
             )}
@@ -123,8 +123,8 @@ export const WithGroups: Story = {
           {(group, index) => (
             <ComboboxGroup key={group.label}>
               <ComboboxLabel>{group.label}</ComboboxLabel>
-              {group.items.map((item) => (
-                <ComboboxItem key={item.value} value={item} label={item.label}>
+              {group.items.map((item: { value: string; label: string }) => (
+                <ComboboxItem key={item.value} value={item}>
                   {item.label}
                 </ComboboxItem>
               ))}
@@ -145,7 +145,7 @@ export const WithClear: Story = {
         <ComboboxEmpty>No fruits found.</ComboboxEmpty>
         <ComboboxList>
           {(item) => (
-            <ComboboxItem key={item.value} value={item} label={item.label}>
+            <ComboboxItem key={item.value} value={item}>
               {item.label}
             </ComboboxItem>
           )}
@@ -165,7 +165,7 @@ function MultiSelectDemo() {
           {(values: typeof fruits) => (
             <React.Fragment>
               {values.map((item) => (
-                <ComboboxChip key={item.value} value={item}>
+                <ComboboxChip key={item.value}>
                   {item.label}
                 </ComboboxChip>
               ))}
@@ -178,7 +178,7 @@ function MultiSelectDemo() {
         <ComboboxEmpty>No fruits found.</ComboboxEmpty>
         <ComboboxList>
           {(item) => (
-            <ComboboxItem key={item.value} value={item} label={item.label}>
+            <ComboboxItem key={item.value} value={item}>
               {item.label}
             </ComboboxItem>
           )}
@@ -196,7 +196,7 @@ export const WithCustomItems: Story = {
   render: () => (
     <Combobox
       items={countries}
-      itemToStringValue={(country: (typeof countries)[number]) => country.label}
+      itemToStringValue={(country) => (country as { label: string }).label}
     >
       <ComboboxInput placeholder="Search countries..." />
       <ComboboxContent>
@@ -230,7 +230,7 @@ export const AutoHighlight: Story = {
         <ComboboxEmpty>No fruits found.</ComboboxEmpty>
         <ComboboxList>
           {(item) => (
-            <ComboboxItem key={item.value} value={item} label={item.label}>
+            <ComboboxItem key={item.value} value={item}>
               {item.label}
             </ComboboxItem>
           )}
@@ -248,7 +248,7 @@ export const Invalid: Story = {
         <ComboboxEmpty>No fruits found.</ComboboxEmpty>
         <ComboboxList>
           {(item) => (
-            <ComboboxItem key={item.value} value={item} label={item.label}>
+            <ComboboxItem key={item.value} value={item}>
               {item.label}
             </ComboboxItem>
           )}
@@ -290,7 +290,7 @@ export const Disabled: Story = {
       <ComboboxContent>
         <ComboboxList>
           {(item) => (
-            <ComboboxItem key={item.value} value={item} label={item.label}>
+            <ComboboxItem key={item.value} value={item}>
               {item.label}
             </ComboboxItem>
           )}

@@ -8,7 +8,7 @@ import {
   TooltipTrigger,
 } from './tooltip';
 
-const meta = {
+const meta: Meta<typeof Tooltip> = {
   title: 'Overlay/Tooltip',
   component: Tooltip,
   decorators: [
@@ -18,7 +18,7 @@ const meta = {
       </TooltipProvider>
     ),
   ],
-} satisfies Meta<typeof Tooltip>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

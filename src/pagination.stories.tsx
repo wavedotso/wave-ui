@@ -19,7 +19,7 @@ const meta = {
 } satisfies Meta<typeof Pagination>
 
 export default meta
-type Story = StoryObj<typeof meta>
+type Story = StoryObj
 
 export const Default: Story = {
   render: () => (
@@ -172,8 +172,8 @@ function ControlledPagination() {
   }
 
   const visiblePages = getVisiblePages()
-  const showStartEllipsis = visiblePages[0] > 1
-  const showEndEllipsis = visiblePages[visiblePages.length - 1] < totalPages
+  const showStartEllipsis = (visiblePages[0] ?? 1) > 1
+  const showEndEllipsis = (visiblePages[visiblePages.length - 1] ?? totalPages) < totalPages
 
   return (
     <Pagination>

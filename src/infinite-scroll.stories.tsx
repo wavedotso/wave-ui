@@ -9,7 +9,7 @@ const meta = {
 } satisfies Meta<typeof InfiniteScroll>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj;
 
 function generateItems(start: number, count: number) {
   return Array.from({ length: count }, (_, i) => ({

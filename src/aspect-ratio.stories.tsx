@@ -8,7 +8,7 @@ const meta = {
 } satisfies Meta<typeof AspectRatio>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj;
 
 export const Landscape: Story = {
   render: () => (

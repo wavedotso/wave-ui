@@ -9,7 +9,6 @@ import {
   AutocompleteGroup,
   AutocompleteGroupLabel,
   AutocompleteEmpty,
-  AutocompleteSeparator,
 } from './autocomplete';
 import { Label } from './label';
 
@@ -19,7 +18,7 @@ const meta = {
 } satisfies Meta<typeof Autocomplete>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj;
 
 const countries = [
   { value: 'br', label: 'Brazil' },
@@ -66,7 +65,7 @@ export const Default: Story = {
         <AutocompleteEmpty>No countries found.</AutocompleteEmpty>
         <AutocompleteList>
           {(item) => (
-            <AutocompleteItem key={item.value} value={item} label={item.label}>
+            <AutocompleteItem key={item.value} value={item}>
               {item.label}
             </AutocompleteItem>
           )}
@@ -86,7 +85,7 @@ export const WithLabel: Story = {
           <AutocompleteEmpty>No countries found.</AutocompleteEmpty>
           <AutocompleteList>
             {(item) => (
-              <AutocompleteItem key={item.value} value={item} label={item.label}>
+              <AutocompleteItem key={item.value} value={item}>
                 {item.label}
               </AutocompleteItem>
             )}
@@ -107,8 +106,8 @@ export const WithGroups: Story = {
           {(group) => (
             <AutocompleteGroup key={group.label}>
               <AutocompleteGroupLabel>{group.label}</AutocompleteGroupLabel>
-              {group.items.map((item) => (
-                <AutocompleteItem key={item.value} value={item} label={item.label}>
+              {group.items.map((item: { value: string; label: string }) => (
+                <AutocompleteItem key={item.value} value={item}>
                   {item.label}
                 </AutocompleteItem>
               ))}
@@ -127,7 +126,7 @@ export const Disabled: Story = {
       <AutocompleteContent>
         <AutocompleteList>
           {(item) => (
-            <AutocompleteItem key={item.value} value={item} label={item.label}>
+            <AutocompleteItem key={item.value} value={item}>
               {item.label}
             </AutocompleteItem>
           )}

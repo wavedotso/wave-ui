@@ -31,7 +31,7 @@ type ComboboxLabelProps = React.ComponentProps<typeof ComboboxPrimitive.GroupLab
 type ComboboxCollectionProps = React.ComponentProps<typeof ComboboxPrimitive.Collection>
 type ComboboxEmptyProps = React.ComponentProps<typeof ComboboxPrimitive.Empty>
 type ComboboxSeparatorProps = React.ComponentProps<typeof ComboboxPrimitive.Separator>
-type ComboboxChipsProps = React.ComponentPropsWithoutRef<typeof ComboboxPrimitive.Chips>
+type ComboboxChipsProps = React.ComponentProps<typeof ComboboxPrimitive.Chips>
 type ComboboxChipProps = React.ComponentProps<typeof ComboboxPrimitive.Chip>
 type ComboboxChipsInputProps = React.ComponentProps<typeof ComboboxPrimitive.Input>
 
