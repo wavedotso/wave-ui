@@ -15,7 +15,6 @@ Add the theme preset and source directive to your CSS entry point:
 ```css
 @import "@waveso/ui/styles.css";
 @import "tailwindcss";
-@source "../../node_modules/@waveso/ui/dist";
 ```
 
 The preset provides all CSS variables (colors, radii, sidebar tokens) with light and dark mode support. Override any variable in your own `:root` / `.dark` blocks to customize the theme.
