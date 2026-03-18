@@ -2,20 +2,29 @@
 
 import * as React from "react";
 
-const MOBILE_BREAKPOINT = 768;
+const DEFAULT_MOBILE_BREAKPOINT = 768;
 
-export function useIsMobile() {
-  const [isMobile, setIsMobile] = React.useState<boolean | undefined>(undefined);
+/**
+ * Returns `true` when the viewport is below the given breakpoint.
+ *
+ * @param breakpoint - Width in pixels. Defaults to 768.
+ */
+export function useIsMobile(breakpoint: number = DEFAULT_MOBILE_BREAKPOINT) {
+  const [isMobile, setIsMobile] = React.useState(() => {
+    if (typeof window === 'undefined') return false;
+    return window.innerWidth < breakpoint;
+  });
 
   React.useEffect(() => {
-    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
+    const mql = window.matchMedia(`(max-width: ${breakpoint - 1}px)`);
     const onChange = () => {
-      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+      setIsMobile(window.innerWidth < breakpoint);
     };
     mql.addEventListener("change", onChange);
-    setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+    // Sync in case breakpoint prop changed
+    setIsMobile(window.innerWidth < breakpoint);
     return () => mql.removeEventListener("change", onChange);
-  }, []);
+  }, [breakpoint]);
 
-  return !!isMobile;
+  return isMobile;
 }
