@@ -10,6 +10,11 @@
  * in your own :root / .dark blocks to customise the theme.
  */
 
+/* Auto-register component source files so Tailwind generates CSS for all
+ * utility classes used by @waveso/ui components. Resolves relative to this
+ * file's location in node_modules/@waveso/ui/dist/. */
+@source "./";
+
 /* ---------------------------------------------------------------------------
  * Light theme (default)
  * ------------------------------------------------------------------------- */
