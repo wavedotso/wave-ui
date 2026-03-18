@@ -1,5 +1,11 @@
 # @waveso/ui
 
+## 0.0.4
+
+### Patch Changes
+
+- c24d5e4: cookie persistence, configurable breakpoint, scrollbar-none, configurable shortcut, duplicate flex
+
 ## 0.0.3
 
 ### Patch Changes
