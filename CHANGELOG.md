@@ -1,5 +1,11 @@
 # @waveso/ui
 
+## 0.0.5
+
+### Patch Changes
+
+- e1aac99: solve tailwind classes for @source files at library level
+
 ## 0.0.4
 
 ### Patch Changes
