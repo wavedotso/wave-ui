@@ -26,12 +26,53 @@ import {
 import { useIsMobile } from "./hooks/use-mobile"
 import { SidebarPanelIcon } from "./lib/internal-icons"
 
-const SIDEBAR_COOKIE_NAME = "sidebar-state"
-const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
 const SIDEBAR_WIDTH = "16rem"
 const SIDEBAR_WIDTH_MOBILE = "18rem"
 const SIDEBAR_WIDTH_ICON = "3rem"
-const SIDEBAR_KEYBOARD_SHORTCUT = "b"
+const SIDEBAR_DEFAULT_KEYBOARD_SHORTCUT = "b"
+
+// ---------------------------------------------------------------------------
+// Persistence helpers — ready-made functions for the `persist` prop.
+// ---------------------------------------------------------------------------
+
+/**
+ * Persist sidebar state to a cookie.
+ *
+ * @param name - Cookie name. Defaults to `"sidebar-state"`.
+ * @param maxAge - Cookie max-age in seconds. Defaults to 7 days (604 800).
+ *
+ * @example
+ * ```tsx
+ * <SidebarProvider persist={cookiePersist()}>
+ * <SidebarProvider persist={cookiePersist("my-sidebar", 86400)}>
+ * ```
+ */
+function cookiePersist(name = "sidebar-state", maxAge = 60 * 60 * 24 * 7) {
+  return (open: boolean) => {
+    document.cookie = `${name}=${open}; path=/; max-age=${maxAge}`
+  }
+}
+
+/**
+ * Persist sidebar state to localStorage.
+ *
+ * @param key - Storage key. Defaults to `"sidebar-state"`.
+ *
+ * @example
+ * ```tsx
+ * <SidebarProvider persist={localStoragePersist()}>
+ * <SidebarProvider persist={localStoragePersist("my-sidebar")}>
+ * ```
+ */
+function localStoragePersist(key = "sidebar-state") {
+  return (open: boolean) => {
+    try {
+      localStorage.setItem(key, String(open))
+    } catch {
+      // Storage full or unavailable (SSR, private browsing) — silently ignore.
+    }
+  }
+}
 
 type SidebarContextProps = {
   state: "expanded" | "collapsed"
@@ -58,6 +99,9 @@ function SidebarProvider({
   defaultOpen = true,
   open: openProp,
   onOpenChange: setOpenProp,
+  persist,
+  keyboardShortcut = SIDEBAR_DEFAULT_KEYBOARD_SHORTCUT,
+  mobileBreakpoint,
   className,
   style,
   children,
@@ -66,12 +110,32 @@ function SidebarProvider({
   defaultOpen?: boolean
   open?: boolean
   onOpenChange?: (open: boolean) => void
+  /**
+   * Optional callback to persist open state. Called on every toggle.
+   * Use the built-in helpers `cookiePersist()` or `localStoragePersist()`,
+   * or provide a custom function (e.g. server action).
+   *
+   * @example
+   * ```tsx
+   * <SidebarProvider persist={cookiePersist()}>
+   * <SidebarProvider persist={localStoragePersist("sidebar")}>
+   * <SidebarProvider persist={(open) => saveToServer(open)}>
+   * ```
+   */
+  persist?: (open: boolean) => void
+  /** Key for Cmd/Ctrl+key toggle shortcut. Defaults to "b". Pass `false` to disable. */
+  keyboardShortcut?: string | false
+  /** Breakpoint (px) below which the sidebar uses a mobile drawer. Defaults to 768. */
+  mobileBreakpoint?: number
 }) {
-  const isMobile = useIsMobile()
+  const isMobile = useIsMobile(mobileBreakpoint)
   const [openMobile, setOpenMobile] = React.useState(false)
 
   const [_open, _setOpen] = React.useState(defaultOpen)
   const open = openProp ?? _open
+  const persistRef = React.useRef(persist)
+  persistRef.current = persist
+
   const setOpen = React.useCallback(
     (value: boolean | ((value: boolean) => boolean)) => {
       const openState = typeof value === "function" ? value(open) : value
@@ -81,7 +145,7 @@ function SidebarProvider({
         _setOpen(openState)
       }
 
-      document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
+      persistRef.current?.(openState)
     },
     [setOpenProp, open]
   )
@@ -91,9 +155,11 @@ function SidebarProvider({
   }, [isMobile, setOpen, setOpenMobile])
 
   React.useEffect(() => {
+    if (keyboardShortcut === false) return
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (
-        event.key === SIDEBAR_KEYBOARD_SHORTCUT &&
+        event.key === keyboardShortcut &&
         (event.metaKey || event.ctrlKey)
       ) {
         event.preventDefault()
@@ -103,7 +169,7 @@ function SidebarProvider({
 
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [toggleSidebar])
+  }, [toggleSidebar, keyboardShortcut])
 
   const state = open ? "expanded" : "collapsed"
 
@@ -360,7 +426,7 @@ function SidebarContent({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="sidebar-content"
       className={cn(
-        "no-scrollbar gap-2 flex min-h-0 flex-1 flex-col overflow-auto group-data-[collapsible=icon]:overflow-hidden",
+        "gap-2 flex min-h-0 flex-1 flex-col overflow-auto scrollbar-none group-data-[collapsible=icon]:overflow-hidden",
         className
       )}
       {...props}
@@ -466,12 +532,12 @@ const sidebarMenuButtonVariants = cva(
     variants: {
       variant: {
         default: "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
-        outline: "bg-background hover:bg-sidebar-accent hover:text-sidebar-accent-foreground shadow-[0_0_0_1px_hsl(var(--sidebar-border))] hover:shadow-[0_0_0_1px_hsl(var(--sidebar-accent))]",
+        outline: "bg-background hover:bg-sidebar-accent hover:text-sidebar-accent-foreground ring-1 ring-sidebar-border hover:ring-sidebar-accent",
       },
       size: {
         default: "h-9 text-sm",
         sm: "h-8 text-xs",
-        lg: "h-12 text-sm group-data-[collapsible=icon]:p-0!",
+        lg: "h-12 text-sm",
       },
     },
     defaultVariants: {
@@ -495,6 +561,14 @@ function SidebarMenuButton({
     tooltip?: string | React.ComponentProps<typeof TooltipContent>
   } & VariantProps<typeof sidebarMenuButtonVariants>) {
   const { isMobile, state } = useSidebar()
+
+  if (process.env.NODE_ENV === "development" && tooltip && render) {
+    console.warn(
+      "[SidebarMenuButton] Both `render` and `tooltip` were provided. " +
+      "When `tooltip` is set, the button is wrapped in a TooltipTrigger and the `render` prop is ignored."
+    )
+  }
+
   const comp = useRender({
     defaultTagName: "button",
     props: mergeProps<"button">(
@@ -571,7 +645,7 @@ function SidebarMenuBadge({
     <div
       data-slot="sidebar-menu-badge"
       className={cn(
-        "text-sidebar-foreground peer-hover/menu-button:text-sidebar-accent-foreground peer-data-active/menu-button:text-sidebar-accent-foreground pointer-events-none absolute right-1 flex h-5 min-w-5 rounded-md px-1 text-xs font-medium peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1 flex items-center justify-center tabular-nums select-none group-data-[collapsible=icon]:hidden",
+        "text-sidebar-foreground peer-hover/menu-button:text-sidebar-accent-foreground peer-data-active/menu-button:text-sidebar-accent-foreground pointer-events-none absolute right-1 flex h-5 min-w-5 items-center justify-center rounded-md px-1 text-xs font-medium tabular-nums select-none peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1 group-data-[collapsible=icon]:hidden",
         className
       )}
       {...props}
@@ -666,6 +740,8 @@ function SidebarMenuSubButton({
 }
 
 export {
+  cookiePersist,
+  localStoragePersist,
   Sidebar,
   SidebarContent,
   SidebarFooter,

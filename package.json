@@ -3,7 +3,9 @@
   "version": "0.0.3",
   "description": "Wave UI component library built on Base UI and Tailwind CSS",
   "type": "module",
-  "sideEffects": false,
+  "sideEffects": [
+    "*.css"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -11,6 +13,7 @@
   },
   "exports": {
     "./package.json": "./package.json",
+    "./styles.css": "./dist/styles.css",
     "./*": {
       "import": {
         "types": "./dist/*.d.ts",
@@ -23,7 +26,7 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "tsup && cp src/styles.css dist/styles.css",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist",

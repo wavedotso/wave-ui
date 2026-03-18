@@ -1,6 +1,6 @@
 # @waveso/ui
 
-Wave UI is component library built on [Base UI](https://base-ui.com) primitives and [Tailwind CSS v4](https://tailwindcss.com).
+A component library built on [Base UI](https://base-ui.com) primitives and [Tailwind CSS v4](https://tailwindcss.com).
 
 ## Install
 
@@ -8,48 +8,70 @@ Wave UI is component library built on [Base UI](https://base-ui.com) primitives 
 npm install @waveso/ui @base-ui/react class-variance-authority clsx tailwind-merge
 ```
 
+## Setup
+
+Add the theme preset and source directive to your CSS entry point:
+
+```css
+@import "@waveso/ui/styles.css";
+@import "tailwindcss";
+@source "../../node_modules/@waveso/ui/dist";
+```
+
+The preset provides all CSS variables (colors, radii, sidebar tokens) with light and dark mode support. Override any variable in your own `:root` / `.dark` blocks to customize the theme.
+
 ## Usage
 
 Import components by name — each is a separate entry point for optimal tree-shaking:
 
 ```tsx
 import { Button } from '@waveso/ui/button';
+import { Masonry, MasonryItem, MasonrySpannedItem } from '@waveso/ui/masonry';
 import { Card, CardHeader, CardTitle, CardContent } from '@waveso/ui/card';
-import { Input } from '@waveso/ui/input';
 ```
 
-### Theme setup
+### Button
 
-Components rely on CSS custom properties for colors, radii, and fonts. Define them in your app's `globals.css`:
+8 variants, 8 sizes, built on Base UI's `Button` primitive with full keyboard and ARIA support.
 
-```css
-@import "tailwindcss";
+```tsx
+import { Button } from '@waveso/ui/button';
 
-:root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --primary: oklch(0.61 0.11 222);
-  --primary-foreground: oklch(0.98 0.02 201);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --destructive: oklch(0.58 0.22 27);
-  --radius: 0.875rem;
-  /* ... see full token list below */
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  /* ... map all tokens to Tailwind v4 */
-}
+<Button>Default</Button>
+<Button variant="solid">Solid</Button>
+<Button variant="outline">Outline</Button>
+<Button variant="ghost">Ghost</Button>
+<Button variant="destructive">Delete</Button>
+<Button variant="success">Confirm</Button>
+<Button size="xs">Tiny</Button>
+<Button size="icon"><SearchIcon /></Button>
 ```
 
-See [`.storybook/storybook.css`](.storybook/storybook.css) for the complete token reference with light and dark mode values.
+### Masonry
+
+Responsive masonry grid with staggered animations, spanning items, and automatic reflow.
+
+```tsx
+import { Masonry, MasonryItem, MasonrySpannedItem } from '@waveso/ui/masonry';
+
+<Masonry columns={3} gap={16}>
+  <MasonryItem>
+    <Card>
+      <CardContent>Standard item</CardContent>
+    </Card>
+  </MasonryItem>
+  <MasonrySpannedItem>
+    <Card>
+      <CardContent>This spans two columns</CardContent>
+    </Card>
+  </MasonrySpannedItem>
+  <MasonryItem>
+    <Card>
+      <CardContent>Another item</CardContent>
+    </Card>
+  </MasonryItem>
+</Masonry>
+```
 
 ## Components
 
@@ -59,7 +81,7 @@ See [`.storybook/storybook.css`](.storybook/storybook.css) for the complete toke
 |---|---|
 | **Actions** | Button, Button Group, Toggle, Toggle Group |
 | **Forms** | Input, Textarea, Checkbox, Switch, Radio, Radio Group, Select, Combobox, Autocomplete, Slider, Calendar, Input OTP, Field, Form, Label, Input Group |
-| **Layout** | Card, Separator, Aspect Ratio, Scroll Area, Collapsible, Accordion, Tabs, Sidebar |
+| **Layout** | Card, Masonry, Separator, Aspect Ratio, Scroll Area, Collapsible, Accordion, Tabs, Sidebar |
 | **Navigation** | Breadcrumb, Navigation Menu, Pagination, Menubar |
 | **Overlays** | Dialog, Alert Dialog, Sheet, Popover, Tooltip, Preview Card, Context Menu, Menu |
 | **Feedback** | Alert, Badge, Progress, Skeleton, Spinner, Toaster, Empty |
@@ -92,20 +114,11 @@ Install only what you use.
 ## Development
 
 ```bash
-# Install dependencies
 npm install
-
-# Start Storybook
-npm run storybook
-
-# Build the library
-npm run build
-
-# Type-check
-npm run typecheck
-
-# Watch mode (rebuild on changes)
-npm run dev
+npm run storybook    # Start Storybook
+npm run build        # Build the library
+npm run typecheck    # Type-check
+npm run dev          # Watch mode
 ```
 
 ### Project structure
@@ -116,26 +129,33 @@ npm run dev
 src/
   *.tsx              # Component source files
   *.stories.tsx      # Storybook stories
+  styles.css         # Theme preset (CSS variables + Tailwind mapping)
   hooks/             # Custom hooks
   lib/               # Utilities (cn, internal icons)
 ```
 
 ## Releasing
 
-This project uses [Changesets](https://github.com/changesets/changesets) for versioning and publishing.
+This project uses [Changesets](https://github.com/changesets/changesets) with GitHub Actions.
+
+1. Run `npx changeset` to describe your changes (patch, minor, or major)
+2. Commit the generated changeset file with your PR
+3. When merged to `main`, CI automatically versions and publishes to npm
+
+<details>
+<summary>Manual release (without CI)</summary>
+
+If you're not using the GitHub Actions workflow, you can publish manually.
+Changesets will skip versions already published to npm, so this won't
+conflict if CI has already run.
 
 ```bash
-# 1. Create a changeset describing your changes
-npx changeset
-
-# 2. Version bump (applied by CI or manually)
-npx changeset version
-
-# 3. Publish to npm (handled by CI)
-npm run release
+npx changeset              # Create a changeset
+npx changeset version      # Apply version bump
+npm run release             # Build and publish to npm
 ```
 
-Merging to `main` with pending changesets triggers the publish workflow automatically.
+</details>
 
 ## License
 

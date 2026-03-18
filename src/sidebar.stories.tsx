@@ -147,9 +147,10 @@ export const Default: Story = {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton size="lg">
-                <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md text-xs font-bold">
-                  W
-                </div>
+                <svg viewBox="0 0 32 32" className="size-8! rounded-lg">
+                  <rect width="32" height="32" rx="6" className="fill-primary" />
+                  <text x="16" y="21" textAnchor="middle" className="fill-primary-foreground" style={{ fontSize: 14, fontWeight: 700 }}>W</text>
+                </svg>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">Wave</span>
                   <span className="text-muted-foreground truncate text-xs">
@@ -246,9 +247,10 @@ export const IconCollapsible: Story = {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton size="lg">
-                <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md text-xs font-bold">
-                  W
-                </div>
+                <svg viewBox="0 0 32 32" className="size-8! rounded-lg">
+                  <rect width="32" height="32" rx="6" className="fill-primary" />
+                  <text x="16" y="21" textAnchor="middle" className="fill-primary-foreground" style={{ fontSize: 14, fontWeight: 700 }}>W</text>
+                </svg>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">Wave</span>
                   <span className="text-muted-foreground truncate text-xs">
@@ -301,9 +303,10 @@ export const Floating: Story = {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton size="lg">
-                <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md text-xs font-bold">
-                  W
-                </div>
+                <svg viewBox="0 0 32 32" className="size-8! rounded-lg">
+                  <rect width="32" height="32" rx="6" className="fill-primary" />
+                  <text x="16" y="21" textAnchor="middle" className="fill-primary-foreground" style={{ fontSize: 14, fontWeight: 700 }}>W</text>
+                </svg>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">Wave</span>
                 </div>
@@ -350,9 +353,10 @@ export const Inset: Story = {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton size="lg">
-                <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md text-xs font-bold">
-                  W
-                </div>
+                <svg viewBox="0 0 32 32" className="size-8! rounded-lg">
+                  <rect width="32" height="32" rx="6" className="fill-primary" />
+                  <text x="16" y="21" textAnchor="middle" className="fill-primary-foreground" style={{ fontSize: 14, fontWeight: 700 }}>W</text>
+                </svg>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">Wave</span>
                 </div>
