@@ -30,8 +30,8 @@ function TooltipProvider({ delay = 0, ...props }: TooltipProviderProps) {
   )
 }
 
-function Tooltip({ hoverable = false, ...props }: TooltipProps) {
-  return <TooltipPrimitive.Root data-slot="tooltip" hoverable={hoverable} {...props} />
+function Tooltip({ disableHoverablePopup = true, ...props }: TooltipProps) {
+  return <TooltipPrimitive.Root data-slot="tooltip" disableHoverablePopup={disableHoverablePopup} {...props} />
 }
 
 function TooltipTrigger({ children, ...props }: TooltipTriggerProps) {
