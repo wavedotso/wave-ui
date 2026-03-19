@@ -1,5 +1,12 @@
 # @waveso/ui
 
+## 0.0.6
+
+### Patch Changes
+
+- 6aaa452: radius-xs variable, update & fixed bugs in sidebar (sidebargrouplabel bug, y align, consistent paddings & margins, add TooltipProvider, isMobile, and more)
+- 9694d4c: hoverable is deprecated, replaced with disableHoverablePopup
+
 ## 0.0.5
 
 ### Patch Changes
