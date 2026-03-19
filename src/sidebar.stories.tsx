@@ -192,7 +192,7 @@ export const Default: Story = {
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">Wave</span>
                   <span className="text-muted-foreground truncate text-xs">
-                    Enterprise
+                    Foundation
                   </span>
                 </div>
               </SidebarMenuButton>
@@ -284,7 +284,7 @@ export const IconCollapsible: Story = {
         <SidebarContent>
           <SidebarHeader className="pb-0">
             <div className="flex items-center gap-1">
-              <SidebarMenu className="flex-1">
+              <SidebarMenu>
                 <SidebarMenuItem>
                   <SidebarMenuButton className="gap-3 p-1.5">
                     <div className="flex size-8 shrink-0 items-center justify-center">
@@ -401,9 +401,7 @@ export const Inset: Story = {
                 <div className="flex size-8 shrink-0 items-center justify-center">
                   <WaveLogomarkIcon className="size-6" />
                 </div>
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">Wave</span>
-                </div>
+                <span className="truncate text-sm font-medium group-data-[collapsible=icon]:hidden">Wave</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
