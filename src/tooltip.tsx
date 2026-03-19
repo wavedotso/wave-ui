@@ -30,8 +30,8 @@ function TooltipProvider({ delay = 0, ...props }: TooltipProviderProps) {
   )
 }
 
-function Tooltip(props: TooltipProps) {
-  return <TooltipPrimitive.Root data-slot="tooltip" {...props} />
+function Tooltip({ hoverable = false, ...props }: TooltipProps) {
+  return <TooltipPrimitive.Root data-slot="tooltip" hoverable={hoverable} {...props} />
 }
 
 function TooltipTrigger({ children, ...props }: TooltipTriggerProps) {
