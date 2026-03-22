@@ -7,7 +7,20 @@ import { cn } from "./lib/utils"
 import { Button } from "./button"
 import { CloseIcon } from "./lib/internal-icons"
 
-type DialogProps = React.ComponentProps<typeof DialogPrimitive.Root>
+type DialogProps = React.ComponentProps<typeof DialogPrimitive.Root> & {
+  /**
+   * When `true`, clicking outside the dialog does not close it and
+   * `FloatingFocusManager` sets `closeOnFocusOut: false`.
+   * This prevents the focus-manager from swallowing click events on
+   * interactive elements inside the popup (buttons, switches, etc.).
+   *
+   * Use this for dialogs that contain forms, wizards, or other complex
+   * interactive content.
+   *
+   * @default false
+   */
+  disablePointerDismissal?: boolean
+}
 type DialogTriggerProps = React.ComponentProps<typeof DialogPrimitive.Trigger>
 type DialogPortalProps = React.ComponentProps<typeof DialogPrimitive.Portal>
 type DialogCloseProps = React.ComponentProps<typeof DialogPrimitive.Close>
@@ -24,8 +37,8 @@ type DialogFooterProps = React.ComponentProps<"div"> & {
   showCloseButton?: boolean
 }
 
-function Dialog({ ...props }: DialogProps) {
-  return <DialogPrimitive.Root data-slot="dialog" {...props} />
+function Dialog({ disablePointerDismissal, ...props }: DialogProps) {
+  return <DialogPrimitive.Root data-slot="dialog" disablePointerDismissal={disablePointerDismissal} {...props} />
 }
 
 function DialogTrigger({ ...props }: DialogTriggerProps) {
