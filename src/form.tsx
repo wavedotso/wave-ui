@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { Form as FormPrimitive } from "@base-ui/react/form";
 import {
   Controller,
   FormProvider,
@@ -23,9 +22,9 @@ import { cn } from "./lib/utils";
 type FormProps<TFieldValues extends FieldValues> = {
   form: UseFormReturn<TFieldValues>;
   onSubmit: SubmitHandler<TFieldValues>;
-} & Omit<React.ComponentProps<typeof FormPrimitive>, "onSubmit">;
+} & Omit<React.ComponentProps<"form">, "onSubmit">;
 
-type FormRootProps = React.ComponentProps<typeof FormPrimitive>;
+type FormRootProps = React.ComponentProps<"form">;
 type FormErrorProps = React.ComponentProps<"p">;
 type FormActionsProps = React.ComponentProps<"div">;
 type FormMessageProps = React.ComponentProps<"p">;
@@ -39,13 +38,17 @@ function Form<TFieldValues extends FieldValues>({ form, onSubmit, ...props }: Fo
 }
 
 /**
- * Base UI form element.
+ * Plain `<form>` element with RHF integration.
  *
- * This is the element that actually renders the <form> tag.
+ * Uses a native `<form>` instead of `@base-ui/react/form` because Base UI
+ * Form's internal submit/validation handling conflicts with React Hook Form
+ * and blocks button click events inside modal dialogs. Since RHF already
+ * provides validation, error handling, and submit management, the Base UI
+ * Form wrapper adds no value at the moment.
  */
 function FormRoot({ className, ...props }: FormRootProps) {
   return (
-    <FormPrimitive data-slot="form" className={cn("flex flex-col gap-6", className)} {...props} />
+    <form noValidate data-slot="form" className={cn("flex flex-col gap-6", className)} {...props} />
   );
 }
 
