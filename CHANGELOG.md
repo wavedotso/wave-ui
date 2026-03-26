@@ -1,5 +1,11 @@
 # @waveso/ui
 
+## 0.0.7
+
+### Patch Changes
+
+- 19e2943: add disablePointerDismissal to dialog, more sizes to alert dialog, base ui 1.3 to fix inert portals, small ui and bug fixes
+
 ## 0.0.6
 
 ### Patch Changes
