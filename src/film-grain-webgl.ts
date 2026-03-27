@@ -28,6 +28,7 @@ interface WebGLUniforms {
   uDensity: WebGLUniformLocation | null
   uOpacity: WebGLUniformLocation | null
   uFps: WebGLUniformLocation | null
+  uColor: WebGLUniformLocation | null
   program: WebGLProgram
   vs: WebGLShader
   fs: WebGLShader
@@ -83,6 +84,7 @@ function initWebGL(gl: WebGLRenderingContext): WebGLUniforms | null {
     uDensity: gl.getUniformLocation(program, "uDensity"),
     uOpacity: gl.getUniformLocation(program, "uOpacity"),
     uFps: gl.getUniformLocation(program, "uFps"),
+    uColor: gl.getUniformLocation(program, "uColor"),
     program,
     vs,
     fs,
@@ -106,6 +108,16 @@ function setUniform2f(
   y: number
 ) {
   if (loc) gl.uniform2f(loc, x, y)
+}
+
+function setUniform3f(
+  gl: WebGLRenderingContext,
+  loc: WebGLUniformLocation | null,
+  x: number,
+  y: number,
+  z: number
+) {
+  if (loc) gl.uniform3f(loc, x, y, z)
 }
 
 // ── Canvas 2D fallback renderer ─────────────────────────────────────
@@ -193,10 +205,12 @@ export function useFilmGrain({
     if (gl && uniforms) {
       let contextLost = false
 
+      const [cr, cg, cb] = parseHex(color)
       const setUniforms = () => {
         setUniform1f(gl, uniforms.uDensity, density)
         setUniform1f(gl, uniforms.uOpacity, opacity)
         setUniform1f(gl, uniforms.uFps, fps)
+        setUniform3f(gl, uniforms.uColor, cr / 255, cg / 255, cb / 255)
       }
 
       const onContextLost = (e: Event) => {
@@ -214,6 +228,7 @@ export function useFilmGrain({
           uniforms.uDensity = newUniforms.uDensity
           uniforms.uOpacity = newUniforms.uOpacity
           uniforms.uFps = newUniforms.uFps
+          uniforms.uColor = newUniforms.uColor
           uniforms.program = newUniforms.program
           uniforms.vs = newUniforms.vs
           uniforms.fs = newUniforms.fs

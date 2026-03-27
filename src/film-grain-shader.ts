@@ -16,6 +16,7 @@ uniform vec2 uResolution;
 uniform float uDensity;
 uniform float uOpacity;
 uniform float uFps;
+uniform vec3 uColor;
 
 varying vec2 vUv;
 
@@ -70,7 +71,7 @@ void main() {
   float rShift = n1 * 0.015;
   float bShift = n2 * 0.015;
 
-  vec3 color = vec3(
+  vec3 color = uColor * vec3(
     grain + rShift,
     grain,
     grain + bShift
