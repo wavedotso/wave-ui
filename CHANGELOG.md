@@ -1,5 +1,11 @@
 # @waveso/ui
 
+## 0.0.8
+
+### Patch Changes
+
+- 4770b80: film grain component
+
 ## 0.0.7
 
 ### Patch Changes
