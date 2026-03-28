@@ -10,6 +10,7 @@ interface FilmGrainProps {
   fps?: number
   color?: string
   className?: string
+  style?: React.CSSProperties
 }
 
 function FilmGrain({
@@ -19,6 +20,7 @@ function FilmGrain({
   fps = 18,
   color = "#ffffff",
   className,
+  style,
 }: FilmGrainProps) {
   const canvasRef = useFilmGrain({ density, opacity, fps, color })
 
@@ -31,7 +33,7 @@ function FilmGrain({
       ]
         .filter(Boolean)
         .join(" ")}
-      style={{ mixBlendMode: blendMode, opacity }}
+      style={{ mixBlendMode: blendMode, opacity, ...style }}
     >
       <canvas
         ref={canvasRef}
