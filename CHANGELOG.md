@@ -1,5 +1,11 @@
 # @waveso/ui
 
+## 0.0.9
+
+### Patch Changes
+
+- f28200a: new components: film grain, animate, typewriter, count, and gradient reveal text
+
 ## 0.0.8
 
 ### Patch Changes
