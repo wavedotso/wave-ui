@@ -50,9 +50,75 @@ export const Default: StoryObj = {
         <Typewriter text="Built for builders, by builders." speed={0.04} delay={1.2}>
           <p className="text-lg text-neutral-400" />
         </Typewriter>
+      </div>
+    </Replay>
+  ),
+}
 
-        <Typewriter text="No cursor here." cursor={false} delay={2.5} speed={0.03}>
-          <p className="text-sm text-neutral-500" />
+export const StyledSegments: StoryObj = {
+  name: "Per-word Styling",
+  render: () => (
+    <Replay>
+      <div className="p-8 flex flex-col gap-6">
+        <Typewriter
+          text={[
+            { text: "Build on " },
+            { text: "Intuition", className: "text-purple-400 font-extrabold" },
+          ]}
+          speed={0.06}
+        >
+          <h1 className="text-4xl font-bold text-white" />
+        </Typewriter>
+
+        <Typewriter
+          text={[
+            { text: "Ship " },
+            { text: "fast", className: "text-green-400 italic" },
+            { text: ", break " },
+            { text: "nothing", className: "text-red-400 line-through" },
+            { text: "." },
+          ]}
+          speed={0.05}
+          delay={1.5}
+        >
+          <p className="text-xl text-neutral-300" />
+        </Typewriter>
+      </div>
+    </Replay>
+  ),
+}
+
+export const SmoothReveal: StoryObj = {
+  name: "Smooth Reveal",
+  render: () => (
+    <Replay>
+      <div className="p-8 flex flex-col gap-6">
+        <Typewriter text="Cinematic sliding reveal." variant="smooth" smoothDuration={1.5}>
+          <h1 className="text-4xl font-bold text-white" />
+        </Typewriter>
+
+        <Typewriter text="Like a curtain opening." variant="smooth" smoothDuration={2} delay={2}>
+          <p className="text-lg text-neutral-400" />
+        </Typewriter>
+      </div>
+    </Replay>
+  ),
+}
+
+export const SmoothWithSegments: StoryObj = {
+  name: "Smooth + Styled",
+  render: () => (
+    <Replay>
+      <div className="p-8">
+        <Typewriter
+          text={[
+            { text: "Welcome to " },
+            { text: "wave-ui", className: "text-blue-400 font-extrabold" },
+          ]}
+          variant="smooth"
+          smoothDuration={1.8}
+        >
+          <h1 className="text-4xl font-bold text-white" />
         </Typewriter>
       </div>
     </Replay>
