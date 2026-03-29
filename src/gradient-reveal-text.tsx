@@ -18,6 +18,10 @@ interface GradientRevealTextProps {
   fontFamily?: string
   /** Spotlight radius multiplier relative to text height. Default: 0.6 */
   spotlightSize?: number
+  /** Stroke width in px. Default: auto (1.5% of text height) */
+  strokeWidth?: number
+  /** Base stroke color. Default: neutral-200 (light) / neutral-800 (dark) via Tailwind */
+  baseColor?: string
   className?: string
 }
 
@@ -50,6 +54,8 @@ function GradientRevealText({
   hoverOpacity = 0.7,
   fontFamily = "Helvetica Neue, Helvetica, Arial, sans-serif",
   spotlightSize = 0.6,
+  strokeWidth: strokeWidthPx,
+  baseColor,
   className,
 }: GradientRevealTextProps) {
   const uid = useId()
@@ -143,7 +149,7 @@ function GradientRevealText({
 
   // Derived values
   const spotlightR = vb.h * spotlightSize
-  const strokeW = vb.h * 0.015
+  const strokeW = strokeWidthPx ?? vb.h * 0.015
   const initCx = vb.x + 0.5 * vb.w
   const initCy = vb.y + 0.5 * vb.h
 
@@ -233,9 +239,10 @@ function GradientRevealText({
         y="50%"
         textAnchor="middle"
         dominantBaseline="central"
-        className="font-bold stroke-neutral-200 dark:stroke-neutral-800"
+        className={baseColor ? "font-bold" : "font-bold stroke-neutral-200 dark:stroke-neutral-800"}
         style={{
           ...textStyle,
+          ...(baseColor ? { stroke: baseColor } : {}),
           opacity: hovered ? hoverOpacity : baseOpacity,
           transition: "opacity 0.3s ease",
         }}
