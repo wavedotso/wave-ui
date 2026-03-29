@@ -1,5 +1,11 @@
 # @waveso/ui
 
+## 0.0.10
+
+### Patch Changes
+
+- 267b9b7: add strokeWidth and baseColor to gradient reveal text
+
 ## 0.0.9
 
 ### Patch Changes
