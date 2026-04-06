@@ -294,12 +294,11 @@ function AnimateIn({
   transition,
 }: AnimateInProps) {
   const ref = useRef<HTMLElement>(null)
-  const [phase, setPhase] = useState<"server" | "hidden" | "visible">("server")
+  const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    setPhase("hidden")
     requestAnimationFrame(() => {
-      requestAnimationFrame(() => setPhase("visible"))
+      requestAnimationFrame(() => setVisible(true))
     })
   }, [])
 
@@ -309,15 +308,9 @@ function AnimateIn({
   const existingStyle = (childProps.style ?? {}) as CSSProperties
   const existingRef = (childProps as { ref?: Ref<HTMLElement> }).ref
 
-  if (phase === "server") {
-    return cloneElement(children, {
-      ref: mergeRefs(ref, existingRef),
-    } as Record<string, unknown>)
-  }
-
   const styles = buildStyles({ from, distance, doScale: scale, blur, rotate, flip })
   const { duration, ease } = getTransitionParams(transition, spring)
-  const currentStyle = phase === "visible" ? styles.visible : styles.hidden
+  const currentStyle = visible ? styles.visible : styles.hidden
   const transitionStr = buildTransitionStr(duration, ease, delay, styles.hasFilter)
 
   return cloneElement(children, {
@@ -325,7 +318,7 @@ function AnimateIn({
     style: {
       ...existingStyle,
       ...currentStyle,
-      ...(phase === "visible" ? { transition: transitionStr } : {}),
+      ...(visible ? { transition: transitionStr } : {}),
       willChange: "opacity, transform",
     },
   } as Record<string, unknown>)
