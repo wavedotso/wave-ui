@@ -26,8 +26,8 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsup && cp src/styles.css dist/styles.css",
-    "dev": "tsup --watch",
+    "build": "tsdown && cp src/styles.css dist/styles.css",
+    "dev": "tsdown --watch",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist",
     "storybook": "storybook dev -p 6006",
@@ -38,7 +38,7 @@
     "release": "npm run build && changeset publish"
   },
   "peerDependencies": {
-    "@base-ui/react": "^1.3.0",
+    "@base-ui/react": "^1.4.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "react": "^19.0.0",
@@ -66,7 +66,7 @@
     }
   },
   "devDependencies": {
-    "@base-ui/react": "^1.3.0",
+    "@base-ui/react": "^1.4.1",
     "@changesets/cli": "^2.27.0",
     "@storybook/addon-a11y": "^10.2.13",
     "@storybook/addon-docs": "^10.2.13",
@@ -87,7 +87,7 @@
     "storybook": "^10.2.13",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.2.1",
-    "tsup": "^8.4.0",
+    "tsdown": "0.21.10",
     "tw-animate-css": "^1.4.0",
     "typescript": "^5.7.0",
     "usehooks-ts": "^3.1.1",

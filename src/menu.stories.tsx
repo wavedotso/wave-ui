@@ -137,3 +137,38 @@ export const WithDisabled: Story = {
     </Menu>
   ),
 };
+
+/**
+ * `restoreFocusOnClose="keyboard"` — the trigger only appears while the
+ * row is hovered or focus is within it (a common "hover actions"
+ * pattern). With the default focus restoration, closing the menu with
+ * the mouse would snap focus back to the trigger, keeping the whole row
+ * pinned visible. `"keyboard"` restores focus to the trigger only on a
+ * keyboard close; pointer closes leave focus alone so the row can
+ * dismiss. Tab to the row, press Enter to open, Escape to close → focus
+ * returns. Hover to open, click away → the row fades out.
+ */
+export const RestoreFocusOnClose: Story = {
+  render: () => (
+    <div
+      tabIndex={0}
+      className="group flex w-72 items-center justify-between rounded-md border p-3 text-sm"
+    >
+      <span>Hover or focus this row</span>
+      <Menu>
+        <MenuTrigger
+          render={<Button variant="ghost" size="sm" />}
+          className="opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100"
+        >
+          Actions
+        </MenuTrigger>
+        <MenuContent restoreFocusOnClose="keyboard">
+          <MenuItem>Edit</MenuItem>
+          <MenuItem>Duplicate</MenuItem>
+          <MenuSeparator />
+          <MenuItem variant="destructive">Delete</MenuItem>
+        </MenuContent>
+      </Menu>
+    </div>
+  ),
+};

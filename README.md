@@ -151,7 +151,7 @@ conflict if CI has already run.
 ```bash
 npx changeset              # Create a changeset
 npx changeset version      # Apply version bump
-npm run release             # Build and publish to npm
+npm run release            # Build and publish to npm
 ```
 
 </details>

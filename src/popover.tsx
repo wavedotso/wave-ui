@@ -4,6 +4,7 @@ import * as React from "react"
 import { Popover as PopoverPrimitive } from "@base-ui/react/popover"
 
 import { cn } from "./lib/utils"
+import { resolveFinalFocus, type RestoreFocusOnClose } from "./lib/focus"
 
 type PopoverProps = React.ComponentProps<typeof PopoverPrimitive.Root>
 type PopoverTriggerProps = React.ComponentProps<typeof PopoverPrimitive.Trigger>
@@ -20,7 +21,15 @@ type PopoverContentProps = React.ComponentProps<typeof PopoverPrimitive.Popup> &
   Pick<
     React.ComponentProps<typeof PopoverPrimitive.Positioner>,
     "align" | "alignOffset" | "side" | "sideOffset" | "anchor"
-  >
+  > & {
+    /**
+     * Focus-restoration policy when the popover closes. Defaults to
+     * Base UI's behaviour (restore to the trigger). Use `"keyboard"`
+     * when the trigger is hover/focus-within–revealed so a pointer
+     * close doesn't keep it pinned visible. See {@link RestoreFocusOnClose}.
+     */
+    restoreFocusOnClose?: RestoreFocusOnClose
+  }
 
 function Popover({ ...props }: PopoverProps) {
   return <PopoverPrimitive.Root data-slot="popover" {...props} />
@@ -61,6 +70,8 @@ function PopoverContent({
   side = "bottom",
   sideOffset = 4,
   anchor,
+  restoreFocusOnClose,
+  finalFocus,
   ...props
 }: PopoverContentProps) {
   return (
@@ -79,6 +90,7 @@ function PopoverContent({
             "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2 z-50 flex w-72 origin-(--transform-origin) flex-col gap-2.5 rounded-lg p-2.5 text-sm shadow-md ring-1 outline-hidden duration-100",
             className
           )}
+          finalFocus={resolveFinalFocus(restoreFocusOnClose, finalFocus)}
           {...props}
         />
       </PopoverPositioner>
