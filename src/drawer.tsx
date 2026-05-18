@@ -60,52 +60,57 @@ function DrawerContent({
   return (
     <DrawerPortal>
       <DrawerOverlay />
-      <DrawerPrimitive.Popup
-        data-slot="drawer-content"
-        className={cn(
-          // Base layout & appearance
-          "group/drawer-content bg-background fixed z-50 flex flex-col overflow-y-auto text-sm shadow-lg outline-none",
-          // Transition — animate translate, disable during swipe
-          "transition-[translate] duration-300 ease-out data-[swiping]:duration-0",
-          // Bottom drawer (swipeDirection="down")
-          "data-[swipe-direction=down]:inset-x-0 data-[swipe-direction=down]:bottom-0 data-[swipe-direction=down]:mt-24 data-[swipe-direction=down]:max-h-[80vh] data-[swipe-direction=down]:rounded-t-xl data-[swipe-direction=down]:border-t",
-          // Top drawer (swipeDirection="up")
-          "data-[swipe-direction=up]:inset-x-0 data-[swipe-direction=up]:top-0 data-[swipe-direction=up]:mb-24 data-[swipe-direction=up]:max-h-[80vh] data-[swipe-direction=up]:rounded-b-xl data-[swipe-direction=up]:border-b",
-          // Left drawer (swipeDirection="left")
-          "data-[swipe-direction=left]:inset-y-0 data-[swipe-direction=left]:left-0 data-[swipe-direction=left]:w-3/4 data-[swipe-direction=left]:rounded-r-xl data-[swipe-direction=left]:border-r data-[swipe-direction=left]:sm:max-w-sm",
-          // Right drawer (swipeDirection="right")
-          "data-[swipe-direction=right]:inset-y-0 data-[swipe-direction=right]:right-0 data-[swipe-direction=right]:w-3/4 data-[swipe-direction=right]:rounded-l-xl data-[swipe-direction=right]:border-l data-[swipe-direction=right]:sm:max-w-sm",
-          // Enter/exit slide — bottom
-          "data-[swipe-direction=down]:data-[starting-style]:translate-y-full data-[swipe-direction=down]:data-[ending-style]:translate-y-full",
-          // Enter/exit slide — top
-          "data-[swipe-direction=up]:data-[starting-style]:-translate-y-full data-[swipe-direction=up]:data-[ending-style]:-translate-y-full",
-          // Enter/exit slide — left
-          "data-[swipe-direction=left]:data-[starting-style]:-translate-x-full data-[swipe-direction=left]:data-[ending-style]:-translate-x-full",
-          // Enter/exit slide — right
-          "data-[swipe-direction=right]:data-[starting-style]:translate-x-full data-[swipe-direction=right]:data-[ending-style]:translate-x-full",
-          className,
-        )}
-        {...props}
+      <DrawerPrimitive.Viewport
+        data-slot="drawer-viewport"
+        className="fixed inset-0 z-50 outline-none"
       >
-        {/* Drag handle — visible only for bottom drawers */}
-        <div className="bg-muted mx-auto mt-4 hidden h-1 w-[100px] shrink-0 rounded-full group-data-[swipe-direction=down]/drawer-content:block" />
-        {children}
-        {showCloseButton && (
-          <DrawerPrimitive.Close
-            data-slot="drawer-close"
-            render={
-              <Button
-                variant="ghost"
-                className="absolute top-2 right-2"
-                size="icon-sm"
-              />
-            }
-          >
-            <CloseIcon />
-            <span className="sr-only">Close</span>
-          </DrawerPrimitive.Close>
-        )}
-      </DrawerPrimitive.Popup>
+        <DrawerPrimitive.Popup
+          data-slot="drawer-content"
+          className={cn(
+            // Base layout & appearance
+            "group/drawer-content bg-background fixed z-50 flex flex-col overflow-y-auto text-sm shadow-lg outline-none",
+            // Transition — animate translate, disable during swipe
+            "transition-[translate] duration-300 ease-out data-[swiping]:duration-0",
+            // Bottom drawer (swipeDirection="down")
+            "data-[swipe-direction=down]:inset-x-0 data-[swipe-direction=down]:bottom-0 data-[swipe-direction=down]:mt-24 data-[swipe-direction=down]:max-h-[80vh] data-[swipe-direction=down]:rounded-t-xl data-[swipe-direction=down]:border-t",
+            // Top drawer (swipeDirection="up")
+            "data-[swipe-direction=up]:inset-x-0 data-[swipe-direction=up]:top-0 data-[swipe-direction=up]:mb-24 data-[swipe-direction=up]:max-h-[80vh] data-[swipe-direction=up]:rounded-b-xl data-[swipe-direction=up]:border-b",
+            // Left drawer (swipeDirection="left")
+            "data-[swipe-direction=left]:inset-y-0 data-[swipe-direction=left]:left-0 data-[swipe-direction=left]:w-3/4 data-[swipe-direction=left]:rounded-r-xl data-[swipe-direction=left]:border-r data-[swipe-direction=left]:sm:max-w-sm",
+            // Right drawer (swipeDirection="right")
+            "data-[swipe-direction=right]:inset-y-0 data-[swipe-direction=right]:right-0 data-[swipe-direction=right]:w-3/4 data-[swipe-direction=right]:rounded-l-xl data-[swipe-direction=right]:border-l data-[swipe-direction=right]:sm:max-w-sm",
+            // Enter/exit slide — bottom
+            "data-[swipe-direction=down]:data-[starting-style]:translate-y-full data-[swipe-direction=down]:data-[ending-style]:translate-y-full",
+            // Enter/exit slide — top
+            "data-[swipe-direction=up]:data-[starting-style]:-translate-y-full data-[swipe-direction=up]:data-[ending-style]:-translate-y-full",
+            // Enter/exit slide — left
+            "data-[swipe-direction=left]:data-[starting-style]:-translate-x-full data-[swipe-direction=left]:data-[ending-style]:-translate-x-full",
+            // Enter/exit slide — right
+            "data-[swipe-direction=right]:data-[starting-style]:translate-x-full data-[swipe-direction=right]:data-[ending-style]:translate-x-full",
+            className,
+          )}
+          {...props}
+        >
+          {/* Drag handle — visible only for bottom drawers */}
+          <div className="bg-muted mx-auto mt-4 hidden h-1 w-[100px] shrink-0 rounded-full group-data-[swipe-direction=down]/drawer-content:block" />
+          {children}
+          {showCloseButton && (
+            <DrawerPrimitive.Close
+              data-slot="drawer-close"
+              render={
+                <Button
+                  variant="ghost"
+                  className="absolute top-2 right-2"
+                  size="icon-sm"
+                />
+              }
+            >
+              <CloseIcon />
+              <span className="sr-only">Close</span>
+            </DrawerPrimitive.Close>
+          )}
+        </DrawerPrimitive.Popup>
+      </DrawerPrimitive.Viewport>
     </DrawerPortal>
   )
 }
