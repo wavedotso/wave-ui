@@ -6,6 +6,7 @@ import { ContextMenu as ContextMenuPrimitive } from "@base-ui/react/context-menu
 import { ChevronRightIcon, CheckIcon } from "./lib/internal-icons"
 
 import { cn } from "./lib/utils"
+import { resolveFinalFocus, type RestoreFocusOnClose } from "./lib/focus"
 
 type ContextMenuProps = React.ComponentProps<typeof ContextMenuPrimitive.Root>
 type ContextMenuPortalProps = React.ComponentProps<typeof ContextMenuPrimitive.Portal>
@@ -15,7 +16,15 @@ type ContextMenuContentProps = React.ComponentProps<typeof ContextMenuPrimitive.
   Pick<
     React.ComponentProps<typeof ContextMenuPrimitive.Positioner>,
     "align" | "alignOffset" | "side" | "sideOffset"
-  >
+  > & {
+    /**
+     * Focus-restoration policy when the menu closes. Defaults to Base
+     * UI's behaviour (restore to the trigger). Use `"keyboard"` when
+     * the trigger is hover/focus-within–revealed so a pointer close
+     * doesn't keep it pinned visible. See {@link RestoreFocusOnClose}.
+     */
+    restoreFocusOnClose?: RestoreFocusOnClose
+  }
 
 type ContextMenuGroupProps = React.ComponentProps<typeof ContextMenuPrimitive.Group>
 
@@ -73,6 +82,8 @@ function ContextMenuContent({
   alignOffset = 4,
   side = "right",
   sideOffset = 0,
+  restoreFocusOnClose,
+  finalFocus,
   ...props
 }: ContextMenuContentProps) {
   return (
@@ -90,6 +101,7 @@ function ContextMenuContent({
             "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2 z-50 max-h-(--available-height) min-w-36 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-lg p-1 shadow-md ring-1 duration-100 outline-none",
             className,
           )}
+          finalFocus={resolveFinalFocus(restoreFocusOnClose, finalFocus)}
           {...props}
         />
       </ContextMenuPrimitive.Positioner>

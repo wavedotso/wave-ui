@@ -6,6 +6,7 @@ import {
   FormProvider,
   useFormContext,
   useForm,
+  useWatch,
   type SubmitHandler,
   type UseFormReturn,
   type ControllerFieldState,
@@ -233,6 +234,7 @@ export {
   FormMessage,
   fieldControlProps,
   useForm,
+  useWatch,
   type FormFieldRenderArgs,
   type FormFieldProps,
 };

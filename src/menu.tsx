@@ -4,6 +4,7 @@ import * as React from "react"
 import { Menu as MenuPrimitive } from "@base-ui/react/menu"
 
 import { cn } from "./lib/utils"
+import { resolveFinalFocus, type RestoreFocusOnClose } from "./lib/focus"
 
 import { ChevronRightIcon, CheckIcon } from "./lib/internal-icons"
 
@@ -17,7 +18,15 @@ type MenuContentProps = React.ComponentProps<typeof MenuPrimitive.Popup> &
   Pick<
     React.ComponentProps<typeof MenuPrimitive.Positioner>,
     "align" | "alignOffset" | "side" | "sideOffset"
-  >
+  > & {
+    /**
+     * Focus-restoration policy when the menu closes. Defaults to Base
+     * UI's behaviour (restore to the trigger). Use `"keyboard"` when
+     * the trigger is hover/focus-within–revealed so a pointer close
+     * doesn't keep it pinned visible. See {@link RestoreFocusOnClose}.
+     */
+    restoreFocusOnClose?: RestoreFocusOnClose
+  }
 
 type MenuGroupProps = React.ComponentProps<typeof MenuPrimitive.Group>
 
@@ -70,6 +79,8 @@ function MenuContent({
   side = "bottom",
   sideOffset = 4,
   className,
+  restoreFocusOnClose,
+  finalFocus,
   ...props
 }: MenuContentProps) {
   return (
@@ -88,6 +99,7 @@ function MenuContent({
             "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2 z-50 max-h-(--available-height) w-auto min-w-32 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-lg p-1 shadow-md ring-1 duration-100 outline-none data-closed:overflow-hidden",
             className,
           )}
+          finalFocus={resolveFinalFocus(restoreFocusOnClose, finalFocus)}
           {...props}
         />
       </MenuPrimitive.Positioner>
