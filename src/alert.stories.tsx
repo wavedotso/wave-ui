@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Alert, AlertTitle, AlertDescription, AlertAction } from './alert';
 import { Button } from './button';
+import { InfoCircleIcon } from './lib/internal-icons';
 
 const meta = {
   title: 'Feedback/Alert',
@@ -20,6 +21,24 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: (args) => (
     <Alert {...args} className="w-[420px]">
+      <AlertTitle>Heads up!</AlertTitle>
+      <AlertDescription>
+        You can add components to your app using the CLI.
+      </AlertDescription>
+    </Alert>
+  ),
+};
+
+/**
+ * Mark the leading icon with `data-icon` (the library-wide convention,
+ * same as `Badge`/`Button`) to switch the alert into its icon + content
+ * two-column layout. Implementation-agnostic — survives an icon-library
+ * swap and works for wrapped/non-svg icons.
+ */
+export const WithIcon: Story = {
+  render: (args) => (
+    <Alert {...args} className="w-[420px]">
+      <InfoCircleIcon data-icon="inline-start" />
       <AlertTitle>Heads up!</AlertTitle>
       <AlertDescription>
         You can add components to your app using the CLI.

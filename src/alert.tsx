@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "./lib/utils"
 
 const alertVariants = cva(
-  "grid gap-0.5 rounded-lg border px-2.5 py-2 text-left text-sm has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pr-18 has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-2 *:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg]:text-current *:[svg:not([class*='size-'])]:size-4 w-full relative group/alert",
+  "grid gap-0.5 rounded-lg border px-2.5 py-2 text-left text-sm has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pr-18 has-data-[icon]:grid-cols-[auto_1fr] has-data-[icon]:gap-x-2 *:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg]:text-current *:[svg:not([class*='size-'])]:size-4 w-full relative group/alert",
   {
     variants: {
       variant: {
@@ -44,7 +44,7 @@ function AlertTitle({ className, ...props }: AlertTitleProps) {
     <div
       data-slot="alert-title"
       className={cn(
-        "[&_a]:hover:text-foreground font-medium group-has-[>svg]/alert:col-start-2 [&_a]:underline [&_a]:underline-offset-3",
+        "[&_a]:hover:text-foreground font-medium group-has-data-[icon]/alert:col-start-2 [&_a]:underline [&_a]:underline-offset-3",
         className
       )}
       {...props}
