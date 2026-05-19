@@ -171,7 +171,9 @@ function ContextMenuSubTrigger({ className, inset, children, ...props }: Context
 
 function ContextMenuSubContent({
   align = "start",
-  alignOffset = -3,
+  // -4 cancels the popup's p-1 (4px) top padding so the submenu's first
+  // item lines up with the parent item row, not the popup container edge.
+  alignOffset = -4,
   side = "right",
   sideOffset = 0,
   className,
