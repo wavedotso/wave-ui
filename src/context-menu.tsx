@@ -89,6 +89,7 @@ function ContextMenuContent({
   return (
     <ContextMenuPrimitive.Portal>
       <ContextMenuPrimitive.Positioner
+        data-slot="context-menu-positioner"
         className="isolate z-50 outline-none"
         align={align}
         alignOffset={alignOffset}
@@ -197,7 +198,10 @@ function ContextMenuCheckboxItem({
       checked={checked}
       {...props}
     >
-      <span className="absolute right-2 pointer-events-none">
+      <span
+        data-slot="context-menu-checkbox-item-indicator"
+        className="absolute right-2 pointer-events-none"
+      >
         <ContextMenuPrimitive.CheckboxItemIndicator>
           <CheckIcon />
         </ContextMenuPrimitive.CheckboxItemIndicator>
@@ -222,7 +226,10 @@ function ContextMenuRadioItem({ className, children, inset, ...props }: ContextM
       )}
       {...props}
     >
-      <span className="absolute right-2 pointer-events-none">
+      <span
+        data-slot="context-menu-radio-item-indicator"
+        className="absolute right-2 pointer-events-none"
+      >
         <ContextMenuPrimitive.RadioItemIndicator>
           <CheckIcon />
         </ContextMenuPrimitive.RadioItemIndicator>

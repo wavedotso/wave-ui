@@ -92,7 +92,10 @@ function DrawerContent({
           {...props}
         >
           {/* Drag handle — visible only for bottom drawers */}
-          <div className="bg-muted mx-auto mt-4 hidden h-1 w-[100px] shrink-0 rounded-full group-data-[swipe-direction=down]/drawer-content:block" />
+          <div
+            data-slot="drawer-drag-handle"
+            className="bg-muted mx-auto mt-4 hidden h-1 w-[100px] shrink-0 rounded-full group-data-[swipe-direction=down]/drawer-content:block"
+          />
           {children}
           {showCloseButton && (
             <DrawerPrimitive.Close

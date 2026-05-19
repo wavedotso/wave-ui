@@ -63,6 +63,7 @@ function TooltipContent({
   return (
     <TooltipPrimitive.Portal>
       <TooltipPrimitive.Positioner
+        data-slot="tooltip-positioner"
         anchor={anchor}
         align={align}
         alignOffset={alignOffset}
