@@ -73,6 +73,11 @@
 
   /* Radius */
   --radius: 0.625rem;
+
+  /* Cursor — `pointer` is the modern "everything interactive is clickable"
+   * default. Set `--cursor-clickable: default` in your own :root for
+   * native / HIG behavior; real links keep their own pointer regardless. */
+  --cursor-clickable: pointer;
 }
 
 /* ---------------------------------------------------------------------------
@@ -198,4 +203,15 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
+}
+
+/* ---------------------------------------------------------------------------
+ * Utilities
+ * ------------------------------------------------------------------------- */
+
+/* `cursor-clickable` — used by every interactive component instead of a
+ * hardcoded `cursor-pointer`, so the library's whole click affordance is
+ * switchable through the single `--cursor-clickable` token above. */
+@utility cursor-clickable {
+  cursor: var(--cursor-clickable);
 }
