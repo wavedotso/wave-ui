@@ -169,12 +169,22 @@ function ContextMenuSubTrigger({ className, inset, children, ...props }: Context
   )
 }
 
-function ContextMenuSubContent(props: ContextMenuSubContentProps) {
+function ContextMenuSubContent({
+  align = "start",
+  alignOffset = -3,
+  side = "right",
+  sideOffset = 0,
+  className,
+  ...props
+}: ContextMenuSubContentProps) {
   return (
     <ContextMenuContent
       data-slot="context-menu-sub-content"
-      className="shadow-lg"
-      side="right"
+      className={cn("w-auto min-w-24 shadow-lg", className)}
+      align={align}
+      alignOffset={alignOffset}
+      side={side}
+      sideOffset={sideOffset}
       {...props}
     />
   )
