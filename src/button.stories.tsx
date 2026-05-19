@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Button } from './button';
+import { CheckIcon, CloseIcon } from './lib/internal-icons';
 
 const meta = {
   title: 'Actions/Button',
@@ -136,6 +137,30 @@ export const AllSizes: Story = {
       <Button size="default">Default</Button>
       <Button size="lg">Large</Button>
       <Button size="xl">Extra Large</Button>
+    </div>
+  ),
+};
+
+/**
+ * Leading / trailing icons use the library-wide `data-icon` convention
+ * (`"inline-start"` / `"inline-end"`) to tighten padding on the icon
+ * side. Same mechanism as `Badge`; implementation-agnostic, so it
+ * survives an icon-library swap and works for wrapped/non-svg icons.
+ */
+export const WithIcons: Story = {
+  render: () => (
+    <div className="flex flex-wrap items-center gap-3">
+      <Button>
+        <CheckIcon data-icon="inline-start" />
+        Confirm
+      </Button>
+      <Button variant="outline">
+        Dismiss
+        <CloseIcon data-icon="inline-end" />
+      </Button>
+      <Button variant="ghost" size="sm" aria-label="Close">
+        <CloseIcon data-icon="inline-start" />
+      </Button>
     </div>
   ),
 };
