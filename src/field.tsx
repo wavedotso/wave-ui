@@ -12,8 +12,9 @@ export type FieldItemProps = React.ComponentProps<typeof FieldPrimitive.Item>
 export type FieldErrorProps = React.ComponentProps<typeof FieldPrimitive.Error>
 export type FieldValidityProps = React.ComponentProps<typeof FieldPrimitive.Validity>
 
-// `ref` is important for React Hook Form / focus management, so we forward it only on the control.
-export type FieldControlProps = React.ComponentPropsWithoutRef<typeof FieldPrimitive.Control>
+// `ref` matters here for React Hook Form / focus management; it flows
+// through to the control via standard prop forwarding (React 19).
+export type FieldControlProps = React.ComponentProps<typeof FieldPrimitive.Control>
 
 export function Field({ className, ...props }: FieldProps) {
   return (
@@ -41,21 +42,18 @@ export function FieldLabel({ className, ...props }: FieldLabelProps) {
   )
 }
 
-export const FieldControl = React.forwardRef<
-  React.ComponentRef<typeof FieldPrimitive.Control>,
-  FieldControlProps
->(({ className, ...props }, ref) => (
-  <FieldPrimitive.Control
-    ref={ref}
-    data-slot="field-control"
-    className={cn(
-      "rounded-md outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
-      className,
-    )}
-    {...props}
-  />
-))
-FieldControl.displayName = "FieldControl"
+export function FieldControl({ className, ...props }: FieldControlProps) {
+  return (
+    <FieldPrimitive.Control
+      data-slot="field-control"
+      className={cn(
+        "rounded-md outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
+        className,
+      )}
+      {...props}
+    />
+  )
+}
 
 export function FieldDescription({ className, ...props }: FieldDescriptionProps) {
   return (
