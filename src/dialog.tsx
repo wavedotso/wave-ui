@@ -9,13 +9,12 @@ import { CloseIcon } from "./lib/internal-icons"
 
 type DialogProps = React.ComponentProps<typeof DialogPrimitive.Root> & {
   /**
-   * When `true`, clicking outside the dialog does not close it and
-   * `FloatingFocusManager` sets `closeOnFocusOut: false`.
-   * This prevents the focus-manager from swallowing click events on
-   * interactive elements inside the popup (buttons, switches, etc.).
+   * When `true`, clicking outside the dialog (backdrop / pointer
+   * dismissal) does not close it. It can then only be closed via an
+   * explicit action — the close button, `Esc`, or programmatically.
    *
-   * Use this for dialogs that contain forms, wizards, or other complex
-   * interactive content.
+   * Use this for dialogs containing forms, wizards, or other content
+   * where an accidental outside click shouldn't discard the user's work.
    *
    * @default false
    */
