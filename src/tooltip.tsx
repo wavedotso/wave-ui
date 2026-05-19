@@ -20,16 +20,26 @@ type TooltipContentProps = React.ComponentProps<typeof TooltipPrimitive.Popup> &
   positionerClassName?: string;
 }
 
-function TooltipProvider({ delay = 0, ...props }: TooltipProviderProps) {
+/**
+ * Inherits Base UI's 600ms open delay (hover-intent) — we deliberately
+ * do NOT force `delay={0}`, which makes grouped tooltips fire on
+ * incidental mouse-over. Pass `delay` to override per provider.
+ */
+function TooltipProvider({ ...props }: TooltipProviderProps) {
   return (
     <TooltipPrimitive.Provider
       data-slot="tooltip-provider"
-      delay={delay}
       {...props}
     />
   )
 }
 
+/**
+ * Defaults to a non-hoverable popup (`disableHoverablePopup={true}`)
+ * because Wave tooltips are non-interactive labels; a hoverable popup is
+ * only needed when the tooltip contains links/controls. Pass
+ * `disableHoverablePopup={false}` for interactive tooltip content.
+ */
 function Tooltip({ disableHoverablePopup = true, ...props }: TooltipProps) {
   return <TooltipPrimitive.Root data-slot="tooltip" disableHoverablePopup={disableHoverablePopup} {...props} />
 }
