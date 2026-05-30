@@ -81,7 +81,7 @@ function ComboboxClear({ className, ...props }: ComboboxClearProps) {
     <ComboboxPrimitive.Clear
       data-slot="combobox-clear"
       render={<InputGroupButton variant="ghost" size="icon-xs" />}
-      className={cn(className)}
+      className={cn("motion-scale", className)}
       {...props}
     >
       <CloseIcon
@@ -103,18 +103,33 @@ function ComboboxInput({
     <ComboboxPrimitive.InputGroup render={<InputGroup className={cn(className)} />}>
       <ComboboxPrimitive.Input render={<InputGroupInput disabled={disabled} />} {...props} />
       <InputGroupAddon align="inline-end">
-        {showTrigger ? (
-          <InputGroupButton
-            size="icon-xs"
-            variant="ghost"
-            nativeButton
-            render={<ComboboxTrigger />}
-            data-slot="input-group-button"
-            className="group-has-data-[slot=combobox-clear]/input-group:hidden data-pressed:bg-transparent"
-            disabled={disabled}
-          />
-        ) : null}
-        {showClear ? <ComboboxClear disabled={disabled} /> : null}
+        {/* Stack the trigger chevron and clear button in one cell so they
+         * cross-fade. In single-select mode Base UI mounts the Clear only
+         * when a value is *selected* (not while typing), and marks it with
+         * a persistent `data-visible` attribute. The chevron keys its
+         * fade-out (opacity/blur/scale via `motion-scale`) off that exact
+         * attribute. Both behaviours are pinned by `combobox.test.tsx` —
+         * verified against the rendered DOM, not inferred. */}
+        <div className="relative grid size-6 *:[grid-area:1/1]">
+          {showTrigger ? (
+            <InputGroupButton
+              size="icon-xs"
+              variant="ghost"
+              nativeButton
+              render={<ComboboxTrigger />}
+              data-slot="input-group-button"
+              className={cn(
+                "motion-scale data-pressed:bg-transparent",
+                "group-has-[[data-slot=combobox-clear][data-visible]]/input-group:pointer-events-none",
+                "group-has-[[data-slot=combobox-clear][data-visible]]/input-group:opacity-0",
+                "group-has-[[data-slot=combobox-clear][data-visible]]/input-group:[filter:blur(var(--blur))]",
+                "group-has-[[data-slot=combobox-clear][data-visible]]/input-group:scale-[var(--scale)]",
+              )}
+              disabled={disabled}
+            />
+          ) : null}
+          {showClear ? <ComboboxClear disabled={disabled} /> : null}
+        </div>
       </InputGroupAddon>
       {children}
     </ComboboxPrimitive.InputGroup>

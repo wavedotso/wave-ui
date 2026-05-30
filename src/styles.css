@@ -1,19 +1,28 @@
 /*
- * @waveso/ui — Default theme tokens
+ * @waveso/ui — fully self-contained styles entry.
  *
- * Import this file in your app's CSS entry point:
+ * In your app's CSS entry, import Tailwind, then this file:
  *
- *   @import '@waveso/ui/styles.css';
  *   @import 'tailwindcss';
+ *   @import '@waveso/ui/styles.css';
  *
- * All tokens use oklch for perceptual uniformity. Override any variable
- * in your own :root / .dark blocks to customise the theme.
+ * This brings the `tw-animate-css` keyframe utilities the components
+ * rely on, the `dark` variant, every theme token (override in your own
+ * :root / .dark), motion tokens + recipes, and the `@source` rule. No
+ * other library-related imports needed.
  */
+
+/* Keyframe animation utilities used by popup components
+ * (`data-open:animate-in`, `fade-in-0`, `zoom-in-95`, etc.). */
+@import "tw-animate-css";
 
 /* Auto-register component source files so Tailwind generates CSS for all
  * utility classes used by @waveso/ui components. Resolves relative to this
  * file's location in node_modules/@waveso/ui/dist/. */
 @source "./";
+
+/* Tailwind v4 `dark:` variant — applied when any ancestor has `.dark`. */
+@custom-variant dark (&:is(.dark *));
 
 /* ---------------------------------------------------------------------------
  * Light theme (default)
@@ -74,10 +83,29 @@
   /* Radius */
   --radius: 0.625rem;
 
+  /* Typography — sensible default stacks; override in your own :root
+   * to swap the library's typeface globally. The `@theme inline` block
+   * below maps these into Tailwind's `font-sans` / `font-mono` utilities. */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+
   /* Cursor — `pointer` is the modern "everything interactive is clickable"
    * default. Set `--cursor-clickable: default` in your own :root for
    * native / HIG behavior; real links keep their own pointer regardless. */
   --cursor-clickable: pointer;
+
+  /* Motion — tokens consumed by the `motion-*` recipes (see Utilities).
+   * Override any value in your own :root. `prefers-reduced-motion` zeroes
+   * them in one block (bottom of file), so every recipe collapses safely. */
+  --duration: 250ms;
+  --ease: ease-out;                            /* default — fade/blur, no transform */
+  --spring: cubic-bezier(0.34, 1.45, 0.64, 1); /* only with translate/scale */
+  --blur: 2px;      /* enter/exit blur amount     */
+  --scale: 0.97;    /* enter/exit scale-down       */
+  --offset: 4px;    /* enter/exit translate offset */
+  --stagger: 70ms;  /* per-item list delay         */
 }
 
 /* ---------------------------------------------------------------------------
@@ -196,6 +224,7 @@
   --color-sidebar-ring: var(--sidebar-ring);
 
   /* Radius */
+  --radius-xs: calc(var(--radius) - 6px);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -203,6 +232,12 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
+
+  /* Typography — passthroughs so consumers' `--font-sans` /
+   * `--font-geist-mono` flow through to Tailwind's `font-sans` /
+   * `font-mono` utilities. */
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
 }
 
 /* ---------------------------------------------------------------------------
@@ -214,4 +249,82 @@
  * switchable through the single `--cursor-clickable` token above. */
 @utility cursor-clickable {
   cursor: var(--cursor-clickable);
+}
+
+/* Motion recipes — Base UI primitives emit `data-starting-style` (enter)
+ * and `data-ending-style` (exit). Each recipe's resting + transition-state
+ * declarations live in `@utility` (the `utilities` layer) so `group-has`
+ * overrides (also utilities) can win over them by normal cascade order.
+ *
+ * `0.001px` resting blur defeats Lightning CSS's `blur(0) → blur()`
+ * minification (which emits invalid CSS); it is visually equivalent to 0. */
+
+/* `motion-fade` — opacity + blur. For simple show/hide on small surfaces. */
+@utility motion-fade {
+  filter: blur(0.001px);
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+    filter: blur(var(--blur));
+  }
+}
+
+/* `motion-scale` — opacity + blur + scale-down. For icon-sized targets. */
+@utility motion-scale {
+  filter: blur(0.001px);
+  scale: 1;
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+    filter: blur(var(--blur));
+    scale: var(--scale);
+  }
+}
+
+/* `motion-rise` — opacity + blur + translate-y, spring ease. For larger
+ * content surfaces (alerts, menus, cards) — spring overshoot only reads
+ * with translate. */
+@utility motion-rise {
+  filter: blur(0.001px);
+  translate: 0;
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+    filter: blur(var(--blur));
+    translate: 0 var(--offset);
+  }
+}
+
+/* Transition timing — declared UNLAYERED (outside `@layer`). Per the CSS
+ * cascade, unlayered normal declarations beat layered ones, so this wins
+ * over Tailwind's `transition-all` (in `@layer utilities`, present on every
+ * Button) WITHOUT `!important`. These set only `transition`, so the
+ * layered `group-has`/`data-*-style` overrides of opacity/filter/scale/
+ * translate still apply normally. */
+.motion-fade {
+  transition: opacity var(--duration) var(--ease),
+              filter var(--duration) var(--ease);
+}
+.motion-scale {
+  transition: opacity var(--duration) var(--ease),
+              filter var(--duration) var(--ease),
+              scale var(--duration) var(--ease);
+}
+.motion-rise {
+  transition: opacity var(--duration) var(--spring),
+              filter var(--duration) var(--spring),
+              translate var(--duration) var(--spring);
+}
+
+/* ---------------------------------------------------------------------------
+ * Reduced motion — one block, every token zeroes, every recipe collapses.
+ * ------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration: 0ms;
+    --blur: 0px;
+    --scale: 1;
+    --offset: 0px;
+    --stagger: 0ms;
+  }
 }

@@ -238,26 +238,26 @@ function ToastClose({ className, children, ...props }: ToastCloseProps) {
 // Shared classes for both top and bottom positions
 const STACKING_BASE = [
   // CSS custom properties
-  "[--gap:0.5rem]",
-  "[--peek:0.5rem]",
-  "[--scale:calc(max(0,1-(var(--toast-index)*0.05)))]",
-  "[--shrink:calc(1-var(--scale))]",
-  "[--height:var(--toast-frontmost-height,var(--toast-height))]",
+  "[--toast-gap:0.5rem]",
+  "[--toast-peek:0.5rem]",
+  "[--toast-scale:calc(max(0,1-(var(--toast-index)*0.05)))]",
+  "[--toast-shrink:calc(1-var(--toast-scale))]",
+  "[--toast-stack-height:var(--toast-frontmost-height,var(--toast-height))]",
   // Layout
   "absolute w-full",
   "[z-index:calc(1000-var(--toast-index))]",
-  "h-[var(--height)] data-[expanded]:h-[var(--toast-height)]",
+  "h-[var(--toast-stack-height)] data-[expanded]:h-[var(--toast-height)]",
   // Depth blur — subtle defocus on behind toasts, cleared on expand
   "[filter:blur(calc(var(--toast-index)*0.4px))]",
   "data-[expanded]:[filter:none]",
   // Expanded (hover)
-  "data-[expanded]:[transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--offset-y)))]",
+  "data-[expanded]:[transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-stack-offset-y)))]",
   // Exit — shared
   "data-[ending-style]:opacity-0",
   "data-[ending-style]:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))]",
   "data-[expanded]:data-[ending-style]:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))]",
-  "data-[ending-style]:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))]",
-  "data-[expanded]:data-[ending-style]:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))]",
+  "data-[ending-style]:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--toast-stack-offset-y))]",
+  "data-[expanded]:data-[ending-style]:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--toast-stack-offset-y))]",
   "data-[ending-style]:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))]",
   "data-[expanded]:data-[ending-style]:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))]",
   "data-[limited]:opacity-0",
@@ -266,19 +266,19 @@ const STACKING_BASE = [
 
 // Direction-specific classes — sign flips for anchor, offset, transform, enter/exit
 const STACKING_TOP = [
-  "[--offset-y:calc(var(--toast-offset-y)+calc(var(--toast-index)*var(--gap))+var(--toast-swipe-movement-y))]",
+  "[--toast-stack-offset-y:calc(var(--toast-offset-y)+calc(var(--toast-index)*var(--toast-gap))+var(--toast-swipe-movement-y))]",
   "top-0 origin-top",
-  "[transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)+(var(--toast-index)*var(--peek))+(var(--shrink)*var(--height))))_scale(var(--scale))]",
-  "after:absolute after:bottom-full after:left-0 after:h-[calc(var(--gap)+1px)] after:w-full after:content-['']",
+  "[transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)+(var(--toast-index)*var(--toast-peek))+(var(--toast-shrink)*var(--toast-stack-height))))_scale(var(--toast-scale))]",
+  "after:absolute after:bottom-full after:left-0 after:h-[calc(var(--toast-gap)+1px)] after:w-full after:content-['']",
   "data-[starting-style]:[transform:translateY(-150%)]",
   "[&[data-ending-style]:not([data-limited]):not([data-swipe-direction])]:[transform:translateY(-150%)]",
 ].join(" ")
 
 const STACKING_BOTTOM = [
-  "[--offset-y:calc(var(--toast-offset-y)*-1+calc(var(--toast-index)*var(--gap)*-1)+var(--toast-swipe-movement-y))]",
+  "[--toast-stack-offset-y:calc(var(--toast-offset-y)*-1+calc(var(--toast-index)*var(--toast-gap)*-1)+var(--toast-swipe-movement-y))]",
   "bottom-0 origin-bottom",
-  "[transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)-(var(--toast-index)*var(--peek))-(var(--shrink)*var(--height))))_scale(var(--scale))]",
-  "after:absolute after:top-full after:left-0 after:h-[calc(var(--gap)+1px)] after:w-full after:content-['']",
+  "[transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)-(var(--toast-index)*var(--toast-peek))-(var(--toast-shrink)*var(--toast-stack-height))))_scale(var(--toast-scale))]",
+  "after:absolute after:top-full after:left-0 after:h-[calc(var(--toast-gap)+1px)] after:w-full after:content-['']",
   "data-[starting-style]:[transform:translateY(150%)]",
   "[&[data-ending-style]:not([data-limited]):not([data-swipe-direction])]:[transform:translateY(150%)]",
 ].join(" ")
