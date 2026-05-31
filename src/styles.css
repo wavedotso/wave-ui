@@ -252,15 +252,21 @@
 }
 
 /* Motion recipes — Base UI primitives emit `data-starting-style` (enter)
- * and `data-ending-style` (exit). Each recipe's resting + transition-state
- * declarations live in `@utility` (the `utilities` layer) so `group-has`
- * overrides (also utilities) can win over them by normal cascade order.
+ * and `data-ending-style` (exit). Each recipe declares its `transition`,
+ * resting state, and enter/exit state in one `@utility` (the `utilities`
+ * layer) so `group-has` overrides (also utilities) win over the resting
+ * state by normal cascade order. Co-locating `transition` here is only safe
+ * because the library ships no `transition-all` — nothing else in the
+ * utilities layer sets `transition` on a recipe-bearing element and clobbers
+ * it. (If `transition-all` ever returns, these break; keep them specific.)
  *
  * `0.001px` resting blur defeats Lightning CSS's `blur(0) → blur()`
  * minification (which emits invalid CSS); it is visually equivalent to 0. */
 
 /* `motion-fade` — opacity + blur. For simple show/hide on small surfaces. */
 @utility motion-fade {
+  transition: opacity var(--duration) var(--ease),
+              filter var(--duration) var(--ease);
   filter: blur(0.001px);
   &[data-starting-style],
   &[data-ending-style] {
@@ -271,6 +277,9 @@
 
 /* `motion-scale` — opacity + blur + scale-down. For icon-sized targets. */
 @utility motion-scale {
+  transition: opacity var(--duration) var(--ease),
+              filter var(--duration) var(--ease),
+              scale var(--duration) var(--ease);
   filter: blur(0.001px);
   scale: 1;
   &[data-starting-style],
@@ -285,6 +294,9 @@
  * content surfaces (alerts, menus, cards) — spring overshoot only reads
  * with translate. */
 @utility motion-rise {
+  transition: opacity var(--duration) var(--spring),
+              filter var(--duration) var(--spring),
+              translate var(--duration) var(--spring);
   filter: blur(0.001px);
   translate: 0;
   &[data-starting-style],
@@ -293,27 +305,6 @@
     filter: blur(var(--blur));
     translate: 0 var(--offset);
   }
-}
-
-/* Transition timing — declared UNLAYERED (outside `@layer`). Per the CSS
- * cascade, unlayered normal declarations beat layered ones, so this wins
- * over Tailwind's `transition-all` (in `@layer utilities`, present on every
- * Button) WITHOUT `!important`. These set only `transition`, so the
- * layered `group-has`/`data-*-style` overrides of opacity/filter/scale/
- * translate still apply normally. */
-.motion-fade {
-  transition: opacity var(--duration) var(--ease),
-              filter var(--duration) var(--ease);
-}
-.motion-scale {
-  transition: opacity var(--duration) var(--ease),
-              filter var(--duration) var(--ease),
-              scale var(--duration) var(--ease);
-}
-.motion-rise {
-  transition: opacity var(--duration) var(--spring),
-              filter var(--duration) var(--spring),
-              translate var(--duration) var(--spring);
 }
 
 /* ---------------------------------------------------------------------------
