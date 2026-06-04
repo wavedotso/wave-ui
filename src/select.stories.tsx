@@ -115,3 +115,31 @@ export const Disabled: Story = {
     </Select>
   ),
 };
+
+/**
+ * `alignItemWithTrigger` opens the popup so the *selected* item sits directly
+ * over the trigger (native macOS-style select), with the rest of the list
+ * extending above and below. Open with "Green" preselected to see it centre on
+ * the trigger. Enter/exit motion is intentionally skipped in this mode — Base
+ * UI scroll-positions the list, so a scale/fade would fight it.
+ */
+export const AlignItemWithTrigger: Story = {
+  render: () => (
+    <Select defaultValue="green">
+      <SelectTrigger>
+        <SelectValue placeholder="Pick a color" />
+      </SelectTrigger>
+      <SelectContent alignItemWithTrigger>
+        <SelectGroup>
+          <SelectItem value="red">Red</SelectItem>
+          <SelectItem value="orange">Orange</SelectItem>
+          <SelectItem value="yellow">Yellow</SelectItem>
+          <SelectItem value="green">Green</SelectItem>
+          <SelectItem value="blue">Blue</SelectItem>
+          <SelectItem value="indigo">Indigo</SelectItem>
+          <SelectItem value="violet">Violet</SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  ),
+};

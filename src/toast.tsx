@@ -309,7 +309,7 @@ function ToasterContent({ position = "bottom-right" }: Pick<ToasterProps, "posit
           >
             <ToastPrimitive.Content
               data-slot="toast-content"
-              className="flex items-start gap-3 overflow-hidden transition-opacity duration-250 data-[behind]:pointer-events-none data-[behind]:opacity-0 data-[expanded]:pointer-events-auto data-[expanded]:opacity-100"
+              className="flex items-start gap-3 overflow-hidden transition-opacity duration-200 data-[behind]:pointer-events-none data-[behind]:opacity-0 data-[expanded]:pointer-events-auto data-[expanded]:opacity-100"
             >
               <ToastIcon type={t.type as ToastType | undefined} />
 

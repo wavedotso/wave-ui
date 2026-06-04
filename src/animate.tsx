@@ -24,7 +24,7 @@ interface AnimateOnViewProps {
   delay?: number
   /** Direction to animate from. Default: 'down' */
   from?: Direction
-  /** Distance in px. Default: 20 */
+  /** Distance in px. Default: 16 (scroll reveals need more travel than `AnimateIn`) */
   distance?: number
   /** Also scale in (0.85 → 1). Default: false */
   scale?: boolean
@@ -48,7 +48,7 @@ interface AnimateInProps {
   delay?: number
   /** Direction to animate from. Default: 'down' */
   from?: Direction
-  /** Distance in px. Default: 20 */
+  /** Distance in px. Default: 4 */
   distance?: number
   /** Also scale in (0.85 → 1). Default: false */
   scale?: boolean
@@ -119,8 +119,11 @@ const FLIP_MAP = {
   right: "rotateY(90deg)",
 } as const
 
-/** CSS cubic-bezier that overshoots then settles — feels like a spring */
-const SPRING_EASE = "cubic-bezier(0.34, 1.56, 0.64, 1)"
+/** Overshoot ("spring") easing for the opt-in `spring` prop on
+ *  `AnimateIn` / `AnimateOnView`. This is `animate.tsx`'s own page-entrance
+ *  bounce — the CSS recipe system intentionally has no spring (one circ-out
+ *  curve), so this is a standalone constant, not a shared token. */
+const SPRING_EASE = "cubic-bezier(0.34, 1.45, 0.64, 1)"
 
 interface BuildStylesOptions {
   from: Direction
@@ -149,7 +152,7 @@ function buildStyles(opts: BuildStylesOptions) {
   if (rotate) visibleParts.push("rotate(0deg)")
   if (flip) visibleParts.push(from === "up" || from === "down" ? "rotateX(0deg)" : "rotateY(0deg)")
 
-  const blurPx = blur === true ? 10 : typeof blur === "number" ? blur : 0
+  const blurPx = blur === true ? 8 : typeof blur === "number" ? blur : 0
 
   const hidden: CSSProperties = {
     opacity: "0",
@@ -180,9 +183,9 @@ function mergeRefs<T>(...refs: (Ref<T> | undefined)[]) {
   }
 }
 
-function getTransitionParams(transition?: Transition, useSpring?: boolean) {
+function getTransitionParams(transition?: Transition, useSpring?: boolean, fallbackDuration = 0.15) {
   const duration =
-    (transition as Record<string, number>)?.duration ?? 0.5
+    (transition as Record<string, number>)?.duration ?? fallbackDuration
   const ease =
     useSpring ? SPRING_EASE : ((transition as Record<string, string>)?.ease ?? "ease-out")
   return { duration, ease }
@@ -207,6 +210,9 @@ function buildTransitionStr(
 /**
  * Animates a child element when it scrolls into view.
  *
+ * Defaults are tuned for scroll reveals — larger travel and a slower duration
+ * than `AnimateIn` — so the motion reads as the content enters the viewport.
+ *
  * Zero DOM overhead — applies styles directly to the child via cloneElement.
  * Renders children unchanged on server to avoid hydration mismatch.
  *
@@ -221,7 +227,7 @@ function AnimateOnView({
   children,
   delay = 0,
   from = "down",
-  distance = 20,
+  distance = 16,
   scale = false,
   blur = false,
   rotate = 0,
@@ -251,7 +257,7 @@ function AnimateOnView({
   }
 
   const styles = buildStyles({ from, distance, doScale: scale, blur, rotate, flip })
-  const { duration, ease } = getTransitionParams(transition, spring)
+  const { duration, ease } = getTransitionParams(transition, spring, 0.4)
   const currentStyle = isInView ? styles.visible : styles.hidden
   const transitionStr = buildTransitionStr(duration, ease, delay, styles.hasFilter)
 
@@ -285,7 +291,7 @@ function AnimateIn({
   children,
   delay = 0,
   from = "down",
-  distance = 20,
+  distance = 4,
   scale = false,
   blur = false,
   rotate = 0,

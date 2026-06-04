@@ -43,7 +43,7 @@ function DrawerOverlay({ className, ...props }: DrawerOverlayProps) {
     <DrawerPrimitive.Backdrop
       data-slot="drawer-overlay"
       className={cn(
-        "fixed inset-0 z-50 bg-black/10 transition-opacity duration-300 data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 supports-backdrop-filter:backdrop-blur-xs",
+        "motion-scrim fixed inset-0 z-50 bg-black/10 supports-backdrop-filter:backdrop-blur-xs",
         className,
       )}
       {...props}
@@ -70,7 +70,7 @@ function DrawerContent({
             // Base layout & appearance
             "group/drawer-content bg-background fixed z-50 flex flex-col overflow-y-auto text-sm shadow-lg outline-none",
             // Transition — animate translate, disable during swipe
-            "transition-[translate] duration-300 ease-out data-[swiping]:duration-0",
+            "transition-[translate] duration-200 ease-out data-[swiping]:duration-0",
             // Bottom drawer (swipeDirection="down")
             "data-[swipe-direction=down]:inset-x-0 data-[swipe-direction=down]:bottom-0 data-[swipe-direction=down]:mt-24 data-[swipe-direction=down]:max-h-[80vh] data-[swipe-direction=down]:rounded-t-xl data-[swipe-direction=down]:border-t",
             // Top drawer (swipeDirection="up")

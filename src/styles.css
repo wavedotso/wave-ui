@@ -99,11 +99,10 @@
   /* Motion — tokens consumed by the `motion-*` recipes (see Utilities).
    * Override any value in your own :root. `prefers-reduced-motion` zeroes
    * them in one block (bottom of file), so every recipe collapses safely. */
-  --duration: 250ms;
-  --ease: ease-out;                            /* default — fade/blur, no transform */
-  --spring: cubic-bezier(0.34, 1.45, 0.64, 1); /* only with translate/scale */
-  --blur: 2px;      /* enter/exit blur amount     */
-  --scale: 0.97;    /* enter/exit scale-down       */
+  --duration: 200ms;
+  --ease: cubic-bezier(0, 0.55, 0.45, 1); /* the one curve — every recipe + controls (circ-out) */
+  --blur: 8px;      /* enter/exit surface blur; icons derive ¼ (see motion-scale) */
+  --scale: 0.95;    /* enter/exit scale-down       */
   --offset: 4px;    /* enter/exit translate offset */
   --stagger: 70ms;  /* per-item list delay         */
 }
@@ -234,7 +233,7 @@
   --radius-4xl: calc(var(--radius) + 16px);
 
   /* Typography — passthroughs so consumers' `--font-sans` /
-   * `--font-geist-mono` flow through to Tailwind's `font-sans` /
+   * `--font-mono` flow through to Tailwind's `font-sans` /
    * `font-mono` utilities. */
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
@@ -251,22 +250,52 @@
   cursor: var(--cursor-clickable);
 }
 
+/* `motion-color` — interaction-state transition for controls: smoothly
+ * animates color / background / border / ring (box-shadow) on hover, focus,
+ * pressed, checked, etc. A plain layered `@utility`, so the unlayered
+ * enter/exit recipes below win over it when both land on one element (e.g. a
+ * button that also carries `motion-scale`). */
+@utility motion-color {
+  transition: color var(--duration) var(--ease),
+              background-color var(--duration) var(--ease),
+              border-color var(--duration) var(--ease),
+              box-shadow var(--duration) var(--ease);
+}
+
 /* Motion recipes — Base UI primitives emit `data-starting-style` (enter)
- * and `data-ending-style` (exit). Each recipe declares its `transition`,
- * resting state, and enter/exit state in one `@utility` (the `utilities`
- * layer) so `group-has` overrides (also utilities) win over the resting
- * state by normal cascade order. Co-locating `transition` here is only safe
- * because the library ships no `transition-all` — nothing else in the
- * utilities layer sets `transition` on a recipe-bearing element and clobbers
- * it. (If `transition-all` ever returns, these break; keep them specific.)
+ * and `data-ending-style` (exit). Each recipe's resting + enter/exit state
+ * lives in `@utility` (the `utilities` layer) so `group-has` overrides (also
+ * utilities) win over the resting state by normal cascade order.
+ *
+ * The `transition` is declared UNLAYERED (right after these blocks), NOT
+ * inside `@utility`. Recipes routinely sit on elements that ALSO carry a
+ * Tailwind `transition-*` utility — e.g. the combobox chevron is an
+ * `InputGroupButton`, i.e. a `Button` with `transition-[color,…]`. Both set
+ * the `transition` property; in the SAME layer the Button's wins and the
+ * recipe animates instantly (no transition — the bug this guards against).
+ * An unlayered declaration beats ANY layered `transition-*` per the CSS
+ * cascade, with NO `!important` (banned — see feedback_security). The
+ * resting/enter/exit declarations stay layered so `group-has` still wins.
  *
  * `0.001px` resting blur defeats Lightning CSS's `blur(0) → blur()`
  * minification (which emits invalid CSS); it is visually equivalent to 0. */
 
-/* `motion-fade` — opacity + blur. For simple show/hide on small surfaces. */
+/* `motion-scrim` — opacity only, no blur. For full-screen backdrops: animating
+ * blur across the whole viewport janks (a flat dim shows none anyway). The
+ * scrim only fades its dim — the frosted-glass look comes from a STATIC
+ * `backdrop-filter` on the backdrop, faded by this opacity (not an animated
+ * `filter`, which is what would jank). */
+@utility motion-scrim {
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+  }
+}
+
+/* `motion-fade` — opacity + blur, no transform. The signature fade for content
+ * that should blur in/out without moving — use anywhere a plain fade is wanted.
+ * Full `--blur`. NOT for full-screen scrims (use `motion-scrim`). */
 @utility motion-fade {
-  transition: opacity var(--duration) var(--ease),
-              filter var(--duration) var(--ease);
   filter: blur(0.001px);
   &[data-starting-style],
   &[data-ending-style] {
@@ -275,36 +304,65 @@
   }
 }
 
-/* `motion-scale` — opacity + blur + scale-down. For icon-sized targets. */
+/* `motion-scale` — opacity + blur + scale-down. For centered content (dialog /
+ * alert-dialog, which use the full `--blur`) and small / icon targets. Icons set
+ * an absolute `--motion-scale-blur` (e.g. `2px`) to opt out of the surface blur:
+ * a ~16px icon needs a small *fixed* blur, independent of the surface `--blur`
+ * (so retuning `--blur` never drifts the icons). */
 @utility motion-scale {
-  transition: opacity var(--duration) var(--ease),
-              filter var(--duration) var(--ease),
-              scale var(--duration) var(--ease);
   filter: blur(0.001px);
   scale: 1;
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    filter: blur(var(--blur));
+    filter: blur(var(--motion-scale-blur, var(--blur)));
     scale: var(--scale);
   }
 }
 
-/* `motion-rise` — opacity + blur + translate-y, spring ease. For larger
- * content surfaces (alerts, menus, cards) — spring overshoot only reads
- * with translate. */
-@utility motion-rise {
-  transition: opacity var(--duration) var(--spring),
-              filter var(--duration) var(--spring),
-              translate var(--duration) var(--spring);
+/* `motion-slide` — opacity + blur + DIRECTIONAL translate, circ-out. For
+ * popups that "open up" (popover, menu, select, tooltip, …). The popup starts
+ * offset AWAY from its trigger's side (Base UI sets `data-[side]` on the popup)
+ * and settles toward it; default / `side=bottom` rises up. */
+@utility motion-slide {
   filter: blur(0.001px);
   translate: 0;
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
     filter: blur(var(--blur));
-    translate: 0 var(--offset);
+    translate: 0 var(--offset); /* default + side=bottom: start lower, rise up */
   }
+  &[data-side=top][data-starting-style],
+  &[data-side=top][data-ending-style] { translate: 0 calc(var(--offset) * -1); }
+  &[data-side=left][data-starting-style],
+  &[data-side=left][data-ending-style],
+  &[data-side=inline-start][data-starting-style],
+  &[data-side=inline-start][data-ending-style] { translate: calc(var(--offset) * -1) 0; }
+  &[data-side=right][data-starting-style],
+  &[data-side=right][data-ending-style],
+  &[data-side=inline-end][data-starting-style],
+  &[data-side=inline-end][data-ending-style] { translate: var(--offset) 0; }
+}
+
+/* Recipe transitions — UNLAYERED on purpose (see note above): beats any
+ * layered `transition-*` utility on the same element without `!important`. */
+.motion-scrim {
+  transition: opacity var(--duration) var(--ease);
+}
+.motion-fade {
+  transition: opacity var(--duration) var(--ease),
+              filter var(--duration) var(--ease);
+}
+.motion-scale {
+  transition: opacity var(--duration) var(--ease),
+              filter var(--duration) var(--ease),
+              scale var(--duration) var(--ease);
+}
+.motion-slide {
+  transition: opacity var(--duration) var(--ease),
+              filter var(--duration) var(--ease),
+              translate var(--duration) var(--ease);
 }
 
 /* ---------------------------------------------------------------------------

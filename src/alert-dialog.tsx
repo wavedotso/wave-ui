@@ -50,7 +50,7 @@ function AlertDialogOverlay({ className, ...props }: AlertDialogOverlayProps) {
     <AlertDialogPrimitive.Backdrop
       data-slot="alert-dialog-overlay"
       className={cn(
-        "transition-opacity duration-300 data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 fixed inset-0 isolate z-50 bg-black/10 supports-backdrop-filter:backdrop-blur-xs",
+        "motion-scrim fixed inset-0 isolate z-50 bg-black/10 supports-backdrop-filter:backdrop-blur-xs",
         className,
       )}
       {...props}
@@ -70,7 +70,7 @@ function AlertDialogContent({
         data-slot="alert-dialog-content"
         data-size={size}
         className={cn(
-          "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 bg-background ring-foreground/10 group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl p-4 ring-1 duration-100 outline-none data-[size=default]:max-w-xs data-[size=sm]:max-w-xs data-[size=lg]:max-w-lg data-[size=xl]:max-w-xl data-[size=default]:sm:max-w-sm data-[size=lg]:sm:max-w-lg data-[size=xl]:sm:max-w-xl",
+          "motion-scale bg-background ring-foreground/10 group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl p-4 ring-1 outline-none data-[size=default]:max-w-xs data-[size=sm]:max-w-xs data-[size=lg]:max-w-lg data-[size=xl]:max-w-xl data-[size=default]:sm:max-w-sm data-[size=lg]:sm:max-w-lg data-[size=xl]:sm:max-w-xl",
           className,
         )}
         {...props}
