@@ -69,8 +69,8 @@ function DrawerContent({
           className={cn(
             // Base layout & appearance
             "group/drawer-content bg-background fixed z-50 flex flex-col overflow-y-auto text-sm shadow-lg outline-none",
-            // Transition — animate translate, disable during swipe
-            "transition-[translate] duration-200 ease-out data-[swiping]:duration-0",
+            // Transition — animate translate at the lg tier + the one curve; disable during swipe
+            "transition-[translate] duration-(--duration-lg) ease-(--ease) data-[swiping]:duration-0",
             // Bottom drawer (swipeDirection="down")
             "data-[swipe-direction=down]:inset-x-0 data-[swipe-direction=down]:bottom-0 data-[swipe-direction=down]:mt-24 data-[swipe-direction=down]:max-h-[80vh] data-[swipe-direction=down]:rounded-t-xl data-[swipe-direction=down]:border-t",
             // Top drawer (swipeDirection="up")

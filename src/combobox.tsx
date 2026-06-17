@@ -81,7 +81,7 @@ function ComboboxClear({ className, ...props }: ComboboxClearProps) {
     <ComboboxPrimitive.Clear
       data-slot="combobox-clear"
       render={<InputGroupButton variant="ghost" size="icon-xs" />}
-      className={cn("motion-scale [--motion-scale-blur:2px]", className)}
+      className={cn("motion-scale-sm", className)}
       {...props}
     >
       <CloseIcon
@@ -107,9 +107,8 @@ function ComboboxInput({
          * cross-fade. In single-select mode Base UI mounts the Clear only
          * when a value is *selected* (not while typing), and marks it with
          * a persistent `data-visible` attribute. The chevron keys its
-         * fade-out (opacity/blur/scale via `motion-scale`) off that exact
-         * attribute. Both behaviours are pinned by `combobox.test.tsx` —
-         * verified against the rendered DOM, not inferred. */}
+         * fade-out (opacity/blur/scale via `motion-scale-sm`) off that exact
+         * attribute, so chevron→clear cross-fades in place. */}
         <div className="relative grid size-6 *:[grid-area:1/1]">
           {showTrigger ? (
             <InputGroupButton
@@ -119,11 +118,11 @@ function ComboboxInput({
               render={<ComboboxTrigger />}
               data-slot="input-group-button"
               className={cn(
-                "motion-scale [--motion-scale-blur:2px] data-pressed:bg-transparent",
+                "motion-scale-sm data-pressed:bg-transparent",
                 "group-has-[[data-slot=combobox-clear][data-visible]]/input-group:pointer-events-none",
                 "group-has-[[data-slot=combobox-clear][data-visible]]/input-group:opacity-0",
-                "group-has-[[data-slot=combobox-clear][data-visible]]/input-group:[filter:blur(var(--blur))]",
-                "group-has-[[data-slot=combobox-clear][data-visible]]/input-group:scale-[var(--scale)]",
+                "group-has-[[data-slot=combobox-clear][data-visible]]/input-group:[filter:blur(var(--blur-sm))]",
+                "group-has-[[data-slot=combobox-clear][data-visible]]/input-group:scale-[var(--scale-sm)]",
               )}
               disabled={disabled}
             />
@@ -172,7 +171,7 @@ function ComboboxContent({
         <ComboboxPrimitive.Popup
           data-slot="combobox-content"
           className={cn(
-            "motion-slide bg-popover text-popover-foreground ring-foreground/10 *:data-[slot=input-group]:bg-input/30 *:data-[slot=input-group]:border-input/30 group/combobox-content relative max-h-(--available-height) max-w-(--available-width) min-w-(--anchor-width) origin-(--transform-origin) overflow-hidden rounded-lg shadow-md ring-1 *:data-[slot=input-group]:m-1 *:data-[slot=input-group]:mb-0 *:data-[slot=input-group]:h-8 *:data-[slot=input-group]:shadow-none",
+            "motion-pop-md bg-popover text-popover-foreground ring-foreground/10 *:data-[slot=input-group]:bg-input/30 *:data-[slot=input-group]:border-input/30 group/combobox-content relative max-h-(--available-height) max-w-(--available-width) min-w-(--anchor-width) origin-(--transform-origin) overflow-hidden rounded-lg shadow-md ring-1 *:data-[slot=input-group]:m-1 *:data-[slot=input-group]:mb-0 *:data-[slot=input-group]:h-8 *:data-[slot=input-group]:shadow-none",
             className,
           )}
           {...props}

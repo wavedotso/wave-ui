@@ -123,7 +123,7 @@ function AutocompletePopup({ className, ...props }: AutocompletePopupProps) {
     <AutocompletePrimitive.Popup
       data-slot="autocomplete-popup"
       className={cn(
-        "motion-slide bg-popover text-popover-foreground ring-foreground/10 group/autocomplete-content relative max-h-(--available-height) min-w-(--anchor-width) origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-lg shadow-md ring-1",
+        "motion-pop-md bg-popover text-popover-foreground ring-foreground/10 group/autocomplete-content relative max-h-(--available-height) min-w-(--anchor-width) origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-lg shadow-md ring-1",
         className,
       )}
       {...props}

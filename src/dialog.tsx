@@ -80,7 +80,7 @@ function DialogContent({
       <DialogPrimitive.Popup
         data-slot="dialog-content"
         className={cn(
-          "motion-scale bg-background ring-foreground/10 fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl p-4 text-sm ring-1 outline-none sm:max-w-sm",
+          "motion-scale-lg bg-background ring-foreground/10 fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl p-4 text-sm ring-1 outline-none sm:max-w-sm",
           className
         )}
         {...props}
@@ -145,7 +145,9 @@ function DialogTitle({ className, ...props }: DialogTitleProps) {
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
-      className={cn("text-base leading-none font-medium", className)}
+      // pr-8 reserves room for the close button (absolute, top-2 right-2) so a
+      // long title wraps before it instead of running underneath.
+      className={cn("text-base leading-none font-medium pr-8", className)}
       {...props}
     />
   )

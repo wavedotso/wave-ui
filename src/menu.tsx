@@ -96,7 +96,7 @@ function MenuContent({
         <MenuPrimitive.Popup
           data-slot="menu-content"
           className={cn(
-            "motion-slide ring-foreground/10 bg-popover text-popover-foreground z-50 max-h-(--available-height) w-auto min-w-32 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-lg p-1 shadow-md ring-1 outline-none data-closed:overflow-hidden",
+            "motion-pop-md ring-foreground/10 bg-popover text-popover-foreground z-50 max-h-(--available-height) w-auto min-w-32 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-lg p-1 shadow-md ring-1 outline-none data-closed:overflow-hidden",
             className,
           )}
           finalFocus={resolveFinalFocus(restoreFocusOnClose, finalFocus)}
@@ -188,7 +188,7 @@ function MenuSubContent({
   return (
     <MenuContent
       data-slot="menu-sub-content"
-      className={cn("w-auto min-w-24 shadow-lg", className)}
+      className={cn("w-auto min-w-24 shadow-md", className)}
       align={align}
       alignOffset={alignOffset}
       side={side}

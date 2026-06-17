@@ -6,15 +6,11 @@
  *   @import 'tailwindcss';
  *   @import '@waveso/ui/styles.css';
  *
- * This brings the `tw-animate-css` keyframe utilities the components
- * rely on, the `dark` variant, every theme token (override in your own
- * :root / .dark), motion tokens + recipes, and the `@source` rule. No
- * other library-related imports needed.
+ * This brings the `dark` variant, every theme token (override in your own
+ * :root / .dark), motion tokens + recipes, the few self-hosted keyframe
+ * utilities the components need, and the `@source` rule. No other
+ * library-related imports needed — zero runtime dependencies.
  */
-
-/* Keyframe animation utilities used by popup components
- * (`data-open:animate-in`, `fade-in-0`, `zoom-in-95`, etc.). */
-@import "tw-animate-css";
 
 /* Auto-register component source files so Tailwind generates CSS for all
  * utility classes used by @waveso/ui components. Resolves relative to this
@@ -51,6 +47,14 @@
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
+
+  /* Shadow — two dials for the layered `shadow-*` scale: `--shadow-color` (HSL
+   * components — a deep cool-tinted near-black, never pure #000 which reads
+   * heavy) and `--shadow-strength` (per-layer alpha / intensity). Both resolve
+   * per :root/.dark, so retinting OR dimming every shadow is one token. For a
+   * colored surface set a named tint, e.g. `--shadow-color-primary`. */
+  --shadow-color: 220deg 45% 6%;
+  --shadow-strength: 0.22;
 
   /* Status */
   --destructive: oklch(0.58 0.22 27);
@@ -96,15 +100,33 @@
    * native / HIG behavior; real links keep their own pointer regardless. */
   --cursor-clickable: pointer;
 
-  /* Motion — tokens consumed by the `motion-*` recipes (see Utilities).
-   * Override any value in your own :root. `prefers-reduced-motion` zeroes
-   * them in one block (bottom of file), so every recipe collapses safely. */
-  --duration: 200ms;
-  --ease: cubic-bezier(0, 0.55, 0.45, 1); /* the one curve — every recipe + controls (circ-out) */
-  --blur: 8px;      /* enter/exit surface blur; icons derive ¼ (see motion-scale) */
-  --scale: 0.95;    /* enter/exit scale-down       */
-  --offset: 4px;    /* enter/exit translate offset */
-  --stagger: 70ms;  /* per-item list delay         */
+  /* Motion — tokens consumed by the `motion-*` recipes (see Utilities). Override
+   * any value in your own :root. `prefers-reduced-motion` zeroes them (bottom of
+   * file), so every recipe collapses safely.
+   *
+   * THE SYSTEM — 5 scalable magnitudes × 3 tiers (sm/md/lg) + 1 fixed signature:
+   *   scalable → --duration · --blur · --scale · --offset · --stagger
+   *   fixed    → --ease (the one curve — never tiered)
+   *   tiers    → sm = controls/icons · md = popups · lg = dialogs
+   * sm/lg zoom in place; md also slides. `--offset`/`--stagger` sm+lg are
+   * defined ahead of use (wired per surface as we build them out). */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1); /* the one curve — never tiered */
+
+  --duration-sm: 150ms;  /* controls, icons */
+  --duration-md: 200ms;  /* popups          */
+  --duration-lg: 250ms;  /* dialogs         */
+  --blur-sm: 2px;
+  --blur-md: 4px;
+  --blur-lg: 8px;
+  --scale-sm: 0.95;
+  --scale-md: 0.9;
+  --scale-lg: 0.85;
+  --offset-sm: 2px;      /* item/icon nudge */
+  --offset-md: 4px;      /* popup slide     */
+  --offset-lg: 8px;
+  --stagger-sm: 30ms;    /* list-item delay */
+  --stagger-md: 60ms;
+  --stagger-lg: 90ms;
 }
 
 /* ---------------------------------------------------------------------------
@@ -134,6 +156,11 @@
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
+
+  /* Shadow — darker tint, lower strength: a near-black shadow on a dark
+   * surface reads heavier than on white, so dim it. */
+  --shadow-color: 220deg 40% 3%;
+  --shadow-strength: 0.18;
 
   /* Status */
   --destructive: oklch(0.704 0.191 22.216);
@@ -239,6 +266,31 @@
   --font-mono: var(--font-mono);
 }
 
+/* Shadow scale — layered, tinted by `--shadow-color` and dimmed by
+ * `--shadow-strength` (both resolve per :root/.dark, so retinting or dimming
+ * every shadow is one token). Tiers differ by layer count + spread, not alpha.
+ * Overrides Tailwind's shadow-sm/md/lg. */
+@theme {
+  --shadow-sm:
+    0px 0.5px 0.7px hsl(var(--shadow-color) / var(--shadow-strength)),
+    0px 0.8px 1px -1.2px hsl(var(--shadow-color) / var(--shadow-strength)),
+    0px 2px 2.5px -2.5px hsl(var(--shadow-color) / var(--shadow-strength));
+  --shadow-md:
+    0px 0.5px 0.7px hsl(var(--shadow-color) / var(--shadow-strength)),
+    0px 1.6px 2px -0.8px hsl(var(--shadow-color) / var(--shadow-strength)),
+    0px 4.1px 5.2px -1.7px hsl(var(--shadow-color) / var(--shadow-strength)),
+    0px 10px 12.6px -2.5px hsl(var(--shadow-color) / var(--shadow-strength));
+  --shadow-lg:
+    0px 0.5px 0.7px hsl(var(--shadow-color) / var(--shadow-strength)),
+    0px 2.9px 3.7px -0.4px hsl(var(--shadow-color) / var(--shadow-strength)),
+    0px 5.4px 6.8px -0.7px hsl(var(--shadow-color) / var(--shadow-strength)),
+    0px 8.9px 11.2px -1.1px hsl(var(--shadow-color) / var(--shadow-strength)),
+    0px 14.3px 18px -1.4px hsl(var(--shadow-color) / var(--shadow-strength)),
+    0px 22.3px 28.1px -1.8px hsl(var(--shadow-color) / var(--shadow-strength)),
+    0px 33.9px 42.7px -2.1px hsl(var(--shadow-color) / var(--shadow-strength)),
+    0px 50px 62.9px -2.5px hsl(var(--shadow-color) / var(--shadow-strength));
+}
+
 /* ---------------------------------------------------------------------------
  * Utilities
  * ------------------------------------------------------------------------- */
@@ -252,14 +304,14 @@
 
 /* `motion-color` — interaction-state transition for controls: smoothly
  * animates color / background / border / ring (box-shadow) on hover, focus,
- * pressed, checked, etc. A plain layered `@utility`, so the unlayered
- * enter/exit recipes below win over it when both land on one element (e.g. a
- * button that also carries `motion-scale`). */
+ * pressed, checked, etc. Runs at the `sm` tier (controls are small + fast). A
+ * plain layered `@utility`, so the unlayered enter/exit recipes below win over
+ * it when both land on one element (e.g. a button that also carries `motion-scale-sm`). */
 @utility motion-color {
-  transition: color var(--duration) var(--ease),
-              background-color var(--duration) var(--ease),
-              border-color var(--duration) var(--ease),
-              box-shadow var(--duration) var(--ease);
+  transition: color var(--duration-sm) var(--ease),
+              background-color var(--duration-sm) var(--ease),
+              border-color var(--duration-sm) var(--ease),
+              box-shadow var(--duration-sm) var(--ease);
 }
 
 /* Motion recipes — Base UI primitives emit `data-starting-style` (enter)
@@ -292,77 +344,214 @@
   }
 }
 
-/* `motion-fade` — opacity + blur, no transform. The signature fade for content
- * that should blur in/out without moving — use anywhere a plain fade is wanted.
- * Full `--blur`. NOT for full-screen scrims (use `motion-scrim`). */
-@utility motion-fade {
-  filter: blur(0.001px);
-  &[data-starting-style],
-  &[data-ending-style] {
-    opacity: 0;
-    filter: blur(var(--blur));
-  }
-}
-
-/* `motion-scale` — opacity + blur + scale-down. For centered content (dialog /
- * alert-dialog, which use the full `--blur`) and small / icon targets. Icons set
- * an absolute `--motion-scale-blur` (e.g. `2px`) to opt out of the surface blur:
- * a ~16px icon needs a small *fixed* blur, independent of the surface `--blur`
- * (so retuning `--blur` never drifts the icons). */
-@utility motion-scale {
+/* Enter/exit recipes — THREE idioms, each tiered sm/md/lg.
+ *   `motion-scale-*` ZOOMs (opacity + blur + scale) — icons (sm), dialogs (lg).
+ *   `motion-slide-*` SLIDES (opacity + blur + directional translate) — popups (md).
+ *   `motion-fade-*`  FADES in place (opacity + blur, no transform).
+ * Tiers: sm = controls/icons · md = popups · lg = dialogs. Pick ONE idiom +
+ * tier per surface (don't compose — each declares its own unlayered transition).
+ * Companion idioms: `motion-color` (controls) and `motion-scrim` (backdrops). */
+@utility motion-scale-sm {
   filter: blur(0.001px);
   scale: 1;
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    filter: blur(var(--motion-scale-blur, var(--blur)));
-    scale: var(--scale);
+    filter: blur(var(--blur-sm));
+    scale: var(--scale-sm);
+  }
+}
+@utility motion-scale-md {
+  filter: blur(0.001px);
+  scale: 1;
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+    filter: blur(var(--blur-md));
+    scale: var(--scale-md);
+  }
+}
+@utility motion-scale-lg {
+  filter: blur(0.001px);
+  scale: 1;
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+    filter: blur(var(--blur-lg));
+    scale: var(--scale-lg);
   }
 }
 
-/* `motion-slide` — opacity + blur + DIRECTIONAL translate, circ-out. For
- * popups that "open up" (popover, menu, select, tooltip, …). The popup starts
- * offset AWAY from its trigger's side (Base UI sets `data-[side]` on the popup)
- * and settles toward it; default / `side=bottom` rises up. */
-@utility motion-slide {
+/* `motion-slide-*` — directional slide: the surface starts offset AWAY from its
+ * trigger's `data-[side]` (Base UI sets it) and settles toward it; default /
+ * side=bottom rises up. Opacity + blur + translate (`--offset-*`), NO scale. */
+@utility motion-slide-sm {
   filter: blur(0.001px);
   translate: 0;
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
-    filter: blur(var(--blur));
-    translate: 0 var(--offset); /* default + side=bottom: start lower, rise up */
+    filter: blur(var(--blur-sm));
+    translate: 0 var(--offset-sm);
   }
   &[data-side=top][data-starting-style],
-  &[data-side=top][data-ending-style] { translate: 0 calc(var(--offset) * -1); }
+  &[data-side=top][data-ending-style] { translate: 0 calc(var(--offset-sm) * -1); }
   &[data-side=left][data-starting-style],
   &[data-side=left][data-ending-style],
   &[data-side=inline-start][data-starting-style],
-  &[data-side=inline-start][data-ending-style] { translate: calc(var(--offset) * -1) 0; }
+  &[data-side=inline-start][data-ending-style] { translate: calc(var(--offset-sm) * -1) 0; }
   &[data-side=right][data-starting-style],
   &[data-side=right][data-ending-style],
   &[data-side=inline-end][data-starting-style],
-  &[data-side=inline-end][data-ending-style] { translate: var(--offset) 0; }
+  &[data-side=inline-end][data-ending-style] { translate: var(--offset-sm) 0; }
+}
+@utility motion-slide-md {
+  filter: blur(0.001px);
+  translate: 0;
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+    filter: blur(var(--blur-md));
+    translate: 0 var(--offset-md); /* default + side=bottom: start lower, rise up */
+  }
+  &[data-side=top][data-starting-style],
+  &[data-side=top][data-ending-style] { translate: 0 calc(var(--offset-md) * -1); }
+  &[data-side=left][data-starting-style],
+  &[data-side=left][data-ending-style],
+  &[data-side=inline-start][data-starting-style],
+  &[data-side=inline-start][data-ending-style] { translate: calc(var(--offset-md) * -1) 0; }
+  &[data-side=right][data-starting-style],
+  &[data-side=right][data-ending-style],
+  &[data-side=inline-end][data-starting-style],
+  &[data-side=inline-end][data-ending-style] { translate: var(--offset-md) 0; }
+}
+@utility motion-slide-lg {
+  filter: blur(0.001px);
+  translate: 0;
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+    filter: blur(var(--blur-lg));
+    translate: 0 var(--offset-lg);
+  }
+  &[data-side=top][data-starting-style],
+  &[data-side=top][data-ending-style] { translate: 0 calc(var(--offset-lg) * -1); }
+  &[data-side=left][data-starting-style],
+  &[data-side=left][data-ending-style],
+  &[data-side=inline-start][data-starting-style],
+  &[data-side=inline-start][data-ending-style] { translate: calc(var(--offset-lg) * -1) 0; }
+  &[data-side=right][data-starting-style],
+  &[data-side=right][data-ending-style],
+  &[data-side=inline-end][data-starting-style],
+  &[data-side=inline-end][data-ending-style] { translate: var(--offset-lg) 0; }
+}
+
+/* `motion-fade-*` — fade in place: opacity + blur, no transform. The signature
+ * blur-fade for content that should appear without moving or scaling. */
+@utility motion-fade-sm {
+  filter: blur(0.001px);
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+    filter: blur(var(--blur-sm));
+  }
+}
+@utility motion-fade-md {
+  filter: blur(0.001px);
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+    filter: blur(var(--blur-md));
+  }
+}
+@utility motion-fade-lg {
+  filter: blur(0.001px);
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+    filter: blur(var(--blur-lg));
+  }
+}
+
+/* `motion-pop-md` — COMBINED idiom: scale + slide together (dropdowns "pop up
+ * while zooming"). The one surface that wants two idioms — so it's a single
+ * recipe with one transition. Don't try `motion-scale-md motion-slide-md`: their
+ * transitions collide and scale won't animate. md only (no sm/lg consumer). */
+@utility motion-pop-md {
+  filter: blur(0.001px);
+  scale: 1;
+  translate: 0;
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+    filter: blur(var(--blur-md));
+    scale: var(--scale-md);
+    translate: 0 var(--offset-md); /* default + side=bottom: start lower, rise up */
+  }
+  &[data-side=top][data-starting-style],
+  &[data-side=top][data-ending-style] { translate: 0 calc(var(--offset-md) * -1); }
+  &[data-side=left][data-starting-style],
+  &[data-side=left][data-ending-style],
+  &[data-side=inline-start][data-starting-style],
+  &[data-side=inline-start][data-ending-style] { translate: calc(var(--offset-md) * -1) 0; }
+  &[data-side=right][data-starting-style],
+  &[data-side=right][data-ending-style],
+  &[data-side=inline-end][data-starting-style],
+  &[data-side=inline-end][data-ending-style] { translate: var(--offset-md) 0; }
 }
 
 /* Recipe transitions — UNLAYERED on purpose (see note above): beats any
  * layered `transition-*` utility on the same element without `!important`. */
 .motion-scrim {
-  transition: opacity var(--duration) var(--ease);
+  transition: opacity var(--duration-lg) var(--ease);
 }
-.motion-fade {
-  transition: opacity var(--duration) var(--ease),
-              filter var(--duration) var(--ease);
+.motion-scale-sm {
+  transition: opacity var(--duration-sm) var(--ease),
+              filter var(--duration-sm) var(--ease),
+              scale var(--duration-sm) var(--ease);
 }
-.motion-scale {
-  transition: opacity var(--duration) var(--ease),
-              filter var(--duration) var(--ease),
-              scale var(--duration) var(--ease);
+.motion-scale-md {
+  transition: opacity var(--duration-md) var(--ease),
+              filter var(--duration-md) var(--ease),
+              scale var(--duration-md) var(--ease);
 }
-.motion-slide {
-  transition: opacity var(--duration) var(--ease),
-              filter var(--duration) var(--ease),
-              translate var(--duration) var(--ease);
+.motion-scale-lg {
+  transition: opacity var(--duration-lg) var(--ease),
+              filter var(--duration-lg) var(--ease),
+              scale var(--duration-lg) var(--ease);
+}
+.motion-slide-sm {
+  transition: opacity var(--duration-sm) var(--ease),
+              filter var(--duration-sm) var(--ease),
+              translate var(--duration-sm) var(--ease);
+}
+.motion-slide-md {
+  transition: opacity var(--duration-md) var(--ease),
+              filter var(--duration-md) var(--ease),
+              translate var(--duration-md) var(--ease);
+}
+.motion-slide-lg {
+  transition: opacity var(--duration-lg) var(--ease),
+              filter var(--duration-lg) var(--ease),
+              translate var(--duration-lg) var(--ease);
+}
+.motion-fade-sm {
+  transition: opacity var(--duration-sm) var(--ease),
+              filter var(--duration-sm) var(--ease);
+}
+.motion-fade-md {
+  transition: opacity var(--duration-md) var(--ease),
+              filter var(--duration-md) var(--ease);
+}
+.motion-fade-lg {
+  transition: opacity var(--duration-lg) var(--ease),
+              filter var(--duration-lg) var(--ease);
+}
+.motion-pop-md {
+  transition: opacity   var(--duration-md) var(--ease),
+              filter    var(--duration-md) var(--ease),
+              scale     var(--duration-md) var(--ease),
+              translate var(--duration-md) var(--ease);
 }
 
 /* ---------------------------------------------------------------------------
@@ -370,10 +559,37 @@
  * ------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   :root {
-    --duration: 0ms;
-    --blur: 0px;
-    --scale: 1;
-    --offset: 0px;
-    --stagger: 0ms;
+    --duration-sm: 0ms; --duration-md: 0ms; --duration-lg: 0ms;
+    --blur-sm: 0px; --blur-md: 0px; --blur-lg: 0px;
+    --scale-sm: 1; --scale-md: 1; --scale-lg: 1;
+    --offset-sm: 0px; --offset-md: 0px; --offset-lg: 0px;
+    --stagger-sm: 0ms; --stagger-md: 0ms; --stagger-lg: 0ms;
   }
+}
+
+/* ---------------------------------------------------------------------------
+ * Keyframe utilities — self-hosted (replaces the former `tw-animate-css` dep,
+ * now removed). Only the three the library actually uses; `animate-spin` /
+ * `animate-pulse` come from Tailwind core. Registering via `@theme` generates
+ * the `animate-accordion-down` / `animate-accordion-up` / `animate-caret-blink`
+ * utilities. Accordion height runs on our motion tokens (`md` tier + the curve)
+ * and uses Base UI's `--accordion-panel-height` (the Radix var tw-animate
+ * targeted is never set under Base UI). Collapses under reduced motion via
+ * `--duration-md`. */
+@theme {
+  --animate-accordion-down: accordion-down var(--duration-md) var(--ease);
+  --animate-accordion-up: accordion-up var(--duration-md) var(--ease);
+  --animate-caret-blink: caret-blink 1.25s ease-out infinite;
+}
+@keyframes accordion-down {
+  from { height: 0; }
+  to { height: var(--accordion-panel-height); }
+}
+@keyframes accordion-up {
+  from { height: var(--accordion-panel-height); }
+  to { height: 0; }
+}
+@keyframes caret-blink {
+  0%, 70%, 100% { opacity: 1; }
+  20%, 50% { opacity: 0; }
 }

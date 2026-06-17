@@ -121,8 +121,7 @@ const FLIP_MAP = {
 
 /** Overshoot ("spring") easing for the opt-in `spring` prop on
  *  `AnimateIn` / `AnimateOnView`. This is `animate.tsx`'s own page-entrance
- *  bounce — the CSS recipe system intentionally has no spring (one circ-out
- *  curve), so this is a standalone constant, not a shared token. */
+ *  bounce — the CSS recipe system intentionally has no spring, so this is a standalone constant, not a shared token. */
 const SPRING_EASE = "cubic-bezier(0.34, 1.45, 0.64, 1)"
 
 interface BuildStylesOptions {

@@ -99,7 +99,7 @@ function ContextMenuContent({
         <ContextMenuPrimitive.Popup
           data-slot="context-menu-content"
           className={cn(
-            "motion-slide ring-foreground/10 bg-popover text-popover-foreground z-50 max-h-(--available-height) min-w-36 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-lg p-1 shadow-md ring-1 outline-none",
+            "motion-pop-md ring-foreground/10 bg-popover text-popover-foreground z-50 max-h-(--available-height) min-w-36 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-lg p-1 shadow-md ring-1 outline-none",
             className,
           )}
           finalFocus={resolveFinalFocus(restoreFocusOnClose, finalFocus)}
@@ -182,7 +182,7 @@ function ContextMenuSubContent({
   return (
     <ContextMenuContent
       data-slot="context-menu-sub-content"
-      className={cn("w-auto min-w-24 shadow-lg", className)}
+      className={cn("w-auto min-w-24 shadow-md", className)}
       align={align}
       alignOffset={alignOffset}
       side={side}
