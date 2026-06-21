@@ -302,13 +302,13 @@ function ActionBarProvider({
             <div
               data-slot="action-bar-content"
               className={cn(
-                "flex items-center gap-6 rounded-xl border border-border/60 bg-card px-5 py-2.5 shadow-lg ring-1 ring-black/5 backdrop-blur-sm dark:ring-white/5",
+                "flex items-center gap-6 rounded-lg border border-line/60 bg-surface px-5 py-2.5 shadow-lg ring-1 ring-line backdrop-blur-sm",
                 className
               )}
             >
               <span
                 data-slot="action-bar-message"
-                className="whitespace-nowrap text-sm font-medium text-foreground"
+                className="whitespace-nowrap text-sm font-medium text-contrast"
               >
                 {displayMessage}
               </span>

@@ -38,7 +38,7 @@ export const Default: Story = {
         <p>Card content goes here.</p>
       </CardContent>
       <CardFooter>
-        <Button variant="solid" className="w-full">Action</Button>
+        <Button variant="default" className="w-full">Action</Button>
       </CardFooter>
     </Card>
   ),
@@ -82,7 +82,7 @@ export const WithForm: Story = {
       </CardContent>
       <CardFooter className="justify-between">
         <Button variant="outline">Cancel</Button>
-        <Button variant="solid">Create</Button>
+        <Button variant="default">Create</Button>
       </CardFooter>
     </Card>
   ),

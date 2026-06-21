@@ -36,7 +36,7 @@ export const Default: Story = {
           </Avatar>
           <div className="flex flex-col gap-1">
             <p className="text-sm font-semibold">Wave</p>
-            <p className="text-muted-foreground text-xs">
+            <p className="text-muted text-xs">
               Make a wave in the internet.
             </p>
           </div>
@@ -67,7 +67,7 @@ export const SideTop: Story = {
           </Avatar>
           <div className="flex flex-col gap-1">
             <p className="text-sm font-semibold">Anthropic</p>
-            <p className="text-muted-foreground text-xs">AI safety company.</p>
+            <p className="text-muted text-xs">AI safety company.</p>
           </div>
         </div>
       </PreviewCardContent>
@@ -96,7 +96,7 @@ export const SideRight: Story = {
           </Avatar>
           <div className="flex flex-col gap-1">
             <p className="text-sm font-semibold">Vercel</p>
-            <p className="text-muted-foreground text-xs">
+            <p className="text-muted text-xs">
               Develop. Preview. Ship.
             </p>
           </div>
@@ -128,20 +128,20 @@ export const RichContent: Story = {
             </Avatar>
             <div className="flex flex-col gap-0.5">
               <p className="text-sm font-semibold">Claude</p>
-              <p className="text-muted-foreground text-xs">@claudeai</p>
+              <p className="text-muted text-xs">@claudeai</p>
             </div>
           </div>
-          <p className="text-muted-foreground text-xs leading-relaxed">
+          <p className="text-muted text-xs leading-relaxed">
             AI assistant by Anthropic. Helpful, harmless, and honest. Your favorite coding partner.
           </p>
           <div className="flex gap-4 text-xs">
             <span>
               <span className="font-semibold">1</span>{' '}
-              <span className="text-muted-foreground">Following</span>
+              <span className="text-muted">Following</span>
             </span>
             <span>
               <span className="font-semibold">617.8K</span>{' '}
-              <span className="text-muted-foreground">Followers</span>
+              <span className="text-muted">Followers</span>
             </span>
           </div>
         </div>

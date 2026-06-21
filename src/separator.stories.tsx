@@ -33,10 +33,10 @@ export const InContent: Story = {
   render: () => (
     <div className="w-[300px]">
       <div className="text-sm font-medium">Title</div>
-      <p className="text-sm text-muted-foreground mt-1">A short description.</p>
+      <p className="text-sm text-muted mt-1">A short description.</p>
       <Separator className="my-4" />
       <div className="text-sm font-medium">Another Section</div>
-      <p className="text-sm text-muted-foreground mt-1">More details here.</p>
+      <p className="text-sm text-muted mt-1">More details here.</p>
     </div>
   ),
 };

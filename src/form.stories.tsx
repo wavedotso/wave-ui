@@ -86,7 +86,7 @@ function ContactFormDemo() {
         )}
       />
       <FormActions>
-        <Button type="submit" variant="solid">Send</Button>
+        <Button type="submit" variant="default">Send</Button>
       </FormActions>
     </Form>
   );
@@ -138,7 +138,7 @@ function WithErrorDemo() {
         )}
       />
       <FormActions>
-        <Button type="submit" variant="solid">Sign in</Button>
+        <Button type="submit" variant="default">Sign in</Button>
       </FormActions>
       <FormMessage>
         Don&apos;t have an account? Sign up.
@@ -209,7 +209,7 @@ function WithSelectDemo() {
         )}
       />
       <FormActions>
-        <Button type="submit" variant="solid">Save</Button>
+        <Button type="submit" variant="default">Save</Button>
         <Button type="reset" variant="ghost" onClick={() => form.reset()}>
           Reset
         </Button>

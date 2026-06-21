@@ -25,28 +25,73 @@
  * ------------------------------------------------------------------------- */
 
 :root {
-  /* Core */
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
+  /* ========================================================================
+   * Palettes — raw primitives. No `--color-` prefix on purpose: these live in
+   * `:root`, not `@theme`, so they generate NO utilities (no `bg-ion-300`).
+   * They're referenced by the semantic tokens below, never used directly.
+   * ====================================================================== */
 
-  /* Brand */
-  --primary: oklch(0.488 0.243 264.376);
-  --primary-foreground: oklch(0.97 0.014 254.604);
-  --secondary: oklch(0.967 0.001 286.375);
-  --secondary-foreground: oklch(0.21 0.006 285.885);
-  --accent: oklch(0.488 0.243 264.376);
-  --accent-foreground: oklch(0.97 0.014 254.604);
+  /* Ion — neutral ramp */
+  --ion-50:  #FAFAFB;
+  --ion-100: #F3F3F4;
+  --ion-200: #E5E5E8;
+  --ion-300: #D1D2D7;
+  --ion-400: #ABACB2;
+  --ion-500: #8B8C94;
+  --ion-600: #6C6D76;
+  --ion-700: #4C4D55;
+  --ion-800: #3B3C44;
+  --ion-900: #323339;
+  --ion-950: #2C2D32;
 
-  /* Neutral */
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  /* Wave — brand ramp */
+  --wave-50:  #EEF3FF;
+  --wave-100: #DCE6FF;
+  --wave-200: #B8C9FF;
+  --wave-300: #8FA8FF;
+  --wave-400: #6A8DFF;
+  --wave-500: #315FE8;
+  --wave-600: #274FC7;
+  --wave-700: #1C3F96;
+  --wave-800: #142B69;
+  --wave-900: #0D1C46;
+  --wave-950: #061237;
+
+  /* ========================================================================
+   * Semantic tokens — light (default). The spec's `.light` block lives in
+   * `:root` so consumers get the light theme without needing a `.light` class.
+   * ====================================================================== */
+
+  /* Backgrounds = elevation */
+  --foundation: var(--ion-200);
+  --surface: var(--ion-100);
+  --elevated: var(--ion-50);
+
+  /* Contrast = emphasis — highest-contrast text → muted → soft. */
+  --contrast: var(--ion-950);
+  --muted: var(--ion-600);
+  --soft: var(--ion-500);
+
+  /* Inverse — an inverted neutral pair (e.g. the dark tooltip). Aliases, so
+   * they auto-flip with `.dark` (var() re-resolves at the use site). */
+  --surface-inverse: var(--contrast);
+  --contrast-inverse: var(--foundation);
+
+  /* Brand — `primary` wired to the Wave ramp; `secondary` is the neutral fill
+   * (secondary/ghost buttons, hovers, selected) at ion-300; `accent` is the
+   * magenta. No per-fill on-color tokens: text on the saturated fills is
+   * `text-white`, text on the neutral `secondary` is `text-contrast`. */
+  --primary: var(--wave-500);
+  --secondary: var(--ion-300);
+  --accent: #9A466A;
+
+  /* Borders = structure */
+  --line: rgba(44, 45, 50, 0.055);
+  --edge: rgba(44, 45, 50, 0.11);
+  --solid: var(--ion-300);
+
+  /* Rings = brand themed */
+  --focus: var(--primary);
 
   /* Shadow — two dials for the layered `shadow-*` scale: `--shadow-color` (HSL
    * components — a deep cool-tinted near-black, never pure #000 which reads
@@ -57,9 +102,10 @@
   --shadow-strength: 0.22;
 
   /* Status */
-  --destructive: oklch(0.58 0.22 27);
-  --success: oklch(0.59 0.18 163);
-  --warning: oklch(0.75 0.18 85);
+  --destructive: oklch(0.63 0.22 27);
+  --success: oklch(0.72 0.19 145);
+  --warning: oklch(0.82 0.17 85);
+  --info: oklch(0.62 0.18 250);
 
   /* Charts */
   --chart-1: oklch(0.809 0.105 251.813);
@@ -73,16 +119,6 @@
   --presence-away: oklch(0.82 0.17 85);
   --presence-busy: oklch(0.63 0.22 27);
   --presence-invisible: oklch(0.55 0 0);
-
-  /* Sidebar */
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.546 0.245 262.881);
-  --sidebar-primary-foreground: oklch(0.97 0.014 254.604);
-  --sidebar-accent: oklch(0.488 0.243 264.376);
-  --sidebar-accent-foreground: oklch(0.97 0.014 254.604);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
 
   /* Radius */
   --radius: 0.625rem;
@@ -134,28 +170,25 @@
  * ------------------------------------------------------------------------- */
 
 .dark {
-  /* Core */
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
+  /* Backgrounds = elevation */
+  --foundation: var(--ion-950);
+  --surface: var(--ion-900);
+  --elevated: var(--ion-800);
 
-  /* Brand */
-  --primary: oklch(0.42 0.18 266);
-  --primary-foreground: oklch(0.97 0.014 254.604);
-  --secondary: oklch(0.274 0.006 286.033);
-  --secondary-foreground: oklch(0.985 0 0);
-  --accent: oklch(0.42 0.18 266);
-  --accent-foreground: oklch(0.97 0.014 254.604);
+  /* Contrast = emphasis */
+  --contrast: var(--ion-100);
+  --muted: var(--ion-400);
+  --soft: var(--ion-600);
 
-  /* Neutral */
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  /* Brand — only `secondary` differs from light; mirrored to ion-700 so the
+   * neutral fill stands out against the dark surfaces. primary / accent /
+   * inverse / focus auto-flip or stay constant via the `:root` definitions. */
+  --secondary: var(--ion-700);
+
+  /* Borders = structure */
+  --line: rgba(246, 246, 241, 0.045);
+  --edge: rgba(246, 246, 241, 0.12);
+  --solid: var(--ion-700);
 
   /* Shadow — darker tint, lower strength: a near-black shadow on a dark
    * surface reads heavier than on white, so dim it. */
@@ -163,9 +196,10 @@
   --shadow-strength: 0.18;
 
   /* Status */
-  --destructive: oklch(0.704 0.191 22.216);
-  --success: oklch(0.72 0.17 162);
-  --warning: oklch(0.82 0.17 85);
+  --destructive: oklch(0.65 0.2 27);
+  --success: oklch(0.65 0.17 145);
+  --warning: oklch(0.75 0.15 85);
+  --info: oklch(0.70 0.16 250);
 
   /* Charts */
   --chart-1: oklch(0.75 0.1 252);
@@ -179,52 +213,47 @@
   --presence-away: oklch(0.75 0.15 85);
   --presence-busy: oklch(0.65 0.2 27);
   --presence-invisible: oklch(0.6 0 0);
-
-  /* Sidebar */
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.623 0.214 259.815);
-  --sidebar-primary-foreground: oklch(0.97 0.014 254.604);
-  --sidebar-accent: oklch(0.42 0.18 266);
-  --sidebar-accent-foreground: oklch(0.97 0.014 254.604);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
 }
 
 /* ---------------------------------------------------------------------------
  * Tailwind v4 theme mapping — maps CSS variables to Tailwind color tokens.
  * Consumers MUST include this for Tailwind classes like `bg-primary`,
- * `text-muted-foreground`, `border-sidebar-border` etc. to work.
+ * `text-muted`, `border-line` etc. to work.
  * ------------------------------------------------------------------------- */
 
 @theme inline {
-  /* Core */
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
+  /* Surfaces */
+  --color-foundation: var(--foundation);
+  --color-surface: var(--surface);
+  --color-elevated: var(--elevated);
 
-  /* Brand */
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-
-  /* Neutral */
+  /* Contrast / text — `contrast` (highest emphasis) → `muted` → `soft`. */
+  --color-contrast: var(--contrast);
   --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
+  --color-soft: var(--soft);
+
+  /* Inverse — maps the `:root` inverse aliases to utilities. */
+  --color-surface-inverse: var(--surface-inverse);
+  --color-contrast-inverse: var(--contrast-inverse);
+
+  /* Brand — saturated fills use `text-white`, the neutral `secondary` uses
+   * `text-contrast`. No per-fill on-color tokens. */
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+
+  /* Structure — `line` (faint divider), `edge` (input border), `solid` (opaque
+   * border), `focus` (brand-themed ring = primary). */
+  --color-line: var(--line);
+  --color-edge: var(--edge);
+  --color-solid: var(--solid);
+  --color-focus: var(--focus);
 
   /* Status */
   --color-destructive: var(--destructive);
   --color-success: var(--success);
   --color-warning: var(--warning);
+  --color-info: var(--info);
 
   /* Charts */
   --color-chart-1: var(--chart-1);
@@ -239,25 +268,12 @@
   --color-presence-busy: var(--presence-busy);
   --color-presence-invisible: var(--presence-invisible);
 
-  /* Sidebar */
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
-
-  /* Radius */
-  --radius-xs: calc(var(--radius) - 6px);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
+  /* Radius — 3-tier scale, spacing-aligned + concentric (outer = inner + one
+   * --spacing); synced 1:1 with the motion sm/md/lg tiers. `--spacing` is
+   * Tailwind-provided (0.25rem = 4px). */
+  --radius-sm: calc(var(--radius) - var(--spacing)); /* 6px  — small controls */
+  --radius-md: var(--radius);                        /* 10px — default (buttons, inputs, menus, popovers) */
+  --radius-lg: calc(var(--radius) + var(--spacing)); /* 14px — large surfaces (dialogs, drawers, cards) */
 
   /* Typography — passthroughs so consumers' `--font-sans` /
    * `--font-mono` flow through to Tailwind's `font-sans` /

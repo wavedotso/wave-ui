@@ -87,7 +87,7 @@ function PopoverContent({
         <PopoverPrimitive.Popup
           data-slot="popover-content"
           className={cn(
-            "motion-pop-md bg-popover text-popover-foreground ring-foreground/10 z-50 flex w-72 origin-(--transform-origin) flex-col gap-2.5 rounded-lg p-2.5 text-sm shadow-md ring-1 outline-hidden",
+            "motion-pop-md bg-elevated text-contrast ring-contrast/10 z-50 flex w-72 origin-(--transform-origin) flex-col gap-2.5 rounded-md p-2.5 text-sm shadow-md ring-1 outline-hidden",
             className
           )}
           finalFocus={resolveFinalFocus(restoreFocusOnClose, finalFocus)}
@@ -128,7 +128,7 @@ function PopoverDescription({
   return (
     <PopoverPrimitive.Description
       data-slot="popover-description"
-      className={cn("text-muted-foreground", className)}
+      className={cn("text-muted", className)}
       {...props}
     />
   )

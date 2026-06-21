@@ -169,7 +169,7 @@ function FormError({ className, ...props }: FormErrorProps) {
     <p
       data-slot="form-error"
       className={cn(
-        "text-destructive rounded-2xl border border-destructive/30 bg-destructive/5 p-4 text-sm",
+        "text-destructive rounded-lg border border-destructive/30 bg-destructive/5 p-4 text-sm",
         className,
       )}
       {...props}
@@ -191,7 +191,7 @@ function FormActions({ className, ...props }: FormActionsProps) {
 
 function FormMessage({ className, ...props }: FormMessageProps) {
   return (
-    <p data-slot="form-message" className={cn("text-sm text-foreground/80", className)} {...props} />
+    <p data-slot="form-message" className={cn("text-sm text-contrast/80", className)} {...props} />
   );
 }
 

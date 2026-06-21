@@ -32,7 +32,7 @@ const DemoCard = forwardRef<
 >(({ label, color, style, ...rest }, ref) => (
   <div
     ref={ref}
-    className="rounded-xl border border-white/10 p-6 text-center text-sm font-medium text-white"
+    className="rounded-lg border border-white/10 p-6 text-center text-sm font-medium text-white"
     style={{ background: color, ...style }}
     {...rest}
   >
@@ -50,7 +50,7 @@ function Replay({ children }: { children: React.ReactNode }) {
       <button
         type="button"
         onClick={replay}
-        className="absolute top-3 right-3 z-50 flex items-center gap-1.5 rounded-lg bg-white/10 px-2.5 py-1.5 text-xs font-medium text-white/70 backdrop-blur-sm border border-white/10 hover:bg-white/20 hover:text-white transition-colors cursor-pointer"
+        className="absolute top-3 right-3 z-50 flex items-center gap-1.5 rounded-md bg-white/10 px-2.5 py-1.5 text-xs font-medium text-white/70 backdrop-blur-sm border border-white/10 hover:bg-white/20 hover:text-white transition-colors cursor-pointer"
         aria-label="Replay animation"
       >
         <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden>
@@ -320,7 +320,7 @@ export const PulseDefault: StoryObj = {
 
         <div className="flex flex-col items-center gap-3">
           <Pulse min={0.95} max={1.05} opacity={[0.7, 1]}>
-            <div className="rounded-lg bg-purple-600 px-4 py-2 text-sm font-medium text-white">
+            <div className="rounded-md bg-purple-600 px-4 py-2 text-sm font-medium text-white">
               Live
             </div>
           </Pulse>

@@ -70,7 +70,7 @@ export const Mixed: Story = {
   args: {},
   render: () => (
     <ButtonGroup>
-      <Button variant="solid">Save</Button>
+      <Button variant="default">Save</Button>
       <ButtonGroupSeparator />
       <Button variant="outline">Cancel</Button>
     </ButtonGroup>

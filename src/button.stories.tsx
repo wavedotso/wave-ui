@@ -11,7 +11,6 @@ const meta = {
       control: 'select',
       options: [
         'default',
-        'solid',
         'outline',
         'secondary',
         'ghost',
@@ -34,13 +33,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     children: 'Button',
-  },
-};
-
-export const Solid: Story = {
-  args: {
-    variant: 'solid',
-    children: 'Solid',
   },
 };
 
@@ -118,7 +110,6 @@ export const AllVariants: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
       <Button variant="default">Default</Button>
-      <Button variant="solid">Solid</Button>
       <Button variant="outline">Outline</Button>
       <Button variant="secondary">Secondary</Button>
       <Button variant="ghost">Ghost</Button>

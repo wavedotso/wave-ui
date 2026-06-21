@@ -17,7 +17,7 @@ export const Landscape: Story = {
         <img
           src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
           alt="Landscape"
-          className="size-full rounded-lg object-cover"
+          className="size-full rounded-md object-cover"
         />
       </AspectRatio>
     </div>
@@ -31,7 +31,7 @@ export const Square: Story = {
         <img
           src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
           alt="Square"
-          className="size-full rounded-lg object-cover"
+          className="size-full rounded-md object-cover"
         />
       </AspectRatio>
     </div>
@@ -45,7 +45,7 @@ export const Portrait: Story = {
         <img
           src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
           alt="Portrait"
-          className="size-full rounded-lg object-cover"
+          className="size-full rounded-md object-cover"
         />
       </AspectRatio>
     </div>
@@ -56,7 +56,7 @@ export const WithPlaceholder: Story = {
   render: () => (
     <div className="w-80">
       <AspectRatio ratio={16 / 9}>
-        <div className="bg-muted text-muted-foreground flex size-full items-center justify-center rounded-lg text-sm">
+        <div className="bg-secondary text-muted flex size-full items-center justify-center rounded-md text-sm">
           16:9
         </div>
       </AspectRatio>

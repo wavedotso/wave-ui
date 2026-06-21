@@ -24,7 +24,7 @@ function Replay({ children }: { children: React.ReactNode }) {
       <button
         type="button"
         onClick={replay}
-        className="absolute top-3 right-3 z-50 flex items-center gap-1.5 rounded-lg bg-white/10 px-2.5 py-1.5 text-xs font-medium text-white/70 backdrop-blur-sm border border-white/10 hover:bg-white/20 hover:text-white transition-colors cursor-pointer"
+        className="absolute top-3 right-3 z-50 flex items-center gap-1.5 rounded-md bg-white/10 px-2.5 py-1.5 text-xs font-medium text-white/70 backdrop-blur-sm border border-white/10 hover:bg-white/20 hover:text-white transition-colors cursor-pointer"
         aria-label="Replay animation"
       >
         <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden>

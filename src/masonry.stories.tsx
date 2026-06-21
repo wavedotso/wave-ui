@@ -43,10 +43,10 @@ function hexToRgba(hex: string, alpha: number): string {
 function DemoCard({ index, height }: { index: number; height: number }) {
   return (
     <div
-      className="flex flex-col items-center justify-center rounded-xl shadow-sm"
+      className="flex flex-col items-center justify-center rounded-lg shadow-sm"
       style={{ height, backgroundColor: hexToRgba(COLORS[index % COLORS.length]!, 0.4) }}
     >
-      <span className="text-sm font-semibold text-foreground">
+      <span className="text-sm font-semibold text-contrast">
         {index + 1}
       </span>
     </div>
@@ -94,12 +94,12 @@ export const WithPromoted: Story = {
     <Masonry columns={4} gap={4} className="w-full">
       {/* Promoted items — pinned at the top, span multiple columns */}
       <MasonryItem span={2}>
-        <div className="flex items-center justify-center rounded-xl border-2 border-primary/30 bg-primary/5 shadow-sm" style={{ height: 200 }}>
+        <div className="flex items-center justify-center rounded-lg border-2 border-primary/30 bg-primary/5 shadow-sm" style={{ height: 200 }}>
           <span className="text-sm font-semibold text-primary">Featured</span>
         </div>
       </MasonryItem>
       <MasonryItem span={2}>
-        <div className="flex items-center justify-center rounded-xl border-2 border-amber-500/30 bg-amber-500/5 shadow-sm" style={{ height: 160 }}>
+        <div className="flex items-center justify-center rounded-lg border-2 border-amber-500/30 bg-amber-500/5 shadow-sm" style={{ height: 160 }}>
           <span className="text-sm font-semibold text-amber-600 dark:text-amber-400">Promoted</span>
         </div>
       </MasonryItem>
@@ -145,16 +145,16 @@ function RemovableDemo() {
           <button
             type="button"
             onClick={() => handleRemove(item.id)}
-            className="flex w-full flex-col items-center justify-center rounded-xl shadow-sm cursor-pointer"
+            className="flex w-full flex-col items-center justify-center rounded-lg shadow-sm cursor-pointer"
             style={{
               height: item.height,
               backgroundColor: hexToRgba(COLORS[item.id % COLORS.length]!, 0.4),
             }}
           >
-            <span className="text-sm font-semibold text-foreground">
+            <span className="text-sm font-semibold text-contrast">
               {item.id + 1}
             </span>
-            <span className="mt-1 flex items-center gap-1 text-xs text-muted-foreground">
+            <span className="mt-1 flex items-center gap-1 text-xs text-muted">
               <TrashIcon width={12} height={12} aria-hidden />
               Click to remove
             </span>
@@ -202,12 +202,12 @@ function InfiniteScrollDemo() {
       hasMore={hasMore}
       isLoading={isLoading}
       loader={
-        <p className="py-4 text-center text-sm text-muted-foreground">
+        <p className="py-4 text-center text-sm text-muted">
           Loading more cards...
         </p>
       }
       endMessage={
-        <p className="py-4 text-center text-sm text-muted-foreground">
+        <p className="py-4 text-center text-sm text-muted">
           All 300 cards loaded.
         </p>
       }

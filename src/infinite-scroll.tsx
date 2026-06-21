@@ -77,14 +77,14 @@ function InfiniteScroll({
       data-slot="infinite-scroll-loader"
       className="flex items-center justify-center py-6"
     >
-      {loader ?? <Spinner className="size-6 text-muted-foreground" />}
+      {loader ?? <Spinner className="size-6 text-muted" />}
     </div>
   )
 
   const endContent = !hasMore && !isLoading && endMessage && (
     <div
       data-slot="infinite-scroll-end"
-      className="flex items-center justify-center py-6 text-sm text-muted-foreground"
+      className="flex items-center justify-center py-6 text-sm text-muted"
     >
       {endMessage}
     </div>

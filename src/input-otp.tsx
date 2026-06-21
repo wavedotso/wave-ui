@@ -36,7 +36,7 @@ function InputOTPGroup({ className, ...props }: InputOTPGroupProps) {
     <div
       data-slot="input-otp-group"
       className={cn(
-        "flex items-center rounded-lg has-aria-invalid:border-destructive has-aria-invalid:ring-3 has-aria-invalid:ring-destructive/20 dark:has-aria-invalid:ring-destructive/40",
+        "flex items-center rounded-md has-aria-invalid:border-destructive has-aria-invalid:ring-3 has-aria-invalid:ring-destructive/20 dark:has-aria-invalid:ring-destructive/40",
         className,
       )}
       {...props}
@@ -57,8 +57,8 @@ function InputOTPSlot({ index, className, ...props }: InputOTPSlotProps) {
       data-slot="input-otp-slot"
       data-active={isActive || undefined}
       className={cn(
-        "border-input dark:bg-input/30 relative flex size-9 items-center justify-center border-y border-r text-sm motion-color outline-none first:rounded-l-lg first:border-l last:rounded-r-lg",
-        "data-active:border-ring data-active:ring-3 data-active:ring-ring/50 data-active:z-10",
+        "border-edge dark:bg-edge/30 relative flex size-9 items-center justify-center border-y border-r text-sm motion-color outline-none first:rounded-l-md first:border-l last:rounded-r-md",
+        "data-active:border-focus data-active:ring-3 data-active:ring-focus/50 data-active:z-10",
         "aria-invalid:border-destructive data-active:aria-invalid:border-destructive data-active:aria-invalid:ring-destructive/20 dark:data-active:aria-invalid:ring-destructive/40",
         className,
       )}
@@ -67,7 +67,7 @@ function InputOTPSlot({ index, className, ...props }: InputOTPSlotProps) {
       {char}
       {hasFakeCaret && (
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <div className="animate-caret-blink bg-foreground h-4 w-px duration-1000" />
+          <div className="animate-caret-blink bg-contrast h-4 w-px duration-1000" />
         </div>
       )}
     </div>

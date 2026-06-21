@@ -19,18 +19,18 @@ import {
 // ---------------------------------------------------------------------------
 
 const toastRootClass =
-  "bg-popover text-popover-foreground ring-foreground/10 rounded-lg p-4 text-sm shadow-lg ring-1 outline-none select-none"
+  "bg-elevated text-contrast ring-contrast/10 rounded-md p-4 text-sm shadow-md ring-1 outline-none select-none"
 
 const toastIconVariants = cva(
   "mt-0.5 size-4 shrink-0",
   {
     variants: {
       type: {
-        loading: "text-muted-foreground animate-spin",
-        success: "text-emerald-500",
-        info: "text-blue-500",
-        warning: "text-amber-500",
-        error: "text-red-500",
+        loading: "text-muted animate-spin",
+        success: "text-success",
+        info: "text-info",
+        warning: "text-warning",
+        error: "text-destructive",
       },
     },
   }
@@ -192,7 +192,7 @@ function ToastDescription({ className, ...props }: ToastDescriptionProps) {
   return (
     <ToastPrimitive.Description
       data-slot="toast-description"
-      className={cn("text-muted-foreground text-sm", className)}
+      className={cn("text-muted text-sm", className)}
       {...props}
     />
   )
@@ -203,7 +203,7 @@ function ToastAction({ className, ...props }: ToastActionProps) {
     <ToastPrimitive.Action
       data-slot="toast-action"
       className={cn(
-        "hover:bg-muted inline-flex h-7 items-center rounded-md border px-2.5 text-xs font-medium transition-colors",
+        "hover:bg-secondary inline-flex h-7 items-center rounded-md border border-line px-2.5 text-xs font-medium transition-colors",
         className,
       )}
       {...props}
@@ -216,7 +216,7 @@ function ToastClose({ className, children, ...props }: ToastCloseProps) {
     <ToastPrimitive.Close
       data-slot="toast-close"
       className={cn(
-        "text-muted-foreground hover:text-foreground shrink-0 rounded-md p-0.5 transition-colors",
+        "text-muted hover:text-contrast shrink-0 rounded-md p-0.5 transition-colors",
         className,
       )}
       {...props}
@@ -334,7 +334,58 @@ function ToasterContent({ position = "bottom-right" }: Pick<ToasterProps, "posit
   )
 }
 
+// The toast manager is a module-level singleton, so every mounted <Toaster/>
+// renders the SAME shared toast list — duplicating every toast. This registry
+// elects a single primary Toaster (the first mounted); the rest render null.
+// Guards against a consumer accidentally rendering two, and against Storybook
+// autodocs rendering several stories — each with a Toaster — on one page.
+const mountedToasters: symbol[] = []
+const toasterListeners = new Set<() => void>()
+
+function notifyToasters() {
+  for (const listener of toasterListeners) {
+    listener()
+  }
+}
+
+function useIsPrimaryToaster() {
+  const keyRef = React.useRef<symbol | null>(null)
+  if (keyRef.current === null) {
+    keyRef.current = Symbol("toaster")
+  }
+  const key = keyRef.current
+
+  const isPrimary = React.useSyncExternalStore(
+    React.useCallback((onChange: () => void) => {
+      toasterListeners.add(onChange)
+      return () => {
+        toasterListeners.delete(onChange)
+      }
+    }, []),
+    () => mountedToasters[0] === key,
+    () => false,
+  )
+
+  React.useEffect(() => {
+    mountedToasters.push(key)
+    notifyToasters()
+    return () => {
+      const index = mountedToasters.indexOf(key)
+      if (index !== -1) {
+        mountedToasters.splice(index, 1)
+      }
+      notifyToasters()
+    }
+  }, [key])
+
+  return isPrimary
+}
+
 function Toaster({ position, limit, timeout }: ToasterProps) {
+  const isPrimary = useIsPrimaryToaster()
+  if (!isPrimary) {
+    return null
+  }
   return (
     <ToastPrimitive.Provider
       toastManager={toastManager}

@@ -9,13 +9,13 @@ import { cn } from "./lib/utils"
 import { Separator } from "./separator"
 
 const itemVariants = cva(
-  "[a]:hover:bg-muted rounded-lg border text-sm w-full group/item focus-visible:border-ring focus-visible:ring-ring/50 flex items-center flex-wrap outline-none transition-colors duration-200 focus-visible:ring-3 [a]:transition-colors",
+  "[a]:hover:bg-secondary rounded-md border text-sm w-full group/item focus-visible:border-focus focus-visible:ring-focus/50 flex items-center flex-wrap outline-none transition-colors duration-200 focus-visible:ring-3 [a]:transition-colors",
   {
     variants: {
       variant: {
         default: "border-transparent",
-        outline: "border-border",
-        muted: "bg-muted/50 border-transparent",
+        outline: "border-line",
+        muted: "bg-secondary/50 border-transparent",
       },
       size: {
         default: "gap-2.5 px-3 py-2.5",
@@ -148,7 +148,7 @@ function ItemDescription({ className, ...props }: ItemDescriptionProps) {
     <p
       data-slot="item-description"
       className={cn(
-        "text-muted-foreground [&>a:hover]:text-primary line-clamp-2 text-left text-sm leading-normal font-normal group-data-[size=xs]/item:text-xs [&>a]:underline [&>a]:underline-offset-4",
+        "text-muted [&>a:hover]:text-primary line-clamp-2 text-left text-sm leading-normal font-normal group-data-[size=xs]/item:text-xs [&>a]:underline [&>a]:underline-offset-4",
         className
       )}
       {...props}

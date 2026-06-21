@@ -172,7 +172,7 @@ function ControlledDemo() {
           <InputOTPSlot index={5} />
         </InputOTPGroup>
       </InputOTP>
-      <p className="text-sm text-muted-foreground">
+      <p className="text-sm text-muted">
         Value: <span className="font-mono">{value || '—'}</span>
       </p>
     </div>

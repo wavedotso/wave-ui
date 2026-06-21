@@ -68,17 +68,17 @@ function DrawerContent({
           data-slot="drawer-content"
           className={cn(
             // Base layout & appearance
-            "group/drawer-content bg-background fixed z-50 flex flex-col overflow-y-auto text-sm shadow-lg outline-none",
+            "group/drawer-content bg-foundation fixed z-50 flex flex-col overflow-y-auto text-sm shadow-lg outline-none",
             // Transition — animate translate at the lg tier + the one curve; disable during swipe
             "transition-[translate] duration-(--duration-lg) ease-(--ease) data-[swiping]:duration-0",
             // Bottom drawer (swipeDirection="down")
-            "data-[swipe-direction=down]:inset-x-0 data-[swipe-direction=down]:bottom-0 data-[swipe-direction=down]:mt-24 data-[swipe-direction=down]:max-h-[80vh] data-[swipe-direction=down]:rounded-t-xl data-[swipe-direction=down]:border-t",
+            "data-[swipe-direction=down]:inset-x-0 data-[swipe-direction=down]:bottom-0 data-[swipe-direction=down]:mt-24 data-[swipe-direction=down]:max-h-[80vh] data-[swipe-direction=down]:rounded-t-lg data-[swipe-direction=down]:border-t",
             // Top drawer (swipeDirection="up")
-            "data-[swipe-direction=up]:inset-x-0 data-[swipe-direction=up]:top-0 data-[swipe-direction=up]:mb-24 data-[swipe-direction=up]:max-h-[80vh] data-[swipe-direction=up]:rounded-b-xl data-[swipe-direction=up]:border-b",
+            "data-[swipe-direction=up]:inset-x-0 data-[swipe-direction=up]:top-0 data-[swipe-direction=up]:mb-24 data-[swipe-direction=up]:max-h-[80vh] data-[swipe-direction=up]:rounded-b-lg data-[swipe-direction=up]:border-b",
             // Left drawer (swipeDirection="left")
-            "data-[swipe-direction=left]:inset-y-0 data-[swipe-direction=left]:left-0 data-[swipe-direction=left]:w-3/4 data-[swipe-direction=left]:rounded-r-xl data-[swipe-direction=left]:border-r data-[swipe-direction=left]:sm:max-w-sm",
+            "data-[swipe-direction=left]:inset-y-0 data-[swipe-direction=left]:left-0 data-[swipe-direction=left]:w-3/4 data-[swipe-direction=left]:rounded-r-lg data-[swipe-direction=left]:border-r data-[swipe-direction=left]:sm:max-w-sm",
             // Right drawer (swipeDirection="right")
-            "data-[swipe-direction=right]:inset-y-0 data-[swipe-direction=right]:right-0 data-[swipe-direction=right]:w-3/4 data-[swipe-direction=right]:rounded-l-xl data-[swipe-direction=right]:border-l data-[swipe-direction=right]:sm:max-w-sm",
+            "data-[swipe-direction=right]:inset-y-0 data-[swipe-direction=right]:right-0 data-[swipe-direction=right]:w-3/4 data-[swipe-direction=right]:rounded-l-lg data-[swipe-direction=right]:border-l data-[swipe-direction=right]:sm:max-w-sm",
             // Enter/exit slide — bottom
             "data-[swipe-direction=down]:data-[starting-style]:translate-y-full data-[swipe-direction=down]:data-[ending-style]:translate-y-full",
             // Enter/exit slide — top
@@ -94,7 +94,7 @@ function DrawerContent({
           {/* Drag handle — visible only for bottom drawers */}
           <div
             data-slot="drawer-drag-handle"
-            className="bg-muted mx-auto mt-4 hidden h-1 w-[100px] shrink-0 rounded-full group-data-[swipe-direction=down]/drawer-content:block"
+            className="bg-secondary mx-auto mt-4 hidden h-1 w-[100px] shrink-0 rounded-full group-data-[swipe-direction=down]/drawer-content:block"
           />
           {children}
           {showCloseButton && (
@@ -145,7 +145,7 @@ function DrawerTitle({ className, ...props }: DrawerTitleProps) {
   return (
     <DrawerPrimitive.Title
       data-slot="drawer-title"
-      className={cn("text-foreground text-base font-medium", className)}
+      className={cn("text-contrast text-base font-medium", className)}
       {...props}
     />
   )
@@ -158,7 +158,7 @@ function DrawerDescription({
   return (
     <DrawerPrimitive.Description
       data-slot="drawer-description"
-      className={cn("text-muted-foreground text-sm", className)}
+      className={cn("text-muted text-sm", className)}
       {...props}
     />
   )

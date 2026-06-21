@@ -41,7 +41,7 @@ export const MultiKey: Story = {
 /** Keyboard hints inline with surrounding text. */
 export const InlineWithText: Story = {
   render: () => (
-    <p className="text-sm text-muted-foreground">
+    <p className="text-sm text-muted">
       Press{' '}
       <KbdGroup>
         <Kbd>⌘</Kbd>

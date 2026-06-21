@@ -1,6 +1,56 @@
-<script>
-  // Apply dark class before first paint to prevent flash of light theme.
-  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    document.documentElement.classList.add('dark');
+<style>
+  /* Paint every Storybook-owned surface — canvas AND docs — on our foundation
+   * token, before the CSS bundle loads, so nothing ever flashes white on
+   * refresh / navigation. `!important` is used DELIBERATELY and ONLY here: this
+   * is Storybook dev-tooling config that never ships to consumers, and it's the
+   * only thing that beats Storybook's own stylesheet + inline styles regardless
+   * of load order. The library's own CSS still never uses !important.
+   * Selectors are Storybook's chrome/loader/docs containers only — never story
+   * content — so component colors are untouched. Mirrors --foundation. */
+  html,
+  body,
+  #storybook-root,
+  #storybook-docs,
+  .sb-show-main,
+  .sb-preparing-story,
+  .sb-preparing-docs,
+  .sbdocs,
+  .sbdocs-wrapper,
+  .sbdocs-content,
+  .sbdocs-preview,
+  .docs-story {
+    background-color: #EEF0F3 !important;
   }
+
+  html.dark,
+  html.dark body,
+  html.dark #storybook-root,
+  html.dark #storybook-docs,
+  html.dark .sb-show-main,
+  html.dark .sb-preparing-story,
+  html.dark .sb-preparing-docs,
+  html.dark .sbdocs,
+  html.dark .sbdocs-wrapper,
+  html.dark .sbdocs-content,
+  html.dark .sbdocs-preview,
+  html.dark .docs-story {
+    background-color: #2C2D32 !important;
+  }
+</style>
+<script>
+  // Set the dark class before first paint to prevent a flash of the light theme.
+  // Prefer the persisted toolbar choice (Storybook stores it in the iframe URL's
+  // `globals`), falling back to the OS color-scheme.
+  (function () {
+    var dark;
+    try {
+      var globals = new URLSearchParams(window.location.search).get('globals') || '';
+      var match = globals.match(/theme:(\w+)/);
+      if (match) dark = match[1] === 'dark';
+    } catch (e) {}
+    if (dark === undefined) {
+      dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    if (dark) document.documentElement.classList.add('dark');
+  })();
 </script>

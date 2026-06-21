@@ -35,7 +35,7 @@ export const Default: Story = {
           <DrawerDescription>Set your daily activity goal.</DrawerDescription>
         </DrawerHeader>
         <div className="p-4">
-          <p className="text-muted-foreground text-sm">
+          <p className="text-muted text-sm">
             Drag the handle or tap the overlay to close this drawer.
           </p>
         </div>
@@ -68,7 +68,7 @@ export const Right: Story = {
           {['Dashboard', 'Projects', 'Tasks', 'Settings'].map((item) => (
             <button
               key={item}
-              className="text-foreground hover:bg-muted rounded-md px-3 py-2 text-left text-sm transition-colors"
+              className="text-contrast hover:bg-secondary rounded-md px-3 py-2 text-left text-sm transition-colors"
             >
               {item}
             </button>
@@ -95,7 +95,7 @@ export const Left: Story = {
           {['Home', 'Inbox', 'Calendar', 'Archive'].map((item) => (
             <button
               key={item}
-              className="text-foreground hover:bg-muted rounded-md px-3 py-2 text-left text-sm transition-colors"
+              className="text-contrast hover:bg-secondary rounded-md px-3 py-2 text-left text-sm transition-colors"
             >
               {item}
             </button>

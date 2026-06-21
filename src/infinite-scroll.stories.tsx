@@ -40,7 +40,7 @@ function InfiniteScrollDemo() {
   }, []);
 
   return (
-    <div className="border-border h-96 w-80 overflow-y-auto rounded-lg border">
+    <div className="border-line h-96 w-80 overflow-y-auto rounded-md border">
       <InfiniteScroll
         onLoadMore={handleLoadMore}
         hasMore={hasMore}
@@ -50,7 +50,7 @@ function InfiniteScrollDemo() {
         {items.map((item) => (
           <div
             key={item.id}
-            className="border-border border-b px-4 py-3 text-sm"
+            className="border-line border-b px-4 py-3 text-sm"
           >
             {item.title}
           </div>
@@ -81,7 +81,7 @@ function WithRootDemo() {
   return (
     <div
       ref={scrollRef}
-      className="border-border h-96 w-80 overflow-y-auto rounded-lg border"
+      className="border-line h-96 w-80 overflow-y-auto rounded-md border"
     >
       <InfiniteScroll
         onLoadMore={handleLoadMore}
@@ -93,7 +93,7 @@ function WithRootDemo() {
         {items.map((item) => (
           <div
             key={item.id}
-            className="border-border border-b px-4 py-3 text-sm"
+            className="border-line border-b px-4 py-3 text-sm"
           >
             {item.title}
           </div>
@@ -126,7 +126,7 @@ function ReverseDemo() {
   }, []);
 
   return (
-    <div className="border-border flex h-96 w-80 flex-col-reverse overflow-y-auto rounded-lg border">
+    <div className="border-line flex h-96 w-80 flex-col-reverse overflow-y-auto rounded-md border">
       <InfiniteScroll
         onLoadMore={handleLoadMore}
         hasMore={hasMore}
@@ -137,9 +137,9 @@ function ReverseDemo() {
         {messages.map((msg) => (
           <div
             key={msg.id}
-            className="border-border border-b px-4 py-3 text-sm"
+            className="border-line border-b px-4 py-3 text-sm"
           >
-            <span className="text-muted-foreground mr-2 text-xs">{msg.time}</span>
+            <span className="text-muted mr-2 text-xs">{msg.time}</span>
             {msg.text}
           </div>
         ))}
@@ -165,20 +165,20 @@ function CustomLoaderDemo() {
   }, []);
 
   return (
-    <div className="border-border h-96 w-80 overflow-y-auto rounded-lg border">
+    <div className="border-line h-96 w-80 overflow-y-auto rounded-md border">
       <InfiniteScroll
         onLoadMore={handleLoadMore}
         hasMore={items.length < 50}
         isLoading={isLoading}
         loader={
-          <span className="text-muted-foreground text-sm">Loading more...</span>
+          <span className="text-muted text-sm">Loading more...</span>
         }
         endMessage="No more items to load."
       >
         {items.map((item) => (
           <div
             key={item.id}
-            className="border-border border-b px-4 py-3 text-sm"
+            className="border-line border-b px-4 py-3 text-sm"
           >
             {item.title}
           </div>

@@ -55,8 +55,8 @@ export const WithStyling: Story = {
     <p className="text-2xl font-mono">
       <EncryptedText
         text="Styled reveal effect"
-        encryptedClassName="text-muted-foreground"
-        revealedClassName="text-foreground"
+        encryptedClassName="text-muted"
+        revealedClassName="text-contrast"
         revealDelayMs={80}
       />
     </p>

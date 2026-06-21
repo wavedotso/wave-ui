@@ -62,7 +62,7 @@ export const WithDisabled: Story = {
       </div>
       <div className="flex items-center gap-2">
         <RadioGroupItem value="option-2" disabled />
-        <label className="text-sm text-muted-foreground">Disabled</label>
+        <label className="text-sm text-muted">Disabled</label>
       </div>
       <div className="flex items-center gap-2">
         <RadioGroupItem value="option-3" />

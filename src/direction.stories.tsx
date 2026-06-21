@@ -16,7 +16,7 @@ type Story = StoryObj<typeof meta>;
 function DirectionIndicator() {
   const direction = useDirection();
   return (
-    <span className="text-muted-foreground text-xs font-mono">
+    <span className="text-muted text-xs font-mono">
       direction: {direction}
     </span>
   );
@@ -32,7 +32,7 @@ export const LTR: Story = {
           <Input placeholder="you@example.com" />
         </div>
         <div className="flex gap-2">
-          <Button variant="solid">Submit</Button>
+          <Button variant="default">Submit</Button>
           <Button variant="ghost">Cancel</Button>
         </div>
       </div>
@@ -50,7 +50,7 @@ export const RTL: Story = {
           <Input placeholder="example@email.com" />
         </div>
         <div className="flex gap-2">
-          <Button variant="solid">إرسال</Button>
+          <Button variant="default">إرسال</Button>
           <Button variant="ghost">إلغاء</Button>
         </div>
       </div>

@@ -11,7 +11,6 @@ const meta = {
       control: 'select',
       options: [
         'default',
-        'solid',
         'success',
         'destructive',
         'warning',
@@ -30,13 +29,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     children: 'Badge',
-  },
-};
-
-export const Solid: Story = {
-  args: {
-    variant: 'solid',
-    children: 'Solid',
   },
 };
 
@@ -79,7 +71,6 @@ export const AllVariants: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-2">
       <Badge variant="default">Default</Badge>
-      <Badge variant="solid">Solid</Badge>
       <Badge variant="success">Success</Badge>
       <Badge variant="destructive">Destructive</Badge>
       <Badge variant="warning">Warning</Badge>
@@ -159,7 +150,7 @@ export const WithIcons: Story = {
         <CheckIcon data-icon="inline-start" />
         Leading
       </Badge>
-      <Badge variant="solid">
+      <Badge variant="default">
         Trailing
         <CloseIcon data-icon="inline-end" />
       </Badge>

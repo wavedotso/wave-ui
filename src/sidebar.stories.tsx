@@ -169,10 +169,10 @@ function DemoContent() {
     <div className="flex flex-1 flex-col gap-4 p-4">
       <div className="grid auto-rows-min gap-4 md:grid-cols-3">
         {Array.from({ length: 3 }).map((_, i) => (
-          <div key={i} className="bg-muted/50 aspect-video rounded-xl" />
+          <div key={i} className="bg-secondary/50 aspect-video rounded-lg" />
         ))}
       </div>
-      <div className="bg-muted/50 min-h-[50vh] flex-1 rounded-xl" />
+      <div className="bg-secondary/50 min-h-[50vh] flex-1 rounded-lg" />
     </div>
   );
 }
@@ -191,7 +191,7 @@ export const Default: Story = {
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">Wave</span>
-                  <span className="text-muted-foreground truncate text-xs">
+                  <span className="text-muted truncate text-xs">
                     Foundation
                   </span>
                 </div>
@@ -253,7 +253,7 @@ export const Default: Story = {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton className="gap-3 p-1.5">
-                <div className="bg-muted flex size-8 items-center justify-center rounded-full text-xs">
+                <div className="bg-secondary flex size-8 items-center justify-center rounded-full text-xs">
                   S
                 </div>
                 <span>Saulo</span>
@@ -294,7 +294,7 @@ export const IconCollapsible: Story = {
                   </SidebarMenuButton>
               </SidebarMenuItem>
               </SidebarMenu>
-              <SidebarTrigger className="text-muted-foreground group-data-[collapsible=icon]:hidden" />
+              <SidebarTrigger className="text-muted group-data-[collapsible=icon]:hidden" />
             </div>
           </SidebarHeader>
 
@@ -319,7 +319,7 @@ export const IconCollapsible: Story = {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton className="gap-3 p-1.5">
-                <div className="bg-muted flex size-8 items-center justify-center rounded-full text-xs">
+                <div className="bg-secondary flex size-8 items-center justify-center rounded-full text-xs">
                   S
                 </div>
                 <span className="group-data-[collapsible=icon]:hidden">Saulo</span>
@@ -345,7 +345,7 @@ export const IconCollapsible: Story = {
 /** Floating variant with rounded corners and shadow. */
 export const Floating: Story = {
   render: () => (
-    <SidebarProvider className="bg-background" style={SIDEBAR_STYLE}>
+    <SidebarProvider className="bg-foundation" style={SIDEBAR_STYLE}>
       <Sidebar variant="floating" collapsible="icon">
         <SidebarContent>
           <SidebarHeader className="pb-0">

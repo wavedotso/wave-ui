@@ -20,7 +20,11 @@ import { defineConfig } from 'tsdown';
  * overwritten.
  */
 export default defineConfig({
-  entry: ['src/**/*.{ts,tsx}', '!src/**/*.stories.{ts,tsx}'],
+  entry: [
+    'src/**/*.{ts,tsx}',
+    '!src/**/*.stories.{ts,tsx}',
+    '!src/**/*.{test,spec}.{ts,tsx}',
+  ],
   format: 'esm',
   platform: 'neutral',
   unbundle: true,

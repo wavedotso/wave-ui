@@ -8,17 +8,22 @@
 /* Base resets for the Storybook preview surface only — a library
  * shouldn't impose universal box-sizing/border styles on a consuming app. */
 @layer base {
-  *,
-  *::before,
-  *::after {
-    @apply box-border;
-  }
-
-  * {
-    @apply border-border outline-ring/50;
-  }
-
   body {
-    @apply antialiased bg-background text-foreground font-sans;
+    @apply antialiased bg-foundation text-contrast font-sans;
   }
+}
+
+/* Paint every Storybook preview surface on our foundation token — story canvas
+ * AND the autodocs page/preview blocks — so nothing falls back to Storybook's
+ * default chrome color. Unlayered (beats Storybook's preview styles without
+ * !important); the manager chrome itself is themed in theme.ts. */
+html,
+body,
+#storybook-root,
+#storybook-docs,
+.sb-show-main,
+.sbdocs.sbdocs-wrapper,
+.sbdocs-preview,
+.docs-story {
+  background-color: var(--foundation);
 }

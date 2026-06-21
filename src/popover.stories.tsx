@@ -35,14 +35,14 @@ export const Default: Story = {
           <div className="grid grid-cols-3 items-center gap-4">
             <label className="text-sm">Width</label>
             <input
-              className="border-input bg-transparent col-span-2 h-8 rounded-md border px-3 text-sm"
+              className="border-edge bg-transparent col-span-2 h-8 rounded-md border px-3 text-sm"
               defaultValue="100%"
             />
           </div>
           <div className="grid grid-cols-3 items-center gap-4">
             <label className="text-sm">Height</label>
             <input
-              className="border-input bg-transparent col-span-2 h-8 rounded-md border px-3 text-sm"
+              className="border-edge bg-transparent col-span-2 h-8 rounded-md border px-3 text-sm"
               defaultValue="25px"
             />
           </div>
