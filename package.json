@@ -40,30 +40,25 @@
     "release": "npm run build && changeset publish"
   },
   "peerDependencies": {
-    "@base-ui/react": "^1.5.0",
+    "@base-ui/react": "^1.6.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "input-otp": "^1.4.0",
+    "motion": "^12.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "tailwind-merge": "^3.0.0"
+    "react-hook-form": "^7.0.0",
+    "tailwind-merge": "^3.0.0",
+    "tailwindcss": "^4.0.0"
   },
   "peerDependenciesMeta": {
-    "react-day-picker": {
-      "optional": true
-    },
-    "embla-carousel-react": {
-      "optional": true
-    },
-    "react-hook-form": {
-      "optional": true
-    },
     "input-otp": {
       "optional": true
     },
     "motion": {
       "optional": true
     },
-    "usehooks-ts": {
+    "react-hook-form": {
       "optional": true
     }
   },
@@ -82,12 +77,10 @@
     "@types/react-dom": "^19",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "embla-carousel-react": "^8.6.0",
     "input-otp": "^1.4.2",
     "jsdom": "^29.1.1",
     "motion": "^12.31.0",
     "react": "^19.2.0",
-    "react-day-picker": "^9.13.0",
     "react-dom": "^19.2.0",
     "react-hook-form": "^7.66.0",
     "storybook": "~10.4.0",
@@ -95,7 +88,6 @@
     "tailwindcss": "^4.2.1",
     "tsdown": "0.21.10",
     "typescript": "^5.7.0",
-    "usehooks-ts": "^3.1.1",
     "vite": "^7.3.1",
     "vitest": "^4.1.7"
   }

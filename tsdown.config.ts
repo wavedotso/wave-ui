@@ -24,6 +24,8 @@ export default defineConfig({
     'src/**/*.{ts,tsx}',
     '!src/**/*.stories.{ts,tsx}',
     '!src/**/*.{test,spec}.{ts,tsx}',
+    // Storybook-only docs surface (guides rendered by MDX pages) — never ships.
+    '!src/docs/**',
   ],
   format: 'esm',
   platform: 'neutral',

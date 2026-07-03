@@ -92,7 +92,7 @@ function CardFooter({ className, ...props }: CardFooterProps) {
     <div
       data-slot="card-footer"
       className={cn(
-        "bg-secondary/50 flex items-center rounded-b-lg border-t p-4 group-data-[size=sm]/card:p-3",
+        "bg-secondary/50 flex items-center rounded-b-lg border-t border-line p-4 group-data-[size=sm]/card:p-3",
         className
       )}
       {...props}

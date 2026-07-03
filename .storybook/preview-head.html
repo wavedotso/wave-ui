@@ -1,13 +1,17 @@
 <style>
-  /* Paint every Storybook-owned surface — canvas AND docs — on our foundation
-   * token, before the CSS bundle loads, so nothing ever flashes white on
-   * refresh / navigation. `!important` is used DELIBERATELY and ONLY here: this
-   * is Storybook dev-tooling config that never ships to consumers, and it's the
-   * only thing that beats Storybook's own stylesheet + inline styles regardless
-   * of load order. The library's own CSS still never uses !important.
-   * Selectors are Storybook's chrome/loader/docs containers only — never story
-   * content — so component colors are untouched. Mirrors --foundation. */
-  html,
+  /* Per-theme foundation background, painted before the CSS bundle loads (the
+   * theme class is set by the script below) so refresh / navigation never flash.
+   * Hardcoded to mirror each theme's `--foundation` — the CSS vars aren't
+   * available pre-bundle. Graphite is the bare default. */
+  html { background-color: #2C2D32; }                   /* Graphite (dark, default) — graphite-950 */
+  html.theme-ink { background-color: #020812; }      /* Ink (deep navy) — ink-950 page */
+  html.theme-paper { background-color: #EFF0EB; }    /* Paper (cool)    — paper-200 foundation */
+
+  /* Storybook's own chrome / white loaders / docs blocks → inherit the theme
+   * background above so nothing flashes white. `!important` is used ONLY here
+   * (Storybook dev-tooling, never shipped) to beat Storybook's stylesheet
+   * regardless of load order; selectors are Storybook containers only, never
+   * story content. */
   body,
   #storybook-root,
   #storybook-docs,
@@ -19,38 +23,28 @@
   .sbdocs-content,
   .sbdocs-preview,
   .docs-story {
-    background-color: #EEF0F3 !important;
-  }
-
-  html.dark,
-  html.dark body,
-  html.dark #storybook-root,
-  html.dark #storybook-docs,
-  html.dark .sb-show-main,
-  html.dark .sb-preparing-story,
-  html.dark .sb-preparing-docs,
-  html.dark .sbdocs,
-  html.dark .sbdocs-wrapper,
-  html.dark .sbdocs-content,
-  html.dark .sbdocs-preview,
-  html.dark .docs-story {
-    background-color: #2C2D32 !important;
+    background-color: inherit !important;
   }
 </style>
 <script>
-  // Set the dark class before first paint to prevent a flash of the light theme.
-  // Prefer the persisted toolbar choice (Storybook stores it in the iframe URL's
-  // `globals`), falling back to the OS color-scheme.
+  // Set the theme class (and `.dark` for dark modes) before first paint, from the
+  // persisted toolbar choice in the iframe URL `globals`, else the Graphite default.
+  // Mirrors preview.ts THEMES.
   (function () {
-    var dark;
+    var THEMES = {
+      graphite: { cls: 'theme-graphite', dark: true },
+      ink:      { cls: 'theme-ink',      dark: true },
+      paper:    { cls: 'theme-paper',    dark: false },
+    };
+    var name;
     try {
       var globals = new URLSearchParams(window.location.search).get('globals') || '';
-      var match = globals.match(/theme:(\w+)/);
-      if (match) dark = match[1] === 'dark';
+      var m = globals.match(/theme:([\w-]+)/);
+      if (m) name = m[1];
     } catch (e) {}
-    if (dark === undefined) {
-      dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    }
-    if (dark) document.documentElement.classList.add('dark');
+    var t = THEMES[name] || THEMES.graphite;
+    var root = document.documentElement;
+    root.classList.add(t.cls);
+    if (t.dark) root.classList.add('dark');
   })();
 </script>

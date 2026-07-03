@@ -2,28 +2,28 @@ import * as React from 'react';
 import { DocsContainer, type DocsContainerProps } from '@storybook/addon-docs/blocks';
 import { create } from 'storybook/theming';
 
-// Paint the autodocs page (and its preview blocks) on our `--foundation` /
-// `--surface` tokens instead of Storybook's default `#222425` docs theme.
-// The docs theme is a manager-side object that can't read the preview iframe's
-// CSS vars, so mirror the hex values. Keep in sync with src/styles.css.
-const FOUNDATION = { light: '#EEF0F3', dark: '#2C2D32' };
-const SURFACE = { light: '#F6F7F9', dark: '#323339' };
-
+// The autodocs page renders INSIDE the preview iframe, where the library's
+// `styles.css` is loaded — so we theme its chrome straight from the CSS vars
+// (no hardcoded hex). The surfaces resolve against whatever palette class is on
+// <html>, so Graphite / Ink / Paper are each painted correctly, live.
+//
+// The one value that can't be a var is Storybook's `base` discriminator — it
+// drives the docs' text / code / border colors — so we still flip it between
+// light and dark by observing the `.dark` class on <html>.
 const docsTheme = (dark: boolean) =>
   create({
     base: dark ? 'dark' : 'light',
-    appBg: dark ? FOUNDATION.dark : FOUNDATION.light,
-    appContentBg: dark ? FOUNDATION.dark : FOUNDATION.light,
-    appPreviewBg: dark ? FOUNDATION.dark : FOUNDATION.light,
-    barBg: dark ? SURFACE.dark : SURFACE.light,
+    appBg: 'var(--foundation)',
+    appContentBg: 'var(--foundation)',
+    appPreviewBg: 'var(--foundation)',
+    barBg: 'var(--surface)',
   });
 
 /**
- * Wraps the default DocsContainer and dynamically switches its theme between
- * our light/dark foundation based on the `dark` class on <html>.
- *
- * That class is managed by `withThemeByClassName` from @storybook/addon-themes,
- * so the docs pages stay in sync with the toolbar theme toggle.
+ * Wraps the default DocsContainer and flips its light/dark `base` from the
+ * `.dark` class on <html> (managed by the `withTheme` decorator in
+ * `preview.ts`), so docs pages stay in sync with the theme toolbar. The
+ * background colors themselves come from CSS vars, so they need no observer.
  */
 export function ThemedDocsContainer(
   props: React.PropsWithChildren<DocsContainerProps>,

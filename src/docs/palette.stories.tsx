@@ -4,9 +4,15 @@ import * as React from 'react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 const meta = {
-  title: 'Foundation/Colors',
+  title: 'Colors/Palettes',
   parameters: {
     layout: 'fullscreen',
+    docs: {
+      description: {
+        component:
+          'Every color token in Wave, grouped by role. **Brand** is the Wave Blue ramp, **Themes** are the three neutral ramps (Graphite · Ink · Paper), and **Interface** is the semantic layer components actually consume. Swatches read the live CSS variables, so they reflect the theme selected in the toolbar.',
+      },
+    },
   },
 } satisfies Meta
 
@@ -14,28 +20,13 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 type Token = { name: string; label?: string; fg?: string; bg?: string }
+type Group = { label: string; note?: string; tokens: Token[] }
 
-const TOKEN_GROUPS: { label: string; note?: string; tokens: Token[] }[] = [
+// Wave Blue — the single brand ramp, shared by every theme.
+const BRAND_GROUPS: Group[] = [
   {
-    label: 'Ion palette',
-    note: 'Neutral ramp — every surface, content, and structure token resolves to one of these.',
-    tokens: [
-      { name: '--ion-50' },
-      { name: '--ion-100' },
-      { name: '--ion-200' },
-      { name: '--ion-300' },
-      { name: '--ion-400' },
-      { name: '--ion-500' },
-      { name: '--ion-600' },
-      { name: '--ion-700' },
-      { name: '--ion-800' },
-      { name: '--ion-900' },
-      { name: '--ion-950' },
-    ],
-  },
-  {
-    label: 'Wave palette',
-    note: 'Brand ramp — `primary` (and the focus ring) resolve to wave-500.',
+    label: 'Wave — brand',
+    note: 'Brand ramp, shared by every theme. `primary` and the focus ring resolve to wave-500.',
     tokens: [
       { name: '--wave-50' },
       { name: '--wave-100' },
@@ -50,6 +41,66 @@ const TOKEN_GROUPS: { label: string; note?: string; tokens: Token[] }[] = [
       { name: '--wave-950' },
     ],
   },
+]
+
+// The three neutral ramps — one per theme. Only the active theme's ramp feeds `--ui-*`.
+const THEME_GROUPS: Group[] = [
+  {
+    label: 'Graphite — neutral (default)',
+    note: 'Default neutral ramp — active with no theme class (or `.theme-graphite`). Feeds `--ui-*`.',
+    tokens: [
+      { name: '--graphite-50' },
+      { name: '--graphite-100' },
+      { name: '--graphite-200' },
+      { name: '--graphite-300' },
+      { name: '--graphite-400' },
+      { name: '--graphite-500' },
+      { name: '--graphite-600' },
+      { name: '--graphite-700' },
+      { name: '--graphite-800' },
+      { name: '--graphite-900' },
+      { name: '--graphite-950' },
+    ],
+  },
+  {
+    label: 'Ink — navy',
+    note: 'Deep-navy neutral ramp — active under `.theme-ink`.',
+    tokens: [
+      { name: '--ink-50' },
+      { name: '--ink-100' },
+      { name: '--ink-200' },
+      { name: '--ink-300' },
+      { name: '--ink-400' },
+      { name: '--ink-500' },
+      { name: '--ink-600' },
+      { name: '--ink-700' },
+      { name: '--ink-800' },
+      { name: '--ink-900' },
+      { name: '--ink-950' },
+    ],
+  },
+  {
+    label: 'Paper — warm',
+    note: 'Warm cream → sepia neutral ramp — active under `.theme-paper`.',
+    tokens: [
+      { name: '--paper-50' },
+      { name: '--paper-100' },
+      { name: '--paper-200' },
+      { name: '--paper-300' },
+      { name: '--paper-400' },
+      { name: '--paper-500' },
+      { name: '--paper-600' },
+      { name: '--paper-700' },
+      { name: '--paper-800' },
+      { name: '--paper-900' },
+      { name: '--paper-950' },
+    ],
+  },
+]
+
+// The semantic layer — what components actually consume. Resolves through the
+// active theme, so these are the tokens to override when re-skinning.
+const INTERFACE_GROUPS: Group[] = [
   {
     label: 'Surfaces',
     note: 'Backgrounds = elevation.',
@@ -77,7 +128,7 @@ const TOKEN_GROUPS: { label: string; note?: string; tokens: Token[] }[] = [
     ],
   },
   {
-    label: 'Brand',
+    label: 'Brand roles',
     note: 'primary · secondary · accent. Text on the saturated fills is white; on the neutral secondary it is contrast.',
     tokens: [
       { name: '--primary', fg: 'white' },
@@ -87,6 +138,7 @@ const TOKEN_GROUPS: { label: string; note?: string; tokens: Token[] }[] = [
   },
   {
     label: 'Status',
+    note: 'Semantic status colors. `info` resolves to Wave Blue (= `--primary` / `--focus`); `success` is a cool emerald (H155), kept distinct from the warning yellow.',
     tokens: [
       { name: '--destructive' },
       { name: '--success' },
@@ -105,17 +157,8 @@ const TOKEN_GROUPS: { label: string; note?: string; tokens: Token[] }[] = [
     ],
   },
   {
-    label: 'Charts',
-    tokens: [
-      { name: '--chart-1' },
-      { name: '--chart-2' },
-      { name: '--chart-3' },
-      { name: '--chart-4' },
-      { name: '--chart-5' },
-    ],
-  },
-  {
     label: 'Presence',
+    note: 'Status dots. `invisible` resolves to `--foundation` — the page colour itself — so paired with a border it reads as a hollow/ghost ring: present, but blended away.',
     tokens: [
       { name: '--presence-online' },
       { name: '--presence-away' },
@@ -157,7 +200,7 @@ function Swatch({ token: name, fg, label: labelOverride, bg }: { token: string; 
   React.useEffect(() => {
     if (!ref.current) return
     // Read the RESOLVED background-color so tokens that alias another var
-    // (e.g. `var(--ion-200)`) display their real hex/rgba.
+    // (e.g. `var(--ui-200)` → the active theme's ramp) display real hex/rgba.
     setResolved(formatColor(getComputedStyle(ref.current).backgroundColor))
   }, [name, bg])
 
@@ -213,38 +256,12 @@ function Swatch({ token: name, fg, label: labelOverride, bg }: { token: string; 
   )
 }
 
-function ColorGrid() {
+/** Shared swatch layout — one focused set of token groups, centered. */
+function PaletteView({ groups }: { groups: Group[] }) {
   return (
     <div className="bg-foundation text-contrast p-10">
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 40, maxWidth: 760 }}>
-        <div>
-          <h2 style={{ fontSize: 20, fontWeight: 700, margin: '0 0 4px' }}>Color tokens</h2>
-          <p style={{ fontSize: 14, color: 'var(--muted)', margin: 0 }}>
-            Two raw palettes (Ion · Wave) feed every semantic token. Override the semantic
-            tokens in your own <code
-              style={{
-                fontSize: 12,
-                padding: '2px 6px',
-                borderRadius: 4,
-                backgroundColor: 'var(--surface)',
-              }}
-            >
-              :root
-            </code>{' '}
-            / <code
-              style={{
-                fontSize: 12,
-                padding: '2px 6px',
-                borderRadius: 4,
-                backgroundColor: 'var(--surface)',
-              }}
-            >
-              .dark
-            </code> to match your brand. Toggle light / dark in the toolbar above.
-          </p>
-        </div>
-
-        {TOKEN_GROUPS.map((group) => (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 40, maxWidth: 760, margin: '0 auto' }}>
+        {groups.map((group) => (
           <div key={group.label}>
             <h3
               style={{
@@ -287,6 +304,14 @@ function ColorGrid() {
   )
 }
 
-export const Palette: Story = {
-  render: () => <ColorGrid />,
+export const Brand: Story = {
+  render: () => <PaletteView groups={BRAND_GROUPS} />,
+}
+
+export const Themes: Story = {
+  render: () => <PaletteView groups={THEME_GROUPS} />,
+}
+
+export const Interface: Story = {
+  render: () => <PaletteView groups={INTERFACE_GROUPS} />,
 }

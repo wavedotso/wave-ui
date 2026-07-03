@@ -3,10 +3,9 @@ import type { StorybookConfig } from '@storybook/react-vite';
 const config: StorybookConfig = {
   framework: '@storybook/react-vite',
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(ts|tsx)'],
-  staticDirs: ['./public'],
+  staticDirs: ['../assets'],
   addons: [
     '@storybook/addon-docs',
-    '@storybook/addon-themes',
     '@storybook/addon-a11y',
   ],
   async viteFinal(config) {

@@ -152,7 +152,7 @@ export const RestoreFocusOnClose: Story = {
   render: () => (
     <div
       tabIndex={0}
-      className="group flex w-72 items-center justify-between rounded-md border p-3 text-sm"
+      className="group flex w-72 items-center justify-between rounded-md border border-edge p-3 text-sm"
     >
       <span>Hover or focus this row</span>
       <Menu>

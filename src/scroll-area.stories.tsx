@@ -15,7 +15,7 @@ const tags = Array.from({ length: 50 }, (_, i) => `v1.${i}.0`);
 
 export const Default: Story = {
   render: () => (
-    <ScrollArea className="h-72 w-48 rounded-md border">
+    <ScrollArea className="h-72 w-48 rounded-md border border-edge">
       <div className="p-4">
         <h4 className="mb-4 text-sm font-medium leading-none">Tags</h4>
         {tags.map((tag, i) => (
@@ -31,7 +31,7 @@ export const Default: Story = {
 
 export const Horizontal: Story = {
   render: () => (
-    <ScrollArea className="w-72 rounded-md border">
+    <ScrollArea className="w-72 rounded-md border border-edge">
       <div className="flex gap-4 p-4">
         {Array.from({ length: 20 }, (_, i) => (
           <div
@@ -49,7 +49,7 @@ export const Horizontal: Story = {
 
 export const Both: Story = {
   render: () => (
-    <ScrollArea className="h-72 w-72 rounded-md border">
+    <ScrollArea className="h-72 w-72 rounded-md border border-edge">
       <div className="p-4" style={{ width: 600 }}>
         {Array.from({ length: 30 }, (_, i) => (
           <p key={i} className="text-sm leading-relaxed">

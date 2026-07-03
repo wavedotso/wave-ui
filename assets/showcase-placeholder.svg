@@ -1,0 +1,60 @@
+<svg viewBox="0 0 1200 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Wave UI themes — Graphite, Ink, Paper (showcase placeholder)" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <!-- ============================================================
+       PLACEHOLDER — replace with a real screenshot of the Showcase
+       story rendered across the three themes (assets/showcase.png).
+       ============================================================ -->
+
+  <!-- Graphite panel -->
+  <g>
+    <rect x="0" y="0" width="400" height="460" fill="#2C2D32"/>
+    <rect x="40" y="56" width="320" height="300" rx="16" fill="#3B3C44" stroke="#F3F3F4" stroke-opacity="0.09"/>
+    <rect x="68" y="86" width="150" height="14" rx="7" fill="#F3F3F4"/>
+    <circle cx="332" cy="99" r="13" fill="#6C6D76"/>
+    <rect x="68" y="124" width="264" height="9" rx="4.5" fill="#ABACB2"/>
+    <rect x="68" y="144" width="224" height="9" rx="4.5" fill="#ABACB2"/>
+    <rect x="68" y="164" width="248" height="9" rx="4.5" fill="#8B8C94"/>
+    <line x1="68" y1="202" x2="332" y2="202" stroke="#F3F3F4" stroke-opacity="0.08"/>
+    <rect x="68" y="232" width="104" height="36" rx="10" fill="#315FE8"/>
+    <text x="120" y="255" text-anchor="middle" font-size="14" font-weight="500" fill="#FFFFFF">Action</text>
+    <rect x="188" y="232" width="92" height="36" rx="10" fill="#323339" stroke="#F3F3F4" stroke-opacity="0.1"/>
+    <text x="234" y="255" text-anchor="middle" font-size="14" font-weight="500" fill="#ABACB2">Ghost</text>
+    <text x="40" y="402" font-size="19" font-weight="700" fill="#F3F3F4">Graphite</text>
+    <text x="40" y="424" font-size="12.5" fill="#8B8C94">neutral · all-day</text>
+  </g>
+
+  <!-- Ink panel -->
+  <g>
+    <rect x="400" y="0" width="400" height="460" fill="#020812"/>
+    <rect x="440" y="56" width="320" height="300" rx="16" fill="#162336" stroke="#DFE1E5" stroke-opacity="0.07"/>
+    <rect x="468" y="86" width="150" height="14" rx="7" fill="#DFE1E5"/>
+    <circle cx="732" cy="99" r="13" fill="#4F5763"/>
+    <rect x="468" y="124" width="264" height="9" rx="4.5" fill="#8C929A"/>
+    <rect x="468" y="144" width="224" height="9" rx="4.5" fill="#8C929A"/>
+    <rect x="468" y="164" width="248" height="9" rx="4.5" fill="#6E747D"/>
+    <line x1="468" y1="202" x2="732" y2="202" stroke="#DFE1E5" stroke-opacity="0.06"/>
+    <rect x="468" y="232" width="104" height="36" rx="10" fill="#315FE8"/>
+    <text x="520" y="255" text-anchor="middle" font-size="14" font-weight="500" fill="#FFFFFF">Action</text>
+    <rect x="588" y="232" width="92" height="36" rx="10" fill="#050F1E" stroke="#DFE1E5" stroke-opacity="0.08"/>
+    <text x="634" y="255" text-anchor="middle" font-size="14" font-weight="500" fill="#8C929A">Ghost</text>
+    <text x="440" y="402" font-size="19" font-weight="700" fill="#DFE1E5">Ink</text>
+    <text x="440" y="424" font-size="12.5" fill="#6E747D">navy · night</text>
+  </g>
+
+  <!-- Paper panel -->
+  <g>
+    <rect x="800" y="0" width="400" height="460" fill="#EFF0EB"/>
+    <rect x="840" y="56" width="320" height="300" rx="16" fill="#FCFDFA" stroke="#0C0D09" stroke-opacity="0.08"/>
+    <rect x="868" y="86" width="150" height="14" rx="7" fill="#1B1C18"/>
+    <circle cx="1132" cy="99" r="13" fill="#AAACA5"/>
+    <rect x="868" y="124" width="264" height="9" rx="4.5" fill="#63645E"/>
+    <rect x="868" y="144" width="224" height="9" rx="4.5" fill="#63645E"/>
+    <rect x="868" y="164" width="248" height="9" rx="4.5" fill="#83847D"/>
+    <line x1="868" y1="202" x2="1132" y2="202" stroke="#0C0D09" stroke-opacity="0.07"/>
+    <rect x="868" y="232" width="104" height="36" rx="10" fill="#315FE8"/>
+    <text x="920" y="255" text-anchor="middle" font-size="14" font-weight="500" fill="#FFFFFF">Action</text>
+    <rect x="988" y="232" width="92" height="36" rx="10" fill="#F6F7F3" stroke="#0C0D09" stroke-opacity="0.1"/>
+    <text x="1034" y="255" text-anchor="middle" font-size="14" font-weight="500" fill="#63645E">Ghost</text>
+    <text x="840" y="402" font-size="19" font-weight="700" fill="#1B1C18">Paper</text>
+    <text x="840" y="424" font-size="12.5" fill="#83847D">cream · day</text>
+  </g>
+</svg>
