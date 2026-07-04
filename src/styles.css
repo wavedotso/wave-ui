@@ -146,6 +146,9 @@
   /* Rings = brand themed */
   --focus: var(--primary);
 
+  /* Scrim — the dim behind modal overlays (dialog / drawer / alert backdrop). */
+  --scrim: oklch(0 0 0 / 0.1);
+
   /* Shadow — two dials for the layered `shadow-*` scale: `--shadow-color` (oklch
    * components `L C H` — a deep cool-tinted near-black, never pure black which
    * reads heavy) and `--shadow-strength` (per-layer alpha / intensity). Both
@@ -314,6 +317,7 @@
   --color-edge: var(--edge);
   --color-solid: var(--solid);
   --color-focus: var(--focus);
+  --color-scrim: var(--scrim);
 
   /* Status */
   --color-destructive: var(--destructive);

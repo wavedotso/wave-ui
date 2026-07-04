@@ -43,7 +43,7 @@ function DrawerOverlay({ className, ...props }: DrawerOverlayProps) {
     <DrawerPrimitive.Backdrop
       data-slot="drawer-overlay"
       className={cn(
-        "motion-scrim fixed inset-0 z-50 bg-black/10 supports-backdrop-filter:backdrop-blur-xs",
+        "motion-scrim fixed inset-0 z-50 bg-scrim supports-backdrop-filter:backdrop-blur-xs",
         className,
       )}
       {...props}

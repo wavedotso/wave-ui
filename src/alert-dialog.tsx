@@ -50,7 +50,7 @@ function AlertDialogOverlay({ className, ...props }: AlertDialogOverlayProps) {
     <AlertDialogPrimitive.Backdrop
       data-slot="alert-dialog-overlay"
       className={cn(
-        "motion-scrim fixed inset-0 isolate z-50 bg-black/10 supports-backdrop-filter:backdrop-blur-xs",
+        "motion-scrim fixed inset-0 isolate z-50 bg-scrim supports-backdrop-filter:backdrop-blur-xs",
         className,
       )}
       {...props}

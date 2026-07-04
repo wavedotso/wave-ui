@@ -60,7 +60,7 @@ function DialogOverlay({
     <DialogPrimitive.Backdrop
       data-slot="dialog-overlay"
       className={cn(
-        "motion-scrim fixed inset-0 isolate z-50 bg-black/10 supports-backdrop-filter:backdrop-blur-xs",
+        "motion-scrim fixed inset-0 isolate z-50 bg-scrim supports-backdrop-filter:backdrop-blur-xs",
         className
       )}
       {...props}
