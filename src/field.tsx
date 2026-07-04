@@ -47,7 +47,7 @@ export function FieldControl({ className, ...props }: FieldControlProps) {
     <FieldPrimitive.Control
       data-slot="field-control"
       className={cn(
-        "rounded-md outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
+        "rounded-md outline-none focus-visible:ring-3 focus-visible:ring-focus/50 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
         className,
       )}
       {...props}
