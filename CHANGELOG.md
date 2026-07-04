@@ -1,5 +1,15 @@
 # @waveso/ui
 
+## 0.7.7
+
+### Patch Changes
+
+- 75bc91d: - `cn()` (tailwind-merge) now conflict-resolves the library's custom utilities. The mutually-exclusive enter/exit motion recipes (`motion-scale/slide/fade/pop-*`) collapse to the last one applied, so a consumer can override a component's default animation via `className`; `cursor-clickable` joins the built-in `cursor` group. (`motion-color` / `motion-scrim` are deliberately left composable with a recipe.)
+  - `Item` and `Select` use the `motion-color` token instead of an ad-hoc `transition-colors` / `duration-200`.
+  - Dropped unnecessary `'use client'` from `Label`, `Table`, and the `direction` re-export — they're stateless wrappers / pure re-exports and are now server-renderable.
+- 8163b3a: - Added a `--scrim` token (and `bg-scrim` utility) for the modal backdrop dim. `Dialog`, `Drawer`, and `AlertDialog` overlays use `bg-scrim` instead of a hard-coded `bg-black/10`, so the scrim is themeable from one token.
+  - `Toggle` no longer silently drops a function-form `className`. Base UI allows `className` to be `(state) => string`; it was being routed through CVA/clsx (which ignores functions) and is now passed through `cn()`, which handles the state-function form.
+
 ## 0.7.6
 
 ### Patch Changes
