@@ -80,6 +80,7 @@ function ComboboxClear({ className, ...props }: ComboboxClearProps) {
   return (
     <ComboboxPrimitive.Clear
       data-slot="combobox-clear"
+      aria-label="Clear"
       render={<InputGroupButton variant="ghost" size="icon-xs" />}
       className={cn("motion-scale-sm", className)}
       {...props}
@@ -94,7 +95,11 @@ function ComboboxClear({ className, ...props }: ComboboxClearProps) {
 function ComboboxInput({
   className,
   children,
-  disabled = false,
+  // No `= false` default: forcing `disabled={false}` onto the rendered input
+  // would override the disabled state Base UI computes from a disabled
+  // `<Combobox>` root. Leaving it `undefined` lets the root's state win, while
+  // an explicit `disabled` prop is still respected.
+  disabled,
   showTrigger = true,
   showClear = false,
   ...props
@@ -299,6 +304,7 @@ function ComboboxChip({
           render={<Button variant="ghost" size="icon-xs" />}
           className="-ml-1 opacity-50 hover:opacity-100"
           data-slot="combobox-chip-remove"
+          aria-label="Remove"
         >
           <CloseIcon
             className="pointer-events-none"

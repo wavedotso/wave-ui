@@ -200,15 +200,25 @@ function NumberCount({
   const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once, margin: "-50px" })
   const [display, setDisplay] = useState(start)
-  const hasAnimated = useRef(false)
+
+  // Keep the callbacks in refs so a parent re-render with inline `easing` /
+  // `onComplete` props doesn't re-run the animation effect — which would cancel
+  // the in-flight rAF and freeze the counter mid-count. The effect below keys
+  // only on the values that should actually (re)start the animation, so a live
+  // `to` change or a re-entry (with `once={false}`) restarts cleanly.
+  const easingRef = useRef(easing)
+  const onCompleteRef = useRef(onComplete)
+  useEffect(() => {
+    easingRef.current = easing
+    onCompleteRef.current = onComplete
+  })
 
   const formatFn = format ?? ((n: number) =>
     Number.isInteger(to) ? Math.round(n).toLocaleString() : n.toLocaleString()
   )
 
   useEffect(() => {
-    if (!isInView || hasAnimated.current) return
-    hasAnimated.current = true
+    if (!isInView) return
 
     const delayMs = delay * 1000
     let raf: number
@@ -219,15 +229,14 @@ function NumberCount({
         if (!startTime) startTime = timestamp
         const elapsed = timestamp - startTime
         const progress = Math.min(elapsed / duration, 1)
-        const easedProgress = easing(progress)
-        const current = start + (to - start) * easedProgress
+        const current = start + (to - start) * easingRef.current(progress)
 
         setDisplay(current)
 
         if (progress < 1) {
           raf = requestAnimationFrame(animate)
         } else {
-          onComplete?.()
+          onCompleteRef.current?.()
         }
       }
 
@@ -238,7 +247,7 @@ function NumberCount({
       clearTimeout(timer)
       cancelAnimationFrame(raf)
     }
-  }, [isInView, to, start, duration, delay, easing, onComplete])
+  }, [isInView, to, start, duration, delay])
 
   if (!isValidElement(children)) return children
 

@@ -16,7 +16,6 @@ type ToggleGroupContextValue = VariantProps<typeof toggleVariants> & {
 type ToggleGroupProps = ToggleGroupPrimitive.Props &
   VariantProps<typeof toggleVariants> & {
     spacing?: number
-    orientation?: "horizontal" | "vertical"
   }
 
 type ToggleGroupItemProps = TogglePrimitive.Props &
@@ -40,11 +39,11 @@ function ToggleGroup({
 }: ToggleGroupProps) {
   return (
     <ToggleGroupPrimitive
+      orientation={orientation}
       data-slot="toggle-group"
       data-variant={variant}
       data-size={size}
       data-spacing={spacing}
-      data-orientation={orientation}
       style={{ "--gap": spacing } as React.CSSProperties}
       className={cn(
         "group/toggle-group flex w-fit flex-row items-center gap-[--spacing(var(--gap))] rounded-md data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch data-[size=sm]:rounded-sm",

@@ -187,7 +187,8 @@ function GradientRevealText({
       onMouseMove={updatePos}
       className={cn("select-none", className)}
       style={{ opacity: measured ? 1 : 0 }}
-      aria-hidden
+      role="img"
+      aria-label={text}
     >
       <defs>
         <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="0%">

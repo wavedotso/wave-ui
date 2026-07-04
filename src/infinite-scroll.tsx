@@ -33,7 +33,6 @@ function InfiniteScroll({
   children,
 }: InfiniteScrollProps) {
   const sentinelRef = React.useRef<HTMLDivElement>(null)
-  const loadingRef = React.useRef(false)
 
   const onLoadMoreRef = React.useRef(onLoadMore)
   React.useEffect(() => {
@@ -41,20 +40,19 @@ function InfiniteScroll({
   }, [onLoadMore])
 
   React.useEffect(() => {
-    if (!isLoading) {
-      loadingRef.current = false
-    }
-  }, [isLoading])
-
-  React.useEffect(() => {
     const sentinel = sentinelRef.current
-    if (!sentinel || !hasMore) return
+    // Don't observe while a load is in flight. Re-observing when `isLoading`
+    // flips back to false re-checks the sentinel's CURRENT visibility (an
+    // IntersectionObserver fires an initial callback on `observe`), so a
+    // sentinel that stayed in view across the load triggers the next page.
+    // Without this the observer only fires on intersection *transitions* and
+    // stalls once the sentinel stops moving.
+    if (!sentinel || !hasMore || isLoading) return
 
     const observer = new IntersectionObserver(
       (entries) => {
         const [entry] = entries
-        if (entry?.isIntersecting && !loadingRef.current) {
-          loadingRef.current = true
+        if (entry?.isIntersecting) {
           onLoadMoreRef.current()
         }
       },
@@ -70,7 +68,7 @@ function InfiniteScroll({
     return () => {
       observer.disconnect()
     }
-  }, [hasMore, root, rootMargin, threshold])
+  }, [hasMore, isLoading, root, rootMargin, threshold])
 
   const loaderContent = isLoading && (
     <div
