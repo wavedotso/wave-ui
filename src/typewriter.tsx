@@ -11,7 +11,7 @@ import {
   useRef,
   useState,
 } from "react"
-import { useInView } from "motion/react"
+import { useInView, useReducedMotion } from "motion/react"
 
 // ── Types ────────────────────────────────────────────────────────────
 
@@ -224,6 +224,7 @@ function TypingReveal({
   cursorChar: string
   shouldAnimate: boolean
 }) {
+  const prefersReducedMotion = useReducedMotion()
   const flat = flattenText(text)
   const segments = typeof text === "string" ? [{ text }] : text
   const [charIndex, setCharIndex] = useState(0)
@@ -231,28 +232,34 @@ function TypingReveal({
   const [done, setDone] = useState(false)
 
   useEffect(() => {
-    if (!shouldAnimate || started) return
+    if (prefersReducedMotion || !shouldAnimate || started) return
     const timer = setTimeout(() => setStarted(true), delay * 1000)
     return () => clearTimeout(timer)
-  }, [shouldAnimate, delay, started])
+  }, [prefersReducedMotion, shouldAnimate, delay, started])
 
   useEffect(() => {
-    if (!started || done) return
+    if (prefersReducedMotion || !started || done) return
     if (charIndex >= flat.length) {
       setDone(true)
       return
     }
     const timer = setTimeout(() => setCharIndex((prev) => prev + 1), speed * 1000)
     return () => clearTimeout(timer)
-  }, [started, charIndex, flat.length, speed, done])
+  }, [prefersReducedMotion, started, charIndex, flat.length, speed, done])
 
   if (!isValidElement(children)) return children
 
   const childProps = children.props as Record<string, unknown>
   const existingRef = (childProps as { ref?: Ref<HTMLElement> }).ref
 
-  const content = started ? buildSegmentContent(segments, charIndex) : null
-  const showCursor = cursor && started && !done
+  // Reduced motion: skip the character-by-character reveal and render the
+  // full text immediately in its final resting shape (no cursor).
+  const content = prefersReducedMotion
+    ? buildSegmentContent(segments, flat.length)
+    : started
+      ? buildSegmentContent(segments, charIndex)
+      : null
+  const showCursor = !prefersReducedMotion && cursor && started && !done
 
   return cloneElement(children, {
     ref: mergeRef(elementRef, existingRef),
@@ -288,21 +295,22 @@ function SmoothReveal({
   cursorChar: string
   shouldAnimate: boolean
 }) {
+  const prefersReducedMotion = useReducedMotion()
   const segments = typeof text === "string" ? [{ text }] : text
   const [revealed, setRevealed] = useState(false)
   const [done, setDone] = useState(false)
 
   useEffect(() => {
-    if (!shouldAnimate || revealed) return
+    if (prefersReducedMotion || !shouldAnimate || revealed) return
     const timer = setTimeout(() => setRevealed(true), delay * 1000)
     return () => clearTimeout(timer)
-  }, [shouldAnimate, delay, revealed])
+  }, [prefersReducedMotion, shouldAnimate, delay, revealed])
 
   useEffect(() => {
-    if (!revealed) return
+    if (prefersReducedMotion || !revealed) return
     const timer = setTimeout(() => setDone(true), duration * 1000)
     return () => clearTimeout(timer)
-  }, [revealed, duration])
+  }, [prefersReducedMotion, revealed, duration])
 
   if (!isValidElement(children)) return children
 
@@ -311,7 +319,7 @@ function SmoothReveal({
   const existingStyle = (childProps.style ?? {}) as CSSProperties
 
   const animName = `tw-smooth-${id}`
-  const showCursor = cursor && revealed && !done
+  const showCursor = !prefersReducedMotion && cursor && revealed && !done
 
   // Full text is always in the DOM — the mask clip animates to reveal it
   const fullContent = segments.map((seg, i) =>
@@ -330,13 +338,19 @@ function SmoothReveal({
       ...existingStyle,
       whiteSpace: "nowrap" as const,
       overflow: "hidden" as const,
-      ...(revealed
+      // Reduced motion: skip the mask animation and pin to the reveal's
+      // final resting state (fully shown) with no animation or cursor.
+      ...(prefersReducedMotion
         ? {
-            animation: `${animName} ${duration}s linear forwards`,
+            maxWidth: "100%" as const,
           }
-        : {
-            maxWidth: 0,
-          }),
+        : revealed
+          ? {
+              animation: `${animName} ${duration}s linear forwards`,
+            }
+          : {
+              maxWidth: 0,
+            }),
     },
     children: (
       <>

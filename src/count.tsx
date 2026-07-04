@@ -9,7 +9,7 @@ import {
   useRef,
   useState,
 } from "react"
-import { useInView } from "motion/react"
+import { useInView, useReducedMotion } from "motion/react"
 
 // ── Types ────────────────────────────────────────────────────────────
 
@@ -199,6 +199,7 @@ function NumberCount({
 }) {
   const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once, margin: "-50px" })
+  const prefersReducedMotion = useReducedMotion()
   const [display, setDisplay] = useState(start)
 
   // Keep the callbacks in refs so a parent re-render with inline `easing` /
@@ -221,6 +222,20 @@ function NumberCount({
     if (!isInView) return
 
     const delayMs = delay * 1000
+
+    // Vestibular safety: skip the count-up/down tween entirely under
+    // prefers-reduced-motion and snap to the final value. We still honor the
+    // in-view gate and `delay`, then fire `onComplete` once — matching the
+    // resting state and lifecycle of the animated path.
+    if (prefersReducedMotion) {
+      const timer = setTimeout(() => {
+        setDisplay(to)
+        onCompleteRef.current?.()
+      }, delayMs)
+
+      return () => clearTimeout(timer)
+    }
+
     let raf: number
     let startTime: number
 
@@ -247,7 +262,7 @@ function NumberCount({
       clearTimeout(timer)
       cancelAnimationFrame(raf)
     }
-  }, [isInView, to, start, duration, delay])
+  }, [isInView, to, start, duration, delay, prefersReducedMotion])
 
   if (!isValidElement(children)) return children
 

@@ -640,6 +640,13 @@
     --offset-sm: 0px; --offset-md: 0px; --offset-lg: 0px;
     --stagger-sm: 0ms; --stagger-md: 0ms; --stagger-lg: 0ms;
   }
+
+  /* Token-driven recipes collapse via the vars above; a standalone keyframe
+   * utility that doesn't use those tokens must be stopped explicitly. (The
+   * `animate-spin` loader is intentionally left running — it signals activity.) */
+  .animate-caret-blink {
+    animation: none;
+  }
 }
 
 /* ---------------------------------------------------------------------------

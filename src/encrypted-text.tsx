@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useReducedMotion } from "motion/react"
 
 import { cn } from "./lib/utils"
 
@@ -43,6 +44,7 @@ function EncryptedText({
   scrambleOneChar = false,
   ...props
 }: EncryptedTextProps) {
+  const prefersReducedMotion = useReducedMotion()
   const ref = React.useRef<HTMLSpanElement>(null)
   const [isInView, setIsInView] = React.useState(false)
   const [revealCount, setRevealCount] = React.useState(0)
@@ -56,6 +58,7 @@ function EncryptedText({
   )
 
   React.useEffect(() => {
+    if (prefersReducedMotion) return
     const el = ref.current
     if (!el) return
 
@@ -71,9 +74,10 @@ function EncryptedText({
 
     observer.observe(el)
     return () => observer.disconnect()
-  }, [])
+  }, [prefersReducedMotion])
 
   React.useEffect(() => {
+    if (prefersReducedMotion) return
     if (!isInView) return
 
     const initial = text
@@ -146,7 +150,7 @@ function EncryptedText({
         cancelAnimationFrame(animationFrameRef.current)
       }
     }
-  }, [isInView, text, revealDelayMs, charset, flipDelayMs, scrambleOnly, scrambleOneChar])
+  }, [prefersReducedMotion, isInView, text, revealDelayMs, charset, flipDelayMs, scrambleOnly, scrambleOneChar])
 
   if (!text) return null
 
@@ -162,7 +166,10 @@ function EncryptedText({
        * characters must not be read out). */}
       <span className="sr-only">{text}</span>
       {text.split("").map((char, index) => {
-        const isRevealed = !scrambleOnly && index < revealCount
+        // Reduced motion: skip the scramble entirely and show every
+        // character in its final revealed form from the first frame.
+        const isRevealed =
+          prefersReducedMotion || (!scrambleOnly && index < revealCount)
         const displayChar = isRevealed
           ? char
           : char === " "

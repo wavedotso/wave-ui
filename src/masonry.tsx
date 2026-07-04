@@ -2,7 +2,12 @@
 
 import * as React from "react"
 
-import { AnimatePresence, type HTMLMotionProps, motion } from "motion/react"
+import {
+  AnimatePresence,
+  type HTMLMotionProps,
+  motion,
+  useReducedMotion,
+} from "motion/react"
 
 import { StarIcon } from "./lib/internal-icons"
 import { cn } from "./lib/utils"
@@ -255,38 +260,54 @@ function MasonryItem({
 }: MasonryItemProps) {
   const isSpanned = span != null && span > 1
   const getStaggerIndex = React.useContext(MasonryStaggerContext)
+  const prefersReducedMotion = useReducedMotion()
 
   // Capture stagger index once on mount — useState initializer runs exactly once
   const [staggerDelay] = React.useState(() =>
     getStaggerIndex ? getStaggerIndex() * STAGGER_STEP : 0,
   )
 
+  // Reduced motion: render items in their final resting state with no
+  // entrance spring, blur, or stagger — they appear immediately and exit
+  // with a plain fade. Same DOM/output as the settled animated state.
   return (
     <motion.div
       data-slot="masonry-item"
       data-span={isSpanned ? span : undefined}
       className={cn("relative", className)}
-      initial={{
-        opacity: 0,
-        y: 10,
-        filter: "blur(8px)"
-      }}
+      initial={
+        prefersReducedMotion
+          ? { opacity: 1, y: 0, filter: "blur(0px)" }
+          : {
+              opacity: 0,
+              y: 10,
+              filter: "blur(8px)",
+            }
+      }
       animate={{
         opacity: 1,
         y: 0,
         filter: "blur(0px)"
       }}
-      transition={{
-        type: "spring",
-        stiffness: 100,
-        damping: 10,
-        delay: staggerDelay,
-      }}
-      exit={{
-        opacity: 0,
-        scale: 1.2,
-        filter: "blur(8px)",
-      }}
+      transition={
+        prefersReducedMotion
+          ? { duration: 0 }
+          : {
+              type: "spring",
+              stiffness: 100,
+              damping: 10,
+              delay: staggerDelay,
+            }
+      }
+      exit={
+        prefersReducedMotion
+          ? { opacity: 0 }
+          : {
+              opacity: 0,
+              scale: 1.2,
+              filter: "blur(8px)",
+            }
+      }
       {...props}
     >
       {children}

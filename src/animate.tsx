@@ -12,7 +12,7 @@ import {
   useRef,
   useState,
 } from "react"
-import { useInView, type Transition } from "motion/react"
+import { useInView, useReducedMotion, type Transition } from "motion/react"
 
 // ── Types ────────────────────────────────────────────────────────────
 
@@ -238,6 +238,7 @@ function AnimateOnView({
   const ref = useRef<HTMLElement>(null)
   const [hydrated, setHydrated] = useState(false)
   const isInView = useInView(ref, { once, margin: "-50px" })
+  const prefersReducedMotion = useReducedMotion()
 
   useEffect(() => {
     setHydrated(true)
@@ -256,6 +257,19 @@ function AnimateOnView({
   }
 
   const styles = buildStyles({ from, distance, doScale: scale, blur, rotate, flip })
+
+  // Reduced motion: render the final, resting state immediately — no
+  // travel, blur, scale, or transition. Keeps the same DOM/output shape.
+  if (prefersReducedMotion) {
+    return cloneElement(children, {
+      ref: mergeRefs(ref, existingRef),
+      style: {
+        ...existingStyle,
+        ...styles.visible,
+      },
+    } as Record<string, unknown>)
+  }
+
   const { duration, ease } = getTransitionParams(transition, spring, 0.4)
   const currentStyle = isInView ? styles.visible : styles.hidden
   const transitionStr = buildTransitionStr(duration, ease, delay, styles.hasFilter)
@@ -300,6 +314,7 @@ function AnimateIn({
 }: AnimateInProps) {
   const ref = useRef<HTMLElement>(null)
   const [visible, setVisible] = useState(false)
+  const prefersReducedMotion = useReducedMotion()
 
   useEffect(() => {
     requestAnimationFrame(() => {
@@ -314,6 +329,19 @@ function AnimateIn({
   const existingRef = (childProps as { ref?: Ref<HTMLElement> }).ref
 
   const styles = buildStyles({ from, distance, doScale: scale, blur, rotate, flip })
+
+  // Reduced motion: render the final, resting state immediately — no
+  // travel, blur, scale, or transition. Keeps the same DOM/output shape.
+  if (prefersReducedMotion) {
+    return cloneElement(children, {
+      ref: mergeRefs(ref, existingRef),
+      style: {
+        ...existingStyle,
+        ...styles.visible,
+      },
+    } as Record<string, unknown>)
+  }
+
   const { duration, ease } = getTransitionParams(transition, spring)
   const currentStyle = visible ? styles.visible : styles.hidden
   const transitionStr = buildTransitionStr(duration, ease, delay, styles.hasFilter)
@@ -383,6 +411,7 @@ function Pulse({
 }: PulseProps) {
   const id = useId().replace(/:/g, "")
   const [hydrated, setHydrated] = useState(false)
+  const prefersReducedMotion = useReducedMotion()
 
   useEffect(() => {
     setHydrated(true)
@@ -390,6 +419,19 @@ function Pulse({
 
   if (!isValidElement(children)) return children
   if (!hydrated) return children
+
+  const childProps = children.props as Record<string, unknown>
+  const existingStyle = (childProps.style ?? {}) as CSSProperties
+  const existingRef = (childProps as { ref?: Ref<HTMLElement> }).ref
+
+  // Reduced motion: no continuous pulse — render the child at rest, no
+  // keyframe injected. Same ref/style handling as the animated path.
+  if (prefersReducedMotion) {
+    return cloneElement(children, {
+      ref: existingRef ? mergeRefs(existingRef) : undefined,
+      style: existingStyle,
+    } as Record<string, unknown>)
+  }
 
   const name = `pulse-${id}`
   const opacityFrom = opacity?.[0] ?? 1
@@ -399,10 +441,6 @@ function Pulse({
   0%, 100% { transform: scale(${min}); opacity: ${opacityFrom}; }
   50% { transform: scale(${max}); opacity: ${opacityTo}; }
 }`
-
-  const childProps = children.props as Record<string, unknown>
-  const existingStyle = (childProps.style ?? {}) as CSSProperties
-  const existingRef = (childProps as { ref?: Ref<HTMLElement> }).ref
 
   return (
     <>
@@ -441,6 +479,7 @@ function Float({
 }: FloatProps) {
   const id = useId().replace(/:/g, "")
   const [hydrated, setHydrated] = useState(false)
+  const prefersReducedMotion = useReducedMotion()
 
   useEffect(() => {
     setHydrated(true)
@@ -448,6 +487,19 @@ function Float({
 
   if (!isValidElement(children)) return children
   if (!hydrated) return children
+
+  const childProps = children.props as Record<string, unknown>
+  const existingStyle = (childProps.style ?? {}) as CSSProperties
+  const existingRef = (childProps as { ref?: Ref<HTMLElement> }).ref
+
+  // Reduced motion: no continuous float — render the child at rest, no
+  // keyframe injected. Same ref/style handling as the animated path.
+  if (prefersReducedMotion) {
+    return cloneElement(children, {
+      ...(existingRef ? { ref: existingRef } : {}),
+      style: existingStyle,
+    } as Record<string, unknown>)
+  }
 
   const name = `float-${id}`
   const rotA = rotate ? ` rotate(${-rotate}deg)` : ""
@@ -457,10 +509,6 @@ function Float({
   0%, 100% { transform: translateY(0px)${rotA}; }
   50% { transform: translateY(${-distance}px)${rotB}; }
 }`
-
-  const childProps = children.props as Record<string, unknown>
-  const existingStyle = (childProps.style ?? {}) as CSSProperties
-  const existingRef = (childProps as { ref?: Ref<HTMLElement> }).ref
 
   return (
     <>

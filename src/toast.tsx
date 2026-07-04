@@ -277,6 +277,9 @@ const STACKING_BASE = [
   "data-[expanded]:data-[ending-style]:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))]",
   "data-[limited]:opacity-0",
   "[transition:transform_0.5s_cubic-bezier(0.22,1,0.36,1),opacity_0.5s,filter_0.5s,height_0.15s]",
+  // Collapse the stacking motion under reduced motion — toasts appear and
+  // restack instantly instead of sliding/scaling.
+  "motion-reduce:[transition:none]",
 ].join(" ")
 
 // Direction-specific classes — sign flips for anchor, offset, transform, enter/exit
