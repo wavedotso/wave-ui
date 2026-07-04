@@ -9,6 +9,7 @@ const meta = {
   argTypes: {
     disabled: { control: 'boolean' },
     defaultChecked: { control: 'boolean' },
+    indeterminate: { control: 'boolean' },
   },
 } satisfies Meta<typeof Checkbox>;
 
@@ -20,6 +21,16 @@ export const Default: Story = {};
 export const Checked: Story = {
   args: {
     defaultChecked: true,
+  },
+};
+
+/**
+ * The third checkbox state, for a "select all" parent whose children are only
+ * partially selected. It renders a dash (not a check) on a filled box.
+ */
+export const Indeterminate: Story = {
+  args: {
+    indeterminate: true,
   },
 };
 

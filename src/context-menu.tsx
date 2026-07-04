@@ -158,7 +158,7 @@ function ContextMenuSubTrigger({ className, inset, children, ...props }: Context
       data-slot="context-menu-sub-trigger"
       data-inset={inset}
       className={cn(
-        "focus:bg-primary focus:text-white data-open:bg-primary data-open:text-white flex cursor-clickable items-center gap-1.5 rounded-sm px-1.5 py-1 text-sm outline-hidden select-none data-inset:pl-7 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-primary focus:text-white data-popup-open:bg-primary data-popup-open:text-white flex cursor-clickable items-center gap-1.5 rounded-sm px-1.5 py-1 text-sm outline-hidden select-none data-inset:pl-7 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}

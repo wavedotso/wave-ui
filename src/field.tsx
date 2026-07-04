@@ -47,7 +47,9 @@ export function FieldControl({ className, ...props }: FieldControlProps) {
     <FieldPrimitive.Control
       data-slot="field-control"
       className={cn(
-        "rounded-md outline-none focus-visible:ring-3 focus-visible:ring-focus/50 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
+        // No focus ring here: FieldControl is a headless slot, and the
+        // composed control (e.g. `render={<Input/>}`) owns its own ring.
+        "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
         className,
       )}
       {...props}
@@ -60,8 +62,7 @@ export function FieldDescription({ className, ...props }: FieldDescriptionProps)
     <FieldPrimitive.Description
       data-slot="field-description"
       className={cn(
-        "text-muted text-left text-sm leading-normal font-normal group-has-data-horizontal/field:text-balance [[data-variant=legend]+&]:-mt-1.5",
-        "last:mt-0 nth-last-2:-mt-1",
+        "text-muted text-left text-sm leading-normal font-normal",
         "[&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4",
         className
       )}

@@ -157,7 +157,10 @@ const toastTypeLabels: Record<ToastType, string> = {
 }
 
 function ToastIcon({ type }: { type?: ToastType }) {
-  if (!type) return null
+  // `type` is a plain string at runtime (the manager accepts arbitrary values),
+  // so guard against unknown keys — an unrecognized type renders nothing rather
+  // than dereferencing an undefined icon component and throwing.
+  if (!type || !(type in iconMap)) return null
   const Icon = iconMap[type]
   return (
     <>

@@ -313,18 +313,27 @@ function DateCount({
   useEffect(() => {
     if (!started) return
 
+    let interval: ReturnType<typeof setInterval> | undefined
+
     const tick = () => {
       const ms = Math.max(0, to.getTime() - Date.now())
       setRemaining(ms)
 
-      if (ms <= 0 && !completedRef.current) {
-        completedRef.current = true
-        onComplete?.()
+      // Countdown reached zero: fire `onComplete` once and stop ticking —
+      // no point re-running `Date.now()`/`setRemaining(0)` every second forever.
+      if (ms <= 0) {
+        clearInterval(interval)
+        if (!completedRef.current) {
+          completedRef.current = true
+          onComplete?.()
+        }
+        return true
       }
+      return false
     }
 
-    tick()
-    const interval = setInterval(tick, 1000)
+    // Skip arming the interval entirely if the target is already in the past.
+    if (!tick()) interval = setInterval(tick, 1000)
     return () => clearInterval(interval)
   }, [started, to, onComplete])
 

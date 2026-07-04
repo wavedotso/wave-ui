@@ -115,7 +115,7 @@ function ActionBarProvider({
   const jiggleTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(
     null
   )
-  const contentRef = React.useRef<HTMLDivElement>(null)
+  const blockedNoticeRafRef = React.useRef<number | null>(null)
   const isMac = useIsMac()
   const prefersReducedMotion = useReducedMotion()
   const reducedMotionRef = React.useRef(prefersReducedMotion)
@@ -125,6 +125,9 @@ function ActionBarProvider({
   // users (the visual jiggle is suppressed for them), so it is driven
   // independently of the shake.
   const [blockedNotice, setBlockedNotice] = React.useState("")
+  // Set when a Save All attempt rejects, so the failure is surfaced in the
+  // bar (and announced) rather than lost to an unhandled promise rejection.
+  const [saveError, setSaveError] = React.useState(false)
 
   // --- Registry ---
 
@@ -160,7 +163,13 @@ function ActionBarProvider({
     // first guarantees a text change so an identical message
     // re-announces on repeat presses.
     setBlockedNotice("")
-    requestAnimationFrame(() => setBlockedNotice(blockedMessage))
+    if (blockedNoticeRafRef.current !== null) {
+      cancelAnimationFrame(blockedNoticeRafRef.current)
+    }
+    blockedNoticeRafRef.current = requestAnimationFrame(() => {
+      blockedNoticeRafRef.current = null
+      setBlockedNotice(blockedMessage)
+    })
 
     // Vestibular safety: the random-translate shake is purely a motion
     // cue, so skip it under prefers-reduced-motion. The assertive
@@ -188,6 +197,19 @@ function ActionBarProvider({
     tick()
   }, [blockedMessage])
 
+  // Cancel any in-flight jiggle timer / announcement frame on unmount so
+  // they can't fire a state update after the provider is gone.
+  React.useEffect(() => {
+    return () => {
+      if (jiggleTimerRef.current !== null) {
+        clearTimeout(jiggleTimerRef.current)
+      }
+      if (blockedNoticeRafRef.current !== null) {
+        cancelAnimationFrame(blockedNoticeRafRef.current)
+      }
+    }
+  }, [])
+
   // --- Aggregated state ---
 
   const dirty: ActionBarEntry[] = []
@@ -206,10 +228,17 @@ function ActionBarProvider({
   // --- Save / Reset ---
 
   const handleSaveAll = React.useCallback(async () => {
+    setSaveError(false)
     const saves = [...entriesRef.current.values()]
       .filter((e) => e.hasChanges)
       .map((e) => e.onSave())
-    await Promise.all(saves)
+    try {
+      await Promise.all(saves)
+    } catch {
+      // A form's onSave rejected. Surface it in the bar instead of leaking
+      // an unhandled rejection; the form owns any richer error UI.
+      setSaveError(true)
+    }
   }, [])
 
   const handleResetAll = React.useCallback(() => {
@@ -222,7 +251,7 @@ function ActionBarProvider({
 
   React.useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
-      if ((e.metaKey || e.ctrlKey) && e.key === "s") {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "s") {
         e.preventDefault()
         if (hasDirty()) {
           handleSaveAll()
@@ -258,7 +287,6 @@ function ActionBarProvider({
     <ActionBarContext.Provider value={ctx}>
       <div
         data-slot="action-bar-shell"
-        ref={contentRef}
         style={jiggleTransform ? { transform: jiggleTransform } : undefined}
       >
         {children}
@@ -278,7 +306,7 @@ function ActionBarProvider({
         aria-live="assertive"
         className="sr-only"
       >
-        {blockedNotice}
+        {saveError ? "Couldn't save your changes" : blockedNotice}
       </span>
 
       <AnimatePresence>
@@ -308,9 +336,12 @@ function ActionBarProvider({
             >
               <span
                 data-slot="action-bar-message"
-                className="whitespace-nowrap text-sm font-medium text-contrast"
+                className={cn(
+                  "whitespace-nowrap text-sm font-medium",
+                  saveError ? "text-destructive" : "text-contrast"
+                )}
               >
-                {displayMessage}
+                {saveError ? "Couldn't save your changes" : displayMessage}
               </span>
 
               <div

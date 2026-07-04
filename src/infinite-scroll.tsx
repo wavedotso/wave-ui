@@ -107,6 +107,7 @@ function InfiniteScroll({
         <>
           {sentinel}
           {loaderContent}
+          {endContent}
         </>
       )}
 
@@ -116,10 +117,9 @@ function InfiniteScroll({
         <>
           {sentinel}
           {loaderContent}
+          {endContent}
         </>
       )}
-
-      {endContent}
     </div>
   )
 }

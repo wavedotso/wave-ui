@@ -237,6 +237,15 @@ function TypingReveal({
     return () => clearTimeout(timer)
   }, [prefersReducedMotion, shouldAnimate, delay, started])
 
+  // When once={false}, useInView flips shouldAnimate back to false on
+  // view-exit — reset progress so the reveal replays on re-entry.
+  useEffect(() => {
+    if (prefersReducedMotion || shouldAnimate) return
+    setStarted(false)
+    setCharIndex(0)
+    setDone(false)
+  }, [prefersReducedMotion, shouldAnimate])
+
   useEffect(() => {
     if (prefersReducedMotion || !started || done) return
     if (charIndex >= flat.length) {

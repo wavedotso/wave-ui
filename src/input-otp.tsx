@@ -19,7 +19,7 @@ function InputOTP({
     <OTPInput
       data-slot="input-otp"
       containerClassName={cn(
-        "flex items-center has-disabled:opacity-50",
+        "group/input-otp flex items-center has-disabled:opacity-50",
         containerClassName,
       )}
       spellCheck={false}
@@ -35,10 +35,7 @@ function InputOTPGroup({ className, ...props }: InputOTPGroupProps) {
   return (
     <div
       data-slot="input-otp-group"
-      className={cn(
-        "flex items-center rounded-md has-aria-invalid:border-destructive has-aria-invalid:ring-3 has-aria-invalid:ring-destructive/20 dark:has-aria-invalid:ring-destructive/40",
-        className,
-      )}
+      className={cn("flex items-center rounded-md", className)}
       {...props}
     />
   )
@@ -59,7 +56,7 @@ function InputOTPSlot({ index, className, ...props }: InputOTPSlotProps) {
       className={cn(
         "border-edge dark:bg-edge/30 relative flex size-9 items-center justify-center border-y border-r text-sm motion-color outline-none first:rounded-l-md first:border-l last:rounded-r-md",
         "data-active:border-focus data-active:ring-3 data-active:ring-focus/50 data-active:z-10",
-        "aria-invalid:border-destructive data-active:aria-invalid:border-destructive data-active:aria-invalid:ring-destructive/20 dark:data-active:aria-invalid:ring-destructive/40",
+        "group-has-aria-invalid/input-otp:border-destructive group-has-aria-invalid/input-otp:data-active:ring-3 group-has-aria-invalid/input-otp:data-active:ring-destructive/20 dark:group-has-aria-invalid/input-otp:data-active:ring-destructive/40",
         className,
       )}
       {...props}

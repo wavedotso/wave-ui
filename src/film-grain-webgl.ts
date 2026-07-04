@@ -3,7 +3,6 @@ import { vertexShader, fragmentShader } from "./film-grain-shader"
 
 interface UseFilmGrainOptions {
   density: number
-  opacity: number
   /** Target FPS for both WebGL and canvas fallback. Default 18 */
   fps?: number
   /** Hex color for canvas fallback grain. Default '#ffffff' */
@@ -153,7 +152,6 @@ function generateGrainTexture(
 
 export function useFilmGrain({
   density,
-  opacity,
   fps = 18,
   color = "#ffffff",
 }: UseFilmGrainOptions) {
@@ -196,10 +194,22 @@ export function useFilmGrain({
     }
 
     // ── Try WebGL ──
+    // Probe on a throwaway canvas first: requesting a WebGL context permanently
+    // taints a canvas so it can never yield a 2D context. Probing off-canvas keeps
+    // the real canvas clean, so the 2D fallback stays reachable when shader/program
+    // init fails (not only when context creation fails).
 
-    const gl =
-      canvas.getContext("webgl") ||
-      (canvas.getContext("experimental-webgl") as WebGLRenderingContext | null)
+    const canGetWebGL = (c: HTMLCanvasElement) =>
+      (c.getContext("webgl") ||
+        (c.getContext("experimental-webgl") as WebGLRenderingContext | null)) ??
+      null
+
+    const probe = document.createElement("canvas")
+    const probeGl = canGetWebGL(probe)
+    const webglSupported = probeGl ? initWebGL(probeGl) !== null : false
+    probeGl?.getExtension("WEBGL_lose_context")?.loseContext()
+
+    const gl = webglSupported ? canGetWebGL(canvas) : null
     const uniforms = gl ? initWebGL(gl) : null
 
     if (gl && uniforms) {
@@ -208,7 +218,9 @@ export function useFilmGrain({
       const [cr, cg, cb] = parseHex(color)
       const setUniforms = () => {
         setUniform1f(gl, uniforms.uDensity, density)
-        setUniform1f(gl, uniforms.uOpacity, opacity)
+        // Opacity is owned solely by the container's CSS opacity (see FilmGrain).
+        // Render grain at full alpha here so the WebGL and 2D paths match.
+        setUniform1f(gl, uniforms.uOpacity, 1)
         setUniform1f(gl, uniforms.uFps, fps)
         setUniform3f(gl, uniforms.uColor, cr / 255, cg / 255, cb / 255)
       }
@@ -440,7 +452,7 @@ export function useFilmGrain({
       intersectionObs.disconnect()
       grainTextureRef.current = null
     }
-  }, [density, opacity, fps, interval, color])
+  }, [density, fps, interval, color])
 
   return canvasRef
 }

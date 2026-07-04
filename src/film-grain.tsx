@@ -24,7 +24,7 @@ function FilmGrain({
   className,
   style,
 }: FilmGrainProps) {
-  const canvasRef = useFilmGrain({ density, opacity, fps, color })
+  const canvasRef = useFilmGrain({ density, fps, color })
 
   return (
     <div

@@ -5,14 +5,25 @@ import {
   type CSSProperties,
   type ReactElement,
   type Ref,
+  type TransitionEvent,
   cloneElement,
   isValidElement,
+  useCallback,
   useEffect,
   useId,
+  useLayoutEffect,
   useRef,
   useState,
 } from "react"
 import { useInView, useReducedMotion, type Transition } from "motion/react"
+
+/**
+ * `useLayoutEffect` warns when run during SSR. Fall back to `useEffect` on the
+ * server so entrance components (which render on the server to avoid hydration
+ * mismatch) stay warning-free while still committing pre-paint in the browser.
+ */
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect
 
 // ── Types ────────────────────────────────────────────────────────────
 
@@ -237,12 +248,36 @@ function AnimateOnView({
 }: AnimateOnViewProps) {
   const ref = useRef<HTMLElement>(null)
   const [hydrated, setHydrated] = useState(false)
+  const [settled, setSettled] = useState(false)
   const isInView = useInView(ref, { once, margin: "-50px" })
   const prefersReducedMotion = useReducedMotion()
 
-  useEffect(() => {
+  // Commit the hidden state before the browser paints so the child never
+  // flashes visible → blank → animate. Isomorphic so SSR stays warning-free.
+  useIsomorphicLayoutEffect(() => {
     setHydrated(true)
   }, [])
+
+  // Re-arm `will-change` for the next entrance when the element leaves view
+  // (only reachable with `once={false}`).
+  useEffect(() => {
+    if (!isInView) setSettled(false)
+  }, [isInView])
+
+  const existingOnTransitionEnd = (
+    (children.props as { onTransitionEnd?: (e: TransitionEvent) => void })
+      ?.onTransitionEnd
+  )
+
+  // Drop `will-change` once the entrance finishes — leaving it applied keeps
+  // the element on a compositor layer for its whole lifetime.
+  const handleTransitionEnd = useCallback(
+    (event: TransitionEvent) => {
+      if (event.target === ref.current) setSettled(true)
+      existingOnTransitionEnd?.(event)
+    },
+    [existingOnTransitionEnd],
+  )
 
   if (!isValidElement(children)) return children
 
@@ -276,11 +311,12 @@ function AnimateOnView({
 
   return cloneElement(children, {
     ref: mergeRefs(ref, existingRef),
+    onTransitionEnd: handleTransitionEnd,
     style: {
       ...existingStyle,
       ...currentStyle,
       ...(isInView ? { transition: transitionStr } : {}),
-      willChange: "opacity, transform",
+      ...(isInView && !settled ? { willChange: "opacity, transform" } : {}),
     },
   } as Record<string, unknown>)
 }
@@ -314,13 +350,35 @@ function AnimateIn({
 }: AnimateInProps) {
   const ref = useRef<HTMLElement>(null)
   const [visible, setVisible] = useState(false)
+  const [settled, setSettled] = useState(false)
   const prefersReducedMotion = useReducedMotion()
 
   useEffect(() => {
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => setVisible(true))
+    // Two frames so the hidden state paints before flipping to visible.
+    let inner = 0
+    const outer = requestAnimationFrame(() => {
+      inner = requestAnimationFrame(() => setVisible(true))
     })
+    return () => {
+      cancelAnimationFrame(outer)
+      cancelAnimationFrame(inner)
+    }
   }, [])
+
+  const existingOnTransitionEnd = (
+    (children.props as { onTransitionEnd?: (e: TransitionEvent) => void })
+      ?.onTransitionEnd
+  )
+
+  // Drop `will-change` once the entrance finishes — leaving it applied keeps
+  // the element on a compositor layer for its whole lifetime.
+  const handleTransitionEnd = useCallback(
+    (event: TransitionEvent) => {
+      if (event.target === ref.current) setSettled(true)
+      existingOnTransitionEnd?.(event)
+    },
+    [existingOnTransitionEnd],
+  )
 
   if (!isValidElement(children)) return children
 
@@ -348,11 +406,12 @@ function AnimateIn({
 
   return cloneElement(children, {
     ref: mergeRefs(ref, existingRef),
+    onTransitionEnd: handleTransitionEnd,
     style: {
       ...existingStyle,
       ...currentStyle,
       ...(visible ? { transition: transitionStr } : {}),
-      willChange: "opacity, transform",
+      ...(visible && !settled ? { willChange: "opacity, transform" } : {}),
     },
   } as Record<string, unknown>)
 }

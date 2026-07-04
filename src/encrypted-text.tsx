@@ -53,9 +53,11 @@ function EncryptedText({
   const animationFrameRef = React.useRef<number | null>(null)
   const startTimeRef = React.useRef(0)
   const lastFlipTimeRef = React.useRef(0)
-  const scrambleCharsRef = React.useRef<string[]>(
-    text ? scramblePreservingSpaces(text, charset).split("") : []
-  )
+  // Populated inside the animation effect (client-only). Left empty on the
+  // first render so SSR and the initial client render show plain text and
+  // agree — scrambling with Math.random() here would cause a hydration
+  // mismatch.
+  const scrambleCharsRef = React.useRef<string[]>([])
 
   React.useEffect(() => {
     if (prefersReducedMotion) return
@@ -137,6 +139,9 @@ function EncryptedText({
             text[index] === " " ? " " : randomChar(charset)
         }
         lastFlipTimeRef.current = now
+        // Repaint the flipped glyphs — mutating the ref alone won't, so
+        // without this flipDelayMs would be clamped to revealDelayMs.
+        setFlipTick((t) => (t + 1) & 0xffff)
       }
 
       animationFrameRef.current = requestAnimationFrame(update)
@@ -168,13 +173,18 @@ function EncryptedText({
       {text.split("").map((char, index) => {
         // Reduced motion: skip the scramble entirely and show every
         // character in its final revealed form from the first frame.
+        // Before the animation starts (SSR + first client render, until the
+        // in-view effect populates scrambleCharsRef), show plain text so
+        // server and client agree — no Math.random() during render.
         const isRevealed =
-          prefersReducedMotion || (!scrambleOnly && index < revealCount)
+          prefersReducedMotion ||
+          !isInView ||
+          (!scrambleOnly && index < revealCount)
         const displayChar = isRevealed
           ? char
           : char === " "
             ? " "
-            : (scrambleCharsRef.current[index] ?? randomChar(charset))
+            : (scrambleCharsRef.current[index] ?? char)
 
         return (
           <span

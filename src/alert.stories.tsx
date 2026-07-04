@@ -47,6 +47,25 @@ export const WithIcon: Story = {
   ),
 };
 
+/**
+ * The `data-icon` grid contract targets the marked element directly, not a
+ * raw `<svg>`, so wrapping the icon (e.g. in a badge, a colored chip, or any
+ * layout element) keeps the two-column layout intact.
+ */
+export const WrappedIcon: Story = {
+  render: (args) => (
+    <Alert {...args} className="w-[420px]">
+      <span data-icon="inline-start" className="grid size-6 place-items-center rounded-full bg-primary/10">
+        <InfoCircleIcon className="size-3.5" />
+      </span>
+      <AlertTitle>Heads up!</AlertTitle>
+      <AlertDescription>
+        You can add components to your app using the CLI.
+      </AlertDescription>
+    </Alert>
+  ),
+};
+
 export const Destructive: Story = {
   render: (args) => (
     <Alert {...args} variant="destructive" className="w-[420px]">
