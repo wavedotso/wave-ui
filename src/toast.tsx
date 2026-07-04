@@ -148,10 +148,25 @@ const iconMap = {
   error: ErrorCircleIcon,
 } as const
 
+const toastTypeLabels: Record<ToastType, string> = {
+  loading: "Loading",
+  success: "Success",
+  info: "Information",
+  warning: "Warning",
+  error: "Error",
+}
+
 function ToastIcon({ type }: { type?: ToastType }) {
   if (!type) return null
   const Icon = iconMap[type]
-  return <Icon className={cn(toastIconVariants({ type }))} />
+  return (
+    <>
+      <Icon className={cn(toastIconVariants({ type }))} />
+      {/* The icon is decorative (color/shape); announce the type in words so it
+       * isn't conveyed by color alone. */}
+      <span className="sr-only">{toastTypeLabels[type]}</span>
+    </>
+  )
 }
 
 // ---------------------------------------------------------------------------
@@ -203,7 +218,7 @@ function ToastAction({ className, ...props }: ToastActionProps) {
     <ToastPrimitive.Action
       data-slot="toast-action"
       className={cn(
-        "hover:bg-secondary inline-flex h-7 items-center rounded-md border border-line px-2.5 text-xs font-medium transition-colors",
+        "hover:bg-secondary inline-flex h-7 items-center rounded-md border border-line px-2.5 text-xs font-medium transition-colors outline-none focus-visible:border-focus focus-visible:ring-focus/50 focus-visible:ring-3",
         className,
       )}
       {...props}
@@ -216,7 +231,7 @@ function ToastClose({ className, children, ...props }: ToastCloseProps) {
     <ToastPrimitive.Close
       data-slot="toast-close"
       className={cn(
-        "text-muted hover:text-contrast shrink-0 rounded-md p-0.5 transition-colors",
+        "text-muted hover:text-contrast shrink-0 rounded-md p-0.5 transition-colors outline-none focus-visible:ring-focus/50 focus-visible:ring-3",
         className,
       )}
       {...props}
