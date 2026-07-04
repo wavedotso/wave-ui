@@ -1,5 +1,24 @@
 # @waveso/ui
 
+## 0.7.1
+
+### Patch Changes
+
+- 9c80534: Accessibility improvements:
+
+  - Internal icons are now decorative by default (`aria-hidden` / `focusable="false"`), so screen readers no longer announce them; the control that renders an icon carries the accessible name. `Spinner` keeps its `role="status"` / "Loading" announcement (and now emits `data-slot="spinner"`).
+  - `EncryptedText` exposes its real text to assistive technology via an `sr-only` copy and marks the animated scramble characters `aria-hidden`, instead of an unreliable `aria-label` on a generic span.
+  - `Label`'s disabled dimming now actually applies — it matched a non-existent `data-disabled="true"`, but Base UI emits a valueless `data-disabled`.
+
+- c773307: Fix several component bugs:
+
+  - **ToggleGroup** now forwards `orientation` to the primitive, so a vertical group responds to Up/Down arrow keys (it was stuck on Left/Right).
+  - **Textarea** is marked `'use client'`, so it no longer errors when rendered from a React Server Component (it attaches an `onChange`).
+  - **InfiniteScroll** no longer stalls after the first page when the sentinel stays in view — it re-checks visibility once `isLoading` clears.
+  - **Count** (`NumberCount`) no longer freezes mid-count when a parent re-renders with inline `easing`/`onComplete`; live `to` changes and `once={false}` now restart the animation as expected.
+  - **Combobox** — the clear and chip-remove buttons now have accessible names (`aria-label`), and a disabled `<Combobox>` root now disables its input (the wrapper no longer forces `disabled={false}`).
+  - **GradientRevealText** exposes its text to assistive technology (`role="img"` + `aria-label`) instead of hiding it with `aria-hidden`.
+
 ## 0.7.0
 
 ### Minor Changes
