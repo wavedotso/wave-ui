@@ -17,7 +17,10 @@ function Table({ className, ...props }: TableProps) {
   return (
     <div
       data-slot="table-container"
-      className="relative w-full overflow-x-auto"
+      role="region"
+      aria-label="Table"
+      tabIndex={0}
+      className="relative w-full overflow-x-auto focus-visible:outline-hidden focus-visible:ring-3 focus-visible:ring-focus/50"
     >
       <table
         data-slot="table"

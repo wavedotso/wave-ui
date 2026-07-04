@@ -17,6 +17,8 @@ type PaginationItemProps = React.ComponentProps<"li">
 
 type PaginationLinkProps = {
   isActive?: boolean
+  /** Marks the link disabled — aria-disabled, removed from tab order, non-interactive. */
+  disabled?: boolean
 } & Pick<React.ComponentProps<typeof Button>, "size"> &
   React.ComponentProps<"a">
 
@@ -65,6 +67,7 @@ function PaginationItem(props: PaginationItemProps) {
 function PaginationLink({
   className,
   isActive,
+  disabled,
   size = "icon",
   ...props
 }: PaginationLinkProps) {
@@ -72,12 +75,14 @@ function PaginationLink({
     <Button
       variant={isActive ? "outline" : "ghost"}
       size={size}
-      className={className}
+      className={cn(disabled && "pointer-events-none opacity-50", className)}
       render={
         <a
           aria-current={isActive ? "page" : undefined}
+          aria-disabled={disabled || undefined}
           data-slot="pagination-link"
           data-active={isActive || undefined}
+          tabIndex={disabled ? -1 : undefined}
           {...props}
         />
       }
@@ -124,7 +129,6 @@ function PaginationNext({
 function PaginationEllipsis({ className, ...props }: PaginationEllipsisProps) {
   return (
     <span
-      aria-hidden
       data-slot="pagination-ellipsis"
       className={cn(
         "flex size-8 items-center justify-center [&_svg:not([class*='size-'])]:size-4",
