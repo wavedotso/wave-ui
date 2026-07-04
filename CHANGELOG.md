@@ -1,5 +1,22 @@
 # @waveso/ui
 
+## 0.7.2
+
+### Patch Changes
+
+- 7d00b18: More accessibility fixes:
+
+  - `FormError` uses `role="alert"` so a root-level form error is announced when it appears.
+  - `Badge` status-variant focus rings are now clearly visible — raised from 20% opacity to match the base ring (WCAG 1.4.11 non-text contrast).
+  - `ContextMenu` destructive items keep their red icon on focus (it was turning white on the faint destructive highlight), and checkbox/radio items now recolor their indicator on the primary focus background like regular items.
+  - `SidebarTrigger` exposes `aria-expanded`, so assistive tech announces the sidebar's open/collapsed state.
+  - Masonry's featured badge uses `role="img"` so its "Featured" label is announced (an `aria-label` on a role-less span is unreliable).
+
+- 0a56060: `Slider` accessibility and `controlClassName` fixes:
+
+  - The thumb (the interactive slider control) can now be named for assistive technology. Pass `getThumbAriaLabel(index)` for per-thumb names on range sliders, or a plain `aria-label` — which is now applied to the thumb rather than only the slider group. Previously the thumb's `<input type="range">` had no accessible name.
+  - `controlClassName` now works. It was declared but never applied (and leaked onto the root DOM element as an unknown attribute); `className` now styles the root and `controlClassName` styles the control.
+
 ## 0.7.1
 
 ### Patch Changes
