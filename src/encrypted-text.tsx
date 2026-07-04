@@ -155,9 +155,12 @@ function EncryptedText({
       ref={ref}
       data-slot="encrypted-text"
       className={className}
-      aria-label={text}
       {...props}
     >
+      {/* Real text for assistive tech; the animated glyphs below are decorative
+       * (aria-label on a role-less span is unreliable, and the scrambled
+       * characters must not be read out). */}
+      <span className="sr-only">{text}</span>
       {text.split("").map((char, index) => {
         const isRevealed = !scrambleOnly && index < revealCount
         const displayChar = isRevealed
@@ -169,6 +172,7 @@ function EncryptedText({
         return (
           <span
             key={index}
+            aria-hidden="true"
             data-slot="encrypted-text-char"
             data-revealed={isRevealed || undefined}
             className={cn(isRevealed ? revealedClassName : encryptedClassName)}

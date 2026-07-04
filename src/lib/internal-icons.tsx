@@ -1,7 +1,7 @@
 /**
  * Internal-only SVG icons used by wave-ui components.
  *
- * NOT a public entry point — bundled into shared chunks via tsup splitting.
+ * NOT a public entry point — imported by components via relative paths.
  */
 
 import { forwardRef } from 'react';
@@ -17,7 +17,12 @@ const SVG_BASE = {
   stroke: 'currentColor',
   strokeWidth: 2,
   strokeLinecap: "round",
-  strokeLinejoin: "round"
+  strokeLinejoin: "round",
+  // Decorative by default — the control rendering an icon provides the
+  // accessible name (aria-label / sr-only text). A component using an icon
+  // *meaningfully* overrides this via props (e.g. Spinner sets aria-hidden={false}).
+  "aria-hidden": true,
+  focusable: false,
 } as const;
 
 // ---------------------------------------------------------------------------
