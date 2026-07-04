@@ -239,6 +239,7 @@ function FeaturedBadge() {
     <span
       data-slot="masonry-badge"
       className="absolute top-2 right-2 z-10 flex size-5 items-center justify-center pointer-events-none"
+      role="img"
       aria-label="Featured"
     >
       <StarIcon width={10} height={10} fill="currentColor" aria-hidden />

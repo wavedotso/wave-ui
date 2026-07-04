@@ -168,6 +168,7 @@ function FormError({ className, ...props }: FormErrorProps) {
   return (
     <p
       data-slot="form-error"
+      role="alert"
       className={cn(
         "text-destructive rounded-lg border border-destructive/30 bg-destructive/5 p-4 text-sm",
         className,

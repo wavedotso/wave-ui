@@ -321,11 +321,12 @@ function SidebarTrigger({
   onClick,
   ...props
 }: React.ComponentProps<typeof Button>) {
-  const { toggleSidebar } = useSidebar()
+  const { toggleSidebar, open } = useSidebar()
 
   return (
     <Button
       data-slot="sidebar-trigger"
+      aria-expanded={open}
       variant="ghost"
       size="icon-sm"
       className={cn(className)}
