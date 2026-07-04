@@ -7,15 +7,24 @@ import { cn } from "./lib/utils"
 
 type SliderProps = React.ComponentProps<typeof SliderPrimitive.Root> & {
   controlClassName?: string
+  /**
+   * Accessible name for the thumb(s). The thumb is the interactive slider
+   * control, so it needs its own name — a plain `aria-label` on `<Slider>`
+   * labels the group, not the thumb. Receives the thumb index for range sliders.
+   */
+  getThumbAriaLabel?: (index: number) => string
 }
 
 function Slider({
   className,
+  controlClassName,
   defaultValue,
   value,
   min = 0,
   max = 100,
   orientation = "horizontal",
+  "aria-label": ariaLabel,
+  getThumbAriaLabel,
   ...props
 }: SliderProps) {
   const _values = React.useMemo(
@@ -30,7 +39,10 @@ function Slider({
 
   return (
     <SliderPrimitive.Root
-      className="data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full"
+      className={cn(
+        "data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full",
+        className
+      )}
       data-slot="slider"
       defaultValue={defaultValue}
       value={value}
@@ -43,7 +55,7 @@ function Slider({
       <SliderPrimitive.Control
         className={cn(
           "relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-disabled:cursor-not-allowed data-[orientation=vertical]:h-full data-[orientation=vertical]:min-h-40 data-[orientation=vertical]:w-auto data-[orientation=vertical]:flex-col",
-          className
+          controlClassName
         )}
       >
         <SliderPrimitive.Track
@@ -59,6 +71,7 @@ function Slider({
           <SliderPrimitive.Thumb
             data-slot="slider-thumb"
             key={index}
+            aria-label={getThumbAriaLabel ? getThumbAriaLabel(index) : ariaLabel}
             className="border-focus ring-focus/50 relative block size-3 shrink-0 rounded-full border bg-white motion-color cursor-clickable select-none after:absolute after:-inset-2 hover:ring-3 focus-visible:ring-3 focus-visible:outline-hidden active:ring-3 data-disabled:pointer-events-none"
           />
         ))}
