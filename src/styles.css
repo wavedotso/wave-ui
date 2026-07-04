@@ -33,17 +33,17 @@
 
   /* Wave — brand ramp. 500 = Wave Blue #0074DE.
    * A true cobalt signal: calm, trustable, solid, constant. */
-  --wave-50:  #EEF8FF;
-  --wave-100: #D6EEFF;
-  --wave-200: #AEDDFF;
-  --wave-300: #7BC3FF;
-  --wave-400: #3EA3FF;
-  --wave-500: #0074DE;
-  --wave-600: #0061C6;
-  --wave-700: #004C9F;
-  --wave-800: #003976;
-  --wave-900: #042954;
-  --wave-950: #061C37;
+  --wave-50:  oklch(0.974 0.014 238); /* #EEF8FF */
+  --wave-100: oklch(0.937 0.034 239); /* #D6EEFF */
+  --wave-200: oklch(0.876 0.068 240); /* #AEDDFF */
+  --wave-300: oklch(0.793 0.112 245); /* #7BC3FF */
+  --wave-400: oklch(0.700 0.164 250); /* #3EA3FF */
+  --wave-500: oklch(0.566 0.184 255); /* #0074DE */
+  --wave-600: oklch(0.506 0.175 256); /* #0061C6 */
+  --wave-700: oklch(0.429 0.150 257); /* #004C9F */
+  --wave-800: oklch(0.351 0.118 255); /* #003976 */
+  --wave-900: oklch(0.284 0.088 255); /* #042954 */
+  --wave-950: oklch(0.226 0.060 255); /* #061C37 */
 
   /* ── Neutral theme palettes (primitives) ─────────────────────────────────
    * Three complete neutral ramps, one per theme. The theme class on <html>
@@ -53,45 +53,45 @@
    * ──────────────────────────────────────────────────────────────────────── */
 
   /* Graphite — neutral grey (default) */
-  --graphite-50:  #FAFAFB;
-  --graphite-100: #F3F3F4;
-  --graphite-200: #E5E5E8;
-  --graphite-300: #D1D2D7;
-  --graphite-400: #ABACB2;
-  --graphite-500: #8B8C94;
-  --graphite-600: #6C6D76;
-  --graphite-700: #4C4D55;
-  --graphite-800: #3B3C44;
-  --graphite-900: #323339;
-  --graphite-950: #2C2D32;
+  --graphite-50:  oklch(0.985 0.001 286); /* #FAFAFB */
+  --graphite-100: oklch(0.964 0.001 286); /* #F3F3F4 */
+  --graphite-200: oklch(0.923 0.004 286); /* #E5E5E8 */
+  --graphite-300: oklch(0.864 0.007 277); /* #D1D2D7 */
+  --graphite-400: oklch(0.745 0.009 279); /* #ABACB2 */
+  --graphite-500: oklch(0.642 0.012 280); /* #8B8C94 */
+  --graphite-600: oklch(0.537 0.014 281); /* #6C6D76 */
+  --graphite-700: oklch(0.422 0.013 280); /* #4C4D55 */
+  --graphite-800: oklch(0.358 0.014 280); /* #3B3C44 */
+  --graphite-900: oklch(0.322 0.011 278); /* #323339 */
+  --graphite-950: oklch(0.298 0.009 277); /* #2C2D32 */
 
   /* Ink — deep navy surfaces, neutral-cool structure (page #020812, surface #050F1E).
    * Chroma fades from full navy at the dark surfaces to near-neutral at the light
    * end, so text/borders read as a distinct layer rather than melting into navy. */
-  --ink-50:  #F2F4F6;
-  --ink-100: #DFE1E5;
-  --ink-200: #C5C9CE;
-  --ink-300: #AAAFB6;
-  --ink-400: #8C929A;
-  --ink-500: #6E747D;
-  --ink-600: #4F5763;
-  --ink-700: #323D4C;
-  --ink-800: #162336;
-  --ink-900: #050F1E;
-  --ink-950: #020812;
+  --ink-50:  oklch(0.966 0.003 248); /* #F2F4F6 */
+  --ink-100: oklch(0.909 0.006 265); /* #DFE1E5 */
+  --ink-200: oklch(0.834 0.008 254); /* #C5C9CE */
+  --ink-300: oklch(0.752 0.011 257); /* #AAAFB6 */
+  --ink-400: oklch(0.658 0.014 256); /* #8C929A */
+  --ink-500: oklch(0.557 0.016 258); /* #6E747D */
+  --ink-600: oklch(0.454 0.022 258); /* #4F5763 */
+  --ink-700: oklch(0.356 0.030 256); /* #323D4C */
+  --ink-800: oklch(0.254 0.041 258); /* #162336 */
+  --ink-900: oklch(0.168 0.036 257); /* #050F1E */
+  --ink-950: oklch(0.132 0.027 252); /* #020812 */
 
   /* Paper — cool near-neutral (anchor #EFF0EB @ 200 = foundation) */
-  --paper-50:  #FCFDFA;
-  --paper-100: #F6F7F3;
-  --paper-200: #EFF0EB;
-  --paper-300: #D7D8D2;
-  --paper-400: #AAACA5;
-  --paper-500: #83847D;
-  --paper-600: #63645E;
-  --paper-700: #494A44;
-  --paper-800: #30312C;
-  --paper-900: #1B1C18;
-  --paper-950: #0C0D09;
+  --paper-50:  oklch(0.992 0.004 122); /* #FCFDFA */
+  --paper-100: oklch(0.974 0.005 118); /* #F6F7F3 */
+  --paper-200: oklch(0.953 0.007 116); /* #EFF0EB */
+  --paper-300: oklch(0.880 0.008 114); /* #D7D8D2 */
+  --paper-400: oklch(0.741 0.010 120); /* #AAACA5 */
+  --paper-500: oklch(0.610 0.010 113); /* #83847D */
+  --paper-600: oklch(0.500 0.009 114); /* #63645E */
+  --paper-700: oklch(0.406 0.010 115); /* #494A44 */
+  --paper-800: oklch(0.310 0.009 116); /* #30312C */
+  --paper-900: oklch(0.224 0.008 118); /* #1B1C18 */
+  --paper-950: oklch(0.156 0.008 119); /* #0C0D09 */
 
   /* Active neutral alias — the theme class on <html> repoints these to one of
    * the ramps above (step 3). Default (no theme class) = Graphite. The semantic
@@ -146,12 +146,12 @@
   /* Rings = brand themed */
   --focus: var(--primary);
 
-  /* Shadow — two dials for the layered `shadow-*` scale: `--shadow-color` (HSL
-   * components — a deep cool-tinted near-black, never pure #000 which reads
-   * heavy) and `--shadow-strength` (per-layer alpha / intensity). Both resolve
-   * per :root/.dark, so retinting OR dimming every shadow is one token. For a
-   * colored surface set a named tint, e.g. `--shadow-color-primary`. */
-  --shadow-color: 220deg 45% 6%;
+  /* Shadow — two dials for the layered `shadow-*` scale: `--shadow-color` (oklch
+   * components `L C H` — a deep cool-tinted near-black, never pure black which
+   * reads heavy) and `--shadow-strength` (per-layer alpha / intensity). Both
+   * resolve per :root/.dark, so retinting OR dimming every shadow is one token.
+   * For a colored surface set a named tint, e.g. `--shadow-color-primary`. */
+  --shadow-color: 0.159 0.021 263; /* was hsl(220 45% 6%) */
   --shadow-strength: 0.22;
 
   /* Status */
@@ -238,7 +238,7 @@
 
   /* Shadow — darker tint, lower strength: a near-black shadow on a dark
    * surface reads heavier than on white, so dim it. */
-  --shadow-color: 220deg 40% 3%;
+  --shadow-color: 0.125 0.011 259; /* was hsl(220 40% 3%) */
   --shadow-strength: 0.18;
 
   /* Status */
@@ -347,23 +347,23 @@
  * Overrides Tailwind's shadow-sm/md/lg. */
 @theme {
   --shadow-sm:
-    0px 0.5px 0.7px hsl(var(--shadow-color) / var(--shadow-strength)),
-    0px 0.8px 1px -1.2px hsl(var(--shadow-color) / var(--shadow-strength)),
-    0px 2px 2.5px -2.5px hsl(var(--shadow-color) / var(--shadow-strength));
+    0px 0.5px 0.7px oklch(var(--shadow-color) / var(--shadow-strength)),
+    0px 0.8px 1px -1.2px oklch(var(--shadow-color) / var(--shadow-strength)),
+    0px 2px 2.5px -2.5px oklch(var(--shadow-color) / var(--shadow-strength));
   --shadow-md:
-    0px 0.5px 0.7px hsl(var(--shadow-color) / var(--shadow-strength)),
-    0px 1.6px 2px -0.8px hsl(var(--shadow-color) / var(--shadow-strength)),
-    0px 4.1px 5.2px -1.7px hsl(var(--shadow-color) / var(--shadow-strength)),
-    0px 10px 12.6px -2.5px hsl(var(--shadow-color) / var(--shadow-strength));
+    0px 0.5px 0.7px oklch(var(--shadow-color) / var(--shadow-strength)),
+    0px 1.6px 2px -0.8px oklch(var(--shadow-color) / var(--shadow-strength)),
+    0px 4.1px 5.2px -1.7px oklch(var(--shadow-color) / var(--shadow-strength)),
+    0px 10px 12.6px -2.5px oklch(var(--shadow-color) / var(--shadow-strength));
   --shadow-lg:
-    0px 0.5px 0.7px hsl(var(--shadow-color) / var(--shadow-strength)),
-    0px 2.9px 3.7px -0.4px hsl(var(--shadow-color) / var(--shadow-strength)),
-    0px 5.4px 6.8px -0.7px hsl(var(--shadow-color) / var(--shadow-strength)),
-    0px 8.9px 11.2px -1.1px hsl(var(--shadow-color) / var(--shadow-strength)),
-    0px 14.3px 18px -1.4px hsl(var(--shadow-color) / var(--shadow-strength)),
-    0px 22.3px 28.1px -1.8px hsl(var(--shadow-color) / var(--shadow-strength)),
-    0px 33.9px 42.7px -2.1px hsl(var(--shadow-color) / var(--shadow-strength)),
-    0px 50px 62.9px -2.5px hsl(var(--shadow-color) / var(--shadow-strength));
+    0px 0.5px 0.7px oklch(var(--shadow-color) / var(--shadow-strength)),
+    0px 2.9px 3.7px -0.4px oklch(var(--shadow-color) / var(--shadow-strength)),
+    0px 5.4px 6.8px -0.7px oklch(var(--shadow-color) / var(--shadow-strength)),
+    0px 8.9px 11.2px -1.1px oklch(var(--shadow-color) / var(--shadow-strength)),
+    0px 14.3px 18px -1.4px oklch(var(--shadow-color) / var(--shadow-strength)),
+    0px 22.3px 28.1px -1.8px oklch(var(--shadow-color) / var(--shadow-strength)),
+    0px 33.9px 42.7px -2.1px oklch(var(--shadow-color) / var(--shadow-strength)),
+    0px 50px 62.9px -2.5px oklch(var(--shadow-color) / var(--shadow-strength));
 }
 
 /* ---------------------------------------------------------------------------

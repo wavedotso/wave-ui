@@ -182,7 +182,7 @@ Browse every component, with live variants and source, in **Storybook** (`npm ru
 |---|---|
 | React | ^19.0.0 |
 | React DOM | ^19.0.0 |
-| Base UI | ^1.5.0 |
+| Base UI | ^1.6.0 |
 | Tailwind CSS | v4 |
 | CVA | ^0.7.0 |
 | clsx | ^2.0.0 |
