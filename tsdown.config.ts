@@ -31,8 +31,16 @@ export default defineConfig({
   platform: 'neutral',
   unbundle: true,
   dts: true,
-  sourcemap: true,
+  // No sourcemaps: `src` is not in the published `files`, so `.js.map` /
+  // `.d.ts.map` would point at paths that don't ship — broken dead weight in
+  // the tarball. Storybook/Vite build from `src` directly, so dev debugging is
+  // unaffected.
+  sourcemap: false,
   clean: true,
+  // Ship the theme stylesheet alongside the transpiled modules. Running it
+  // through tsdown (instead of a trailing `cp` in the build script) means the
+  // copy also happens in `--watch`, where `clean: true` would otherwise wipe it.
+  copy: [{ from: 'src/styles.css', to: 'dist' }],
   // A library never bundles its deps; every bare import (peer, dev, or
   // otherwise) stays external in both JS and the emitted `.d.ts`. This
   // replaces the old hand-maintained `external` allowlist, which

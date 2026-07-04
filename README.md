@@ -137,11 +137,11 @@ npm install @waveso/ui @base-ui/react class-variance-authority clsx tailwind-mer
 
 ## Setup
 
-Add the theme preset and Tailwind to your CSS entry point:
+Import Tailwind, then the Wave UI preset, in your CSS entry point:
 
 ```css
-@import "@waveso/ui/styles.css";
 @import "tailwindcss";
+@import "@waveso/ui/styles.css";
 ```
 
 The preset provides every CSS variable (colors, radii, motion, shadows) with light and dark support. Override any variable in your own `:root` / `.dark` blocks to customize the theme.
@@ -193,7 +193,6 @@ Some components have optional peer dependencies — install only what you use:
 - **Form** — `react-hook-form`
 - **Input OTP** — `input-otp`
 - **Animations** — `motion`
-- **Sidebar** — `usehooks-ts`
 
 ## Development
 
