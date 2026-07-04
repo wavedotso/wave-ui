@@ -27,7 +27,7 @@
 :root {
   /* ========================================================================
    * Palettes — raw primitives. No `--color-` prefix on purpose: these live in
-   * `:root`, not `@theme`, so they generate NO utilities (no `bg-ion-300`).
+   * `:root`, not `@theme`, so they generate NO utilities (no `bg-graphite-300`).
    * They're referenced by the semantic tokens below, never used directly.
    * ====================================================================== */
 
@@ -129,7 +129,7 @@
   --contrast-inverse: var(--foundation);
 
   /* Brand — `primary` wired to the Wave ramp; `secondary` is the neutral fill
-   * (secondary/ghost buttons, hovers, selected) at ion-300; `accent` is the
+   * (secondary/ghost buttons, hovers, selected) at ui-300; `accent` is the
    * bright signal (Wave Blue 300, the strand now-glow). No per-fill on-color
    * tokens: text on the saturated fills is
    * `text-white`, text on the neutral `secondary` is `text-contrast`. */
@@ -229,7 +229,7 @@
   --muted: var(--ui-400);
   --soft: var(--ui-600);
 
-  /* Brand — only `secondary` differs from light; mirrored to ion-700 so the
+  /* Brand — only `secondary` differs from light; mirrored to ui-700 so the
    * neutral fill stands out against the dark surfaces. primary / accent /
    * inverse / focus auto-flip or stay constant via the `:root` definitions. */
   --secondary: var(--ui-700);
