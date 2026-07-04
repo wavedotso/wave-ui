@@ -96,7 +96,7 @@ function MenuContent({
         <MenuPrimitive.Popup
           data-slot="menu-content"
           className={cn(
-            "motion-pop-md ring-contrast/10 bg-elevated text-contrast z-50 max-h-(--available-height) w-auto min-w-32 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-md p-1 shadow-md ring-1 outline-none data-closed:overflow-hidden",
+            "motion-pop-md ring-contrast/10 bg-elevated text-contrast z-50 max-h-(--available-height) max-w-(--available-width) w-auto min-w-32 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-md p-1 shadow-md ring-1 outline-none data-closed:overflow-hidden",
             className,
           )}
           finalFocus={resolveFinalFocus(restoreFocusOnClose, finalFocus)}

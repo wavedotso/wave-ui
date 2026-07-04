@@ -1,7 +1,9 @@
 "use client"
 
 import * as React from "react"
+
 import { useFilmGrain } from "./film-grain-webgl"
+import { cn } from "./lib/utils"
 
 interface FilmGrainProps {
   density?: number
@@ -26,17 +28,17 @@ function FilmGrain({
 
   return (
     <div
+      data-slot="film-grain"
       aria-hidden="true"
-      className={[
+      className={cn(
         "absolute inset-0 z-0 pointer-events-none select-none overflow-hidden",
         className,
-      ]
-        .filter(Boolean)
-        .join(" ")}
+      )}
       style={{ mixBlendMode: blendMode, opacity, ...style }}
     >
       <canvas
         ref={canvasRef}
+        data-slot="film-grain-canvas"
         className="w-full h-full will-change-transform"
       />
     </div>

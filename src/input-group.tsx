@@ -120,6 +120,7 @@ function InputGroupButton({
 function InputGroupText({ className, ...props }: InputGroupTextProps) {
   return (
     <span
+      data-slot="input-group-text"
       className={cn(
         "text-muted flex items-center gap-2 text-sm [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4",
         className

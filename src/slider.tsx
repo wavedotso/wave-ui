@@ -53,6 +53,7 @@ function Slider({
       {...props}
     >
       <SliderPrimitive.Control
+        data-slot="slider-control"
         className={cn(
           "relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-disabled:cursor-not-allowed data-[orientation=vertical]:h-full data-[orientation=vertical]:min-h-40 data-[orientation=vertical]:w-auto data-[orientation=vertical]:flex-col",
           controlClassName
