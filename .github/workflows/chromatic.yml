@@ -1,0 +1,40 @@
+name: Chromatic
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: chromatic-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  chromatic:
+    name: Visual review
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Chromatic needs full git history to resolve baselines
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Non-blocking: --exit-zero-on-changes never fails the job on a visual
+      # change (it just captures + links the diff for review). --only-changed
+      # (TurboSnap) snapshots just the stories affected by the diff, to stay
+      # within the snapshot quota.
+      - name: Run Chromatic
+        run: npx chromatic --exit-zero-on-changes --only-changed
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
