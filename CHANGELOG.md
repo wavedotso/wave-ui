@@ -1,5 +1,11 @@
 # @waveso/ui
 
+## 0.10.0
+
+### Minor Changes
+
+- 44bdf4a: **ActionBar** — the button and status strings are now overridable for internationalization via a new `labels` prop (`{ save, saving, reset, saveError }`), merged over the English defaults. The `ActionBarLabels` type is exported. (`message` / `pluralMessage` / `blockedMessage` already covered the messages.)
+
 ## 0.9.1
 
 ### Patch Changes
