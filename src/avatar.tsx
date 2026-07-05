@@ -5,14 +5,14 @@ import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar"
 
 import { cn } from "./lib/utils"
 
-export type AvatarProps = AvatarPrimitive.Root.Props & {
+type AvatarProps = AvatarPrimitive.Root.Props & {
   size?: "default" | "sm" | "lg"
 }
-export type AvatarImageProps = AvatarPrimitive.Image.Props
-export type AvatarFallbackProps = AvatarPrimitive.Fallback.Props
-export type AvatarBadgeProps = React.ComponentProps<"span">
-export type AvatarGroupProps = React.ComponentProps<"div">
-export type AvatarGroupCountProps = React.ComponentProps<"div">
+type AvatarImageProps = AvatarPrimitive.Image.Props
+type AvatarFallbackProps = AvatarPrimitive.Fallback.Props
+type AvatarBadgeProps = React.ComponentProps<"span">
+type AvatarGroupProps = React.ComponentProps<"div">
+type AvatarGroupCountProps = React.ComponentProps<"div">
 
 function Avatar({
   className,
@@ -113,4 +113,12 @@ export {
   AvatarGroup,
   AvatarGroupCount,
   AvatarBadge,
+}
+export type {
+  AvatarProps,
+  AvatarImageProps,
+  AvatarFallbackProps,
+  AvatarBadgeProps,
+  AvatarGroupProps,
+  AvatarGroupCountProps,
 }

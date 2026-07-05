@@ -8,11 +8,11 @@ import { cn } from "./lib/utils"
 // `value` is typed from the primitive, so it accepts `number | null`;
 // `null` puts the progress bar into its indeterminate state (Base UI then
 // emits `data-indeterminate` on the root and omits the indicator width).
-export type ProgressProps = React.ComponentProps<typeof ProgressPrimitive.Root>
-export type ProgressTrackProps = React.ComponentProps<typeof ProgressPrimitive.Track>
-export type ProgressIndicatorProps = React.ComponentProps<typeof ProgressPrimitive.Indicator>
-export type ProgressLabelProps = React.ComponentProps<typeof ProgressPrimitive.Label>
-export type ProgressValueProps = React.ComponentProps<typeof ProgressPrimitive.Value>
+type ProgressProps = React.ComponentProps<typeof ProgressPrimitive.Root>
+type ProgressTrackProps = React.ComponentProps<typeof ProgressPrimitive.Track>
+type ProgressIndicatorProps = React.ComponentProps<typeof ProgressPrimitive.Indicator>
+type ProgressLabelProps = React.ComponentProps<typeof ProgressPrimitive.Label>
+type ProgressValueProps = React.ComponentProps<typeof ProgressPrimitive.Value>
 
 function Progress({ className, children, value = null, ...props }: ProgressProps) {
   return (
@@ -89,4 +89,12 @@ export {
   ProgressIndicator,
   ProgressLabel,
   ProgressValue,
+}
+
+export type {
+  ProgressProps,
+  ProgressTrackProps,
+  ProgressIndicatorProps,
+  ProgressLabelProps,
+  ProgressValueProps,
 }

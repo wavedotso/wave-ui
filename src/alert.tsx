@@ -19,10 +19,10 @@ const alertVariants = cva(
   }
 )
 
-export type AlertProps = React.ComponentProps<"div"> & VariantProps<typeof alertVariants>
-export type AlertTitleProps = React.ComponentProps<"div">
-export type AlertDescriptionProps = React.ComponentProps<"div">
-export type AlertActionProps = React.ComponentProps<"div">
+type AlertProps = React.ComponentProps<"div"> & VariantProps<typeof alertVariants>
+type AlertTitleProps = React.ComponentProps<"div">
+type AlertDescriptionProps = React.ComponentProps<"div">
+type AlertActionProps = React.ComponentProps<"div">
 
 function Alert({
   className,
@@ -84,4 +84,10 @@ export {
   AlertDescription,
   AlertAction,
   alertVariants
+}
+export type {
+  AlertProps,
+  AlertTitleProps,
+  AlertDescriptionProps,
+  AlertActionProps
 }

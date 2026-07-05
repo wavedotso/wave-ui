@@ -25,9 +25,9 @@ const buttonGroupVariants = cva(
   }
 )
 
-export type ButtonGroupProps = React.ComponentProps<"div"> & VariantProps<typeof buttonGroupVariants>
-export type ButtonGroupTextProps = useRender.ComponentProps<"div">
-export type ButtonGroupSeparatorProps = React.ComponentProps<typeof Separator>
+type ButtonGroupProps = React.ComponentProps<"div"> & VariantProps<typeof buttonGroupVariants>
+type ButtonGroupTextProps = useRender.ComponentProps<"div">
+type ButtonGroupSeparatorProps = React.ComponentProps<typeof Separator>
 
 function ButtonGroup({
   className,
@@ -91,4 +91,9 @@ export {
   ButtonGroupSeparator,
   ButtonGroupText,
   buttonGroupVariants,
+}
+export type {
+  ButtonGroupProps,
+  ButtonGroupSeparatorProps,
+  ButtonGroupTextProps,
 }

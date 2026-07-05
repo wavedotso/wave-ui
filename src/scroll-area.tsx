@@ -5,7 +5,7 @@ import { ScrollArea as ScrollAreaPrimitive } from "@base-ui/react/scroll-area";
 
 import { cn } from "./lib/utils";
 
-export type ScrollAreaProps = React.ComponentProps<typeof ScrollAreaPrimitive.Root>;
+type ScrollAreaProps = React.ComponentProps<typeof ScrollAreaPrimitive.Root>;
 
 function ScrollArea({
   className,
@@ -30,7 +30,7 @@ function ScrollArea({
   );
 }
 
-export type ScrollBarProps = React.ComponentProps<typeof ScrollAreaPrimitive.Scrollbar>;
+type ScrollBarProps = React.ComponentProps<typeof ScrollAreaPrimitive.Scrollbar>;
 
 function ScrollBar({
   className,
@@ -56,3 +56,4 @@ function ScrollBar({
 }
 
 export { ScrollArea, ScrollBar };
+export type { ScrollAreaProps, ScrollBarProps };

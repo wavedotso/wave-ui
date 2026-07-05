@@ -7,13 +7,13 @@ import { useRender } from "@base-ui/react/use-render"
 import { cn } from "./lib/utils"
 import { ChevronRightIcon, EllipsisIcon } from "./lib/internal-icons"
 
-export type BreadcrumbProps = React.ComponentProps<"nav">
-export type BreadcrumbListProps = React.ComponentProps<"ol">
-export type BreadcrumbItemProps = React.ComponentProps<"li">
-export type BreadcrumbLinkProps = useRender.ComponentProps<"a">
-export type BreadcrumbPageProps = React.ComponentProps<"span">
-export type BreadcrumbSeparatorProps = React.ComponentProps<"li">
-export type BreadcrumbEllipsisProps = React.ComponentProps<"span">
+type BreadcrumbProps = React.ComponentProps<"nav">
+type BreadcrumbListProps = React.ComponentProps<"ol">
+type BreadcrumbItemProps = React.ComponentProps<"li">
+type BreadcrumbLinkProps = useRender.ComponentProps<"a">
+type BreadcrumbPageProps = React.ComponentProps<"span">
+type BreadcrumbSeparatorProps = React.ComponentProps<"li">
+type BreadcrumbEllipsisProps = React.ComponentProps<"span">
 
 function Breadcrumb({ ...props }: BreadcrumbProps) {
   return (
@@ -137,4 +137,13 @@ export {
   BreadcrumbPage,
   BreadcrumbSeparator,
   BreadcrumbEllipsis,
+}
+export type {
+  BreadcrumbProps,
+  BreadcrumbListProps,
+  BreadcrumbItemProps,
+  BreadcrumbLinkProps,
+  BreadcrumbPageProps,
+  BreadcrumbSeparatorProps,
+  BreadcrumbEllipsisProps,
 }

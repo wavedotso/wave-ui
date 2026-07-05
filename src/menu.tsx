@@ -8,13 +8,13 @@ import { resolveFinalFocus, type RestoreFocusOnClose } from "./lib/focus"
 
 import { ChevronRightIcon, CheckIcon } from "./lib/internal-icons"
 
-export type MenuProps = React.ComponentProps<typeof MenuPrimitive.Root>
+type MenuProps = React.ComponentProps<typeof MenuPrimitive.Root>
 
-export type MenuPortalProps = React.ComponentProps<typeof MenuPrimitive.Portal>
+type MenuPortalProps = React.ComponentProps<typeof MenuPrimitive.Portal>
 
-export type MenuTriggerProps = React.ComponentProps<typeof MenuPrimitive.Trigger>
+type MenuTriggerProps = React.ComponentProps<typeof MenuPrimitive.Trigger>
 
-export type MenuContentProps = React.ComponentProps<typeof MenuPrimitive.Popup> &
+type MenuContentProps = React.ComponentProps<typeof MenuPrimitive.Popup> &
   Pick<
     React.ComponentProps<typeof MenuPrimitive.Positioner>,
     "align" | "alignOffset" | "side" | "sideOffset"
@@ -28,38 +28,38 @@ export type MenuContentProps = React.ComponentProps<typeof MenuPrimitive.Popup> 
     restoreFocusOnClose?: RestoreFocusOnClose
   }
 
-export type MenuGroupProps = React.ComponentProps<typeof MenuPrimitive.Group>
+type MenuGroupProps = React.ComponentProps<typeof MenuPrimitive.Group>
 
-export type MenuLabelProps = React.ComponentProps<typeof MenuPrimitive.GroupLabel> & {
+type MenuLabelProps = React.ComponentProps<typeof MenuPrimitive.GroupLabel> & {
   inset?: boolean
 }
 
-export type MenuItemProps = React.ComponentProps<typeof MenuPrimitive.Item> & {
+type MenuItemProps = React.ComponentProps<typeof MenuPrimitive.Item> & {
   inset?: boolean
   variant?: "default" | "destructive"
 }
 
-export type MenuSubProps = React.ComponentProps<typeof MenuPrimitive.SubmenuRoot>
+type MenuSubProps = React.ComponentProps<typeof MenuPrimitive.SubmenuRoot>
 
-export type MenuSubTriggerProps = React.ComponentProps<typeof MenuPrimitive.SubmenuTrigger> & {
+type MenuSubTriggerProps = React.ComponentProps<typeof MenuPrimitive.SubmenuTrigger> & {
   inset?: boolean
 }
 
-export type MenuSubContentProps = MenuContentProps
+type MenuSubContentProps = MenuContentProps
 
-export type MenuCheckboxItemProps = React.ComponentProps<typeof MenuPrimitive.CheckboxItem> & {
+type MenuCheckboxItemProps = React.ComponentProps<typeof MenuPrimitive.CheckboxItem> & {
   inset?: boolean
 }
 
-export type MenuRadioGroupProps = React.ComponentProps<typeof MenuPrimitive.RadioGroup>
+type MenuRadioGroupProps = React.ComponentProps<typeof MenuPrimitive.RadioGroup>
 
-export type MenuRadioItemProps = React.ComponentProps<typeof MenuPrimitive.RadioItem> & {
+type MenuRadioItemProps = React.ComponentProps<typeof MenuPrimitive.RadioItem> & {
   inset?: boolean
 }
 
-export type MenuSeparatorProps = React.ComponentProps<typeof MenuPrimitive.Separator>
+type MenuSeparatorProps = React.ComponentProps<typeof MenuPrimitive.Separator>
 
-export type MenuShortcutProps = React.ComponentProps<"span">
+type MenuShortcutProps = React.ComponentProps<"span">
 
 function Menu(props: MenuProps) {
   return <MenuPrimitive.Root data-slot="menu" {...props} />
@@ -306,4 +306,21 @@ export {
   MenuSubContent,
 }
 
-export type { RestoreFocusOnClose }
+export type {
+  MenuProps,
+  MenuPortalProps,
+  MenuTriggerProps,
+  MenuContentProps,
+  MenuGroupProps,
+  MenuLabelProps,
+  MenuItemProps,
+  MenuSubProps,
+  MenuSubTriggerProps,
+  MenuSubContentProps,
+  MenuCheckboxItemProps,
+  MenuRadioGroupProps,
+  MenuRadioItemProps,
+  MenuSeparatorProps,
+  MenuShortcutProps,
+  RestoreFocusOnClose,
+}

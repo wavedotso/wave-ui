@@ -6,7 +6,7 @@ import { Separator as SeparatorPrimitive } from "@base-ui/react/separator"
 
 import { cn } from "./lib/utils"
 
-export type SeparatorProps = React.ComponentProps<typeof SeparatorPrimitive>
+type SeparatorProps = React.ComponentProps<typeof SeparatorPrimitive>
 
 function Separator({
   className,
@@ -27,3 +27,4 @@ function Separator({
 }
 
 export { Separator }
+export type { SeparatorProps }

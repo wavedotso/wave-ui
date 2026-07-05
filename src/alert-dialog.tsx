@@ -6,32 +6,32 @@ import { AlertDialog as AlertDialogPrimitive } from "@base-ui/react/alert-dialog
 import { Button } from "./button"
 import { cn } from "./lib/utils"
 
-export type AlertDialogProps = React.ComponentProps<typeof AlertDialogPrimitive.Root>
+type AlertDialogProps = React.ComponentProps<typeof AlertDialogPrimitive.Root>
 
-export type AlertDialogTriggerProps = React.ComponentProps<typeof AlertDialogPrimitive.Trigger>
+type AlertDialogTriggerProps = React.ComponentProps<typeof AlertDialogPrimitive.Trigger>
 
-export type AlertDialogPortalProps = React.ComponentProps<typeof AlertDialogPrimitive.Portal>
+type AlertDialogPortalProps = React.ComponentProps<typeof AlertDialogPrimitive.Portal>
 
-export type AlertDialogOverlayProps = React.ComponentProps<typeof AlertDialogPrimitive.Backdrop>
+type AlertDialogOverlayProps = React.ComponentProps<typeof AlertDialogPrimitive.Backdrop>
 
-export type AlertDialogContentProps = React.ComponentProps<typeof AlertDialogPrimitive.Popup> & {
+type AlertDialogContentProps = React.ComponentProps<typeof AlertDialogPrimitive.Popup> & {
   size?: "default" | "sm" | "lg" | "xl"
 }
 
-export type AlertDialogHeaderProps = React.ComponentProps<"div">
+type AlertDialogHeaderProps = React.ComponentProps<"div">
 
-export type AlertDialogFooterProps = React.ComponentProps<"div">
+type AlertDialogFooterProps = React.ComponentProps<"div">
 
-export type AlertDialogMediaProps = React.ComponentProps<"div">
+type AlertDialogMediaProps = React.ComponentProps<"div">
 
-export type AlertDialogTitleProps = React.ComponentProps<typeof AlertDialogPrimitive.Title>
+type AlertDialogTitleProps = React.ComponentProps<typeof AlertDialogPrimitive.Title>
 
-export type AlertDialogDescriptionProps = React.ComponentProps<typeof AlertDialogPrimitive.Description>
+type AlertDialogDescriptionProps = React.ComponentProps<typeof AlertDialogPrimitive.Description>
 
-export type AlertDialogActionProps = React.ComponentProps<typeof AlertDialogPrimitive.Close> &
+type AlertDialogActionProps = React.ComponentProps<typeof AlertDialogPrimitive.Close> &
   Pick<React.ComponentProps<typeof Button>, "variant" | "size">
 
-export type AlertDialogCancelProps = React.ComponentProps<typeof AlertDialogPrimitive.Close> &
+type AlertDialogCancelProps = React.ComponentProps<typeof AlertDialogPrimitive.Close> &
   Pick<React.ComponentProps<typeof Button>, "variant" | "size">
 
 function AlertDialog({ ...props }: AlertDialogProps) {
@@ -193,4 +193,19 @@ export {
   AlertDialogPortal,
   AlertDialogTitle,
   AlertDialogTrigger,
+}
+
+export type {
+  AlertDialogProps,
+  AlertDialogTriggerProps,
+  AlertDialogPortalProps,
+  AlertDialogOverlayProps,
+  AlertDialogContentProps,
+  AlertDialogHeaderProps,
+  AlertDialogFooterProps,
+  AlertDialogMediaProps,
+  AlertDialogTitleProps,
+  AlertDialogDescriptionProps,
+  AlertDialogActionProps,
+  AlertDialogCancelProps,
 }

@@ -16,7 +16,7 @@ import { Kbd } from "./kbd"
 // ---------------------------------------------------------------------------
 
 /** State a form registers with the ActionBar. */
-export interface ActionBarEntry {
+interface ActionBarEntry {
   /** Whether this form has unsaved changes. */
   hasChanges: boolean
   /** Whether this form is currently saving. */
@@ -68,7 +68,7 @@ const ActionBarContext = React.createContext<ActionBarContextValue | null>(null)
 // Provider
 // ---------------------------------------------------------------------------
 
-export interface ActionBarProviderProps {
+interface ActionBarProviderProps {
   children: React.ReactNode
   /** Message when one form has changes. */
   message?: string
@@ -471,3 +471,4 @@ export {
   useActionBar,
   useActionBarGuard,
 }
+export type { ActionBarEntry, ActionBarProviderProps }

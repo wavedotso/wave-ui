@@ -5,13 +5,13 @@ import { PreviewCard as PreviewCardPrimitive } from "@base-ui/react/preview-card
 
 import { cn } from "./lib/utils"
 
-export type PreviewCardProps = React.ComponentProps<typeof PreviewCardPrimitive.Root>
-export type PreviewCardTriggerProps = React.ComponentProps<typeof PreviewCardPrimitive.Trigger>
-export type PreviewCardPortalProps = React.ComponentProps<typeof PreviewCardPrimitive.Portal>
-export type PreviewCardPositionerProps = React.ComponentProps<typeof PreviewCardPrimitive.Positioner>
+type PreviewCardProps = React.ComponentProps<typeof PreviewCardPrimitive.Root>
+type PreviewCardTriggerProps = React.ComponentProps<typeof PreviewCardPrimitive.Trigger>
+type PreviewCardPortalProps = React.ComponentProps<typeof PreviewCardPrimitive.Portal>
+type PreviewCardPositionerProps = React.ComponentProps<typeof PreviewCardPrimitive.Positioner>
 type PreviewCardPopupProps = React.ComponentProps<typeof PreviewCardPrimitive.Popup>
 
-export type PreviewCardContentProps = PreviewCardPopupProps &
+type PreviewCardContentProps = PreviewCardPopupProps &
   Pick<
     PreviewCardPositionerProps,
     "align" | "alignOffset" | "side" | "sideOffset" | "anchor"
@@ -88,4 +88,12 @@ export {
   PreviewCardContent,
   PreviewCardPortal,
   PreviewCardPositioner,
+}
+
+export type {
+  PreviewCardProps,
+  PreviewCardTriggerProps,
+  PreviewCardContentProps,
+  PreviewCardPortalProps,
+  PreviewCardPositionerProps,
 }

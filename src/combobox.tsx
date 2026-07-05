@@ -13,38 +13,38 @@ import {
 } from "./input-group"
 import { ChevronDownIcon, CloseIcon, CheckIcon } from "./lib/internal-icons"
 
-export type ComboboxProps = React.ComponentProps<typeof ComboboxPrimitive.Root>
+type ComboboxProps = React.ComponentProps<typeof ComboboxPrimitive.Root>
 
-export type ComboboxValueProps = React.ComponentProps<typeof ComboboxPrimitive.Value>
-export type ComboboxTriggerProps = React.ComponentProps<typeof ComboboxPrimitive.Trigger>
-export type ComboboxClearProps = React.ComponentProps<typeof ComboboxPrimitive.Clear>
+type ComboboxValueProps = React.ComponentProps<typeof ComboboxPrimitive.Value>
+type ComboboxTriggerProps = React.ComponentProps<typeof ComboboxPrimitive.Trigger>
+type ComboboxClearProps = React.ComponentProps<typeof ComboboxPrimitive.Clear>
 type ComboboxInputBaseProps = React.ComponentProps<typeof ComboboxPrimitive.Input>
 
-export type ComboboxPortalProps = React.ComponentProps<typeof ComboboxPrimitive.Portal>
-export type ComboboxPositionerProps = React.ComponentProps<typeof ComboboxPrimitive.Positioner>
+type ComboboxPortalProps = React.ComponentProps<typeof ComboboxPrimitive.Portal>
+type ComboboxPositionerProps = React.ComponentProps<typeof ComboboxPrimitive.Positioner>
 type ComboboxPopupProps = React.ComponentProps<typeof ComboboxPrimitive.Popup>
 
-export type ComboboxListProps = React.ComponentProps<typeof ComboboxPrimitive.List>
-export type ComboboxItemProps = React.ComponentProps<typeof ComboboxPrimitive.Item>
-export type ComboboxGroupProps = React.ComponentProps<typeof ComboboxPrimitive.Group>
-export type ComboboxLabelProps = React.ComponentProps<typeof ComboboxPrimitive.GroupLabel>
-export type ComboboxCollectionProps = React.ComponentProps<typeof ComboboxPrimitive.Collection>
-export type ComboboxEmptyProps = React.ComponentProps<typeof ComboboxPrimitive.Empty>
-export type ComboboxSeparatorProps = React.ComponentProps<typeof ComboboxPrimitive.Separator>
-export type ComboboxChipsProps = React.ComponentProps<typeof ComboboxPrimitive.Chips>
+type ComboboxListProps = React.ComponentProps<typeof ComboboxPrimitive.List>
+type ComboboxItemProps = React.ComponentProps<typeof ComboboxPrimitive.Item>
+type ComboboxGroupProps = React.ComponentProps<typeof ComboboxPrimitive.Group>
+type ComboboxLabelProps = React.ComponentProps<typeof ComboboxPrimitive.GroupLabel>
+type ComboboxCollectionProps = React.ComponentProps<typeof ComboboxPrimitive.Collection>
+type ComboboxEmptyProps = React.ComponentProps<typeof ComboboxPrimitive.Empty>
+type ComboboxSeparatorProps = React.ComponentProps<typeof ComboboxPrimitive.Separator>
+type ComboboxChipsProps = React.ComponentProps<typeof ComboboxPrimitive.Chips>
 type ComboboxChipBaseProps = React.ComponentProps<typeof ComboboxPrimitive.Chip>
-export type ComboboxChipsInputProps = React.ComponentProps<typeof ComboboxPrimitive.Input>
+type ComboboxChipsInputProps = React.ComponentProps<typeof ComboboxPrimitive.Input>
 
-export type ComboboxInputProps = ComboboxInputBaseProps & {
+type ComboboxInputProps = ComboboxInputBaseProps & {
   showTrigger?: boolean
   showClear?: boolean
 }
 
-export type ComboboxChipProps = ComboboxChipBaseProps & {
+type ComboboxChipProps = ComboboxChipBaseProps & {
   showRemove?: boolean
 }
 
-export type ComboboxContentProps = ComboboxPopupProps &
+type ComboboxContentProps = ComboboxPopupProps &
   Pick<
     ComboboxPositionerProps,
     "side" | "align" | "sideOffset" | "alignOffset" | "anchor"
@@ -347,4 +347,25 @@ export {
   ComboboxValue,
   ComboboxClear,
   useComboboxAnchor,
+}
+
+export type {
+  ComboboxProps,
+  ComboboxValueProps,
+  ComboboxTriggerProps,
+  ComboboxClearProps,
+  ComboboxPortalProps,
+  ComboboxPositionerProps,
+  ComboboxListProps,
+  ComboboxItemProps,
+  ComboboxGroupProps,
+  ComboboxLabelProps,
+  ComboboxCollectionProps,
+  ComboboxEmptyProps,
+  ComboboxSeparatorProps,
+  ComboboxChipsProps,
+  ComboboxChipsInputProps,
+  ComboboxInputProps,
+  ComboboxChipProps,
+  ComboboxContentProps,
 }

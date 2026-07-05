@@ -8,11 +8,11 @@ import { ChevronRightIcon, CheckIcon } from "./lib/internal-icons"
 import { cn } from "./lib/utils"
 import { resolveFinalFocus, type RestoreFocusOnClose } from "./lib/focus"
 
-export type ContextMenuProps = React.ComponentProps<typeof ContextMenuPrimitive.Root>
-export type ContextMenuPortalProps = React.ComponentProps<typeof ContextMenuPrimitive.Portal>
-export type ContextMenuTriggerProps = React.ComponentProps<typeof ContextMenuPrimitive.Trigger>
+type ContextMenuProps = React.ComponentProps<typeof ContextMenuPrimitive.Root>
+type ContextMenuPortalProps = React.ComponentProps<typeof ContextMenuPrimitive.Portal>
+type ContextMenuTriggerProps = React.ComponentProps<typeof ContextMenuPrimitive.Trigger>
 
-export type ContextMenuContentProps = React.ComponentProps<typeof ContextMenuPrimitive.Popup> &
+type ContextMenuContentProps = React.ComponentProps<typeof ContextMenuPrimitive.Popup> &
   Pick<
     React.ComponentProps<typeof ContextMenuPrimitive.Positioner>,
     "align" | "alignOffset" | "side" | "sideOffset"
@@ -26,37 +26,37 @@ export type ContextMenuContentProps = React.ComponentProps<typeof ContextMenuPri
     restoreFocusOnClose?: RestoreFocusOnClose
   }
 
-export type ContextMenuGroupProps = React.ComponentProps<typeof ContextMenuPrimitive.Group>
+type ContextMenuGroupProps = React.ComponentProps<typeof ContextMenuPrimitive.Group>
 
-export type ContextMenuLabelProps = React.ComponentProps<typeof ContextMenuPrimitive.GroupLabel> & {
+type ContextMenuLabelProps = React.ComponentProps<typeof ContextMenuPrimitive.GroupLabel> & {
   inset?: boolean
 }
 
-export type ContextMenuItemProps = React.ComponentProps<typeof ContextMenuPrimitive.Item> & {
+type ContextMenuItemProps = React.ComponentProps<typeof ContextMenuPrimitive.Item> & {
   inset?: boolean
   variant?: "default" | "destructive"
 }
 
-export type ContextMenuSubProps = React.ComponentProps<typeof ContextMenuPrimitive.SubmenuRoot>
+type ContextMenuSubProps = React.ComponentProps<typeof ContextMenuPrimitive.SubmenuRoot>
 
-export type ContextMenuSubTriggerProps = React.ComponentProps<typeof ContextMenuPrimitive.SubmenuTrigger> & {
+type ContextMenuSubTriggerProps = React.ComponentProps<typeof ContextMenuPrimitive.SubmenuTrigger> & {
   inset?: boolean
 }
 
-export type ContextMenuCheckboxItemProps = React.ComponentProps<typeof ContextMenuPrimitive.CheckboxItem> & {
+type ContextMenuCheckboxItemProps = React.ComponentProps<typeof ContextMenuPrimitive.CheckboxItem> & {
   inset?: boolean
 }
 
-export type ContextMenuRadioGroupProps = React.ComponentProps<typeof ContextMenuPrimitive.RadioGroup>
+type ContextMenuRadioGroupProps = React.ComponentProps<typeof ContextMenuPrimitive.RadioGroup>
 
-export type ContextMenuRadioItemProps = React.ComponentProps<typeof ContextMenuPrimitive.RadioItem> & {
+type ContextMenuRadioItemProps = React.ComponentProps<typeof ContextMenuPrimitive.RadioItem> & {
   inset?: boolean
 }
 
-export type ContextMenuSeparatorProps = React.ComponentProps<typeof ContextMenuPrimitive.Separator>
+type ContextMenuSeparatorProps = React.ComponentProps<typeof ContextMenuPrimitive.Separator>
 
-export type ContextMenuSubContentProps = React.ComponentProps<typeof ContextMenuContent>
-export type ContextMenuShortcutProps = React.ComponentProps<"span">
+type ContextMenuSubContentProps = React.ComponentProps<typeof ContextMenuContent>
+type ContextMenuShortcutProps = React.ComponentProps<"span">
 
 function ContextMenu(props: ContextMenuProps) {
   return <ContextMenuPrimitive.Root data-slot="context-menu" {...props} />
@@ -292,4 +292,21 @@ export {
   ContextMenuTrigger,
 }
 
-export type { RestoreFocusOnClose }
+export type {
+  ContextMenuProps,
+  ContextMenuPortalProps,
+  ContextMenuTriggerProps,
+  ContextMenuContentProps,
+  ContextMenuGroupProps,
+  ContextMenuLabelProps,
+  ContextMenuItemProps,
+  ContextMenuSubProps,
+  ContextMenuSubTriggerProps,
+  ContextMenuCheckboxItemProps,
+  ContextMenuRadioGroupProps,
+  ContextMenuRadioItemProps,
+  ContextMenuSeparatorProps,
+  ContextMenuSubContentProps,
+  ContextMenuShortcutProps,
+  RestoreFocusOnClose,
+}

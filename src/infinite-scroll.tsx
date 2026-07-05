@@ -5,7 +5,7 @@ import * as React from "react"
 import { cn } from "./lib/utils"
 import { Spinner } from "./spinner"
 
-export type InfiniteScrollProps = React.ComponentProps<"div"> & {
+type InfiniteScrollProps = React.ComponentProps<"div"> & {
   onLoadMore: () => void
   hasMore: boolean
   isLoading?: boolean
@@ -125,3 +125,4 @@ function InfiniteScroll({
 }
 
 export { InfiniteScroll }
+export type { InfiniteScrollProps }

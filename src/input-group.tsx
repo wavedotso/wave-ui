@@ -8,21 +8,21 @@ import { Button } from "./button"
 import { Input } from "./input"
 import { Textarea } from "./textarea"
 
-export type InputGroupProps = React.ComponentProps<"div">
+type InputGroupProps = React.ComponentProps<"div">
 
-export type InputGroupAddonProps = React.ComponentProps<"div"> &
+type InputGroupAddonProps = React.ComponentProps<"div"> &
   VariantProps<typeof inputGroupAddonVariants>
 
-export type InputGroupButtonProps = Omit<React.ComponentProps<typeof Button>, "size" | "type"> &
+type InputGroupButtonProps = Omit<React.ComponentProps<typeof Button>, "size" | "type"> &
   VariantProps<typeof inputGroupButtonVariants> & {
     type?: "button" | "submit" | "reset"
   }
 
-export type InputGroupTextProps = React.ComponentProps<"span">
+type InputGroupTextProps = React.ComponentProps<"span">
 
-export type InputGroupInputProps = React.ComponentProps<"input">
+type InputGroupInputProps = React.ComponentProps<"input">
 
-export type InputGroupTextareaProps = React.ComponentProps<"textarea">
+type InputGroupTextareaProps = React.ComponentProps<"textarea">
 
 function InputGroup({ className, ...props }: InputGroupProps) {
   return (
@@ -173,4 +173,13 @@ export {
   InputGroupTextarea,
   inputGroupAddonVariants,
   inputGroupButtonVariants,
+}
+
+export type {
+  InputGroupProps,
+  InputGroupAddonProps,
+  InputGroupButtonProps,
+  InputGroupTextProps,
+  InputGroupInputProps,
+  InputGroupTextareaProps,
 }

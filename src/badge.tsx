@@ -34,7 +34,7 @@ const badgeVariants = cva(
   }
 )
 
-export type BadgeProps = useRender.ComponentProps<"span"> & VariantProps<typeof badgeVariants>
+type BadgeProps = useRender.ComponentProps<"span"> & VariantProps<typeof badgeVariants>
 
 function Badge({
   className,
@@ -59,3 +59,4 @@ function Badge({
 }
 
 export { Badge, badgeVariants }
+export type { BadgeProps }

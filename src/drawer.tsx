@@ -7,19 +7,19 @@ import { cn } from "./lib/utils"
 import { Button } from "./button"
 import { CloseIcon } from "./lib/internal-icons"
 
-export type DrawerProps = React.ComponentProps<typeof DrawerPrimitive.Root>
-export type DrawerTriggerProps = React.ComponentProps<typeof DrawerPrimitive.Trigger>
-export type DrawerPortalProps = React.ComponentProps<typeof DrawerPrimitive.Portal>
-export type DrawerCloseProps = React.ComponentProps<typeof DrawerPrimitive.Close>
-export type DrawerOverlayProps = React.ComponentProps<typeof DrawerPrimitive.Backdrop>
-export type DrawerViewportProps = React.ComponentProps<typeof DrawerPrimitive.Viewport>
-export type DrawerPopupProps = React.ComponentProps<typeof DrawerPrimitive.Popup>
-export type DrawerTitleProps = React.ComponentProps<typeof DrawerPrimitive.Title>
-export type DrawerDescriptionProps = React.ComponentProps<typeof DrawerPrimitive.Description>
-export type DrawerHeaderProps = React.ComponentProps<"div">
-export type DrawerFooterProps = React.ComponentProps<"div">
+type DrawerProps = React.ComponentProps<typeof DrawerPrimitive.Root>
+type DrawerTriggerProps = React.ComponentProps<typeof DrawerPrimitive.Trigger>
+type DrawerPortalProps = React.ComponentProps<typeof DrawerPrimitive.Portal>
+type DrawerCloseProps = React.ComponentProps<typeof DrawerPrimitive.Close>
+type DrawerOverlayProps = React.ComponentProps<typeof DrawerPrimitive.Backdrop>
+type DrawerViewportProps = React.ComponentProps<typeof DrawerPrimitive.Viewport>
+type DrawerPopupProps = React.ComponentProps<typeof DrawerPrimitive.Popup>
+type DrawerTitleProps = React.ComponentProps<typeof DrawerPrimitive.Title>
+type DrawerDescriptionProps = React.ComponentProps<typeof DrawerPrimitive.Description>
+type DrawerHeaderProps = React.ComponentProps<"div">
+type DrawerFooterProps = React.ComponentProps<"div">
 
-export type DrawerContentProps = DrawerPopupProps & {
+type DrawerContentProps = DrawerPopupProps & {
   showCloseButton?: boolean
 }
 
@@ -184,4 +184,19 @@ export {
   DrawerFooter,
   DrawerTitle,
   DrawerDescription,
+}
+
+export type {
+  DrawerProps,
+  DrawerTriggerProps,
+  DrawerPortalProps,
+  DrawerCloseProps,
+  DrawerOverlayProps,
+  DrawerViewportProps,
+  DrawerPopupProps,
+  DrawerTitleProps,
+  DrawerDescriptionProps,
+  DrawerHeaderProps,
+  DrawerFooterProps,
+  DrawerContentProps,
 }

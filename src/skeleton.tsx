@@ -2,7 +2,7 @@ import * as React from "react"
 
 import { cn } from "./lib/utils"
 
-export type SkeletonProps = React.ComponentProps<"div">
+type SkeletonProps = React.ComponentProps<"div">
 
 function Skeleton({ className, ...props }: SkeletonProps) {
   return (
@@ -15,3 +15,4 @@ function Skeleton({ className, ...props }: SkeletonProps) {
 }
 
 export { Skeleton }
+export type { SkeletonProps }

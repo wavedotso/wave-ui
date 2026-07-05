@@ -6,7 +6,7 @@ import { OTPInput, OTPInputContext } from "input-otp"
 import { cn } from "./lib/utils"
 import { MinusIcon } from "./lib/internal-icons"
 
-export type InputOTPProps = React.ComponentProps<typeof OTPInput> & {
+type InputOTPProps = React.ComponentProps<typeof OTPInput> & {
   containerClassName?: string
 }
 
@@ -29,7 +29,7 @@ function InputOTP({
   )
 }
 
-export type InputOTPGroupProps = React.ComponentProps<"div">
+type InputOTPGroupProps = React.ComponentProps<"div">
 
 function InputOTPGroup({ className, ...props }: InputOTPGroupProps) {
   return (
@@ -41,7 +41,7 @@ function InputOTPGroup({ className, ...props }: InputOTPGroupProps) {
   )
 }
 
-export type InputOTPSlotProps = React.ComponentProps<"div"> & {
+type InputOTPSlotProps = React.ComponentProps<"div"> & {
   index: number
 }
 
@@ -71,7 +71,7 @@ function InputOTPSlot({ index, className, ...props }: InputOTPSlotProps) {
   )
 }
 
-export type InputOTPSeparatorProps = React.ComponentProps<"div">
+type InputOTPSeparatorProps = React.ComponentProps<"div">
 
 function InputOTPSeparator({ className, ...props }: InputOTPSeparatorProps) {
   return (
@@ -94,4 +94,10 @@ export {
   InputOTPGroup,
   InputOTPSlot,
   InputOTPSeparator
+}
+export type {
+  InputOTPProps,
+  InputOTPGroupProps,
+  InputOTPSlotProps,
+  InputOTPSeparatorProps
 }

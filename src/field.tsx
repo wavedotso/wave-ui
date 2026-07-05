@@ -5,18 +5,18 @@ import { Field as FieldPrimitive } from "@base-ui/react/field"
 
 import { cn } from "./lib/utils"
 
-export type FieldProps = React.ComponentProps<typeof FieldPrimitive.Root>
-export type FieldLabelProps = React.ComponentProps<typeof FieldPrimitive.Label>
-export type FieldDescriptionProps = React.ComponentProps<typeof FieldPrimitive.Description>
-export type FieldItemProps = React.ComponentProps<typeof FieldPrimitive.Item>
-export type FieldErrorProps = React.ComponentProps<typeof FieldPrimitive.Error>
-export type FieldValidityProps = React.ComponentProps<typeof FieldPrimitive.Validity>
+type FieldProps = React.ComponentProps<typeof FieldPrimitive.Root>
+type FieldLabelProps = React.ComponentProps<typeof FieldPrimitive.Label>
+type FieldDescriptionProps = React.ComponentProps<typeof FieldPrimitive.Description>
+type FieldItemProps = React.ComponentProps<typeof FieldPrimitive.Item>
+type FieldErrorProps = React.ComponentProps<typeof FieldPrimitive.Error>
+type FieldValidityProps = React.ComponentProps<typeof FieldPrimitive.Validity>
 
 // `ref` matters here for React Hook Form / focus management; it flows
 // through to the control via standard prop forwarding (React 19).
-export type FieldControlProps = React.ComponentProps<typeof FieldPrimitive.Control>
+type FieldControlProps = React.ComponentProps<typeof FieldPrimitive.Control>
 
-export function Field({ className, ...props }: FieldProps) {
+function Field({ className, ...props }: FieldProps) {
   return (
     <FieldPrimitive.Root
       data-slot="field"
@@ -29,7 +29,7 @@ export function Field({ className, ...props }: FieldProps) {
   )
 }
 
-export function FieldLabel({ className, ...props }: FieldLabelProps) {
+function FieldLabel({ className, ...props }: FieldLabelProps) {
   return (
     <FieldPrimitive.Label
       data-slot="field-label"
@@ -42,7 +42,7 @@ export function FieldLabel({ className, ...props }: FieldLabelProps) {
   )
 }
 
-export function FieldControl({ className, ...props }: FieldControlProps) {
+function FieldControl({ className, ...props }: FieldControlProps) {
   return (
     <FieldPrimitive.Control
       data-slot="field-control"
@@ -57,7 +57,7 @@ export function FieldControl({ className, ...props }: FieldControlProps) {
   )
 }
 
-export function FieldDescription({ className, ...props }: FieldDescriptionProps) {
+function FieldDescription({ className, ...props }: FieldDescriptionProps) {
   return (
     <FieldPrimitive.Description
       data-slot="field-description"
@@ -71,7 +71,7 @@ export function FieldDescription({ className, ...props }: FieldDescriptionProps)
   )
 }
 
-export function FieldItem({ className, ...props }: FieldItemProps) {
+function FieldItem({ className, ...props }: FieldItemProps) {
   return (
     <FieldPrimitive.Item
       data-slot="field-item"
@@ -81,7 +81,7 @@ export function FieldItem({ className, ...props }: FieldItemProps) {
   )
 }
 
-export function FieldError({ className, ...props }: FieldErrorProps) {
+function FieldError({ className, ...props }: FieldErrorProps) {
   return (
     <FieldPrimitive.Error
       data-slot="field-error"
@@ -92,6 +92,24 @@ export function FieldError({ className, ...props }: FieldErrorProps) {
 }
 
 // Base UI's Validity does not accept `className`/`ref` (and we don't need to style it yet), so we export it as-is.
-export const FieldValidity = FieldPrimitive.Validity
+const FieldValidity = FieldPrimitive.Validity
 
-export { FieldPrimitive }
+export {
+  Field,
+  FieldLabel,
+  FieldControl,
+  FieldDescription,
+  FieldItem,
+  FieldError,
+  FieldValidity,
+  FieldPrimitive,
+}
+export type {
+  FieldProps,
+  FieldLabelProps,
+  FieldDescriptionProps,
+  FieldItemProps,
+  FieldErrorProps,
+  FieldValidityProps,
+  FieldControlProps,
+}

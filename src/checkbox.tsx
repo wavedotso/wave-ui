@@ -7,7 +7,7 @@ import { Checkbox as CheckboxPrimitive } from "@base-ui/react/checkbox"
 import { cn } from "./lib/utils"
 import { CheckIcon, MinusIcon } from "./lib/internal-icons"
 
-export type CheckboxProps = React.ComponentProps<typeof CheckboxPrimitive.Root>
+type CheckboxProps = React.ComponentProps<typeof CheckboxPrimitive.Root>
 
 function Checkbox({ className, ...props }: CheckboxProps) {
   return (
@@ -31,3 +31,4 @@ function Checkbox({ className, ...props }: CheckboxProps) {
 }
 
 export { Checkbox }
+export type { CheckboxProps }

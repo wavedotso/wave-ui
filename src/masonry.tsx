@@ -16,13 +16,13 @@ const STAGGER_STEP = 0.05 // 50ms between each item's enter animation
 
 const MasonryStaggerContext = React.createContext<(() => number) | null>(null)
 
-export type MasonryProps = React.ComponentProps<"div"> & {
+type MasonryProps = React.ComponentProps<"div"> & {
   columns?: number
   columnWidth?: number
   gap?: number
 }
 
-export type MasonryItemProps = Omit<HTMLMotionProps<"div">, "children"> & {
+type MasonryItemProps = Omit<HTMLMotionProps<"div">, "children"> & {
   span?: number
   children?: React.ReactNode
 }
@@ -317,3 +317,5 @@ function MasonryItem({
 }
 
 export { Masonry, MasonryItem }
+
+export type { MasonryProps, MasonryItemProps }

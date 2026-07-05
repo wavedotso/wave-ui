@@ -6,30 +6,30 @@ import { Autocomplete as AutocompletePrimitive } from "@base-ui/react/autocomple
 
 import { cn } from "./lib/utils"
 
-export type AutocompleteProps = React.ComponentProps<typeof AutocompletePrimitive.Root>
-export type AutocompleteInputProps = React.ComponentProps<typeof AutocompletePrimitive.Input>
-export type AutocompleteTriggerProps = React.ComponentProps<typeof AutocompletePrimitive.Trigger>
-export type AutocompleteIconProps = React.ComponentProps<typeof AutocompletePrimitive.Icon>
-export type AutocompleteClearProps = React.ComponentProps<typeof AutocompletePrimitive.Clear>
-export type AutocompleteValueProps = React.ComponentProps<typeof AutocompletePrimitive.Value>
+type AutocompleteProps = React.ComponentProps<typeof AutocompletePrimitive.Root>
+type AutocompleteInputProps = React.ComponentProps<typeof AutocompletePrimitive.Input>
+type AutocompleteTriggerProps = React.ComponentProps<typeof AutocompletePrimitive.Trigger>
+type AutocompleteIconProps = React.ComponentProps<typeof AutocompletePrimitive.Icon>
+type AutocompleteClearProps = React.ComponentProps<typeof AutocompletePrimitive.Clear>
+type AutocompleteValueProps = React.ComponentProps<typeof AutocompletePrimitive.Value>
 
-export type AutocompletePortalProps = React.ComponentProps<typeof AutocompletePrimitive.Portal>
-export type AutocompleteBackdropProps = React.ComponentProps<typeof AutocompletePrimitive.Backdrop>
-export type AutocompletePositionerProps = React.ComponentProps<typeof AutocompletePrimitive.Positioner>
-export type AutocompletePopupProps = React.ComponentProps<typeof AutocompletePrimitive.Popup>
-export type AutocompleteArrowProps = React.ComponentProps<typeof AutocompletePrimitive.Arrow>
-export type AutocompleteStatusProps = React.ComponentProps<typeof AutocompletePrimitive.Status>
-export type AutocompleteEmptyProps = React.ComponentProps<typeof AutocompletePrimitive.Empty>
+type AutocompletePortalProps = React.ComponentProps<typeof AutocompletePrimitive.Portal>
+type AutocompleteBackdropProps = React.ComponentProps<typeof AutocompletePrimitive.Backdrop>
+type AutocompletePositionerProps = React.ComponentProps<typeof AutocompletePrimitive.Positioner>
+type AutocompletePopupProps = React.ComponentProps<typeof AutocompletePrimitive.Popup>
+type AutocompleteArrowProps = React.ComponentProps<typeof AutocompletePrimitive.Arrow>
+type AutocompleteStatusProps = React.ComponentProps<typeof AutocompletePrimitive.Status>
+type AutocompleteEmptyProps = React.ComponentProps<typeof AutocompletePrimitive.Empty>
 
-export type AutocompleteListProps = React.ComponentProps<typeof AutocompletePrimitive.List>
-export type AutocompleteRowProps = React.ComponentProps<typeof AutocompletePrimitive.Row>
-export type AutocompleteItemProps = React.ComponentProps<typeof AutocompletePrimitive.Item>
-export type AutocompleteSeparatorProps = React.ComponentProps<typeof AutocompletePrimitive.Separator>
-export type AutocompleteGroupProps = React.ComponentProps<typeof AutocompletePrimitive.Group>
-export type AutocompleteGroupLabelProps = React.ComponentProps<typeof AutocompletePrimitive.GroupLabel>
-export type AutocompleteCollectionProps = React.ComponentProps<typeof AutocompletePrimitive.Collection>
+type AutocompleteListProps = React.ComponentProps<typeof AutocompletePrimitive.List>
+type AutocompleteRowProps = React.ComponentProps<typeof AutocompletePrimitive.Row>
+type AutocompleteItemProps = React.ComponentProps<typeof AutocompletePrimitive.Item>
+type AutocompleteSeparatorProps = React.ComponentProps<typeof AutocompletePrimitive.Separator>
+type AutocompleteGroupProps = React.ComponentProps<typeof AutocompletePrimitive.Group>
+type AutocompleteGroupLabelProps = React.ComponentProps<typeof AutocompletePrimitive.GroupLabel>
+type AutocompleteCollectionProps = React.ComponentProps<typeof AutocompletePrimitive.Collection>
 
-export type AutocompleteContentProps = AutocompletePopupProps &
+type AutocompleteContentProps = AutocompletePopupProps &
   Pick<
     AutocompletePositionerProps,
     "align" | "alignOffset" | "side" | "sideOffset"
@@ -278,4 +278,28 @@ export {
   AutocompleteStatus,
   AutocompleteTrigger,
   AutocompleteValue,
+}
+
+export type {
+  AutocompleteArrowProps,
+  AutocompleteBackdropProps,
+  AutocompleteClearProps,
+  AutocompleteCollectionProps,
+  AutocompleteContentProps,
+  AutocompleteEmptyProps,
+  AutocompleteGroupLabelProps,
+  AutocompleteGroupProps,
+  AutocompleteIconProps,
+  AutocompleteInputProps,
+  AutocompleteItemProps,
+  AutocompleteListProps,
+  AutocompletePopupProps,
+  AutocompletePortalProps,
+  AutocompletePositionerProps,
+  AutocompleteProps,
+  AutocompleteRowProps,
+  AutocompleteSeparatorProps,
+  AutocompleteStatusProps,
+  AutocompleteTriggerProps,
+  AutocompleteValueProps,
 }

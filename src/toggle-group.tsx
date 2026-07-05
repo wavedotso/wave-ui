@@ -13,12 +13,12 @@ type ToggleGroupContextValue = VariantProps<typeof toggleVariants> & {
   orientation?: "horizontal" | "vertical"
 }
 
-export type ToggleGroupProps = ToggleGroupPrimitive.Props &
+type ToggleGroupProps = ToggleGroupPrimitive.Props &
   VariantProps<typeof toggleVariants> & {
     spacing?: number
   }
 
-export type ToggleGroupItemProps = TogglePrimitive.Props &
+type ToggleGroupItemProps = TogglePrimitive.Props &
   VariantProps<typeof toggleVariants>
 
 const ToggleGroupContext = React.createContext<ToggleGroupContextValue>({
@@ -92,3 +92,5 @@ function ToggleGroupItem({
 }
 
 export { ToggleGroup, ToggleGroupItem }
+
+export type { ToggleGroupProps, ToggleGroupItemProps }

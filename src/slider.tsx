@@ -5,7 +5,7 @@ import { Slider as SliderPrimitive } from "@base-ui/react/slider"
 
 import { cn } from "./lib/utils"
 
-export type SliderProps = React.ComponentProps<typeof SliderPrimitive.Root> & {
+type SliderProps = React.ComponentProps<typeof SliderPrimitive.Root> & {
   controlClassName?: string
   /**
    * Accessible name for the thumb(s). The thumb is the interactive slider
@@ -82,3 +82,4 @@ function Slider({
 }
 
 export { Slider }
+export type { SliderProps }
