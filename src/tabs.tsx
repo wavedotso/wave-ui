@@ -26,15 +26,15 @@ const tabsListVariants = cva(
 
 // --- Types ---
 
-type TabsProps = React.ComponentProps<typeof TabsPrimitive.Root>
+export type TabsProps = React.ComponentProps<typeof TabsPrimitive.Root>
 
 type TabsListBaseProps = React.ComponentProps<typeof TabsPrimitive.List>
 
-type TabsListProps = TabsListBaseProps & VariantProps<typeof tabsListVariants>
+export type TabsListProps = TabsListBaseProps & VariantProps<typeof tabsListVariants>
 
-type TabsTriggerProps = React.ComponentProps<typeof TabsPrimitive.Tab>
+export type TabsTriggerProps = React.ComponentProps<typeof TabsPrimitive.Tab>
 
-type TabsContentProps = React.ComponentProps<typeof TabsPrimitive.Panel>
+export type TabsContentProps = React.ComponentProps<typeof TabsPrimitive.Panel>
 
 // --- Components ---
 

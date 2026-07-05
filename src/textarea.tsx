@@ -4,7 +4,7 @@ import * as React from "react"
 
 import { cn } from "./lib/utils"
 
-type TextareaProps = Omit<React.ComponentProps<"textarea">, "onChange"> & {
+export type TextareaProps = Omit<React.ComponentProps<"textarea">, "onChange"> & {
   onChange?: React.ChangeEventHandler<HTMLTextAreaElement>
   onValueChange?: (value: string) => void
 }

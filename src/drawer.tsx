@@ -7,18 +7,19 @@ import { cn } from "./lib/utils"
 import { Button } from "./button"
 import { CloseIcon } from "./lib/internal-icons"
 
-type DrawerProps = React.ComponentProps<typeof DrawerPrimitive.Root>
-type DrawerTriggerProps = React.ComponentProps<typeof DrawerPrimitive.Trigger>
-type DrawerPortalProps = React.ComponentProps<typeof DrawerPrimitive.Portal>
-type DrawerCloseProps = React.ComponentProps<typeof DrawerPrimitive.Close>
-type DrawerOverlayProps = React.ComponentProps<typeof DrawerPrimitive.Backdrop>
-type DrawerPopupProps = React.ComponentProps<typeof DrawerPrimitive.Popup>
-type DrawerTitleProps = React.ComponentProps<typeof DrawerPrimitive.Title>
-type DrawerDescriptionProps = React.ComponentProps<typeof DrawerPrimitive.Description>
-type DrawerHeaderProps = React.ComponentProps<"div">
-type DrawerFooterProps = React.ComponentProps<"div">
+export type DrawerProps = React.ComponentProps<typeof DrawerPrimitive.Root>
+export type DrawerTriggerProps = React.ComponentProps<typeof DrawerPrimitive.Trigger>
+export type DrawerPortalProps = React.ComponentProps<typeof DrawerPrimitive.Portal>
+export type DrawerCloseProps = React.ComponentProps<typeof DrawerPrimitive.Close>
+export type DrawerOverlayProps = React.ComponentProps<typeof DrawerPrimitive.Backdrop>
+export type DrawerViewportProps = React.ComponentProps<typeof DrawerPrimitive.Viewport>
+export type DrawerPopupProps = React.ComponentProps<typeof DrawerPrimitive.Popup>
+export type DrawerTitleProps = React.ComponentProps<typeof DrawerPrimitive.Title>
+export type DrawerDescriptionProps = React.ComponentProps<typeof DrawerPrimitive.Description>
+export type DrawerHeaderProps = React.ComponentProps<"div">
+export type DrawerFooterProps = React.ComponentProps<"div">
 
-type DrawerContentProps = DrawerPopupProps & {
+export type DrawerContentProps = DrawerPopupProps & {
   showCloseButton?: boolean
 }
 
@@ -51,6 +52,16 @@ function DrawerOverlay({ className, ...props }: DrawerOverlayProps) {
   )
 }
 
+function DrawerViewport({ className, ...props }: DrawerViewportProps) {
+  return (
+    <DrawerPrimitive.Viewport
+      data-slot="drawer-viewport"
+      className={cn("fixed inset-0 z-50 outline-hidden", className)}
+      {...props}
+    />
+  )
+}
+
 function DrawerContent({
   className,
   children,
@@ -60,10 +71,7 @@ function DrawerContent({
   return (
     <DrawerPortal>
       <DrawerOverlay />
-      <DrawerPrimitive.Viewport
-        data-slot="drawer-viewport"
-        className="fixed inset-0 z-50 outline-hidden"
-      >
+      <DrawerViewport>
         <DrawerPrimitive.Popup
           data-slot="drawer-content"
           className={cn(
@@ -113,7 +121,7 @@ function DrawerContent({
             </DrawerPrimitive.Close>
           )}
         </DrawerPrimitive.Popup>
-      </DrawerPrimitive.Viewport>
+      </DrawerViewport>
     </DrawerPortal>
   )
 }
@@ -168,6 +176,7 @@ export {
   Drawer,
   DrawerPortal,
   DrawerOverlay,
+  DrawerViewport,
   DrawerTrigger,
   DrawerClose,
   DrawerContent,

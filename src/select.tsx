@@ -7,27 +7,27 @@ import { Select as SelectPrimitive } from "@base-ui/react/select"
 import { cn } from "./lib/utils"
 import { ChevronDownIcon, ChevronUpIcon, CheckIcon, ChevronsUpDownIcon } from "./lib/internal-icons"
 
-type SelectProps<Value, Multiple extends boolean | undefined = false> =
+export type SelectProps<Value, Multiple extends boolean | undefined = false> =
   SelectPrimitive.Root.Props<Value, Multiple>
 
-type SelectGroupProps = React.ComponentProps<typeof SelectPrimitive.Group>
-type SelectValueProps = React.ComponentProps<typeof SelectPrimitive.Value>
+export type SelectGroupProps = React.ComponentProps<typeof SelectPrimitive.Group>
+export type SelectValueProps = React.ComponentProps<typeof SelectPrimitive.Value>
 type SelectTriggerBaseProps = React.ComponentProps<typeof SelectPrimitive.Trigger>
-type SelectPortalProps = React.ComponentProps<typeof SelectPrimitive.Portal>
-type SelectPositionerProps = React.ComponentProps<typeof SelectPrimitive.Positioner>
+export type SelectPortalProps = React.ComponentProps<typeof SelectPrimitive.Portal>
+export type SelectPositionerProps = React.ComponentProps<typeof SelectPrimitive.Positioner>
 type SelectPopupProps = React.ComponentProps<typeof SelectPrimitive.Popup>
-type SelectListProps = React.ComponentProps<typeof SelectPrimitive.List>
-type SelectLabelProps = React.ComponentProps<typeof SelectPrimitive.GroupLabel>
-type SelectItemProps = React.ComponentProps<typeof SelectPrimitive.Item>
-type SelectSeparatorProps = React.ComponentProps<typeof SelectPrimitive.Separator>
-type SelectScrollUpButtonProps = React.ComponentProps<typeof SelectPrimitive.ScrollUpArrow>
-type SelectScrollDownButtonProps = React.ComponentProps<typeof SelectPrimitive.ScrollDownArrow>
+export type SelectListProps = React.ComponentProps<typeof SelectPrimitive.List>
+export type SelectLabelProps = React.ComponentProps<typeof SelectPrimitive.GroupLabel>
+export type SelectItemProps = React.ComponentProps<typeof SelectPrimitive.Item>
+export type SelectSeparatorProps = React.ComponentProps<typeof SelectPrimitive.Separator>
+export type SelectScrollUpButtonProps = React.ComponentProps<typeof SelectPrimitive.ScrollUpArrow>
+export type SelectScrollDownButtonProps = React.ComponentProps<typeof SelectPrimitive.ScrollDownArrow>
 
-type SelectTriggerProps = SelectTriggerBaseProps & {
+export type SelectTriggerProps = SelectTriggerBaseProps & {
   size?: "sm" | "default"
 }
 
-type SelectContentProps = SelectPopupProps &
+export type SelectContentProps = SelectPopupProps &
   Pick<
     SelectPositionerProps,
     "align" | "alignOffset" | "side" | "sideOffset" | "alignItemWithTrigger"

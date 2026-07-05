@@ -5,7 +5,7 @@ import * as React from "react"
 import { cn } from "./lib/utils"
 import { Spinner } from "./spinner"
 
-type InfiniteScrollProps = {
+export type InfiniteScrollProps = React.ComponentProps<"div"> & {
   onLoadMore: () => void
   hasMore: boolean
   isLoading?: boolean
@@ -15,8 +15,6 @@ type InfiniteScrollProps = {
   threshold?: number
   loader?: React.ReactNode
   endMessage?: React.ReactNode
-  className?: string
-  children?: React.ReactNode
 }
 
 function InfiniteScroll({
@@ -31,6 +29,7 @@ function InfiniteScroll({
   endMessage,
   className,
   children,
+  ...props
 }: InfiniteScrollProps) {
   const sentinelRef = React.useRef<HTMLDivElement>(null)
 
@@ -99,6 +98,7 @@ function InfiniteScroll({
 
   return (
     <div
+      {...props}
       data-slot="infinite-scroll"
       aria-busy={isLoading}
       className={cn("flex flex-col", className)}
@@ -124,4 +124,4 @@ function InfiniteScroll({
   )
 }
 
-export { InfiniteScroll, type InfiniteScrollProps }
+export { InfiniteScroll }

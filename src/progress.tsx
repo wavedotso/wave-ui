@@ -5,18 +5,21 @@ import { Progress as ProgressPrimitive } from "@base-ui/react/progress"
 
 import { cn } from "./lib/utils"
 
-type ProgressProps = React.ComponentProps<typeof ProgressPrimitive.Root>
-type ProgressTrackProps = React.ComponentProps<typeof ProgressPrimitive.Track>
-type ProgressIndicatorProps = React.ComponentProps<typeof ProgressPrimitive.Indicator>
-type ProgressLabelProps = React.ComponentProps<typeof ProgressPrimitive.Label>
-type ProgressValueProps = React.ComponentProps<typeof ProgressPrimitive.Value>
+// `value` is typed from the primitive, so it accepts `number | null`;
+// `null` puts the progress bar into its indeterminate state (Base UI then
+// emits `data-indeterminate` on the root and omits the indicator width).
+export type ProgressProps = React.ComponentProps<typeof ProgressPrimitive.Root>
+export type ProgressTrackProps = React.ComponentProps<typeof ProgressPrimitive.Track>
+export type ProgressIndicatorProps = React.ComponentProps<typeof ProgressPrimitive.Indicator>
+export type ProgressLabelProps = React.ComponentProps<typeof ProgressPrimitive.Label>
+export type ProgressValueProps = React.ComponentProps<typeof ProgressPrimitive.Value>
 
-function Progress({ className, children, value, ...props }: ProgressProps) {
+function Progress({ className, children, value = null, ...props }: ProgressProps) {
   return (
     <ProgressPrimitive.Root
       value={value}
       data-slot="progress"
-      className={cn("flex flex-wrap gap-3", className)}
+      className={cn("group/progress flex flex-wrap gap-3", className)}
       {...props}
     >
       {children}
@@ -46,6 +49,10 @@ function ProgressIndicator({ className, ...props }: ProgressIndicatorProps) {
       data-slot="progress-indicator"
       className={cn(
         "bg-primary h-full transition-[width]",
+        // Indeterminate: Base UI omits the indicator width (rendering an
+        // invisible zero-width bar), so give it a sensible pulsing partial
+        // fill instead of collapsing to nothing.
+        "group-data-indeterminate/progress:w-2/5 group-data-indeterminate/progress:animate-pulse",
         className
       )}
       {...props}

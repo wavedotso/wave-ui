@@ -2,14 +2,14 @@ import * as React from "react"
 
 import { cn } from "./lib/utils"
 
-type TableProps = React.ComponentProps<"table">
-type TableHeaderProps = React.ComponentProps<"thead">
-type TableBodyProps = React.ComponentProps<"tbody">
-type TableFooterProps = React.ComponentProps<"tfoot">
-type TableRowProps = React.ComponentProps<"tr">
-type TableHeadProps = React.ComponentProps<"th">
-type TableCellProps = React.ComponentProps<"td">
-type TableCaptionProps = React.ComponentProps<"caption">
+export type TableProps = React.ComponentProps<"table">
+export type TableHeaderProps = React.ComponentProps<"thead">
+export type TableBodyProps = React.ComponentProps<"tbody">
+export type TableFooterProps = React.ComponentProps<"tfoot">
+export type TableRowProps = React.ComponentProps<"tr">
+export type TableHeadProps = React.ComponentProps<"th">
+export type TableCellProps = React.ComponentProps<"td">
+export type TableCaptionProps = React.ComponentProps<"caption">
 
 function Table({ className, ...props }: TableProps) {
   return (

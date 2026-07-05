@@ -9,28 +9,28 @@ import {
 
 import { cn } from "./lib/utils"
 
-type PaginationProps = React.ComponentProps<"nav">
+export type PaginationProps = React.ComponentProps<"nav">
 
-type PaginationContentProps = React.ComponentProps<"ul">
+export type PaginationContentProps = React.ComponentProps<"ul">
 
-type PaginationItemProps = React.ComponentProps<"li">
+export type PaginationItemProps = React.ComponentProps<"li">
 
-type PaginationLinkProps = {
+export type PaginationLinkProps = {
   isActive?: boolean
   /** Marks the link disabled — aria-disabled, removed from tab order, non-interactive. */
   disabled?: boolean
 } & Pick<React.ComponentProps<typeof Button>, "size"> &
   React.ComponentProps<"a">
 
-type PaginationPreviousProps = PaginationLinkProps & {
+export type PaginationPreviousProps = PaginationLinkProps & {
   text?: string
 }
 
-type PaginationNextProps = PaginationLinkProps & {
+export type PaginationNextProps = PaginationLinkProps & {
   text?: string
 }
 
-type PaginationEllipsisProps = React.ComponentProps<"span">
+export type PaginationEllipsisProps = React.ComponentProps<"span">
 
 function Pagination({ className, ...props }: PaginationProps) {
   return (

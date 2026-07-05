@@ -8,10 +8,10 @@ import { cn } from "./lib/utils"
 
 import { ChevronDownIcon, ChevronUpIcon } from "./lib/internal-icons"
 
-type AccordionProps = React.ComponentProps<typeof AccordionPrimitive.Root>
-type AccordionItemProps = React.ComponentProps<typeof AccordionPrimitive.Item>
-type AccordionTriggerProps = React.ComponentProps<typeof AccordionPrimitive.Trigger>
-type AccordionContentProps = React.ComponentProps<typeof AccordionPrimitive.Panel>
+export type AccordionProps = React.ComponentProps<typeof AccordionPrimitive.Root>
+export type AccordionItemProps = React.ComponentProps<typeof AccordionPrimitive.Item>
+export type AccordionTriggerProps = React.ComponentProps<typeof AccordionPrimitive.Trigger>
+export type AccordionContentProps = React.ComponentProps<typeof AccordionPrimitive.Panel>
 
 function Accordion({ className, ...props }: AccordionProps) {
   return (

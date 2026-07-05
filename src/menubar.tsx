@@ -23,22 +23,22 @@ import {
 
 import { cn } from "./lib/utils"
 
-type MenubarProps = React.ComponentProps<typeof MenubarPrimitive>
-type MenubarMenuProps = React.ComponentProps<typeof Menu>
-type MenubarGroupProps = React.ComponentProps<typeof MenuGroup>
-type MenubarPortalProps = React.ComponentProps<typeof MenuPortal>
-type MenubarTriggerProps = React.ComponentProps<typeof MenuTrigger>
-type MenubarContentProps = React.ComponentProps<typeof MenuContent>
-type MenubarItemProps = React.ComponentProps<typeof MenuItem>
-type MenubarCheckboxItemProps = React.ComponentProps<typeof MenuCheckboxItem>
-type MenubarRadioGroupProps = React.ComponentProps<typeof MenuRadioGroup>
-type MenubarRadioItemProps = React.ComponentProps<typeof MenuRadioItem>
-type MenubarLabelProps = React.ComponentProps<typeof MenuLabel>
-type MenubarSeparatorProps = React.ComponentProps<typeof MenuSeparator>
-type MenubarShortcutProps = React.ComponentProps<typeof MenuShortcut>
-type MenubarSubProps = React.ComponentProps<typeof MenuSub>
-type MenubarSubTriggerProps = React.ComponentProps<typeof MenuSubTrigger>
-type MenubarSubContentProps = React.ComponentProps<typeof MenuSubContent>
+export type MenubarProps = React.ComponentProps<typeof MenubarPrimitive>
+export type MenubarMenuProps = React.ComponentProps<typeof Menu>
+export type MenubarGroupProps = React.ComponentProps<typeof MenuGroup>
+export type MenubarPortalProps = React.ComponentProps<typeof MenuPortal>
+export type MenubarTriggerProps = React.ComponentProps<typeof MenuTrigger>
+export type MenubarContentProps = React.ComponentProps<typeof MenuContent>
+export type MenubarItemProps = React.ComponentProps<typeof MenuItem>
+export type MenubarCheckboxItemProps = React.ComponentProps<typeof MenuCheckboxItem>
+export type MenubarRadioGroupProps = React.ComponentProps<typeof MenuRadioGroup>
+export type MenubarRadioItemProps = React.ComponentProps<typeof MenuRadioItem>
+export type MenubarLabelProps = React.ComponentProps<typeof MenuLabel>
+export type MenubarSeparatorProps = React.ComponentProps<typeof MenuSeparator>
+export type MenubarShortcutProps = React.ComponentProps<typeof MenuShortcut>
+export type MenubarSubProps = React.ComponentProps<typeof MenuSub>
+export type MenubarSubTriggerProps = React.ComponentProps<typeof MenuSubTrigger>
+export type MenubarSubContentProps = React.ComponentProps<typeof MenuSubContent>
 
 function Menubar({ className, ...props }: MenubarProps) {
   return (

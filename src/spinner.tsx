@@ -3,7 +3,7 @@ import * as React from "react"
 import { cn } from "./lib/utils"
 import { LoaderIcon } from "./lib/internal-icons"
 
-type SpinnerProps = React.ComponentProps<"svg">
+export type SpinnerProps = React.ComponentProps<"svg">
 
 function Spinner({ className, ...props }: SpinnerProps) {
   return (

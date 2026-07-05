@@ -7,8 +7,8 @@ import { RadioGroup as RadioGroupPrimitive } from "@base-ui/react/radio-group"
 import { Radio } from "./radio"
 import { cn } from "./lib/utils"
 
-type RadioGroupProps = React.ComponentProps<typeof RadioGroupPrimitive>
-type RadioGroupItemProps = React.ComponentProps<typeof Radio>
+export type RadioGroupProps = React.ComponentProps<typeof RadioGroupPrimitive>
+export type RadioGroupItemProps = React.ComponentProps<typeof Radio>
 
 function RadioGroup({ className, ...props }: RadioGroupProps) {
   return (

@@ -2,7 +2,7 @@ import * as React from "react"
 
 import { cn } from "./lib/utils"
 
-type LabelProps = React.ComponentProps<"label">
+export type LabelProps = React.ComponentProps<"label">
 
 function Label({ className, ...props }: LabelProps) {
   return (

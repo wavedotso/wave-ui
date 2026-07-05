@@ -6,8 +6,8 @@ import { Radio as RadioPrimitive } from "@base-ui/react/radio"
 
 import { cn } from "./lib/utils"
 
-type RadioProps = React.ComponentProps<typeof RadioPrimitive.Root>
-type RadioIndicatorProps = React.ComponentProps<typeof RadioPrimitive.Indicator>
+export type RadioProps = React.ComponentProps<typeof RadioPrimitive.Root>
+export type RadioIndicatorProps = React.ComponentProps<typeof RadioPrimitive.Indicator>
 
 function Radio({ className, ...props }: RadioProps) {
   return (

@@ -27,7 +27,7 @@ const toggleVariants = cva(
   },
 )
 
-type ToggleProps = React.ComponentProps<typeof TogglePrimitive> &
+export type ToggleProps = React.ComponentProps<typeof TogglePrimitive> &
   VariantProps<typeof toggleVariants>
 
 function Toggle({

@@ -5,13 +5,13 @@ import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip"
 
 import { cn } from "./lib/utils"
 
-type TooltipProviderProps = React.ComponentProps<typeof TooltipPrimitive.Provider>
+export type TooltipProviderProps = React.ComponentProps<typeof TooltipPrimitive.Provider>
 
-type TooltipProps = React.ComponentProps<typeof TooltipPrimitive.Root>
+export type TooltipProps = React.ComponentProps<typeof TooltipPrimitive.Root>
 
-type TooltipTriggerProps = React.ComponentProps<typeof TooltipPrimitive.Trigger>
+export type TooltipTriggerProps = React.ComponentProps<typeof TooltipPrimitive.Trigger>
 
-type TooltipContentProps = React.ComponentProps<typeof TooltipPrimitive.Popup> & {
+export type TooltipContentProps = React.ComponentProps<typeof TooltipPrimitive.Popup> & {
   side?: React.ComponentProps<typeof TooltipPrimitive.Positioner>["side"];
   sideOffset?: React.ComponentProps<typeof TooltipPrimitive.Positioner>["sideOffset"];
   align?: React.ComponentProps<typeof TooltipPrimitive.Positioner>["align"];

@@ -5,17 +5,19 @@ import { PreviewCard as PreviewCardPrimitive } from "@base-ui/react/preview-card
 
 import { cn } from "./lib/utils"
 
-type PreviewCardProps = React.ComponentProps<typeof PreviewCardPrimitive.Root>
-type PreviewCardTriggerProps = React.ComponentProps<typeof PreviewCardPrimitive.Trigger>
-type PreviewCardPortalProps = React.ComponentProps<typeof PreviewCardPrimitive.Portal>
-type PreviewCardPositionerProps = React.ComponentProps<typeof PreviewCardPrimitive.Positioner>
+export type PreviewCardProps = React.ComponentProps<typeof PreviewCardPrimitive.Root>
+export type PreviewCardTriggerProps = React.ComponentProps<typeof PreviewCardPrimitive.Trigger>
+export type PreviewCardPortalProps = React.ComponentProps<typeof PreviewCardPrimitive.Portal>
+export type PreviewCardPositionerProps = React.ComponentProps<typeof PreviewCardPrimitive.Positioner>
 type PreviewCardPopupProps = React.ComponentProps<typeof PreviewCardPrimitive.Popup>
 
-type PreviewCardContentProps = PreviewCardPopupProps &
+export type PreviewCardContentProps = PreviewCardPopupProps &
   Pick<
     PreviewCardPositionerProps,
     "align" | "alignOffset" | "side" | "sideOffset" | "anchor"
-  >
+  > & {
+    positionerClassName?: string
+  }
 
 function PreviewCard({ ...props }: PreviewCardProps) {
   return <PreviewCardPrimitive.Root data-slot="preview-card" {...props} />
@@ -49,6 +51,7 @@ function PreviewCardPositioner({
 
 function PreviewCardContent({
   className,
+  positionerClassName,
   side = "bottom",
   sideOffset = 4,
   align = "center",
@@ -64,7 +67,7 @@ function PreviewCardContent({
         alignOffset={alignOffset}
         side={side}
         sideOffset={sideOffset}
-        className="isolate z-50"
+        className={cn("isolate z-50", positionerClassName)}
       >
         <PreviewCardPrimitive.Popup
           data-slot="preview-card-content"

@@ -36,7 +36,7 @@ const switchThumbVariants = cva(
   }
 )
 
-type SwitchProps = React.ComponentProps<typeof SwitchPrimitive.Root> &
+export type SwitchProps = React.ComponentProps<typeof SwitchPrimitive.Root> &
   VariantProps<typeof switchVariants>
 
 function Switch({ className, size = "default", ...props }: SwitchProps) {

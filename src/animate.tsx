@@ -15,7 +15,7 @@ import {
   useRef,
   useState,
 } from "react"
-import { useInView, useReducedMotion, type Transition } from "motion/react"
+import { useInView, useReducedMotion } from "motion/react"
 
 /**
  * `useLayoutEffect` warns when run during SSR. Fall back to `useEffect` on the
@@ -28,6 +28,15 @@ const useIsomorphicLayoutEffect =
 // ── Types ────────────────────────────────────────────────────────────
 
 type Direction = "up" | "down" | "left" | "right"
+
+/**
+ * Transition override for the entrance components. Only the two fields that map
+ * cleanly onto a CSS transition are supported — `duration` (seconds) and `ease`
+ * (a CSS `<timing-function>` string, e.g. `"ease-out"` or `"cubic-bezier(…)"`).
+ * motion/react's full `Transition` type (springs, keyframe arrays, camelCase
+ * eases) would silently produce invalid CSS here, so it is intentionally narrowed.
+ */
+type AnimateTransition = { duration?: number; ease?: string }
 
 interface AnimateOnViewProps {
   children: ReactElement
@@ -50,7 +59,7 @@ interface AnimateOnViewProps {
   /** Trigger once or every time it enters view. Default: true */
   once?: boolean
   /** Custom transition override */
-  transition?: Transition
+  transition?: AnimateTransition
 }
 
 interface AnimateInProps {
@@ -72,7 +81,7 @@ interface AnimateInProps {
   /** Spring easing with overshoot. Default: false */
   spring?: boolean
   /** Custom transition override */
-  transition?: Transition
+  transition?: AnimateTransition
 }
 
 interface StaggerProps {
@@ -193,11 +202,9 @@ function mergeRefs<T>(...refs: (Ref<T> | undefined)[]) {
   }
 }
 
-function getTransitionParams(transition?: Transition, useSpring?: boolean, fallbackDuration = 0.15) {
-  const duration =
-    (transition as Record<string, number>)?.duration ?? fallbackDuration
-  const ease =
-    useSpring ? SPRING_EASE : ((transition as Record<string, string>)?.ease ?? "ease-out")
+function getTransitionParams(transition?: AnimateTransition, useSpring?: boolean, fallbackDuration = 0.15) {
+  const duration = transition?.duration ?? fallbackDuration
+  const ease = useSpring ? SPRING_EASE : (transition?.ease ?? "ease-out")
   return { duration, ease }
 }
 
@@ -594,4 +601,5 @@ export type {
   PulseProps,
   FloatProps,
   Direction,
+  AnimateTransition,
 }

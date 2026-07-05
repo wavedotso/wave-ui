@@ -7,7 +7,7 @@ import { cn } from "./lib/utils"
 import { Button } from "./button"
 import { CloseIcon } from "./lib/internal-icons"
 
-type DialogProps = React.ComponentProps<typeof DialogPrimitive.Root> & {
+export type DialogProps = React.ComponentProps<typeof DialogPrimitive.Root> & {
   /**
    * When `true`, clicking outside the dialog (backdrop / pointer
    * dismissal) does not close it. It can then only be closed via an
@@ -20,21 +20,21 @@ type DialogProps = React.ComponentProps<typeof DialogPrimitive.Root> & {
    */
   disablePointerDismissal?: boolean
 }
-type DialogTriggerProps = React.ComponentProps<typeof DialogPrimitive.Trigger>
-type DialogPortalProps = React.ComponentProps<typeof DialogPrimitive.Portal>
-type DialogCloseProps = React.ComponentProps<typeof DialogPrimitive.Close>
-type DialogOverlayProps = React.ComponentProps<typeof DialogPrimitive.Backdrop>
-type DialogPopupProps = React.ComponentProps<typeof DialogPrimitive.Popup>
-type DialogTitleProps = React.ComponentProps<typeof DialogPrimitive.Title>
-type DialogDescriptionProps = React.ComponentProps<typeof DialogPrimitive.Description>
+export type DialogTriggerProps = React.ComponentProps<typeof DialogPrimitive.Trigger>
+export type DialogPortalProps = React.ComponentProps<typeof DialogPrimitive.Portal>
+export type DialogCloseProps = React.ComponentProps<typeof DialogPrimitive.Close>
+export type DialogOverlayProps = React.ComponentProps<typeof DialogPrimitive.Backdrop>
+export type DialogPopupProps = React.ComponentProps<typeof DialogPrimitive.Popup>
+export type DialogTitleProps = React.ComponentProps<typeof DialogPrimitive.Title>
+export type DialogDescriptionProps = React.ComponentProps<typeof DialogPrimitive.Description>
 
-type DialogContentProps = DialogPopupProps & {
+export type DialogContentProps = DialogPopupProps & {
   showCloseButton?: boolean
 }
 
-type DialogFooterProps = React.ComponentProps<"div"> & {
-  showCloseButton?: boolean
-}
+export type DialogHeaderProps = React.ComponentProps<"div">
+
+export type DialogFooterProps = React.ComponentProps<"div">
 
 function Dialog({ disablePointerDismissal, ...props }: DialogProps) {
   return <DialogPrimitive.Root data-slot="dialog" disablePointerDismissal={disablePointerDismissal} {...props} />
@@ -106,7 +106,7 @@ function DialogContent({
   )
 }
 
-function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
+function DialogHeader({ className, ...props }: DialogHeaderProps) {
   return (
     <div
       data-slot="dialog-header"
@@ -116,12 +116,7 @@ function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
-function DialogFooter({
-  className,
-  showCloseButton = false,
-  children,
-  ...props
-}: DialogFooterProps) {
+function DialogFooter({ className, ...props }: DialogFooterProps) {
   return (
     <div
       data-slot="dialog-footer"
@@ -130,14 +125,7 @@ function DialogFooter({
         className
       )}
       {...props}
-    >
-      {children}
-      {showCloseButton && (
-        <DialogPrimitive.Close render={<Button variant="outline" />}>
-          Close
-        </DialogPrimitive.Close>
-      )}
-    </div>
+    />
   )
 }
 

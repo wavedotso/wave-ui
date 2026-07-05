@@ -19,7 +19,7 @@ import {
 // ---------------------------------------------------------------------------
 
 const toastRootClass =
-  "bg-elevated text-contrast ring-contrast/10 rounded-md p-4 text-sm shadow-md ring-1 outline-hidden select-none"
+  "bg-elevated text-contrast ring-contrast/10 rounded-md p-4 text-sm shadow-md ring-1 outline-hidden"
 
 const toastIconVariants = cva(
   "mt-0.5 size-4 shrink-0",
@@ -87,6 +87,7 @@ type ToasterProps = {
 }
 
 type ToastProps = React.ComponentProps<typeof ToastPrimitive.Root>
+type ToastIconProps = { type?: ToastType }
 type ToastTitleProps = React.ComponentProps<typeof ToastPrimitive.Title>
 type ToastDescriptionProps = React.ComponentProps<typeof ToastPrimitive.Description>
 type ToastActionProps = React.ComponentProps<typeof ToastPrimitive.Action>
@@ -156,7 +157,7 @@ const toastTypeLabels: Record<ToastType, string> = {
   error: "Error",
 }
 
-function ToastIcon({ type }: { type?: ToastType }) {
+function ToastIcon({ type }: ToastIconProps) {
   // `type` is a plain string at runtime (the manager accepts arbitrary values),
   // so guard against unknown keys — an unrecognized type renders nothing rather
   // than dereferencing an undefined icon component and throwing.
@@ -437,5 +438,11 @@ export type {
   ToastType,
   ToastOptions,
   ToasterPosition,
-  ToasterProps
+  ToasterProps,
+  ToastProps,
+  ToastIconProps,
+  ToastTitleProps,
+  ToastDescriptionProps,
+  ToastActionProps,
+  ToastCloseProps,
 }

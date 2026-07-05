@@ -236,6 +236,11 @@ export {
   fieldControlProps,
   useForm,
   useWatch,
+  type FormProps,
+  type FormRootProps,
+  type FormErrorProps,
+  type FormActionsProps,
+  type FormMessageProps,
   type FormFieldRenderArgs,
   type FormFieldProps,
 };

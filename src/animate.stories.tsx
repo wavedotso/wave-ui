@@ -212,15 +212,15 @@ export const CustomTransition: StoryObj = {
   render: () => (
     <Replay>
       <div className="p-8 flex flex-col gap-4">
-        <AnimateIn distance={40} transition={{ duration: 0.2, ease: "easeOut" }}>
+        <AnimateIn distance={40} transition={{ duration: 0.2, ease: "ease-out" }}>
           <DemoCard label="Fast (0.2s, ease-out)" color="#0f766e" />
         </AnimateIn>
-        <AnimateIn distance={40} transition={{ duration: 1.2, ease: "easeInOut" }} delay={0.2}>
+        <AnimateIn distance={40} transition={{ duration: 1.2, ease: "ease-in-out" }} delay={0.2}>
           <DemoCard label="Slow (1.2s, ease-in-out)" color="#0e7490" />
         </AnimateIn>
         <AnimateIn
           distance={40}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.8, ease: "cubic-bezier(0.22, 1, 0.36, 1)" }}
           delay={0.4}
         >
           <DemoCard label="Custom cubic-bezier easing" color="#0369a1" />

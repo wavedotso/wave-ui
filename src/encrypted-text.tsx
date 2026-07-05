@@ -5,7 +5,7 @@ import { useReducedMotion } from "motion/react"
 
 import { cn } from "./lib/utils"
 
-type EncryptedTextProps = React.ComponentProps<"span"> & {
+export type EncryptedTextProps = React.ComponentProps<"span"> & {
   text: string
   revealDelayMs?: number
   charset?: string

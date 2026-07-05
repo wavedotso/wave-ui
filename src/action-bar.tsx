@@ -1,6 +1,9 @@
 "use client"
 
 import * as React from "react"
+// `motion` is an optional peer dependency (see `peerDependenciesMeta` in
+// package.json). ActionBar's enter/exit transition is built on it, so
+// consumers must install `motion` to use this subpath import.
 import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 
 import { cn } from "./lib/utils"
@@ -76,7 +79,7 @@ export interface ActionBarProviderProps {
    * users get) when guarded navigation is blocked.
    */
   blockedMessage?: string
-  /** Additional className for the bar's outer wrapper. */
+  /** Additional className for the bar's inner content box (`data-slot="action-bar-content"`). */
   className?: string
 }
 
@@ -90,6 +93,10 @@ export interface ActionBarProviderProps {
  * - ⌘S / Ctrl+S keyboard shortcut
  * - Navigation guard with Discord-style page jiggle
  * - `beforeunload` guard for browser close/refresh
+ *
+ * @remarks
+ * Requires the optional `motion` peer dependency for its enter/exit
+ * transition. Install `motion` alongside `@waveso/ui` to use this component.
  *
  * @example
  * ```tsx

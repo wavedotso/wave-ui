@@ -6,9 +6,9 @@ import { Collapsible as CollapsiblePrimitive } from "@base-ui/react/collapsible"
 
 import { cn } from "./lib/utils"
 
-type CollapsibleProps = React.ComponentProps<typeof CollapsiblePrimitive.Root>
-type CollapsibleTriggerProps = React.ComponentProps<typeof CollapsiblePrimitive.Trigger>
-type CollapsibleContentProps = React.ComponentProps<typeof CollapsiblePrimitive.Panel>
+export type CollapsibleProps = React.ComponentProps<typeof CollapsiblePrimitive.Root>
+export type CollapsibleTriggerProps = React.ComponentProps<typeof CollapsiblePrimitive.Trigger>
+export type CollapsibleContentProps = React.ComponentProps<typeof CollapsiblePrimitive.Panel>
 
 function Collapsible({ ...props }: CollapsibleProps) {
   return <CollapsiblePrimitive.Root data-slot="collapsible" {...props} />

@@ -7,7 +7,7 @@ import { Checkbox as CheckboxPrimitive } from "@base-ui/react/checkbox"
 import { cn } from "./lib/utils"
 import { CheckIcon, MinusIcon } from "./lib/internal-icons"
 
-type CheckboxProps = React.ComponentProps<typeof CheckboxPrimitive.Root>
+export type CheckboxProps = React.ComponentProps<typeof CheckboxPrimitive.Root>
 
 function Checkbox({ className, ...props }: CheckboxProps) {
   return (

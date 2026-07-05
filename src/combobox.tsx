@@ -13,38 +13,38 @@ import {
 } from "./input-group"
 import { ChevronDownIcon, CloseIcon, CheckIcon } from "./lib/internal-icons"
 
-type ComboboxProps = React.ComponentProps<typeof ComboboxPrimitive.Root>
+export type ComboboxProps = React.ComponentProps<typeof ComboboxPrimitive.Root>
 
-type ComboboxValueProps = React.ComponentProps<typeof ComboboxPrimitive.Value>
-type ComboboxTriggerProps = React.ComponentProps<typeof ComboboxPrimitive.Trigger>
-type ComboboxClearProps = React.ComponentProps<typeof ComboboxPrimitive.Clear>
-type ComboboxInputProps = React.ComponentProps<typeof ComboboxPrimitive.Input>
+export type ComboboxValueProps = React.ComponentProps<typeof ComboboxPrimitive.Value>
+export type ComboboxTriggerProps = React.ComponentProps<typeof ComboboxPrimitive.Trigger>
+export type ComboboxClearProps = React.ComponentProps<typeof ComboboxPrimitive.Clear>
+type ComboboxInputBaseProps = React.ComponentProps<typeof ComboboxPrimitive.Input>
 
-type ComboboxPortalProps = React.ComponentProps<typeof ComboboxPrimitive.Portal>
-type ComboboxPositionerProps = React.ComponentProps<typeof ComboboxPrimitive.Positioner>
+export type ComboboxPortalProps = React.ComponentProps<typeof ComboboxPrimitive.Portal>
+export type ComboboxPositionerProps = React.ComponentProps<typeof ComboboxPrimitive.Positioner>
 type ComboboxPopupProps = React.ComponentProps<typeof ComboboxPrimitive.Popup>
 
-type ComboboxListProps = React.ComponentProps<typeof ComboboxPrimitive.List>
-type ComboboxItemProps = React.ComponentProps<typeof ComboboxPrimitive.Item>
-type ComboboxGroupProps = React.ComponentProps<typeof ComboboxPrimitive.Group>
-type ComboboxLabelProps = React.ComponentProps<typeof ComboboxPrimitive.GroupLabel>
-type ComboboxCollectionProps = React.ComponentProps<typeof ComboboxPrimitive.Collection>
-type ComboboxEmptyProps = React.ComponentProps<typeof ComboboxPrimitive.Empty>
-type ComboboxSeparatorProps = React.ComponentProps<typeof ComboboxPrimitive.Separator>
-type ComboboxChipsProps = React.ComponentProps<typeof ComboboxPrimitive.Chips>
-type ComboboxChipProps = React.ComponentProps<typeof ComboboxPrimitive.Chip>
-type ComboboxChipsInputProps = React.ComponentProps<typeof ComboboxPrimitive.Input>
+export type ComboboxListProps = React.ComponentProps<typeof ComboboxPrimitive.List>
+export type ComboboxItemProps = React.ComponentProps<typeof ComboboxPrimitive.Item>
+export type ComboboxGroupProps = React.ComponentProps<typeof ComboboxPrimitive.Group>
+export type ComboboxLabelProps = React.ComponentProps<typeof ComboboxPrimitive.GroupLabel>
+export type ComboboxCollectionProps = React.ComponentProps<typeof ComboboxPrimitive.Collection>
+export type ComboboxEmptyProps = React.ComponentProps<typeof ComboboxPrimitive.Empty>
+export type ComboboxSeparatorProps = React.ComponentProps<typeof ComboboxPrimitive.Separator>
+export type ComboboxChipsProps = React.ComponentProps<typeof ComboboxPrimitive.Chips>
+type ComboboxChipBaseProps = React.ComponentProps<typeof ComboboxPrimitive.Chip>
+export type ComboboxChipsInputProps = React.ComponentProps<typeof ComboboxPrimitive.Input>
 
-type ComboboxInputWrapperProps = ComboboxInputProps & {
+export type ComboboxInputProps = ComboboxInputBaseProps & {
   showTrigger?: boolean
   showClear?: boolean
 }
 
-type ComboboxChipWrapperProps = ComboboxChipProps & {
+export type ComboboxChipProps = ComboboxChipBaseProps & {
   showRemove?: boolean
 }
 
-type ComboboxContentProps = ComboboxPopupProps &
+export type ComboboxContentProps = ComboboxPopupProps &
   Pick<
     ComboboxPositionerProps,
     "side" | "align" | "sideOffset" | "alignOffset" | "anchor"
@@ -103,7 +103,7 @@ function ComboboxInput({
   showTrigger = true,
   showClear = false,
   ...props
-}: ComboboxInputWrapperProps) {
+}: ComboboxInputProps) {
   return (
     <ComboboxPrimitive.InputGroup render={<InputGroup className={cn(className)} />}>
       <ComboboxPrimitive.Input render={<InputGroupInput disabled={disabled} />} {...props} />
@@ -288,7 +288,7 @@ function ComboboxChip({
   children,
   showRemove = true,
   ...props
-}: ComboboxChipWrapperProps) {
+}: ComboboxChipProps) {
   return (
     <ComboboxPrimitive.Chip
       data-slot="combobox-chip"

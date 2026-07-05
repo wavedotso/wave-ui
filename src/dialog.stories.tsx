@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button } from './button';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -35,7 +36,8 @@ export const Default: Story = {
             account and remove your data from our servers.
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter showCloseButton>
+        <DialogFooter>
+          <DialogClose render={<Button variant="outline" />}>Cancel</DialogClose>
           <Button variant="destructive">Delete Account</Button>
         </DialogFooter>
       </DialogContent>
@@ -64,7 +66,8 @@ export const WithForm: Story = {
             <Input id="username" defaultValue="@saulo" />
           </div>
         </div>
-        <DialogFooter showCloseButton>
+        <DialogFooter>
+          <DialogClose render={<Button variant="outline" />}>Cancel</DialogClose>
           <Button>Save Changes</Button>
         </DialogFooter>
       </DialogContent>
@@ -86,8 +89,8 @@ export const NoCloseButton: Story = {
             to dismiss it.
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter showCloseButton>
-          <Button>Understood</Button>
+        <DialogFooter>
+          <DialogClose render={<Button />}>Understood</DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -117,7 +120,8 @@ export const DisablePointerDismissal: Story = {
             <Input id="dpd-username" defaultValue="@saulo" />
           </div>
         </div>
-        <DialogFooter showCloseButton>
+        <DialogFooter>
+          <DialogClose render={<Button variant="outline" />}>Cancel</DialogClose>
           <Button>Save Changes</Button>
         </DialogFooter>
       </DialogContent>

@@ -8,11 +8,11 @@ import { ChevronRightIcon, CheckIcon } from "./lib/internal-icons"
 import { cn } from "./lib/utils"
 import { resolveFinalFocus, type RestoreFocusOnClose } from "./lib/focus"
 
-type ContextMenuProps = React.ComponentProps<typeof ContextMenuPrimitive.Root>
-type ContextMenuPortalProps = React.ComponentProps<typeof ContextMenuPrimitive.Portal>
-type ContextMenuTriggerProps = React.ComponentProps<typeof ContextMenuPrimitive.Trigger>
+export type ContextMenuProps = React.ComponentProps<typeof ContextMenuPrimitive.Root>
+export type ContextMenuPortalProps = React.ComponentProps<typeof ContextMenuPrimitive.Portal>
+export type ContextMenuTriggerProps = React.ComponentProps<typeof ContextMenuPrimitive.Trigger>
 
-type ContextMenuContentProps = React.ComponentProps<typeof ContextMenuPrimitive.Popup> &
+export type ContextMenuContentProps = React.ComponentProps<typeof ContextMenuPrimitive.Popup> &
   Pick<
     React.ComponentProps<typeof ContextMenuPrimitive.Positioner>,
     "align" | "alignOffset" | "side" | "sideOffset"
@@ -26,37 +26,37 @@ type ContextMenuContentProps = React.ComponentProps<typeof ContextMenuPrimitive.
     restoreFocusOnClose?: RestoreFocusOnClose
   }
 
-type ContextMenuGroupProps = React.ComponentProps<typeof ContextMenuPrimitive.Group>
+export type ContextMenuGroupProps = React.ComponentProps<typeof ContextMenuPrimitive.Group>
 
-type ContextMenuLabelProps = React.ComponentProps<typeof ContextMenuPrimitive.GroupLabel> & {
+export type ContextMenuLabelProps = React.ComponentProps<typeof ContextMenuPrimitive.GroupLabel> & {
   inset?: boolean
 }
 
-type ContextMenuItemProps = React.ComponentProps<typeof ContextMenuPrimitive.Item> & {
+export type ContextMenuItemProps = React.ComponentProps<typeof ContextMenuPrimitive.Item> & {
   inset?: boolean
   variant?: "default" | "destructive"
 }
 
-type ContextMenuSubProps = React.ComponentProps<typeof ContextMenuPrimitive.SubmenuRoot>
+export type ContextMenuSubProps = React.ComponentProps<typeof ContextMenuPrimitive.SubmenuRoot>
 
-type ContextMenuSubTriggerProps = React.ComponentProps<typeof ContextMenuPrimitive.SubmenuTrigger> & {
+export type ContextMenuSubTriggerProps = React.ComponentProps<typeof ContextMenuPrimitive.SubmenuTrigger> & {
   inset?: boolean
 }
 
-type ContextMenuCheckboxItemProps = React.ComponentProps<typeof ContextMenuPrimitive.CheckboxItem> & {
+export type ContextMenuCheckboxItemProps = React.ComponentProps<typeof ContextMenuPrimitive.CheckboxItem> & {
   inset?: boolean
 }
 
-type ContextMenuRadioGroupProps = React.ComponentProps<typeof ContextMenuPrimitive.RadioGroup>
+export type ContextMenuRadioGroupProps = React.ComponentProps<typeof ContextMenuPrimitive.RadioGroup>
 
-type ContextMenuRadioItemProps = React.ComponentProps<typeof ContextMenuPrimitive.RadioItem> & {
+export type ContextMenuRadioItemProps = React.ComponentProps<typeof ContextMenuPrimitive.RadioItem> & {
   inset?: boolean
 }
 
-type ContextMenuSeparatorProps = React.ComponentProps<typeof ContextMenuPrimitive.Separator>
+export type ContextMenuSeparatorProps = React.ComponentProps<typeof ContextMenuPrimitive.Separator>
 
-type ContextMenuSubContentProps = React.ComponentProps<typeof ContextMenuContent>
-type ContextMenuShortcutProps = React.ComponentProps<"span">
+export type ContextMenuSubContentProps = React.ComponentProps<typeof ContextMenuContent>
+export type ContextMenuShortcutProps = React.ComponentProps<"span">
 
 function ContextMenu(props: ContextMenuProps) {
   return <ContextMenuPrimitive.Root data-slot="context-menu" {...props} />
@@ -291,3 +291,5 @@ export {
   ContextMenuSubTrigger,
   ContextMenuTrigger,
 }
+
+export type { RestoreFocusOnClose }

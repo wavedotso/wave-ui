@@ -2,13 +2,13 @@ import * as React from "react"
 
 import { cn } from "./lib/utils"
 
-type CardProps = React.ComponentProps<"div"> & { size?: "default" | "sm" }
-type CardHeaderProps = React.ComponentProps<"div">
-type CardTitleProps = React.ComponentProps<"div">
-type CardDescriptionProps = React.ComponentProps<"div">
-type CardActionProps = React.ComponentProps<"div">
-type CardContentProps = React.ComponentProps<"div">
-type CardFooterProps = React.ComponentProps<"div">
+export type CardProps = React.ComponentProps<"div"> & { size?: "default" | "sm" }
+export type CardHeaderProps = React.ComponentProps<"div">
+export type CardTitleProps = React.ComponentProps<"div">
+export type CardDescriptionProps = React.ComponentProps<"div">
+export type CardActionProps = React.ComponentProps<"div">
+export type CardContentProps = React.ComponentProps<"div">
+export type CardFooterProps = React.ComponentProps<"div">
 
 function Card({
   className,

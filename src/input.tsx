@@ -3,7 +3,7 @@ import { Input as InputPrimitive } from "@base-ui/react/input"
 
 import { cn } from "./lib/utils"
 
-type InputProps = React.ComponentProps<"input">
+export type InputProps = React.ComponentProps<typeof InputPrimitive>
 
 function Input({ className, type, ...props }: InputProps) {
   return (

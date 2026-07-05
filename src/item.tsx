@@ -46,16 +46,16 @@ const itemMediaVariants = cva(
   }
 )
 
-type ItemGroupProps = React.ComponentProps<"div">
-type ItemSeparatorProps = React.ComponentProps<typeof Separator>
-type ItemProps = useRender.ComponentProps<"div"> & VariantProps<typeof itemVariants>
-type ItemMediaProps = React.ComponentProps<"div"> & VariantProps<typeof itemMediaVariants>
-type ItemContentProps = React.ComponentProps<"div">
-type ItemTitleProps = React.ComponentProps<"div">
-type ItemDescriptionProps = React.ComponentProps<"p">
-type ItemActionsProps = React.ComponentProps<"div">
-type ItemHeaderProps = React.ComponentProps<"div">
-type ItemFooterProps = React.ComponentProps<"div">
+export type ItemGroupProps = React.ComponentProps<"div">
+export type ItemSeparatorProps = React.ComponentProps<typeof Separator>
+export type ItemProps = useRender.ComponentProps<"div"> & VariantProps<typeof itemVariants>
+export type ItemMediaProps = React.ComponentProps<"div"> & VariantProps<typeof itemMediaVariants>
+export type ItemContentProps = React.ComponentProps<"div">
+export type ItemTitleProps = React.ComponentProps<"div">
+export type ItemDescriptionProps = React.ComponentProps<"p">
+export type ItemActionsProps = React.ComponentProps<"div">
+export type ItemHeaderProps = React.ComponentProps<"div">
+export type ItemFooterProps = React.ComponentProps<"div">
 
 function ItemGroup({ className, ...props }: ItemGroupProps) {
   return (
@@ -202,4 +202,6 @@ export {
   ItemDescription,
   ItemHeader,
   ItemFooter,
+  itemVariants,
+  itemMediaVariants,
 }
