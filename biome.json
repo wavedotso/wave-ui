@@ -53,7 +53,7 @@
   },
   "overrides": [
     {
-      "includes": ["**/*.stories.tsx", "src/docs/**"],
+      "includes": ["**/*.stories.tsx", "**/*.test.tsx", "src/docs/**"],
       "linter": {
         "rules": {
           "a11y": {

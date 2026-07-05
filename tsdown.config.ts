@@ -24,6 +24,8 @@ export default defineConfig({
     "src/**/*.{ts,tsx}",
     "!src/**/*.stories.{ts,tsx}",
     "!src/**/*.{test,spec}.{ts,tsx}",
+    // Ambient type-only declarations (e.g. test matcher augmentations) never ship.
+    "!src/**/*.d.ts",
     // Storybook-only docs surface (guides rendered by MDX pages) — never ships.
     "!src/docs/**",
   ],
