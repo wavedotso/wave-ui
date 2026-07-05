@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite"
 import { Typewriter } from "./typewriter"
 
 const meta = {
-  title: "Animation/Typewriter",
+  title: "Effects/Typewriter",
   component: Typewriter,
   tags: ["autodocs"],
   parameters: {
@@ -170,5 +170,56 @@ export const NoCursor: StoryObj = {
         </Typewriter>
       </div>
     </Replay>
+  ),
+}
+
+// A tall scroll region: the Typewriter sits below the fold so `onView`
+// holds the reveal until it scrolls into view.
+function ScrollStage({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="h-[100vh] overflow-y-auto">
+      <div className="flex h-[80vh] flex-col items-center justify-center gap-3 text-center">
+        <p className="text-lg font-medium text-white">Scroll down ↓</p>
+        <p className="text-sm text-neutral-500">
+          The heading below stays hidden until it enters the viewport.
+        </p>
+      </div>
+      <div className="flex min-h-[80vh] items-center justify-center p-8">
+        {children}
+      </div>
+    </div>
+  )
+}
+
+export const OnView: StoryObj = {
+  name: "On View (scroll trigger)",
+  render: () => (
+    <ScrollStage>
+      <Typewriter text="Typed when you scrolled here." onView speed={0.05}>
+        <h1 className="text-4xl font-bold text-white" />
+      </Typewriter>
+    </ScrollStage>
+  ),
+}
+
+export const OnViewReplay: StoryObj = {
+  name: "On View — Replay (once={false})",
+  render: () => (
+    <div className="h-[100vh] overflow-y-auto">
+      <div className="flex h-[80vh] flex-col items-center justify-center gap-3 text-center">
+        <p className="text-lg font-medium text-white">Scroll down ↓</p>
+        <p className="text-sm text-neutral-500">
+          Scroll the heading out of view and back — it replays each time.
+        </p>
+      </div>
+      <div className="flex min-h-[80vh] items-center justify-center p-8">
+        <Typewriter text="I replay every re-entry." onView once={false} speed={0.05}>
+          <h1 className="text-4xl font-bold text-white" />
+        </Typewriter>
+      </div>
+      <div className="flex h-[80vh] items-center justify-center text-sm text-neutral-500">
+        Keep scrolling, then scroll back up.
+      </div>
+    </div>
   ),
 }

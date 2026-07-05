@@ -78,6 +78,7 @@ const preview: Preview = {
           'Navigation',
           'Overlay',
           'Utilities',
+          'Effects',
         ],
       },
     },

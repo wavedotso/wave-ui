@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { EncryptedText } from './encrypted-text';
 
 const meta = {
-  title: 'Data Display/EncryptedText',
+  title: 'Effects/EncryptedText',
   component: EncryptedText,
 } satisfies Meta<typeof EncryptedText>;
 

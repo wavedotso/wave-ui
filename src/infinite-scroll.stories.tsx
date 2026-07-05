@@ -110,16 +110,20 @@ export const WithRoot: Story = {
 function ReverseDemo() {
   const [messages, setMessages] = useState(() => generateMessages(50, 20));
   const [isLoading, setIsLoading] = useState(false);
-  const oldest = messages[0]?.id ?? 0;
+  // Messages are ordered newest-first, so the oldest id is at the tail.
+  const oldest = messages[messages.length - 1]?.id ?? 1;
   const hasMore = oldest > 1;
 
   const handleLoadMore = useCallback(() => {
     setIsLoading(true);
     setTimeout(() => {
       setMessages((prev) => {
-        const oldestId = prev[0]?.id ?? 0;
+        const oldestId = prev[prev.length - 1]?.id ?? 1;
         const count = Math.min(20, oldestId - 1);
-        return [...generateMessages(oldestId - 1, count), ...prev];
+        if (count <= 0) return prev;
+        // Older messages get strictly lower ids and extend the tail,
+        // keeping every id unique across batches.
+        return [...prev, ...generateMessages(oldestId - 1, count)];
       });
       setIsLoading(false);
     }, 1000);

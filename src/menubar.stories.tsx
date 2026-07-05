@@ -19,6 +19,7 @@ import {
   MenubarSubContent,
 } from './menubar';
 import { Button } from './button';
+import { StarIcon, TrashIcon } from './lib/internal-icons';
 
 const meta = {
   title: 'Navigation/Menubar',
@@ -117,4 +118,35 @@ function MenubarDemo() {
 
 export const Default: Story = {
   render: () => <MenubarDemo />,
+};
+
+/**
+ * `inset` shifts an item's text into the icon column so rows without a
+ * leading icon still line up with rows that have one. Use it whenever a
+ * menu mixes icon and icon-less items.
+ */
+export const Inset: Story = {
+  render: () => (
+    <Menubar>
+      <MenubarMenu>
+        <MenubarTrigger render={<Button variant="ghost" size="sm" />}>
+          Item
+        </MenubarTrigger>
+        <MenubarContent>
+          <MenubarLabel inset>Manage</MenubarLabel>
+          <MenubarItem>
+            <StarIcon />
+            Add to favorites
+          </MenubarItem>
+          <MenubarItem inset>Rename</MenubarItem>
+          <MenubarItem inset>Duplicate</MenubarItem>
+          <MenubarSeparator />
+          <MenubarItem variant="destructive">
+            <TrashIcon />
+            Delete
+          </MenubarItem>
+        </MenubarContent>
+      </MenubarMenu>
+    </Menubar>
+  ),
 };

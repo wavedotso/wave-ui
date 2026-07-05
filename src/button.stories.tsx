@@ -133,6 +133,29 @@ export const AllSizes: Story = {
 };
 
 /**
+ * Square icon-only sizes. Each button holds a single icon and provides an
+ * accessible name via `aria-label`, since there's no visible text.
+ */
+export const AllIconSizes: Story = {
+  render: () => (
+    <div className="flex flex-wrap items-center gap-3">
+      <Button size="icon-xs" variant="outline" aria-label="Confirm">
+        <CheckIcon />
+      </Button>
+      <Button size="icon-sm" variant="outline" aria-label="Confirm">
+        <CheckIcon />
+      </Button>
+      <Button size="icon" variant="outline" aria-label="Confirm">
+        <CheckIcon />
+      </Button>
+      <Button size="icon-lg" variant="outline" aria-label="Confirm">
+        <CheckIcon />
+      </Button>
+    </div>
+  ),
+};
+
+/**
  * Leading / trailing icons use the library-wide `data-icon` convention
  * (`"inline-start"` / `"inline-end"`) to tighten padding on the icon
  * side. Same mechanism as `Badge`; implementation-agnostic, so it

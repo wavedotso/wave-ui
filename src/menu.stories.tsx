@@ -18,6 +18,7 @@ import {
   MenuSubContent,
 } from './menu';
 import { Button } from './button';
+import { StarIcon, TrashIcon } from './lib/internal-icons';
 
 const meta = {
   title: 'Overlay/Menu',
@@ -121,6 +122,33 @@ function RadioDemo() {
 
 export const WithRadio: Story = {
   render: () => <RadioDemo />,
+};
+
+/**
+ * `inset` shifts an item's text into the icon column so rows without a
+ * leading icon still line up with rows that have one. Use it whenever a
+ * menu mixes icon and icon-less items.
+ */
+export const Inset: Story = {
+  render: () => (
+    <Menu>
+      <MenuTrigger render={<Button variant="outline" />}>Actions</MenuTrigger>
+      <MenuContent>
+        <MenuLabel inset>Manage</MenuLabel>
+        <MenuItem>
+          <StarIcon />
+          Add to favorites
+        </MenuItem>
+        <MenuItem inset>Rename</MenuItem>
+        <MenuItem inset>Duplicate</MenuItem>
+        <MenuSeparator />
+        <MenuItem variant="destructive">
+          <TrashIcon />
+          Delete
+        </MenuItem>
+      </MenuContent>
+    </Menu>
+  ),
 };
 
 export const WithDisabled: Story = {

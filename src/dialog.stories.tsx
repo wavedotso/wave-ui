@@ -93,3 +93,34 @@ export const NoCloseButton: Story = {
     </Dialog>
   ),
 };
+
+export const DisablePointerDismissal: Story = {
+  render: () => (
+    <Dialog disablePointerDismissal>
+      <DialogTrigger render={<Button />}>Edit Profile</DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Edit Profile</DialogTitle>
+          <DialogDescription>
+            Clicking the backdrop won&apos;t close this dialog, so an accidental
+            outside click can&apos;t discard your changes. Use the close button,
+            press <kbd>Esc</kbd>, or click Cancel.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-2">
+          <div className="grid gap-2">
+            <Label htmlFor="dpd-name">Name</Label>
+            <Input id="dpd-name" defaultValue="Saulo" />
+          </div>
+          <div className="grid gap-2">
+            <Label htmlFor="dpd-username">Username</Label>
+            <Input id="dpd-username" defaultValue="@saulo" />
+          </div>
+        </div>
+        <DialogFooter showCloseButton>
+          <Button>Save Changes</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  ),
+};

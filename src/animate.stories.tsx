@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite"
 import { AnimateOnView, AnimateIn, Stagger, Pulse, Float } from "./animate"
 
 const meta: Meta = {
-  title: "Animation/Animate",
+  title: "Effects/Animate",
   tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
@@ -95,13 +95,30 @@ export const OnViewAnimation: StoryObj = {
   ),
 }
 
+export const RepeatOnView: StoryObj = {
+  name: "AnimateOnView (once={false})",
+  render: () => (
+    <div className="w-[800px] mx-auto py-[60px] px-8">
+      <p className="mb-8 text-center text-sm text-neutral-400">
+        Scroll the card out of view and back — with <code>once={"{false}"}</code>{" "}
+        it re-animates every time it re-enters, unlike the default.
+      </p>
+      <div className="h-[120vh]" aria-hidden />
+      <AnimateOnView once={false} from="up" blur scale distance={40}>
+        <DemoCard label="I re-animate every time I scroll into view" color="#0f766e" />
+      </AnimateOnView>
+      <div className="h-[80vh]" aria-hidden />
+    </div>
+  ),
+}
+
 export const BlurEntrance: StoryObj = {
   name: "Blur",
   render: () => (
     <Replay>
       <div className="p-8 flex flex-col gap-4">
         <AnimateIn blur>
-          <DemoCard label="Default blur (10px)" color="#0f766e" />
+          <DemoCard label="Default blur (8px)" color="#0f766e" />
         </AnimateIn>
         <AnimateIn blur={20} delay={0.2}>
           <DemoCard label="Heavy blur (20px)" color="#0e7490" />
@@ -184,6 +201,29 @@ export const SpringEntrance: StoryObj = {
         </AnimateIn>
         <AnimateIn spring from="left" distance={60} delay={0.4}>
           <DemoCard label="Spring from left" color="#065f46" />
+        </AnimateIn>
+      </div>
+    </Replay>
+  ),
+}
+
+export const CustomTransition: StoryObj = {
+  name: "Custom Transition",
+  render: () => (
+    <Replay>
+      <div className="p-8 flex flex-col gap-4">
+        <AnimateIn distance={40} transition={{ duration: 0.2, ease: "easeOut" }}>
+          <DemoCard label="Fast (0.2s, ease-out)" color="#0f766e" />
+        </AnimateIn>
+        <AnimateIn distance={40} transition={{ duration: 1.2, ease: "easeInOut" }} delay={0.2}>
+          <DemoCard label="Slow (1.2s, ease-in-out)" color="#0e7490" />
+        </AnimateIn>
+        <AnimateIn
+          distance={40}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          delay={0.4}
+        >
+          <DemoCard label="Custom cubic-bezier easing" color="#0369a1" />
         </AnimateIn>
       </div>
     </Replay>
@@ -359,6 +399,43 @@ export const FloatDefault: StoryObj = {
       </div>
     </Replay>
   ),
+}
+
+export const Paused: StoryObj = {
+  name: "Paused (Pulse + Float)",
+  render: () => {
+    const PausedDemo = () => {
+      const [paused, setPaused] = useState(false)
+      return (
+        <div className="w-[800px] mx-auto py-[80px] px-8 flex flex-col items-center gap-8">
+          <button
+            type="button"
+            onClick={() => setPaused((p) => !p)}
+            className="rounded-md bg-white/10 px-3 py-1.5 text-xs font-medium text-white/70 border border-white/10 hover:bg-white/20 hover:text-white transition-colors cursor-pointer"
+          >
+            {paused ? "Resume" : "Pause"}
+          </button>
+
+          <div className="flex items-center gap-8 justify-center">
+            <div className="flex flex-col items-center gap-3">
+              <Pulse paused={paused} min={0.9} max={1.1}>
+                <div className="size-4 rounded-full bg-green-500" />
+              </Pulse>
+              <span className="text-xs text-neutral-400">Pulse</span>
+            </div>
+
+            <div className="flex flex-col items-center gap-3">
+              <Float paused={paused} distance={12}>
+                <DemoCard label="Float" color="#1e293b" />
+              </Float>
+              <span className="text-xs text-neutral-400">Float</span>
+            </div>
+          </div>
+        </div>
+      )
+    }
+    return <PausedDemo />
+  },
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

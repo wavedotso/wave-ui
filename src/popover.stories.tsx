@@ -2,9 +2,11 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import {
   Popover,
+  PopoverBackdrop,
   PopoverContent,
   PopoverDescription,
   PopoverHeader,
+  PopoverPortal,
   PopoverTitle,
   PopoverTrigger,
 } from './popover';
@@ -85,5 +87,88 @@ export const SideTop: Story = {
         </PopoverHeader>
       </PopoverContent>
     </Popover>
+  ),
+};
+
+/**
+ * A `PopoverBackdrop` dims the rest of the page while the popover is open,
+ * pulling focus to the surface. Render it through `PopoverPortal` as a sibling
+ * of `PopoverContent` so it shares the popover's portal layer. It closes on an
+ * outside click like the default backdrop-less popover.
+ */
+export const WithBackdrop: Story = {
+  render: () => (
+    <Popover>
+      <PopoverTrigger render={<Button variant="outline" />}>
+        Open with backdrop
+      </PopoverTrigger>
+      <PopoverPortal>
+        <PopoverBackdrop className="bg-scrim supports-backdrop-filter:backdrop-blur-xs" />
+      </PopoverPortal>
+      <PopoverContent>
+        <PopoverHeader>
+          <PopoverTitle>Dimmed background</PopoverTitle>
+          <PopoverDescription>
+            The backdrop darkens the page behind this popover to focus
+            attention on it.
+          </PopoverDescription>
+        </PopoverHeader>
+      </PopoverContent>
+    </Popover>
+  ),
+};
+
+/**
+ * `restoreFocusOnClose` governs where focus lands after the popover closes.
+ * The default (`"always"`) returns focus to the trigger. `"keyboard"` restores
+ * only on a keyboard close, leaving pointer closes where they are — ideal for
+ * hover-revealed triggers. `"never"` never auto-restores. Open each popover,
+ * then close with <kbd>Esc</kbd> vs. an outside click to compare the outline
+ * on the trigger afterwards.
+ */
+export const RestoreFocusOnClose: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-3">
+      <Popover>
+        <PopoverTrigger render={<Button variant="outline" />}>
+          Restore: always
+        </PopoverTrigger>
+        <PopoverContent restoreFocusOnClose="always">
+          <PopoverHeader>
+            <PopoverTitle>Always restore</PopoverTitle>
+            <PopoverDescription>
+              Closing this popover always returns focus to the trigger.
+            </PopoverDescription>
+          </PopoverHeader>
+        </PopoverContent>
+      </Popover>
+      <Popover>
+        <PopoverTrigger render={<Button variant="outline" />}>
+          Restore: keyboard
+        </PopoverTrigger>
+        <PopoverContent restoreFocusOnClose="keyboard">
+          <PopoverHeader>
+            <PopoverTitle>Keyboard only</PopoverTitle>
+            <PopoverDescription>
+              Focus returns to the trigger only on a keyboard close; a pointer
+              close leaves focus where it is.
+            </PopoverDescription>
+          </PopoverHeader>
+        </PopoverContent>
+      </Popover>
+      <Popover>
+        <PopoverTrigger render={<Button variant="outline" />}>
+          Restore: never
+        </PopoverTrigger>
+        <PopoverContent restoreFocusOnClose="never">
+          <PopoverHeader>
+            <PopoverTitle>Never restore</PopoverTitle>
+            <PopoverDescription>
+              Focus is never auto-restored to the trigger on close.
+            </PopoverDescription>
+          </PopoverHeader>
+        </PopoverContent>
+      </Popover>
+    </div>
   ),
 };

@@ -18,15 +18,13 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   render: () => (
     <PreviewCard>
-      <PreviewCardTrigger>
-        <a
-          href="https://wave.so"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-primary underline underline-offset-4"
-        >
-          @wave
-        </a>
+      <PreviewCardTrigger
+        href="https://wave.so"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-primary underline underline-offset-4"
+      >
+        @wave
       </PreviewCardTrigger>
       <PreviewCardContent>
         <div className="flex gap-3">
@@ -49,15 +47,13 @@ export const Default: Story = {
 export const SideTop: Story = {
   render: () => (
     <PreviewCard>
-      <PreviewCardTrigger>
-        <a
-          href="https://github.com/anthropics"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-primary underline underline-offset-4"
-        >
-          @anthropic
-        </a>
+      <PreviewCardTrigger
+        href="https://github.com/anthropics"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-primary underline underline-offset-4"
+      >
+        @anthropic
       </PreviewCardTrigger>
       <PreviewCardContent side="top">
         <div className="flex gap-3">
@@ -78,15 +74,13 @@ export const SideTop: Story = {
 export const SideRight: Story = {
   render: () => (
     <PreviewCard>
-      <PreviewCardTrigger>
-        <a
-          href="https://github.com/vercel"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-primary underline underline-offset-4"
-        >
-          @vercel
-        </a>
+      <PreviewCardTrigger
+        href="https://github.com/vercel"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-primary underline underline-offset-4"
+      >
+        @vercel
       </PreviewCardTrigger>
       <PreviewCardContent side="right">
         <div className="flex gap-3">
@@ -109,15 +103,13 @@ export const SideRight: Story = {
 export const RichContent: Story = {
   render: () => (
     <PreviewCard>
-      <PreviewCardTrigger>
-        <a
-          href="https://x.com/claudeai"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-primary underline underline-offset-4"
-        >
-          @claudeai
-        </a>
+      <PreviewCardTrigger
+        href="https://x.com/claudeai"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-primary underline underline-offset-4"
+      >
+        @claudeai
       </PreviewCardTrigger>
       <PreviewCardContent className="w-80">
         <div className="flex flex-col gap-3">

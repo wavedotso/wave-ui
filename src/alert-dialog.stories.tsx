@@ -8,6 +8,7 @@ import {
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
+  AlertDialogMedia,
   AlertDialogTitle,
   AlertDialogTrigger,
 } from './alert-dialog';
@@ -77,6 +78,17 @@ export const WithMedia: Story = {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
+          <AlertDialogMedia className="text-destructive">
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden>
+              <path
+                d="M8 1.5 15 14H1L8 1.5Zm0 4.5v3.5m0 2v.5"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </AlertDialogMedia>
           <AlertDialogTitle>Revoke access?</AlertDialogTitle>
           <AlertDialogDescription>
             This user will immediately lose access to all shared resources. This
@@ -88,6 +100,58 @@ export const WithMedia: Story = {
           <AlertDialogAction variant="destructive">
             Revoke
           </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  ),
+};
+
+export const Large: Story = {
+  args: {},
+  render: () => (
+    <AlertDialog>
+      <AlertDialogTrigger render={<Button variant="outline" />}>
+        Reset Workspace
+      </AlertDialogTrigger>
+      <AlertDialogContent size="lg">
+        <AlertDialogHeader>
+          <AlertDialogTitle>Reset this workspace?</AlertDialogTitle>
+          <AlertDialogDescription>
+            Resetting restores every setting to its default and clears all
+            integrations, saved views, and pinned items. Members keep their
+            accounts, but shared configuration is lost and cannot be recovered.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction variant="destructive">Reset</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  ),
+};
+
+export const ExtraLarge: Story = {
+  args: {},
+  render: () => (
+    <AlertDialog>
+      <AlertDialogTrigger render={<Button variant="outline" />}>
+        Review Terms
+      </AlertDialogTrigger>
+      <AlertDialogContent size="xl">
+        <AlertDialogHeader>
+          <AlertDialogTitle>Accept the updated terms?</AlertDialogTitle>
+          <AlertDialogDescription>
+            We have revised our data-processing agreement and acceptable-use
+            policy. Continuing to use the service means you agree to the new
+            terms, including updated retention windows and the expanded list of
+            subprocessors. You can review the full document at any time from
+            your account settings.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Not Now</AlertDialogCancel>
+          <AlertDialogAction>Accept Terms</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

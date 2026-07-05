@@ -65,3 +65,17 @@ export const CustomRange: Story = {
     ),
   ],
 };
+
+export const Vertical: Story = {
+  args: {
+    defaultValue: [50],
+    orientation: 'vertical',
+  },
+  decorators: [
+    (Story) => (
+      <div className="h-64">
+        <Story />
+      </div>
+    ),
+  ],
+};

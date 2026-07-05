@@ -106,6 +106,30 @@ export const Left: Story = {
   ),
 };
 
+/** Top drawer that slides down from the top edge. */
+export const Top: Story = {
+  render: () => (
+    <Drawer swipeDirection="up">
+      <DrawerTrigger render={<Button variant="outline" />}>
+        Open Top
+      </DrawerTrigger>
+      <DrawerContent showCloseButton>
+        <DrawerHeader>
+          <DrawerTitle>Notifications</DrawerTitle>
+          <DrawerDescription>
+            Swipe up or tap the overlay to dismiss.
+          </DrawerDescription>
+        </DrawerHeader>
+        <div className="p-4">
+          <p className="text-muted text-sm">
+            This panel slides in from the top edge of the screen.
+          </p>
+        </div>
+      </DrawerContent>
+    </Drawer>
+  ),
+};
+
 /** Bottom drawer with form inputs. */
 export const WithForm: Story = {
   render: () => (

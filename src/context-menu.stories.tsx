@@ -17,6 +17,7 @@ import {
   ContextMenuSubTrigger,
   ContextMenuTrigger,
 } from './context-menu';
+import { StarIcon, TrashIcon } from './lib/internal-icons';
 
 const meta = {
   title: 'Overlay/ContextMenu',
@@ -144,6 +145,36 @@ function RadioItemsDemo() {
 export const WithRadioItems: Story = {
   args: {},
   render: () => <RadioItemsDemo />,
+};
+
+/**
+ * `inset` shifts an item's text into the icon column so rows without a
+ * leading icon still line up with rows that have one. Use it whenever a
+ * menu mixes icon and icon-less items.
+ */
+export const Inset: Story = {
+  args: {},
+  render: () => (
+    <ContextMenu>
+      <ContextMenuTrigger className="border-line text-muted flex h-32 w-64 items-center justify-center rounded-md border border-dashed text-sm">
+        Right click here
+      </ContextMenuTrigger>
+      <ContextMenuContent>
+        <ContextMenuLabel inset>Manage</ContextMenuLabel>
+        <ContextMenuItem>
+          <StarIcon />
+          Add to favorites
+        </ContextMenuItem>
+        <ContextMenuItem inset>Rename</ContextMenuItem>
+        <ContextMenuItem inset>Duplicate</ContextMenuItem>
+        <ContextMenuSeparator />
+        <ContextMenuItem variant="destructive">
+          <TrashIcon />
+          Delete
+        </ContextMenuItem>
+      </ContextMenuContent>
+    </ContextMenu>
+  ),
 };
 
 export const WithSubmenu: Story = {

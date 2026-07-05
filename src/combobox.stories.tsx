@@ -9,6 +9,7 @@ import {
   ComboboxItem,
   ComboboxGroup,
   ComboboxLabel,
+  ComboboxCollection,
   ComboboxEmpty,
   ComboboxSeparator,
   ComboboxChips,
@@ -16,6 +17,7 @@ import {
   ComboboxChipsInput,
   ComboboxTrigger,
   ComboboxValue,
+  ComboboxClear,
   useComboboxAnchor,
 } from './combobox';
 import { Button } from './button';
@@ -95,9 +97,9 @@ export const Default: Story = {
 export const WithLabel: Story = {
   render: () => (
     <div className="grid gap-2">
-      <Label>Favorite fruit</Label>
+      <Label htmlFor="favorite-fruit">Favorite fruit</Label>
       <Combobox items={fruits}>
-        <ComboboxInput placeholder="Pick a fruit..." />
+        <ComboboxInput id="favorite-fruit" placeholder="Pick a fruit..." />
         <ComboboxContent>
           <ComboboxEmpty>No fruits found.</ComboboxEmpty>
           <ComboboxList>
@@ -128,6 +130,32 @@ export const WithGroups: Story = {
                   {item.label}
                 </ComboboxItem>
               ))}
+              {index < frameworks.length - 1 && <ComboboxSeparator />}
+            </ComboboxGroup>
+          )}
+        </ComboboxList>
+      </ComboboxContent>
+    </Combobox>
+  ),
+};
+
+export const WithCollection: Story = {
+  render: () => (
+    <Combobox items={frameworks}>
+      <ComboboxInput placeholder="Search frameworks..." />
+      <ComboboxContent>
+        <ComboboxEmpty>No frameworks found.</ComboboxEmpty>
+        <ComboboxList>
+          {(group: (typeof frameworks)[number], index: number) => (
+            <ComboboxGroup key={group.label} items={group.items}>
+              <ComboboxLabel>{group.label}</ComboboxLabel>
+              <ComboboxCollection>
+                {(item: { value: string; label: string }) => (
+                  <ComboboxItem key={item.value} value={item}>
+                    {item.label}
+                  </ComboboxItem>
+                )}
+              </ComboboxCollection>
               {index < frameworks.length - 1 && <ComboboxSeparator />}
             </ComboboxGroup>
           )}
@@ -190,6 +218,44 @@ function MultiSelectDemo() {
 
 export const MultiSelect: Story = {
   render: () => <MultiSelectDemo />,
+};
+
+function MultiSelectClearableDemo() {
+  const anchor = useComboboxAnchor();
+
+  return (
+    <Combobox multiple autoHighlight items={fruits} defaultValue={[fruits[0], fruits[2]]}>
+      <ComboboxChips ref={anchor}>
+        <ComboboxValue>
+          {(values: typeof fruits) => (
+            <React.Fragment>
+              {values.map((item) => (
+                <ComboboxChip key={item.value}>
+                  {item.label}
+                </ComboboxChip>
+              ))}
+              <ComboboxChipsInput placeholder="Add fruits..." />
+              <ComboboxClear className="ml-auto" />
+            </React.Fragment>
+          )}
+        </ComboboxValue>
+      </ComboboxChips>
+      <ComboboxContent anchor={anchor}>
+        <ComboboxEmpty>No fruits found.</ComboboxEmpty>
+        <ComboboxList>
+          {(item) => (
+            <ComboboxItem key={item.value} value={item}>
+              {item.label}
+            </ComboboxItem>
+          )}
+        </ComboboxList>
+      </ComboboxContent>
+    </Combobox>
+  );
+}
+
+export const MultiSelectClearable: Story = {
+  render: () => <MultiSelectClearableDemo />,
 };
 
 export const WithCustomItems: Story = {

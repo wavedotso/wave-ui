@@ -19,6 +19,8 @@ const meta: Meta<typeof GradientRevealText> = {
     baseOpacity: { control: { type: "number", min: 0, max: 1, step: 0.05 } },
     hoverOpacity: { control: { type: "number", min: 0, max: 1, step: 0.05 } },
     spotlightSize: { control: { type: "number", min: 0.2, max: 2, step: 0.1 } },
+    strokeWidth: { control: { type: "number", min: 0.5, max: 8, step: 0.5 } },
+    baseColor: { control: "color" },
     fontFamily: { control: "text" },
   },
   decorators: [
@@ -58,6 +60,24 @@ export const LargeSpotlight: Story = {
     text: "GLOW",
     spotlightSize: 1.5,
     hoverOpacity: 0.5,
+  },
+}
+
+export const ThickStroke: Story = {
+  name: "Thick Stroke",
+  args: {
+    text: "BOLD",
+    strokeWidth: 4,
+    baseOpacity: 0.4,
+  },
+}
+
+export const CustomBaseColor: Story = {
+  name: "Custom Base Color",
+  args: {
+    text: "TINT",
+    baseColor: "#0074de",
+    baseOpacity: 0.5,
   },
 }
 

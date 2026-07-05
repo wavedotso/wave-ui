@@ -5,8 +5,11 @@ import {
   FieldControl,
   FieldDescription,
   FieldError,
+  FieldItem,
   FieldLabel,
+  FieldValidity,
 } from './field';
+import { Checkbox } from './checkbox';
 import { Input } from './input';
 
 const meta = {
@@ -61,6 +64,50 @@ export const Disabled: Story = {
         render={<Input placeholder="you@example.com" value="locked@wave.so" />}
       />
       <FieldDescription>This field cannot be edited.</FieldDescription>
+    </Field>
+  ),
+};
+
+/**
+ * `FieldItem` lays out a control and its label on a single row (checkbox,
+ * radio, switch). The Base UI `Field` wires the label to the control
+ * automatically, so no `htmlFor`/`id` is needed.
+ */
+export const InlineItem: Story = {
+  args: {},
+  render: () => (
+    <Field>
+      <FieldItem>
+        <FieldControl render={<Checkbox />} />
+        <FieldLabel>Subscribe to the newsletter</FieldLabel>
+      </FieldItem>
+      <FieldDescription>
+        We&apos;ll send you product updates once a month. No spam.
+      </FieldDescription>
+    </Field>
+  ),
+};
+
+/**
+ * `FieldValidity` reads the field's live validity state via a render-prop
+ * child, letting you drive custom UI from the control's constraints. Here a
+ * `required` input surfaces a hint until it has a value.
+ */
+export const Validity: Story = {
+  args: {},
+  render: () => (
+    <Field>
+      <FieldLabel>Full name</FieldLabel>
+      <FieldControl render={<Input required placeholder="Ada Lovelace" />} />
+      <FieldValidity>
+        {(state) => (
+          <FieldDescription>
+            {state.validity.valueMissing
+              ? 'This field is required.'
+              : 'Looks good.'}
+          </FieldDescription>
+        )}
+      </FieldValidity>
     </Field>
   ),
 };

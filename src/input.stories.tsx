@@ -42,7 +42,7 @@ export const Disabled: Story = {
   args: {
     disabled: true,
     placeholder: 'Disabled input',
-    value: 'Cannot edit this',
+    defaultValue: 'Cannot edit this',
   },
 };
 

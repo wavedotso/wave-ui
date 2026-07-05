@@ -1,9 +1,9 @@
 import { useState, useCallback } from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-import { Count } from "./count"
+import { Count, easeOut } from "./count"
 
 const meta = {
-  title: "Animation/Count",
+  title: "Effects/Count",
   component: Count,
   tags: ["autodocs"],
   parameters: {
@@ -205,5 +205,109 @@ export const Formatting: StoryObj = {
         </div>
       </div>
     </Replay>
+  ),
+}
+
+// ── Delay ────────────────────────────────────────────────────────────
+
+export const Delay: StoryObj = {
+  name: "Delay (staggered)",
+  render: () => (
+    <Replay>
+      <div className="p-8 grid grid-cols-3 gap-8 text-center">
+        <div>
+          <Count to={1200} delay={0}>
+            <span className="block text-4xl font-extrabold tabular-nums text-white" />
+          </Count>
+          <span className="text-sm text-neutral-400 mt-2 block">No delay</span>
+        </div>
+
+        <div>
+          <Count to={2400} delay={0.4}>
+            <span className="block text-4xl font-extrabold tabular-nums text-white" />
+          </Count>
+          <span className="text-sm text-neutral-400 mt-2 block">0.4s delay</span>
+        </div>
+
+        <div>
+          <Count to={3600} delay={0.8}>
+            <span className="block text-4xl font-extrabold tabular-nums text-white" />
+          </Count>
+          <span className="text-sm text-neutral-400 mt-2 block">0.8s delay</span>
+        </div>
+      </div>
+    </Replay>
+  ),
+}
+
+// ── Easing ───────────────────────────────────────────────────────────
+
+// Linear: constant speed, no acceleration.
+const linear = (t: number) => t
+// Ease-in-out cubic: slow start, fast middle, slow finish.
+const easeInOut = (t: number) =>
+  t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
+
+export const Easing: StoryObj = {
+  name: "Easing",
+  render: () => (
+    <Replay>
+      <div className="p-8 grid grid-cols-3 gap-8 text-center">
+        <div>
+          <Count to={5000} duration={2000} easing={easeOut}>
+            <span className="block text-4xl font-extrabold tabular-nums text-white" />
+          </Count>
+          <span className="text-sm text-neutral-400 mt-2 block">easeOut (default)</span>
+        </div>
+
+        <div>
+          <Count to={5000} duration={2000} easing={linear}>
+            <span className="block text-4xl font-extrabold tabular-nums text-white" />
+          </Count>
+          <span className="text-sm text-neutral-400 mt-2 block">linear</span>
+        </div>
+
+        <div>
+          <Count to={5000} duration={2000} easing={easeInOut}>
+            <span className="block text-4xl font-extrabold tabular-nums text-white" />
+          </Count>
+          <span className="text-sm text-neutral-400 mt-2 block">easeInOut</span>
+        </div>
+      </div>
+    </Replay>
+  ),
+}
+
+// ── Retrigger (once={false}) ─────────────────────────────────────────
+
+export const Retrigger: StoryObj = {
+  name: "Retrigger (once={false})",
+  render: () => (
+    <div className="h-[500px] w-[800px] mx-auto overflow-y-auto rounded-lg border border-white/10">
+      <div className="flex h-[420px] items-center justify-center text-center text-sm text-neutral-400 px-8">
+        Scroll down to bring the counters into view — then scroll back up and
+        down again to see the difference.
+      </div>
+
+      <div className="grid grid-cols-2 gap-8 p-8 text-center">
+        <div>
+          <Count to={2500} once>
+            <span className="block text-4xl font-extrabold tabular-nums text-white" />
+          </Count>
+          <span className="text-sm text-neutral-400 mt-2 block">once (default) — counts once</span>
+        </div>
+
+        <div>
+          <Count to={2500} once={false}>
+            <span className="block text-4xl font-extrabold tabular-nums text-white" />
+          </Count>
+          <span className="text-sm text-neutral-400 mt-2 block">once={"{false}"} — recounts on re-entry</span>
+        </div>
+      </div>
+
+      <div className="flex h-[420px] items-center justify-center text-center text-sm text-neutral-400 px-8">
+        Scroll back up, then down again — only the right counter replays.
+      </div>
+    </div>
   ),
 }

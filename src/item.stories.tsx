@@ -7,11 +7,14 @@ import {
   ItemActions,
   ItemContent,
   ItemDescription,
+  ItemFooter,
   ItemGroup,
+  ItemHeader,
   ItemMedia,
   ItemSeparator,
   ItemTitle,
 } from './item';
+import { StarIcon } from './lib/internal-icons';
 
 const meta = {
   title: 'Data Display/Item',
@@ -102,6 +105,21 @@ export const WithImage: Story = {
   ),
 };
 
+export const WithIcon: Story = {
+  args: {},
+  render: () => (
+    <Item variant="outline">
+      <ItemMedia variant="icon">
+        <StarIcon />
+      </ItemMedia>
+      <ItemContent>
+        <ItemTitle>Starred project</ItemTitle>
+        <ItemDescription>The icon media auto-sizes to 16px.</ItemDescription>
+      </ItemContent>
+    </Item>
+  ),
+};
+
 export const Group: Story = {
   args: {},
   render: () => (
@@ -149,6 +167,47 @@ export const ExtraSmall: Story = {
         <ItemTitle>Tiny Item</ItemTitle>
         <ItemDescription>Minimal padding for menus.</ItemDescription>
       </ItemContent>
+    </Item>
+  ),
+};
+
+export const WithHeader: Story = {
+  args: {},
+  render: () => (
+    <Item variant="outline">
+      <ItemHeader>
+        <ItemTitle>Weekly digest</ItemTitle>
+        <Badge variant="secondary">New</Badge>
+      </ItemHeader>
+      <ItemContent>
+        <ItemDescription>
+          A full-width header band sits above the main row.
+        </ItemDescription>
+      </ItemContent>
+    </Item>
+  ),
+};
+
+export const WithFooter: Story = {
+  args: {},
+  render: () => (
+    <Item variant="outline">
+      <ItemMedia variant="icon">
+        <StarIcon />
+      </ItemMedia>
+      <ItemContent>
+        <ItemTitle>Release notes</ItemTitle>
+        <ItemDescription>Highlights from this sprint.</ItemDescription>
+      </ItemContent>
+      <ItemFooter>
+        <ItemDescription>Updated 2 hours ago</ItemDescription>
+        <ItemActions>
+          <Button variant="ghost" size="sm">
+            Dismiss
+          </Button>
+          <Button size="sm">View</Button>
+        </ItemActions>
+      </ItemFooter>
     </Item>
   ),
 };

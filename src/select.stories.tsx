@@ -41,9 +41,9 @@ export const Default: Story = {
 export const WithLabel: Story = {
   render: () => (
     <div className="grid gap-2">
-      <Label>Timezone</Label>
+      <Label htmlFor="timezone">Timezone</Label>
       <Select defaultValue="utc">
-        <SelectTrigger>
+        <SelectTrigger id="timezone">
           <SelectValue placeholder="Select timezone" />
         </SelectTrigger>
         <SelectContent>
@@ -138,6 +138,94 @@ export const AlignItemWithTrigger: Story = {
           <SelectItem value="blue">Blue</SelectItem>
           <SelectItem value="indigo">Indigo</SelectItem>
           <SelectItem value="violet">Violet</SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  ),
+};
+
+const toppingLabels: Record<string, string> = {
+  pepperoni: 'Pepperoni',
+  mushroom: 'Mushroom',
+  onion: 'Onion',
+  olive: 'Olive',
+  pepper: 'Pepper',
+};
+
+/**
+ * Passing `multiple` flips `defaultValue`/`value` to an array — the `Multiple`
+ * generic on `Select` is preserved through the wrapper, so `SelectValue`'s
+ * render function receives the selected values as a typed `string[]`. Items
+ * toggle on click and show a check for every active value.
+ */
+export const MultiSelect: Story = {
+  render: () => (
+    <Select multiple defaultValue={['pepperoni', 'mushroom']}>
+      <SelectTrigger className="w-56">
+        <SelectValue placeholder="Add toppings">
+          {(values: string[]) =>
+            values.length > 0
+              ? values.map((value) => toppingLabels[value]).join(', ')
+              : 'Add toppings'
+          }
+        </SelectValue>
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectItem value="pepperoni">Pepperoni</SelectItem>
+          <SelectItem value="mushroom">Mushroom</SelectItem>
+          <SelectItem value="onion">Onion</SelectItem>
+          <SelectItem value="olive">Olive</SelectItem>
+          <SelectItem value="pepper">Pepper</SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  ),
+};
+
+const timezones = [
+  'UTC−12:00 — Baker Island',
+  'UTC−11:00 — American Samoa',
+  'UTC−10:00 — Hawaii',
+  'UTC−09:00 — Alaska',
+  'UTC−08:00 — Pacific (PST)',
+  'UTC−07:00 — Mountain (MST)',
+  'UTC−06:00 — Central (CST)',
+  'UTC−05:00 — Eastern (EST)',
+  'UTC−04:00 — Atlantic',
+  'UTC−03:00 — Buenos Aires',
+  'UTC−01:00 — Azores',
+  'UTC±00:00 — London (GMT)',
+  'UTC+01:00 — Paris (CET)',
+  'UTC+02:00 — Cairo',
+  'UTC+03:00 — Moscow',
+  'UTC+04:00 — Dubai',
+  'UTC+05:30 — Mumbai',
+  'UTC+07:00 — Bangkok',
+  'UTC+08:00 — Singapore',
+  'UTC+09:00 — Tokyo',
+  'UTC+10:00 — Sydney',
+  'UTC+12:00 — Auckland',
+];
+
+/**
+ * When the item list is taller than the available viewport space, `SelectContent`
+ * renders the scroll-up and scroll-down buttons at the edges of the popup. Open
+ * this one and hover the top/bottom arrows to scroll the long list.
+ */
+export const Scrollable: Story = {
+  render: () => (
+    <Select defaultValue="UTC±00:00 — London (GMT)">
+      <SelectTrigger className="w-64">
+        <SelectValue placeholder="Select timezone" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          {timezones.map((zone) => (
+            <SelectItem key={zone} value={zone}>
+              {zone}
+            </SelectItem>
+          ))}
         </SelectGroup>
       </SelectContent>
     </Select>
