@@ -182,6 +182,30 @@ export const PluralMessage: Story = {
 };
 
 /**
+ * Every visible string is overridable for i18n. The `labels` object translates
+ * the buttons and the save-error status; `message` / `pluralMessage` /
+ * `blockedMessage` cover the messages. Here the whole bar is in Japanese.
+ */
+export const Localized: Story = {
+  args: {
+    message: "保存されていない変更があります",
+    pluralMessage: (count) => `${count} 件の未保存の変更`,
+    labels: {
+      save: "保存",
+      saving: "保存中…",
+      reset: "リセット",
+      saveError: "変更を保存できませんでした",
+    },
+    children: (
+      <div className="mx-auto max-w-md space-y-4 p-12">
+        <h2 className="text-lg font-semibold">設定</h2>
+        <DemoForm />
+      </div>
+    ),
+  },
+};
+
+/**
  * Navigation guarded by `useActionBarGuard`. While a form is dirty, clicking a
  * guarded link is blocked and the whole page does a Discord-style jiggle
  * (reduced-motion users get an assertive announcement instead). Save or reset,

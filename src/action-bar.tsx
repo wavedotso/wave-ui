@@ -70,6 +70,18 @@ const ActionBarContext = React.createContext<ActionBarContextValue | null>(
 // Provider
 // ---------------------------------------------------------------------------
 
+/** Overridable button + status strings, for internationalization. */
+interface ActionBarLabels {
+  /** Save button. @default "Save" */
+  save?: string;
+  /** Save button while a save is in progress. @default "Saving" */
+  saving?: string;
+  /** Reset button. @default "Reset" */
+  reset?: string;
+  /** Status shown when a save fails. @default "Couldn't save your changes" */
+  saveError?: string;
+}
+
 interface ActionBarProviderProps {
   children: React.ReactNode;
   /** Message when one form has changes. */
@@ -81,6 +93,8 @@ interface ActionBarProviderProps {
    * users get) when guarded navigation is blocked.
    */
   blockedMessage?: string;
+  /** Overridable button + status strings (for i18n). Merged over the English defaults. */
+  labels?: ActionBarLabels;
   /** Additional className for the bar's inner content box (`data-slot="action-bar-content"`). */
   className?: string;
 }
@@ -114,8 +128,16 @@ function ActionBarProvider({
   message = "You have unsaved changes",
   pluralMessage = (count) => `${count} unsaved changes`,
   blockedMessage = "Save or reset your changes before leaving this page",
+  labels,
   className,
 }: ActionBarProviderProps) {
+  const text = {
+    save: "Save",
+    saving: "Saving",
+    reset: "Reset",
+    saveError: "Couldn't save your changes",
+    ...labels,
+  };
   const entriesRef = React.useRef(new Map<string, ActionBarEntry>());
   const [, forceUpdate] = React.useState(0);
   const [jiggleTransform, setJiggleTransform] = React.useState<string | null>(
@@ -353,7 +375,7 @@ function ActionBarProvider({
                   saveError ? "text-destructive" : "text-contrast",
                 )}
               >
-                {saveError ? "Couldn't save your changes" : displayMessage}
+                {saveError ? text.saveError : displayMessage}
               </span>
 
               <div
@@ -367,7 +389,7 @@ function ActionBarProvider({
                   onClick={handleResetAll}
                   className="h-9 px-3 text-sm hover:text-destructive"
                 >
-                  Reset
+                  {text.reset}
                 </Button>
 
                 <Button
@@ -380,11 +402,11 @@ function ActionBarProvider({
                   {anySaving ? (
                     <>
                       <Spinner className="mr-1.5 h-3.5 w-3.5" />
-                      Saving
+                      {text.saving}
                     </>
                   ) : (
                     <>
-                      Save
+                      {text.save}
                       <Kbd className="ml-1.5">{isMac ? "⌘S" : "Ctrl+S"}</Kbd>
                     </>
                   )}
@@ -470,4 +492,4 @@ function useActionBarGuard(navigate: (href: string) => void) {
 // ---------------------------------------------------------------------------
 
 export { ActionBarProvider, useActionBar, useActionBarGuard };
-export type { ActionBarEntry, ActionBarProviderProps };
+export type { ActionBarEntry, ActionBarLabels, ActionBarProviderProps };
