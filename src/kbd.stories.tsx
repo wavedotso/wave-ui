@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Kbd, KbdGroup } from './kbd';
+import { Kbd, KbdGroup } from "./kbd";
 
 const meta = {
-  title: 'Data Display/Kbd',
+  title: "Data Display/Kbd",
   component: Kbd,
 } satisfies Meta<typeof Kbd>;
 
@@ -13,7 +13,7 @@ type Story = StoryObj<typeof meta>;
 /** A single keyboard key. */
 export const Default: Story = {
   args: {
-    children: 'K',
+    children: "K",
   },
 };
 
@@ -42,11 +42,11 @@ export const MultiKey: Story = {
 export const InlineWithText: Story = {
   render: () => (
     <p className="text-sm text-muted">
-      Press{' '}
+      Press{" "}
       <KbdGroup>
         <Kbd>⌘</Kbd>
         <Kbd>K</Kbd>
-      </KbdGroup>{' '}
+      </KbdGroup>{" "}
       to open the command palette
     </p>
   ),

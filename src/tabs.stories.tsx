@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "./tabs";
 
 const meta = {
-  title: 'Navigation/Tabs',
+  title: "Navigation/Tabs",
   component: Tabs,
 } satisfies Meta<typeof Tabs>;
 
@@ -99,7 +99,9 @@ export const WithDisabled: Story = {
     <Tabs defaultValue="active">
       <TabsList>
         <TabsTrigger value="active">Active</TabsTrigger>
-        <TabsTrigger value="disabled" disabled>Disabled</TabsTrigger>
+        <TabsTrigger value="disabled" disabled>
+          Disabled
+        </TabsTrigger>
         <TabsTrigger value="other">Other</TabsTrigger>
       </TabsList>
       <TabsContent value="active">

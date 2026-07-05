@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
-import * as React from 'react'
-import type { Meta, StoryObj } from '@storybook/react-vite'
+import * as React from "react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import {
   Table,
@@ -12,44 +12,44 @@ import {
   TableHead,
   TableCell,
   TableCaption,
-} from './table'
-import { Badge } from './badge'
-import { Checkbox } from './checkbox'
-import { Label } from './label'
+} from "./table";
+import { Badge } from "./badge";
+import { Checkbox } from "./checkbox";
+import { Label } from "./label";
 
 const meta = {
-  title: 'Data Display/Table',
+  title: "Data Display/Table",
   component: Table,
-} satisfies Meta<typeof Table>
+} satisfies Meta<typeof Table>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 type Invoice = {
-  id: string
-  status: 'Paid' | 'Pending' | 'Overdue'
-  method: string
-  amount: number
-}
+  id: string;
+  status: "Paid" | "Pending" | "Overdue";
+  method: string;
+  amount: number;
+};
 
 const invoices: Invoice[] = [
-  { id: 'INV-001', status: 'Paid', method: 'Credit Card', amount: 250.0 },
-  { id: 'INV-002', status: 'Pending', method: 'PayPal', amount: 150.0 },
-  { id: 'INV-003', status: 'Overdue', method: 'Bank Transfer', amount: 350.0 },
-  { id: 'INV-004', status: 'Paid', method: 'Credit Card', amount: 450.0 },
-  { id: 'INV-005', status: 'Pending', method: 'PayPal', amount: 550.0 },
-]
+  { id: "INV-001", status: "Paid", method: "Credit Card", amount: 250.0 },
+  { id: "INV-002", status: "Pending", method: "PayPal", amount: 150.0 },
+  { id: "INV-003", status: "Overdue", method: "Bank Transfer", amount: 350.0 },
+  { id: "INV-004", status: "Paid", method: "Credit Card", amount: 450.0 },
+  { id: "INV-005", status: "Pending", method: "PayPal", amount: 550.0 },
+];
 
-const currency = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
-})
+const currency = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+});
 
 const statusVariant = {
-  Paid: 'success',
-  Pending: 'warning',
-  Overdue: 'destructive',
-} as const
+  Paid: "success",
+  Pending: "warning",
+  Overdue: "destructive",
+} as const;
 
 /**
  * The full anatomy: `Table` (which renders the scrollable
@@ -90,7 +90,7 @@ export const Default: Story = {
             <TableCell colSpan={3}>Total</TableCell>
             <TableCell className="text-right">
               {currency.format(
-                invoices.reduce((sum, invoice) => sum + invoice.amount, 0)
+                invoices.reduce((sum, invoice) => sum + invoice.amount, 0),
               )}
             </TableCell>
           </TableRow>
@@ -98,7 +98,7 @@ export const Default: Story = {
       </Table>
     </div>
   ),
-}
+};
 
 /**
  * The simplest useful table: header + body, no footer or caption.
@@ -134,7 +134,7 @@ export const Basic: Story = {
       </Table>
     </div>
   ),
-}
+};
 
 /**
  * A `TableCaption` renders below the table (`caption-bottom`) and is
@@ -172,7 +172,7 @@ export const WithCaption: Story = {
       </Table>
     </div>
   ),
-}
+};
 
 /**
  * A `TableFooter` (`<tfoot>`) is styled as a summary row — muted fill,
@@ -210,7 +210,7 @@ export const WithFooter: Story = {
       </Table>
     </div>
   ),
-}
+};
 
 /**
  * `Table` wraps its `<table>` in a focusable, horizontally scrollable
@@ -253,29 +253,31 @@ export const ScrollableOverflow: Story = {
       </Table>
     </div>
   ),
-}
+};
 
 function SelectableTable() {
-  const [selected, setSelected] = React.useState<Set<string>>(new Set())
+  const [selected, setSelected] = React.useState<Set<string>>(new Set());
 
-  const allSelected = selected.size === invoices.length
-  const someSelected = selected.size > 0 && !allSelected
+  const allSelected = selected.size === invoices.length;
+  const someSelected = selected.size > 0 && !allSelected;
 
   const toggleAll = (checked: boolean) => {
-    setSelected(checked ? new Set(invoices.map((invoice) => invoice.id)) : new Set())
-  }
+    setSelected(
+      checked ? new Set(invoices.map((invoice) => invoice.id)) : new Set(),
+    );
+  };
 
   const toggleRow = (id: string, checked: boolean) => {
     setSelected((prev) => {
-      const next = new Set(prev)
+      const next = new Set(prev);
       if (checked) {
-        next.add(id)
+        next.add(id);
       } else {
-        next.delete(id)
+        next.delete(id);
       }
-      return next
-    })
-  }
+      return next;
+    });
+  };
 
   return (
     <div className="w-[520px]">
@@ -301,7 +303,7 @@ function SelectableTable() {
         </TableHeader>
         <TableBody>
           {invoices.map((invoice) => {
-            const isSelected = selected.has(invoice.id)
+            const isSelected = selected.has(invoice.id);
             return (
               <TableRow key={invoice.id} aria-selected={isSelected}>
                 <TableCell>
@@ -309,7 +311,9 @@ function SelectableTable() {
                     id={`select-${invoice.id}`}
                     aria-label={`Select ${invoice.id}`}
                     checked={isSelected}
-                    onCheckedChange={(checked) => toggleRow(invoice.id, checked)}
+                    onCheckedChange={(checked) =>
+                      toggleRow(invoice.id, checked)
+                    }
                   />
                   <Label htmlFor={`select-${invoice.id}`} className="sr-only">
                     Select {invoice.id}
@@ -325,12 +329,12 @@ function SelectableTable() {
                   {currency.format(invoice.amount)}
                 </TableCell>
               </TableRow>
-            )
+            );
           })}
         </TableBody>
       </Table>
     </div>
-  )
+  );
 }
 
 /**
@@ -341,4 +345,4 @@ function SelectableTable() {
  */
 export const Selectable: Story = {
   render: () => <SelectableTable />,
-}
+};

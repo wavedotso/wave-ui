@@ -1,18 +1,18 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Toggle } from './toggle';
+import { Toggle } from "./toggle";
 
 const meta = {
-  title: 'Actions/Toggle',
+  title: "Actions/Toggle",
   component: Toggle,
   argTypes: {
     variant: {
-      control: 'select',
-      options: ['default', 'outline'],
+      control: "select",
+      options: ["default", "outline"],
     },
     size: {
-      control: 'select',
-      options: ['default', 'sm', 'lg'],
+      control: "select",
+      options: ["default", "sm", "lg"],
     },
   },
 } satisfies Meta<typeof Toggle>;
@@ -22,35 +22,35 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    children: 'B',
+    children: "B",
   },
 };
 
 export const Outline: Story = {
   args: {
-    variant: 'outline',
-    children: 'B',
+    variant: "outline",
+    children: "B",
   },
 };
 
 export const Small: Story = {
   args: {
-    size: 'sm',
-    children: 'B',
+    size: "sm",
+    children: "B",
   },
 };
 
 export const Large: Story = {
   args: {
-    size: 'lg',
-    children: 'B',
+    size: "lg",
+    children: "B",
   },
 };
 
 export const Disabled: Story = {
   args: {
     disabled: true,
-    children: 'B',
+    children: "B",
   },
 };
 

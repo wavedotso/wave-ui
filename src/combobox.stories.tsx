@@ -1,5 +1,5 @@
-import * as React from 'react';
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import * as React from "react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import {
   Combobox,
@@ -19,13 +19,13 @@ import {
   ComboboxValue,
   ComboboxClear,
   useComboboxAnchor,
-} from './combobox';
-import { Button } from './button';
-import { Item, ItemContent, ItemDescription, ItemTitle } from './item';
-import { Label } from './label';
+} from "./combobox";
+import { Button } from "./button";
+import { Item, ItemContent, ItemDescription, ItemTitle } from "./item";
+import { Label } from "./label";
 
 const meta = {
-  title: 'Forms/Combobox',
+  title: "Forms/Combobox",
   component: Combobox,
 } satisfies Meta<typeof Combobox>;
 
@@ -33,47 +33,62 @@ export default meta;
 type Story = StoryObj;
 
 const fruits = [
-  { value: 'apple', label: 'Apple' },
-  { value: 'banana', label: 'Banana' },
-  { value: 'cherry', label: 'Cherry' },
-  { value: 'grape', label: 'Grape' },
-  { value: 'mango', label: 'Mango' },
-  { value: 'orange', label: 'Orange' },
-  { value: 'peach', label: 'Peach' },
-  { value: 'strawberry', label: 'Strawberry' },
+  { value: "apple", label: "Apple" },
+  { value: "banana", label: "Banana" },
+  { value: "cherry", label: "Cherry" },
+  { value: "grape", label: "Grape" },
+  { value: "mango", label: "Mango" },
+  { value: "orange", label: "Orange" },
+  { value: "peach", label: "Peach" },
+  { value: "strawberry", label: "Strawberry" },
 ];
 
 const frameworks = [
   {
-    label: 'Frontend',
+    label: "Frontend",
     items: [
-      { value: 'next', label: 'Next.js' },
-      { value: 'remix', label: 'Remix' },
-      { value: 'astro', label: 'Astro' },
+      { value: "next", label: "Next.js" },
+      { value: "remix", label: "Remix" },
+      { value: "astro", label: "Astro" },
     ],
   },
   {
-    label: 'Backend',
+    label: "Backend",
     items: [
-      { value: 'express', label: 'Express' },
-      { value: 'fastify', label: 'Fastify' },
-      { value: 'hono', label: 'Hono' },
+      { value: "express", label: "Express" },
+      { value: "fastify", label: "Fastify" },
+      { value: "hono", label: "Hono" },
     ],
   },
 ];
 
 const countries = [
-  { code: 'ar', value: 'argentina', label: 'Argentina', continent: 'South America' },
-  { code: 'au', value: 'australia', label: 'Australia', continent: 'Oceania' },
-  { code: 'br', value: 'brazil', label: 'Brazil', continent: 'South America' },
-  { code: 'ca', value: 'canada', label: 'Canada', continent: 'North America' },
-  { code: 'cn', value: 'china', label: 'China', continent: 'Asia' },
-  { code: 'fr', value: 'france', label: 'France', continent: 'Europe' },
-  { code: 'de', value: 'germany', label: 'Germany', continent: 'Europe' },
-  { code: 'jp', value: 'japan', label: 'Japan', continent: 'Asia' },
-  { code: 'mx', value: 'mexico', label: 'Mexico', continent: 'North America' },
-  { code: 'gb', value: 'united-kingdom', label: 'United Kingdom', continent: 'Europe' },
-  { code: 'us', value: 'united-states', label: 'United States', continent: 'North America' },
+  {
+    code: "ar",
+    value: "argentina",
+    label: "Argentina",
+    continent: "South America",
+  },
+  { code: "au", value: "australia", label: "Australia", continent: "Oceania" },
+  { code: "br", value: "brazil", label: "Brazil", continent: "South America" },
+  { code: "ca", value: "canada", label: "Canada", continent: "North America" },
+  { code: "cn", value: "china", label: "China", continent: "Asia" },
+  { code: "fr", value: "france", label: "France", continent: "Europe" },
+  { code: "de", value: "germany", label: "Germany", continent: "Europe" },
+  { code: "jp", value: "japan", label: "Japan", continent: "Asia" },
+  { code: "mx", value: "mexico", label: "Mexico", continent: "North America" },
+  {
+    code: "gb",
+    value: "united-kingdom",
+    label: "United Kingdom",
+    continent: "Europe",
+  },
+  {
+    code: "us",
+    value: "united-states",
+    label: "United States",
+    continent: "North America",
+  },
 ];
 
 export const Default: Story = {
@@ -187,15 +202,18 @@ function MultiSelectDemo() {
   const anchor = useComboboxAnchor();
 
   return (
-    <Combobox multiple autoHighlight items={fruits} defaultValue={[fruits[0], fruits[2]]}>
+    <Combobox
+      multiple
+      autoHighlight
+      items={fruits}
+      defaultValue={[fruits[0], fruits[2]]}
+    >
       <ComboboxChips ref={anchor}>
         <ComboboxValue>
           {(values: typeof fruits) => (
             <React.Fragment>
               {values.map((item) => (
-                <ComboboxChip key={item.value}>
-                  {item.label}
-                </ComboboxChip>
+                <ComboboxChip key={item.value}>{item.label}</ComboboxChip>
               ))}
               <ComboboxChipsInput placeholder="Add fruits..." />
             </React.Fragment>
@@ -224,15 +242,18 @@ function MultiSelectClearableDemo() {
   const anchor = useComboboxAnchor();
 
   return (
-    <Combobox multiple autoHighlight items={fruits} defaultValue={[fruits[0], fruits[2]]}>
+    <Combobox
+      multiple
+      autoHighlight
+      items={fruits}
+      defaultValue={[fruits[0], fruits[2]]}
+    >
       <ComboboxChips ref={anchor}>
         <ComboboxValue>
           {(values: typeof fruits) => (
             <React.Fragment>
               {values.map((item) => (
-                <ComboboxChip key={item.value}>
-                  {item.label}
-                </ComboboxChip>
+                <ComboboxChip key={item.value}>{item.label}</ComboboxChip>
               ))}
               <ComboboxChipsInput placeholder="Add fruits..." />
               <ComboboxClear className="ml-auto" />
@@ -329,7 +350,10 @@ export const Popup: Story = {
     <Combobox items={countries} defaultValue={countries[0]}>
       <ComboboxTrigger
         render={
-          <Button variant="outline" className="w-64 justify-between font-normal">
+          <Button
+            variant="outline"
+            className="w-64 justify-between font-normal"
+          >
             <ComboboxValue />
           </Button>
         }

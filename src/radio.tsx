@@ -1,13 +1,15 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import type * as React from "react";
 
-import { Radio as RadioPrimitive } from "@base-ui/react/radio"
+import { Radio as RadioPrimitive } from "@base-ui/react/radio";
 
-import { cn } from "./lib/utils"
+import { cn } from "./lib/utils";
 
-type RadioProps = React.ComponentProps<typeof RadioPrimitive.Root>
-type RadioIndicatorProps = React.ComponentProps<typeof RadioPrimitive.Indicator>
+type RadioProps = React.ComponentProps<typeof RadioPrimitive.Root>;
+type RadioIndicatorProps = React.ComponentProps<
+  typeof RadioPrimitive.Indicator
+>;
 
 function Radio({ className, ...props }: RadioProps) {
   return (
@@ -21,7 +23,7 @@ function Radio({ className, ...props }: RadioProps) {
     >
       <RadioIndicator />
     </RadioPrimitive.Root>
-  )
+  );
 }
 
 function RadioIndicator({ className, ...props }: RadioIndicatorProps) {
@@ -35,8 +37,8 @@ function RadioIndicator({ className, ...props }: RadioIndicatorProps) {
       )}
       {...props}
     />
-  )
+  );
 }
 
-export { Radio, RadioIndicator }
-export type { RadioProps, RadioIndicatorProps }
+export { Radio, RadioIndicator };
+export type { RadioProps, RadioIndicatorProps };

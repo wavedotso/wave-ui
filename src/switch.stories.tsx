@@ -1,18 +1,18 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Switch } from './switch';
-import { Label } from './label';
+import { Switch } from "./switch";
+import { Label } from "./label";
 
 const meta = {
-  title: 'Forms/Switch',
+  title: "Forms/Switch",
   component: Switch,
   argTypes: {
     size: {
-      control: 'select',
-      options: ['default', 'sm'],
+      control: "select",
+      options: ["default", "sm"],
     },
-    disabled: { control: 'boolean' },
-    defaultChecked: { control: 'boolean' },
+    disabled: { control: "boolean" },
+    defaultChecked: { control: "boolean" },
   },
 } satisfies Meta<typeof Switch>;
 
@@ -29,7 +29,7 @@ export const Checked: Story = {
 
 export const Small: Story = {
   args: {
-    size: 'sm',
+    size: "sm",
   },
 };
 

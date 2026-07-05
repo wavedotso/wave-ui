@@ -1,4 +1,4 @@
-import { defineConfig } from 'tsdown';
+import { defineConfig } from "tsdown";
 
 /**
  * Per-file ESM output via Rolldown — transpile, do not bundle.
@@ -21,14 +21,14 @@ import { defineConfig } from 'tsdown';
  */
 export default defineConfig({
   entry: [
-    'src/**/*.{ts,tsx}',
-    '!src/**/*.stories.{ts,tsx}',
-    '!src/**/*.{test,spec}.{ts,tsx}',
+    "src/**/*.{ts,tsx}",
+    "!src/**/*.stories.{ts,tsx}",
+    "!src/**/*.{test,spec}.{ts,tsx}",
     // Storybook-only docs surface (guides rendered by MDX pages) — never ships.
-    '!src/docs/**',
+    "!src/docs/**",
   ],
-  format: 'esm',
-  platform: 'neutral',
+  format: "esm",
+  platform: "neutral",
   unbundle: true,
   dts: true,
   // No sourcemaps: `src` is not in the published `files`, so `.js.map` /
@@ -40,7 +40,7 @@ export default defineConfig({
   // Ship the theme stylesheet alongside the transpiled modules. Running it
   // through tsdown (instead of a trailing `cp` in the build script) means the
   // copy also happens in `--watch`, where `clean: true` would otherwise wipe it.
-  copy: [{ from: 'src/styles.css', to: 'dist' }],
+  copy: [{ from: "src/styles.css", to: "dist" }],
   // A library never bundles its deps; every bare import (peer, dev, or
   // otherwise) stays external in both JS and the emitted `.d.ts`. This
   // replaces the old hand-maintained `external` allowlist, which

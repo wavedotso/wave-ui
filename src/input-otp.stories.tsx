@@ -1,25 +1,25 @@
-import * as React from 'react'
-import type { Meta, StoryObj } from '@storybook/react-vite'
-import { REGEXP_ONLY_DIGITS } from 'input-otp'
+import * as React from "react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { REGEXP_ONLY_DIGITS } from "input-otp";
 
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSlot,
   InputOTPSeparator,
-} from './input-otp'
-import { Field, FieldLabel, FieldDescription, FieldError } from './field'
+} from "./input-otp";
+import { Field, FieldLabel, FieldDescription, FieldError } from "./field";
 
 const meta = {
-  title: 'Forms/InputOTP',
+  title: "Forms/InputOTP",
   component: InputOTP,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-} satisfies Meta<typeof InputOTP>
+} satisfies Meta<typeof InputOTP>;
 
-export default meta
-type Story = StoryObj
+export default meta;
+type Story = StoryObj;
 
 export const Default: Story = {
   render: () => (
@@ -34,7 +34,7 @@ export const Default: Story = {
       </InputOTPGroup>
     </InputOTP>
   ),
-}
+};
 
 export const WithSeparator: Story = {
   render: () => (
@@ -52,7 +52,7 @@ export const WithSeparator: Story = {
       </InputOTPGroup>
     </InputOTP>
   ),
-}
+};
 
 export const DigitsOnly: Story = {
   render: () => (
@@ -70,7 +70,7 @@ export const DigitsOnly: Story = {
       </InputOTPGroup>
     </InputOTP>
   ),
-}
+};
 
 export const FourDigits: Story = {
   render: () => (
@@ -83,7 +83,7 @@ export const FourDigits: Story = {
       </InputOTPGroup>
     </InputOTP>
   ),
-}
+};
 
 export const Disabled: Story = {
   render: () => (
@@ -101,7 +101,7 @@ export const Disabled: Story = {
       </InputOTPGroup>
     </InputOTP>
   ),
-}
+};
 
 export const WithLabel: Story = {
   render: () => (
@@ -125,7 +125,7 @@ export const WithLabel: Story = {
       </FieldDescription>
     </Field>
   ),
-}
+};
 
 export const Invalid: Story = {
   render: () => (
@@ -147,10 +147,10 @@ export const Invalid: Story = {
       <FieldError>Invalid verification code. Please try again.</FieldError>
     </Field>
   ),
-}
+};
 
 function ControlledDemo() {
-  const [value, setValue] = React.useState('')
+  const [value, setValue] = React.useState("");
 
   return (
     <div className="flex flex-col items-center gap-4">
@@ -173,12 +173,12 @@ function ControlledDemo() {
         </InputOTPGroup>
       </InputOTP>
       <p className="text-sm text-muted">
-        Value: <span className="font-mono">{value || '—'}</span>
+        Value: <span className="font-mono">{value || "—"}</span>
       </p>
     </div>
-  )
+  );
 }
 
 export const Controlled: Story = {
   render: () => <ControlledDemo />,
-}
+};

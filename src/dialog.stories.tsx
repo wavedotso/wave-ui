@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Button } from './button';
+import { Button } from "./button";
 import {
   Dialog,
   DialogClose,
@@ -10,12 +10,12 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from './dialog';
-import { Input } from './input';
-import { Label } from './label';
+} from "./dialog";
+import { Input } from "./input";
+import { Label } from "./label";
 
 const meta = {
-  title: 'Overlay/Dialog',
+  title: "Overlay/Dialog",
   component: Dialog,
 } satisfies Meta<typeof Dialog>;
 
@@ -37,7 +37,9 @@ export const Default: Story = {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <DialogClose render={<Button variant="outline" />}>Cancel</DialogClose>
+          <DialogClose render={<Button variant="outline" />}>
+            Cancel
+          </DialogClose>
           <Button variant="destructive">Delete Account</Button>
         </DialogFooter>
       </DialogContent>
@@ -67,7 +69,9 @@ export const WithForm: Story = {
           </div>
         </div>
         <DialogFooter>
-          <DialogClose render={<Button variant="outline" />}>Cancel</DialogClose>
+          <DialogClose render={<Button variant="outline" />}>
+            Cancel
+          </DialogClose>
           <Button>Save Changes</Button>
         </DialogFooter>
       </DialogContent>
@@ -121,7 +125,9 @@ export const DisablePointerDismissal: Story = {
           </div>
         </div>
         <DialogFooter>
-          <DialogClose render={<Button variant="outline" />}>Cancel</DialogClose>
+          <DialogClose render={<Button variant="outline" />}>
+            Cancel
+          </DialogClose>
           <Button>Save Changes</Button>
         </DialogFooter>
       </DialogContent>

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import {
   Autocomplete,
@@ -20,12 +20,12 @@ import {
   AutocompleteGroupLabel,
   AutocompleteStatus,
   AutocompleteEmpty,
-} from './autocomplete';
-import { Label } from './label';
-import { ChevronDownIcon, CloseIcon } from './lib/internal-icons';
+} from "./autocomplete";
+import { Label } from "./label";
+import { ChevronDownIcon, CloseIcon } from "./lib/internal-icons";
 
 const meta = {
-  title: 'Forms/Autocomplete',
+  title: "Forms/Autocomplete",
   component: Autocomplete,
 } satisfies Meta<typeof Autocomplete>;
 
@@ -33,52 +33,50 @@ export default meta;
 type Story = StoryObj;
 
 const countries = [
-  { value: 'br', label: 'Brazil' },
-  { value: 'ca', label: 'Canada' },
-  { value: 'de', label: 'Germany' },
-  { value: 'fr', label: 'France' },
-  { value: 'jp', label: 'Japan' },
-  { value: 'mx', label: 'Mexico' },
-  { value: 'uk', label: 'United Kingdom' },
-  { value: 'us', label: 'United States' },
+  { value: "br", label: "Brazil" },
+  { value: "ca", label: "Canada" },
+  { value: "de", label: "Germany" },
+  { value: "fr", label: "France" },
+  { value: "jp", label: "Japan" },
+  { value: "mx", label: "Mexico" },
+  { value: "uk", label: "United Kingdom" },
+  { value: "us", label: "United States" },
 ];
 
 const groupedCountries = [
   {
-    label: 'Americas',
+    label: "Americas",
     items: [
-      { value: 'br', label: 'Brazil' },
-      { value: 'ca', label: 'Canada' },
-      { value: 'mx', label: 'Mexico' },
-      { value: 'us', label: 'United States' },
+      { value: "br", label: "Brazil" },
+      { value: "ca", label: "Canada" },
+      { value: "mx", label: "Mexico" },
+      { value: "us", label: "United States" },
     ],
   },
   {
-    label: 'Europe',
+    label: "Europe",
     items: [
-      { value: 'de', label: 'Germany' },
-      { value: 'fr', label: 'France' },
-      { value: 'uk', label: 'United Kingdom' },
+      { value: "de", label: "Germany" },
+      { value: "fr", label: "France" },
+      { value: "uk", label: "United Kingdom" },
     ],
   },
   {
-    label: 'Asia',
-    items: [
-      { value: 'jp', label: 'Japan' },
-    ],
+    label: "Asia",
+    items: [{ value: "jp", label: "Japan" }],
   },
 ];
 
 // Emoji flags avoid remote image URLs, keeping the grid story deterministic.
 const flags = [
-  { value: 'br', label: 'Brazil', flag: '🇧🇷' },
-  { value: 'ca', label: 'Canada', flag: '🇨🇦' },
-  { value: 'de', label: 'Germany', flag: '🇩🇪' },
-  { value: 'fr', label: 'France', flag: '🇫🇷' },
-  { value: 'jp', label: 'Japan', flag: '🇯🇵' },
-  { value: 'mx', label: 'Mexico', flag: '🇲🇽' },
-  { value: 'uk', label: 'United Kingdom', flag: '🇬🇧' },
-  { value: 'us', label: 'United States', flag: '🇺🇸' },
+  { value: "br", label: "Brazil", flag: "🇧🇷" },
+  { value: "ca", label: "Canada", flag: "🇨🇦" },
+  { value: "de", label: "Germany", flag: "🇩🇪" },
+  { value: "fr", label: "France", flag: "🇫🇷" },
+  { value: "jp", label: "Japan", flag: "🇯🇵" },
+  { value: "mx", label: "Mexico", flag: "🇲🇽" },
+  { value: "uk", label: "United Kingdom", flag: "🇬🇧" },
+  { value: "us", label: "United States", flag: "🇺🇸" },
 ];
 
 export const Default: Story = {
@@ -157,7 +155,10 @@ export const WithTriggerAndClear: Story = {
   render: () => (
     <Autocomplete items={countries}>
       <div className="relative">
-        <AutocompleteInput placeholder="Search countries..." className="pr-14" />
+        <AutocompleteInput
+          placeholder="Search countries..."
+          className="pr-14"
+        />
         <div className="absolute inset-y-0 right-1.5 flex items-center gap-0.5">
           <AutocompleteClear
             aria-label="Clear"
@@ -209,11 +210,11 @@ export const WithValue: Story = {
           </AutocompleteList>
         </AutocompleteContent>
         <p className="text-muted text-sm">
-          Query:{' '}
+          Query:{" "}
           <AutocompleteValue>
             {(value) => (
               <span className="text-contrast font-medium">
-                {value || '(empty)'}
+                {value || "(empty)"}
               </span>
             )}
           </AutocompleteValue>
@@ -233,7 +234,9 @@ export const WithStatus: Story = {
     <Autocomplete items={countries}>
       <AutocompleteInput placeholder="Search countries..." />
       <AutocompleteContent>
-        <AutocompleteStatus>Showing {countries.length} countries</AutocompleteStatus>
+        <AutocompleteStatus>
+          Showing {countries.length} countries
+        </AutocompleteStatus>
         <AutocompleteEmpty>No countries found.</AutocompleteEmpty>
         <AutocompleteList>
           {(item) => (
@@ -257,7 +260,7 @@ export const GridLayout: Story = {
     const rows: { key: string; items: typeof flags }[] = [];
     for (let i = 0; i < flags.length; i += 2) {
       const items = flags.slice(i, i + 2);
-      rows.push({ key: items.map((item) => item.value).join('-'), items });
+      rows.push({ key: items.map((item) => item.value).join("-"), items });
     }
 
     return (

@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Label } from './label';
+import { Label } from "./label";
 import {
   Select,
   SelectContent,
@@ -10,10 +10,10 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from './select';
+} from "./select";
 
 const meta = {
-  title: 'Forms/Select',
+  title: "Forms/Select",
   component: Select,
 } satisfies Meta<typeof Select>;
 
@@ -145,11 +145,11 @@ export const AlignItemWithTrigger: Story = {
 };
 
 const toppingLabels: Record<string, string> = {
-  pepperoni: 'Pepperoni',
-  mushroom: 'Mushroom',
-  onion: 'Onion',
-  olive: 'Olive',
-  pepper: 'Pepper',
+  pepperoni: "Pepperoni",
+  mushroom: "Mushroom",
+  onion: "Onion",
+  olive: "Olive",
+  pepper: "Pepper",
 };
 
 /**
@@ -160,13 +160,13 @@ const toppingLabels: Record<string, string> = {
  */
 export const MultiSelect: Story = {
   render: () => (
-    <Select multiple defaultValue={['pepperoni', 'mushroom']}>
+    <Select multiple defaultValue={["pepperoni", "mushroom"]}>
       <SelectTrigger className="w-56">
         <SelectValue placeholder="Add toppings">
           {(values: string[]) =>
             values.length > 0
-              ? values.map((value) => toppingLabels[value]).join(', ')
-              : 'Add toppings'
+              ? values.map((value) => toppingLabels[value]).join(", ")
+              : "Add toppings"
           }
         </SelectValue>
       </SelectTrigger>
@@ -184,28 +184,28 @@ export const MultiSelect: Story = {
 };
 
 const timezones = [
-  'UTC−12:00 — Baker Island',
-  'UTC−11:00 — American Samoa',
-  'UTC−10:00 — Hawaii',
-  'UTC−09:00 — Alaska',
-  'UTC−08:00 — Pacific (PST)',
-  'UTC−07:00 — Mountain (MST)',
-  'UTC−06:00 — Central (CST)',
-  'UTC−05:00 — Eastern (EST)',
-  'UTC−04:00 — Atlantic',
-  'UTC−03:00 — Buenos Aires',
-  'UTC−01:00 — Azores',
-  'UTC±00:00 — London (GMT)',
-  'UTC+01:00 — Paris (CET)',
-  'UTC+02:00 — Cairo',
-  'UTC+03:00 — Moscow',
-  'UTC+04:00 — Dubai',
-  'UTC+05:30 — Mumbai',
-  'UTC+07:00 — Bangkok',
-  'UTC+08:00 — Singapore',
-  'UTC+09:00 — Tokyo',
-  'UTC+10:00 — Sydney',
-  'UTC+12:00 — Auckland',
+  "UTC−12:00 — Baker Island",
+  "UTC−11:00 — American Samoa",
+  "UTC−10:00 — Hawaii",
+  "UTC−09:00 — Alaska",
+  "UTC−08:00 — Pacific (PST)",
+  "UTC−07:00 — Mountain (MST)",
+  "UTC−06:00 — Central (CST)",
+  "UTC−05:00 — Eastern (EST)",
+  "UTC−04:00 — Atlantic",
+  "UTC−03:00 — Buenos Aires",
+  "UTC−01:00 — Azores",
+  "UTC±00:00 — London (GMT)",
+  "UTC+01:00 — Paris (CET)",
+  "UTC+02:00 — Cairo",
+  "UTC+03:00 — Moscow",
+  "UTC+04:00 — Dubai",
+  "UTC+05:30 — Mumbai",
+  "UTC+07:00 — Bangkok",
+  "UTC+08:00 — Singapore",
+  "UTC+09:00 — Tokyo",
+  "UTC+10:00 — Sydney",
+  "UTC+12:00 — Auckland",
 ];
 
 /**

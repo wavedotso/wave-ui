@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Separator } from './separator';
+import { Separator } from "./separator";
 
 const meta = {
-  title: 'Layout/Separator',
+  title: "Layout/Separator",
   component: Separator,
   argTypes: {
     orientation: {
-      control: 'select',
-      options: ['horizontal', 'vertical'],
+      control: "select",
+      options: ["horizontal", "vertical"],
     },
   },
 } satisfies Meta<typeof Separator>;
@@ -18,14 +18,14 @@ type Story = StoryObj<typeof meta>;
 
 export const Horizontal: Story = {
   args: {
-    className: 'w-[300px]',
+    className: "w-[300px]",
   },
 };
 
 export const Vertical: Story = {
   args: {
-    orientation: 'vertical',
-    className: 'h-8',
+    orientation: "vertical",
+    className: "h-8",
   },
 };
 

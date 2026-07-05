@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useState } from "react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import {
   Menubar,
@@ -17,12 +17,12 @@ import {
   MenubarSub,
   MenubarSubTrigger,
   MenubarSubContent,
-} from './menubar';
-import { Button } from './button';
-import { StarIcon, TrashIcon } from './lib/internal-icons';
+} from "./menubar";
+import { Button } from "./button";
+import { StarIcon, TrashIcon } from "./lib/internal-icons";
 
 const meta = {
-  title: 'Navigation/Menubar',
+  title: "Navigation/Menubar",
   component: Menubar,
 } satisfies Meta<typeof Menubar>;
 
@@ -32,7 +32,7 @@ type Story = StoryObj<typeof meta>;
 function MenubarDemo() {
   const [showBookmarks, setShowBookmarks] = useState(true);
   const [showUrls, setShowUrls] = useState(false);
-  const [person, setPerson] = useState('pedro');
+  const [person, setPerson] = useState("pedro");
 
   return (
     <Menubar>
@@ -41,8 +41,12 @@ function MenubarDemo() {
           File
         </MenubarTrigger>
         <MenubarContent>
-          <MenubarItem>New Tab<MenubarShortcut>⌘T</MenubarShortcut></MenubarItem>
-          <MenubarItem>New Window<MenubarShortcut>⌘N</MenubarShortcut></MenubarItem>
+          <MenubarItem>
+            New Tab<MenubarShortcut>⌘T</MenubarShortcut>
+          </MenubarItem>
+          <MenubarItem>
+            New Window<MenubarShortcut>⌘N</MenubarShortcut>
+          </MenubarItem>
           <MenubarItem disabled>New Incognito Window</MenubarItem>
           <MenubarSeparator />
           <MenubarSub>
@@ -54,7 +58,9 @@ function MenubarDemo() {
             </MenubarSubContent>
           </MenubarSub>
           <MenubarSeparator />
-          <MenubarItem>Print...<MenubarShortcut>⌘P</MenubarShortcut></MenubarItem>
+          <MenubarItem>
+            Print...<MenubarShortcut>⌘P</MenubarShortcut>
+          </MenubarItem>
         </MenubarContent>
       </MenubarMenu>
 
@@ -63,14 +69,26 @@ function MenubarDemo() {
           Edit
         </MenubarTrigger>
         <MenubarContent>
-          <MenubarItem>Undo<MenubarShortcut>⌘Z</MenubarShortcut></MenubarItem>
-          <MenubarItem>Redo<MenubarShortcut>⇧⌘Z</MenubarShortcut></MenubarItem>
+          <MenubarItem>
+            Undo<MenubarShortcut>⌘Z</MenubarShortcut>
+          </MenubarItem>
+          <MenubarItem>
+            Redo<MenubarShortcut>⇧⌘Z</MenubarShortcut>
+          </MenubarItem>
           <MenubarSeparator />
-          <MenubarItem>Cut<MenubarShortcut>⌘X</MenubarShortcut></MenubarItem>
-          <MenubarItem>Copy<MenubarShortcut>⌘C</MenubarShortcut></MenubarItem>
-          <MenubarItem>Paste<MenubarShortcut>⌘V</MenubarShortcut></MenubarItem>
+          <MenubarItem>
+            Cut<MenubarShortcut>⌘X</MenubarShortcut>
+          </MenubarItem>
+          <MenubarItem>
+            Copy<MenubarShortcut>⌘C</MenubarShortcut>
+          </MenubarItem>
+          <MenubarItem>
+            Paste<MenubarShortcut>⌘V</MenubarShortcut>
+          </MenubarItem>
           <MenubarSeparator />
-          <MenubarItem>Select All<MenubarShortcut>⌘A</MenubarShortcut></MenubarItem>
+          <MenubarItem>
+            Select All<MenubarShortcut>⌘A</MenubarShortcut>
+          </MenubarItem>
         </MenubarContent>
       </MenubarMenu>
 
@@ -79,15 +97,22 @@ function MenubarDemo() {
           View
         </MenubarTrigger>
         <MenubarContent>
-          <MenubarCheckboxItem checked={showBookmarks} onCheckedChange={setShowBookmarks}>
+          <MenubarCheckboxItem
+            checked={showBookmarks}
+            onCheckedChange={setShowBookmarks}
+          >
             Always Show Bookmarks Bar
           </MenubarCheckboxItem>
           <MenubarCheckboxItem checked={showUrls} onCheckedChange={setShowUrls}>
             Always Show Full URLs
           </MenubarCheckboxItem>
           <MenubarSeparator />
-          <MenubarItem>Reload<MenubarShortcut>⌘R</MenubarShortcut></MenubarItem>
-          <MenubarItem>Force Reload<MenubarShortcut>⇧⌘R</MenubarShortcut></MenubarItem>
+          <MenubarItem>
+            Reload<MenubarShortcut>⌘R</MenubarShortcut>
+          </MenubarItem>
+          <MenubarItem>
+            Force Reload<MenubarShortcut>⇧⌘R</MenubarShortcut>
+          </MenubarItem>
           <MenubarSeparator />
           <MenubarItem>Toggle Fullscreen</MenubarItem>
           <MenubarItem>Hide Sidebar</MenubarItem>

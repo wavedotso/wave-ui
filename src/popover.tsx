@@ -1,21 +1,29 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Popover as PopoverPrimitive } from "@base-ui/react/popover"
+import type * as React from "react";
+import { Popover as PopoverPrimitive } from "@base-ui/react/popover";
 
-import { cn } from "./lib/utils"
-import { resolveFinalFocus, type RestoreFocusOnClose } from "./lib/focus"
+import { cn } from "./lib/utils";
+import { resolveFinalFocus, type RestoreFocusOnClose } from "./lib/focus";
 
-type PopoverProps = React.ComponentProps<typeof PopoverPrimitive.Root>
-type PopoverTriggerProps = React.ComponentProps<typeof PopoverPrimitive.Trigger>
-type PopoverPortalProps = React.ComponentProps<typeof PopoverPrimitive.Portal>
-type PopoverPositionerProps = React.ComponentProps<typeof PopoverPrimitive.Positioner>
-type PopoverTitleProps = React.ComponentProps<typeof PopoverPrimitive.Title>
-type PopoverDescriptionProps = React.ComponentProps<typeof PopoverPrimitive.Description>
+type PopoverProps = React.ComponentProps<typeof PopoverPrimitive.Root>;
+type PopoverTriggerProps = React.ComponentProps<
+  typeof PopoverPrimitive.Trigger
+>;
+type PopoverPortalProps = React.ComponentProps<typeof PopoverPrimitive.Portal>;
+type PopoverPositionerProps = React.ComponentProps<
+  typeof PopoverPrimitive.Positioner
+>;
+type PopoverTitleProps = React.ComponentProps<typeof PopoverPrimitive.Title>;
+type PopoverDescriptionProps = React.ComponentProps<
+  typeof PopoverPrimitive.Description
+>;
 
-type PopoverBackdropProps = React.ComponentProps<typeof PopoverPrimitive.Backdrop>
+type PopoverBackdropProps = React.ComponentProps<
+  typeof PopoverPrimitive.Backdrop
+>;
 
-type PopoverHeaderProps = React.ComponentProps<"div">
+type PopoverHeaderProps = React.ComponentProps<"div">;
 
 type PopoverContentProps = React.ComponentProps<typeof PopoverPrimitive.Popup> &
   Pick<
@@ -28,25 +36,25 @@ type PopoverContentProps = React.ComponentProps<typeof PopoverPrimitive.Popup> &
      * when the trigger is hover/focus-within–revealed so a pointer
      * close doesn't keep it pinned visible. See {@link RestoreFocusOnClose}.
      */
-    restoreFocusOnClose?: RestoreFocusOnClose
+    restoreFocusOnClose?: RestoreFocusOnClose;
     /**
      * Escape hatch to style the underlying Positioner (the anchored
      * wrapper), e.g. to override its `z-index` or width constraints.
      * Applied alongside the default `isolate z-50`.
      */
-    positionerClassName?: string
-  }
+    positionerClassName?: string;
+  };
 
 function Popover({ ...props }: PopoverProps) {
-  return <PopoverPrimitive.Root data-slot="popover" {...props} />
+  return <PopoverPrimitive.Root data-slot="popover" {...props} />;
 }
 
 function PopoverTrigger({ ...props }: PopoverTriggerProps) {
-  return <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />
+  return <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />;
 }
 
 function PopoverPortal({ ...props }: PopoverPortalProps) {
-  return <PopoverPrimitive.Portal data-slot="popover-portal" {...props} />
+  return <PopoverPrimitive.Portal data-slot="popover-portal" {...props} />;
 }
 
 function PopoverPositioner({ className, ...props }: PopoverPositionerProps) {
@@ -56,7 +64,7 @@ function PopoverPositioner({ className, ...props }: PopoverPositionerProps) {
       className={className}
       {...props}
     />
-  )
+  );
 }
 
 function PopoverBackdrop({ className, ...props }: PopoverBackdropProps) {
@@ -66,7 +74,7 @@ function PopoverBackdrop({ className, ...props }: PopoverBackdropProps) {
       className={cn("fixed inset-0 z-40", className)}
       {...props}
     />
-  )
+  );
 }
 
 function PopoverContent({
@@ -95,27 +103,24 @@ function PopoverContent({
           data-slot="popover-content"
           className={cn(
             "motion-pop-md bg-elevated text-contrast ring-contrast/10 z-50 flex w-72 origin-(--transform-origin) flex-col gap-2.5 rounded-md p-2.5 text-sm shadow-md ring-1 outline-hidden",
-            className
+            className,
           )}
           finalFocus={resolveFinalFocus(restoreFocusOnClose, finalFocus)}
           {...props}
         />
       </PopoverPositioner>
     </PopoverPortal>
-  )
+  );
 }
 
 function PopoverHeader({ className, ...props }: PopoverHeaderProps) {
   return (
     <div
       data-slot="popover-header"
-      className={cn(
-        "flex flex-col gap-0.5 text-sm",
-        className
-      )}
+      className={cn("flex flex-col gap-0.5 text-sm", className)}
       {...props}
     />
-  )
+  );
 }
 
 function PopoverTitle({ className, ...props }: PopoverTitleProps) {
@@ -125,20 +130,17 @@ function PopoverTitle({ className, ...props }: PopoverTitleProps) {
       className={cn("font-medium", className)}
       {...props}
     />
-  )
+  );
 }
 
-function PopoverDescription({
-  className,
-  ...props
-}: PopoverDescriptionProps) {
+function PopoverDescription({ className, ...props }: PopoverDescriptionProps) {
   return (
     <PopoverPrimitive.Description
       data-slot="popover-description"
       className={cn("text-muted", className)}
       {...props}
     />
-  )
+  );
 }
 
 export {
@@ -151,7 +153,7 @@ export {
   PopoverTrigger,
   PopoverPortal,
   PopoverPositioner,
-}
+};
 
 export type {
   PopoverProps,
@@ -164,4 +166,4 @@ export type {
   PopoverHeaderProps,
   PopoverContentProps,
   RestoreFocusOnClose,
-}
+};

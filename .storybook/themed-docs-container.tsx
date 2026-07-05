@@ -1,6 +1,9 @@
-import * as React from 'react';
-import { DocsContainer, type DocsContainerProps } from '@storybook/addon-docs/blocks';
-import { create } from 'storybook/theming';
+import * as React from "react";
+import {
+  DocsContainer,
+  type DocsContainerProps,
+} from "@storybook/addon-docs/blocks";
+import { create } from "storybook/theming";
 
 // The autodocs page renders INSIDE the preview iframe, where the library's
 // `styles.css` is loaded — so we theme its chrome straight from the CSS vars
@@ -12,11 +15,11 @@ import { create } from 'storybook/theming';
 // light and dark by observing the `.dark` class on <html>.
 const docsTheme = (dark: boolean) =>
   create({
-    base: dark ? 'dark' : 'light',
-    appBg: 'var(--foundation)',
-    appContentBg: 'var(--foundation)',
-    appPreviewBg: 'var(--foundation)',
-    barBg: 'var(--surface)',
+    base: dark ? "dark" : "light",
+    appBg: "var(--foundation)",
+    appContentBg: "var(--foundation)",
+    appPreviewBg: "var(--foundation)",
+    barBg: "var(--surface)",
   });
 
 /**
@@ -29,16 +32,16 @@ export function ThemedDocsContainer(
   props: React.PropsWithChildren<DocsContainerProps>,
 ) {
   const [isDark, setIsDark] = React.useState(
-    document.documentElement.classList.contains('dark'),
+    document.documentElement.classList.contains("dark"),
   );
 
   React.useEffect(() => {
     const observer = new MutationObserver(() => {
-      setIsDark(document.documentElement.classList.contains('dark'));
+      setIsDark(document.documentElement.classList.contains("dark"));
     });
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ['class'],
+      attributeFilter: ["class"],
     });
     return () => observer.disconnect();
   }, []);

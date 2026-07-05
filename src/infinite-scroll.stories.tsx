@@ -1,10 +1,10 @@
-import { useState, useCallback, useRef } from 'react';
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useState, useCallback, useRef } from "react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { InfiniteScroll } from './infinite-scroll';
+import { InfiniteScroll } from "./infinite-scroll";
 
 const meta = {
-  title: 'Utilities/InfiniteScroll',
+  title: "Utilities/InfiniteScroll",
   component: InfiniteScroll,
 } satisfies Meta<typeof InfiniteScroll>;
 
@@ -22,7 +22,7 @@ function generateMessages(start: number, count: number) {
   return Array.from({ length: count }, (_, i) => ({
     id: start - i,
     text: `Message ${start - i}`,
-    time: `${9 + Math.floor((start - i) / 4)}:${String((start - i) % 4 * 15).padStart(2, '0')}`,
+    time: `${9 + Math.floor((start - i) / 4)}:${String(((start - i) % 4) * 15).padStart(2, "0")}`,
   }));
 }
 
@@ -48,10 +48,7 @@ function InfiniteScrollDemo() {
         endMessage="You've reached the end!"
       >
         {items.map((item) => (
-          <div
-            key={item.id}
-            className="border-line border-b px-4 py-3 text-sm"
-          >
+          <div key={item.id} className="border-line border-b px-4 py-3 text-sm">
             {item.title}
           </div>
         ))}
@@ -91,10 +88,7 @@ function WithRootDemo() {
         endMessage="All items loaded."
       >
         {items.map((item) => (
-          <div
-            key={item.id}
-            className="border-line border-b px-4 py-3 text-sm"
-          >
+          <div key={item.id} className="border-line border-b px-4 py-3 text-sm">
             {item.title}
           </div>
         ))}
@@ -139,10 +133,7 @@ function ReverseDemo() {
         endMessage="Beginning of conversation"
       >
         {messages.map((msg) => (
-          <div
-            key={msg.id}
-            className="border-line border-b px-4 py-3 text-sm"
-          >
+          <div key={msg.id} className="border-line border-b px-4 py-3 text-sm">
             <span className="text-muted mr-2 text-xs">{msg.time}</span>
             {msg.text}
           </div>
@@ -174,16 +165,11 @@ function CustomLoaderDemo() {
         onLoadMore={handleLoadMore}
         hasMore={items.length < 50}
         isLoading={isLoading}
-        loader={
-          <span className="text-muted text-sm">Loading more...</span>
-        }
+        loader={<span className="text-muted text-sm">Loading more...</span>}
         endMessage="No more items to load."
       >
         {items.map((item) => (
-          <div
-            key={item.id}
-            className="border-line border-b px-4 py-3 text-sm"
-          >
+          <div key={item.id} className="border-line border-b px-4 py-3 text-sm">
             {item.title}
           </div>
         ))}

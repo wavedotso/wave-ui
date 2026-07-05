@@ -1,35 +1,31 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar"
+import type * as React from "react";
+import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar";
 
-import { cn } from "./lib/utils"
+import { cn } from "./lib/utils";
 
 type AvatarProps = AvatarPrimitive.Root.Props & {
-  size?: "default" | "sm" | "lg"
-}
-type AvatarImageProps = AvatarPrimitive.Image.Props
-type AvatarFallbackProps = AvatarPrimitive.Fallback.Props
-type AvatarBadgeProps = React.ComponentProps<"span">
-type AvatarGroupProps = React.ComponentProps<"div">
-type AvatarGroupCountProps = React.ComponentProps<"div">
+  size?: "default" | "sm" | "lg";
+};
+type AvatarImageProps = AvatarPrimitive.Image.Props;
+type AvatarFallbackProps = AvatarPrimitive.Fallback.Props;
+type AvatarBadgeProps = React.ComponentProps<"span">;
+type AvatarGroupProps = React.ComponentProps<"div">;
+type AvatarGroupCountProps = React.ComponentProps<"div">;
 
-function Avatar({
-  className,
-  size = "default",
-  ...props
-}: AvatarProps) {
+function Avatar({ className, size = "default", ...props }: AvatarProps) {
   return (
     <AvatarPrimitive.Root
       data-slot="avatar"
       data-size={size}
       className={cn(
         "after:border-line group/avatar relative flex size-8 shrink-0 rounded-full select-none after:absolute after:inset-0 after:rounded-full after:border after:mix-blend-darken data-[size=lg]:size-10 data-[size=sm]:size-6 dark:after:mix-blend-lighten",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function AvatarImage({ className, ...props }: AvatarImageProps) {
@@ -38,27 +34,24 @@ function AvatarImage({ className, ...props }: AvatarImageProps) {
       data-slot="avatar-image"
       className={cn(
         "aspect-square size-full rounded-full object-cover",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
-function AvatarFallback({
-  className,
-  ...props
-}: AvatarFallbackProps) {
+function AvatarFallback({ className, ...props }: AvatarFallbackProps) {
   return (
     <AvatarPrimitive.Fallback
       data-slot="avatar-fallback"
       className={cn(
         "bg-secondary text-muted flex size-full items-center justify-center rounded-full text-sm group-data-[size=sm]/avatar:text-xs",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function AvatarBadge({ className, ...props }: AvatarBadgeProps) {
@@ -70,11 +63,11 @@ function AvatarBadge({ className, ...props }: AvatarBadgeProps) {
         "group-data-[size=sm]/avatar:size-2 group-data-[size=sm]/avatar:[&>svg]:hidden",
         "group-data-[size=default]/avatar:size-2.5 group-data-[size=default]/avatar:[&>svg]:size-2",
         "group-data-[size=lg]/avatar:size-3 group-data-[size=lg]/avatar:[&>svg]:size-2",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function AvatarGroup({ className, ...props }: AvatarGroupProps) {
@@ -83,27 +76,24 @@ function AvatarGroup({ className, ...props }: AvatarGroupProps) {
       data-slot="avatar-group"
       className={cn(
         "*:data-[slot=avatar]:ring-foundation group/avatar-group flex -space-x-2 *:data-[slot=avatar]:ring-2",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
-function AvatarGroupCount({
-  className,
-  ...props
-}: AvatarGroupCountProps) {
+function AvatarGroupCount({ className, ...props }: AvatarGroupCountProps) {
   return (
     <div
       data-slot="avatar-group-count"
       className={cn(
         "bg-secondary text-muted ring-foundation relative flex size-8 shrink-0 items-center justify-center rounded-full text-sm ring-2 group-has-data-[size=lg]/avatar-group:size-10 group-has-data-[size=sm]/avatar-group:size-6 [&>svg]:size-4 group-has-data-[size=lg]/avatar-group:[&>svg]:size-5 group-has-data-[size=sm]/avatar-group:[&>svg]:size-3",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 export {
@@ -113,7 +103,7 @@ export {
   AvatarGroup,
   AvatarGroupCount,
   AvatarBadge,
-}
+};
 export type {
   AvatarProps,
   AvatarImageProps,
@@ -121,4 +111,4 @@ export type {
   AvatarBadgeProps,
   AvatarGroupProps,
   AvatarGroupCountProps,
-}
+};

@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Checkbox } from './checkbox';
-import { Input } from './input';
-import { Label } from './label';
+import { Checkbox } from "./checkbox";
+import { Input } from "./input";
+import { Label } from "./label";
 
 const meta = {
-  title: 'Forms/Label',
+  title: "Forms/Label",
   component: Label,
 } satisfies Meta<typeof Label>;
 
@@ -14,8 +14,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    children: 'Email address',
-    htmlFor: 'email',
+    children: "Email address",
+    htmlFor: "email",
   },
 };
 

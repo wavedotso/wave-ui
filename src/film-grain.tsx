@@ -1,18 +1,18 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import type * as React from "react";
 
-import { useFilmGrain } from "./film-grain-webgl"
-import { cn } from "./lib/utils"
+import { useFilmGrain } from "./film-grain-webgl";
+import { cn } from "./lib/utils";
 
 interface FilmGrainProps {
-  density?: number
-  opacity?: number
-  blendMode?: React.CSSProperties["mixBlendMode"]
-  fps?: number
-  color?: string
-  className?: string
-  style?: React.CSSProperties
+  density?: number;
+  opacity?: number;
+  blendMode?: React.CSSProperties["mixBlendMode"];
+  fps?: number;
+  color?: string;
+  className?: string;
+  style?: React.CSSProperties;
 }
 
 function FilmGrain({
@@ -24,7 +24,7 @@ function FilmGrain({
   className,
   style,
 }: FilmGrainProps) {
-  const canvasRef = useFilmGrain({ density, fps, color })
+  const canvasRef = useFilmGrain({ density, fps, color });
 
   return (
     <div
@@ -42,8 +42,8 @@ function FilmGrain({
         className="w-full h-full will-change-transform"
       />
     </div>
-  )
+  );
 }
 
-export { FilmGrain }
-export type { FilmGrainProps }
+export { FilmGrain };
+export type { FilmGrainProps };

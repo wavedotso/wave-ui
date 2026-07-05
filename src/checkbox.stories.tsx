@@ -1,15 +1,15 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Checkbox } from './checkbox';
-import { Label } from './label';
+import { Checkbox } from "./checkbox";
+import { Label } from "./label";
 
 const meta = {
-  title: 'Forms/Checkbox',
+  title: "Forms/Checkbox",
   component: Checkbox,
   argTypes: {
-    disabled: { control: 'boolean' },
-    defaultChecked: { control: 'boolean' },
-    indeterminate: { control: 'boolean' },
+    disabled: { control: "boolean" },
+    defaultChecked: { control: "boolean" },
+    indeterminate: { control: "boolean" },
   },
 } satisfies Meta<typeof Checkbox>;
 

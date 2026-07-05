@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import {
   InputGroup,
@@ -7,11 +7,11 @@ import {
   InputGroupInput,
   InputGroupText,
   InputGroupTextarea,
-} from './input-group';
-import { CheckIcon, CloseIcon, StarIcon } from './lib/internal-icons';
+} from "./input-group";
+import { CheckIcon, CloseIcon, StarIcon } from "./lib/internal-icons";
 
 const meta = {
-  title: 'Forms/InputGroup',
+  title: "Forms/InputGroup",
   component: InputGroup,
 } satisfies Meta<typeof InputGroup>;
 

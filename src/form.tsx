@@ -30,7 +30,11 @@ type FormErrorProps = React.ComponentProps<"p">;
 type FormActionsProps = React.ComponentProps<"div">;
 type FormMessageProps = React.ComponentProps<"p">;
 
-function Form<TFieldValues extends FieldValues>({ form, onSubmit, ...props }: FormProps<TFieldValues>) {
+function Form<TFieldValues extends FieldValues>({
+  form,
+  onSubmit,
+  ...props
+}: FormProps<TFieldValues>) {
   return (
     <FormProvider {...form}>
       <FormRoot {...props} onSubmit={form.handleSubmit(onSubmit)} />
@@ -49,7 +53,12 @@ function Form<TFieldValues extends FieldValues>({ form, onSubmit, ...props }: Fo
  */
 function FormRoot({ className, ...props }: FormRootProps) {
   return (
-    <form noValidate data-slot="form" className={cn("flex flex-col gap-6", className)} {...props} />
+    <form
+      noValidate
+      data-slot="form"
+      className={cn("flex flex-col gap-6", className)}
+      {...props}
+    />
   );
 }
 
@@ -96,7 +105,16 @@ function FormField<
   TFieldValues extends FieldValues,
   TName extends FieldPath<TFieldValues>,
 >(props: FormFieldProps<TFieldValues, TName>) {
-  const { name, id, required, label, description, rules, render, ...rootProps } = props;
+  const {
+    name,
+    id,
+    required,
+    label,
+    description,
+    rules,
+    render,
+    ...rootProps
+  } = props;
   const { control } = useFormContext<TFieldValues>();
 
   const reactId = React.useId();
@@ -108,7 +126,11 @@ function FormField<
     const req = (rules as { required?: unknown }).required;
     if (typeof req === "boolean") return req;
     if (typeof req === "string") return true;
-    if (req && typeof req === "object" && "value" in (req as Record<string, unknown>)) {
+    if (
+      req &&
+      typeof req === "object" &&
+      "value" in (req as Record<string, unknown>)
+    ) {
       return Boolean((req as { value?: unknown }).value);
     }
     return Boolean(req);
@@ -139,7 +161,9 @@ function FormField<
               ) : null}
             </FieldLabel>
           ) : null}
-          {description ? <FieldDescription>{description}</FieldDescription> : null}
+          {description ? (
+            <FieldDescription>{description}</FieldDescription>
+          ) : null}
 
           {render({ id: controlId, field, fieldState })}
 
@@ -159,7 +183,8 @@ function FormError({ className, ...props }: FormErrorProps) {
 
   const message =
     (errors as Record<string, unknown>)?.root &&
-    typeof (errors as { root?: { message?: unknown } }).root?.message === "string"
+    typeof (errors as { root?: { message?: unknown } }).root?.message ===
+      "string"
       ? String((errors as { root?: { message?: unknown } }).root?.message)
       : null;
 
@@ -192,7 +217,11 @@ function FormActions({ className, ...props }: FormActionsProps) {
 
 function FormMessage({ className, ...props }: FormMessageProps) {
   return (
-    <p data-slot="form-message" className={cn("text-sm text-contrast/80", className)} {...props} />
+    <p
+      data-slot="form-message"
+      className={cn("text-sm text-contrast/80", className)}
+      {...props}
+    />
   );
 }
 

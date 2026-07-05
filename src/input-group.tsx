@@ -1,28 +1,31 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
+import type * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "./lib/utils"
-import { Button } from "./button"
-import { Input } from "./input"
-import { Textarea } from "./textarea"
+import { cn } from "./lib/utils";
+import { Button } from "./button";
+import { Input } from "./input";
+import { Textarea } from "./textarea";
 
-type InputGroupProps = React.ComponentProps<"div">
+type InputGroupProps = React.ComponentProps<"div">;
 
 type InputGroupAddonProps = React.ComponentProps<"div"> &
-  VariantProps<typeof inputGroupAddonVariants>
+  VariantProps<typeof inputGroupAddonVariants>;
 
-type InputGroupButtonProps = Omit<React.ComponentProps<typeof Button>, "size" | "type"> &
+type InputGroupButtonProps = Omit<
+  React.ComponentProps<typeof Button>,
+  "size" | "type"
+> &
   VariantProps<typeof inputGroupButtonVariants> & {
-    type?: "button" | "submit" | "reset"
-  }
+    type?: "button" | "submit" | "reset";
+  };
 
-type InputGroupTextProps = React.ComponentProps<"span">
+type InputGroupTextProps = React.ComponentProps<"span">;
 
-type InputGroupInputProps = React.ComponentProps<"input">
+type InputGroupInputProps = React.ComponentProps<"input">;
 
-type InputGroupTextareaProps = React.ComponentProps<"textarea">
+type InputGroupTextareaProps = React.ComponentProps<"textarea">;
 
 function InputGroup({ className, ...props }: InputGroupProps) {
   return (
@@ -31,11 +34,11 @@ function InputGroup({ className, ...props }: InputGroupProps) {
       role="group"
       className={cn(
         "border-edge dark:bg-edge/30 has-[[data-slot=input-group-control]:focus-visible]:border-focus has-[[data-slot=input-group-control]:focus-visible]:ring-focus/50 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 has-disabled:bg-edge/50 dark:has-disabled:bg-edge/80 group/input-group relative flex h-8 w-full min-w-0 items-center rounded-md border transition-colors outline-hidden in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-disabled:pointer-events-none has-disabled:cursor-not-allowed has-disabled:opacity-50 not-has-disabled:has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot][aria-invalid=true]]:ring-3 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>textarea]:h-auto has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 const inputGroupAddonVariants = cva(
@@ -56,8 +59,8 @@ const inputGroupAddonVariants = cva(
     defaultVariants: {
       align: "inline-start",
     },
-  }
-)
+  },
+);
 
 function InputGroupAddon({
   className,
@@ -65,6 +68,7 @@ function InputGroupAddon({
   ...props
 }: InputGroupAddonProps) {
   return (
+    // biome-ignore lint/a11y/useKeyWithClickEvents: click-to-focus affordance; the click only forwards focus to the keyboard-accessible input, it is not itself a control.
     <div
       role="group"
       data-slot="input-group-addon"
@@ -72,15 +76,15 @@ function InputGroupAddon({
       className={cn(inputGroupAddonVariants({ align }), className)}
       onClick={(e) => {
         if ((e.target as HTMLElement).closest("button")) {
-          return
+          return;
         }
         e.currentTarget.parentElement
           ?.querySelector<HTMLElement>("input, textarea")
-          ?.focus()
+          ?.focus();
       }}
       {...props}
     />
-  )
+  );
 }
 
 const inputGroupButtonVariants = cva(
@@ -90,16 +94,15 @@ const inputGroupButtonVariants = cva(
       size: {
         xs: "h-6 gap-1 rounded-sm px-1.5 [&>svg:not([class*='size-'])]:size-3.5",
         sm: "h-7 gap-1.5 rounded-sm px-2 [&>svg:not([class*='size-'])]:size-4",
-        "icon-xs":
-          "size-6 rounded-sm p-0",
+        "icon-xs": "size-6 rounded-sm p-0",
         "icon-sm": "size-8 p-0",
       },
     },
     defaultVariants: {
       size: "xs",
     },
-  }
-)
+  },
+);
 
 function InputGroupButton({
   className,
@@ -116,7 +119,7 @@ function InputGroupButton({
       className={cn(inputGroupButtonVariants({ size }), className)}
       {...props}
     />
-  )
+  );
 }
 
 function InputGroupText({ className, ...props }: InputGroupTextProps) {
@@ -125,43 +128,37 @@ function InputGroupText({ className, ...props }: InputGroupTextProps) {
       data-slot="input-group-text"
       className={cn(
         "text-muted flex items-center gap-2 text-sm [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
-function InputGroupInput({
-  className,
-  ...props
-}: InputGroupInputProps) {
+function InputGroupInput({ className, ...props }: InputGroupInputProps) {
   return (
     <Input
       data-slot="input-group-control"
       className={cn(
         "flex-1 rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 disabled:bg-transparent aria-invalid:ring-0 dark:bg-transparent dark:disabled:bg-transparent",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
-function InputGroupTextarea({
-  className,
-  ...props
-}: InputGroupTextareaProps) {
+function InputGroupTextarea({ className, ...props }: InputGroupTextareaProps) {
   return (
     <Textarea
       data-slot="input-group-control"
       className={cn(
         "flex-1 resize-none rounded-none border-0 bg-transparent py-2 shadow-none ring-0 focus-visible:ring-0 disabled:bg-transparent aria-invalid:ring-0 dark:bg-transparent dark:disabled:bg-transparent",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 export {
@@ -173,7 +170,7 @@ export {
   InputGroupTextarea,
   inputGroupAddonVariants,
   inputGroupButtonVariants,
-}
+};
 
 export type {
   InputGroupProps,
@@ -182,4 +179,4 @@ export type {
   InputGroupTextProps,
   InputGroupInputProps,
   InputGroupTextareaProps,
-}
+};

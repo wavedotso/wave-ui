@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Skeleton } from './skeleton';
+import { Skeleton } from "./skeleton";
 
 const meta = {
-  title: 'Feedback/Skeleton',
+  title: "Feedback/Skeleton",
   component: Skeleton,
 } satisfies Meta<typeof Skeleton>;
 
@@ -12,13 +12,13 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    className: 'h-4 w-[250px]',
+    className: "h-4 w-[250px]",
   },
 };
 
 export const Circle: Story = {
   args: {
-    className: 'size-12 rounded-full',
+    className: "size-12 rounded-full",
   },
 };
 

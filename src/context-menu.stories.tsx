@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useState } from "react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import {
   ContextMenu,
@@ -16,14 +16,14 @@ import {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuTrigger,
-} from './context-menu';
-import { StarIcon, TrashIcon } from './lib/internal-icons';
+} from "./context-menu";
+import { StarIcon, TrashIcon } from "./lib/internal-icons";
 
 const meta = {
-  title: 'Overlay/ContextMenu',
+  title: "Overlay/ContextMenu",
   component: ContextMenu,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 } satisfies Meta<typeof ContextMenu>;
 
@@ -51,7 +51,9 @@ export const Default: Story = {
         <ContextMenuItem>
           Save As… <ContextMenuShortcut>⇧⌘S</ContextMenuShortcut>
         </ContextMenuItem>
-        <ContextMenuItem>Print… <ContextMenuShortcut>⌘P</ContextMenuShortcut></ContextMenuItem>
+        <ContextMenuItem>
+          Print… <ContextMenuShortcut>⌘P</ContextMenuShortcut>
+        </ContextMenuItem>
       </ContextMenuContent>
     </ContextMenu>
   ),
@@ -101,13 +103,22 @@ function CheckboxItemsDemo() {
       <ContextMenuContent>
         <ContextMenuGroup>
           <ContextMenuLabel>View</ContextMenuLabel>
-          <ContextMenuCheckboxItem checked={toolbar} onCheckedChange={setToolbar}>
+          <ContextMenuCheckboxItem
+            checked={toolbar}
+            onCheckedChange={setToolbar}
+          >
             Show Toolbar
           </ContextMenuCheckboxItem>
-          <ContextMenuCheckboxItem checked={sidebar} onCheckedChange={setSidebar}>
+          <ContextMenuCheckboxItem
+            checked={sidebar}
+            onCheckedChange={setSidebar}
+          >
             Show Sidebar
           </ContextMenuCheckboxItem>
-          <ContextMenuCheckboxItem checked={statusBar} onCheckedChange={setStatusBar}>
+          <ContextMenuCheckboxItem
+            checked={statusBar}
+            onCheckedChange={setStatusBar}
+          >
             Show Status Bar
           </ContextMenuCheckboxItem>
         </ContextMenuGroup>
@@ -122,7 +133,7 @@ export const WithCheckboxes: Story = {
 };
 
 function RadioItemsDemo() {
-  const [theme, setTheme] = useState('system');
+  const [theme, setTheme] = useState("system");
   return (
     <ContextMenu>
       <ContextMenuTrigger className="border-line text-muted flex h-32 w-64 items-center justify-center rounded-md border border-dashed text-sm">

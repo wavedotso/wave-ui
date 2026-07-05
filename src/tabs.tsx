@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import type * as React from "react";
 
-import { Tabs as TabsPrimitive } from "@base-ui/react/tabs"
-import { cva, type VariantProps } from "class-variance-authority"
+import { Tabs as TabsPrimitive } from "@base-ui/react/tabs";
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "./lib/utils"
+import { cn } from "./lib/utils";
 
 // --- CVA variants ---
 
@@ -21,46 +21,38 @@ const tabsListVariants = cva(
     defaultVariants: {
       variant: "default",
     },
-  }
-)
+  },
+);
 
 // --- Types ---
 
-type TabsProps = React.ComponentProps<typeof TabsPrimitive.Root>
+type TabsProps = React.ComponentProps<typeof TabsPrimitive.Root>;
 
-type TabsListBaseProps = React.ComponentProps<typeof TabsPrimitive.List>
+type TabsListBaseProps = React.ComponentProps<typeof TabsPrimitive.List>;
 
-type TabsListProps = TabsListBaseProps & VariantProps<typeof tabsListVariants>
+type TabsListProps = TabsListBaseProps & VariantProps<typeof tabsListVariants>;
 
-type TabsTriggerProps = React.ComponentProps<typeof TabsPrimitive.Tab>
+type TabsTriggerProps = React.ComponentProps<typeof TabsPrimitive.Tab>;
 
-type TabsContentProps = React.ComponentProps<typeof TabsPrimitive.Panel>
+type TabsContentProps = React.ComponentProps<typeof TabsPrimitive.Panel>;
 
 // --- Components ---
 
-function Tabs({
-  className,
-  orientation = "horizontal",
-  ...props
-}: TabsProps) {
+function Tabs({ className, orientation = "horizontal", ...props }: TabsProps) {
   return (
     <TabsPrimitive.Root
       data-slot="tabs"
       orientation={orientation}
       className={cn(
         "group/tabs flex gap-2 data-[orientation=horizontal]:flex-col",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
-function TabsList({
-  className,
-  variant = "default",
-  ...props
-}: TabsListProps) {
+function TabsList({ className, variant = "default", ...props }: TabsListProps) {
   return (
     <TabsPrimitive.List
       data-slot="tabs-list"
@@ -68,7 +60,7 @@ function TabsList({
       className={cn(tabsListVariants({ variant }), className)}
       {...props}
     />
-  )
+  );
 }
 
 function TabsTrigger({ className, ...props }: TabsTriggerProps) {
@@ -80,11 +72,11 @@ function TabsTrigger({ className, ...props }: TabsTriggerProps) {
         "data-active:bg-foundation data-active:text-contrast data-active:shadow-sm dark:data-active:text-contrast dark:data-active:border-edge dark:data-active:bg-edge/30",
         "group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-active:bg-transparent group-data-[variant=line]/tabs-list:data-active:shadow-none dark:group-data-[variant=line]/tabs-list:data-active:border-transparent dark:group-data-[variant=line]/tabs-list:data-active:bg-transparent",
         "after:bg-contrast after:absolute after:opacity-0 after:transition-opacity group-data-[orientation=horizontal]/tabs:after:inset-x-0 group-data-[orientation=horizontal]/tabs:after:bottom-[-5px] group-data-[orientation=horizontal]/tabs:after:h-0.5 group-data-[orientation=vertical]/tabs:after:inset-y-0 group-data-[orientation=vertical]/tabs:after:-right-1 group-data-[orientation=vertical]/tabs:after:w-0.5 group-data-[variant=line]/tabs-list:data-active:after:opacity-100",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function TabsContent({ className, ...props }: TabsContentProps) {
@@ -94,21 +86,10 @@ function TabsContent({ className, ...props }: TabsContentProps) {
       className={cn("flex-1 text-sm outline-hidden", className)}
       {...props}
     />
-  )
+  );
 }
 
 // --- Exports ---
 
-export {
-  Tabs,
-  TabsList,
-  TabsTrigger,
-  TabsContent,
-  tabsListVariants,
-}
-export type {
-  TabsProps,
-  TabsListProps,
-  TabsTriggerProps,
-  TabsContentProps,
-}
+export { Tabs, TabsList, TabsTrigger, TabsContent, tabsListVariants };
+export type { TabsProps, TabsListProps, TabsTriggerProps, TabsContentProps };

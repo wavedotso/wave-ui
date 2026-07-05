@@ -1,23 +1,23 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Badge } from './badge';
-import { CheckIcon, CloseIcon } from './lib/internal-icons';
+import { Badge } from "./badge";
+import { CheckIcon, CloseIcon } from "./lib/internal-icons";
 
 const meta = {
-  title: 'Feedback/Badge',
+  title: "Feedback/Badge",
   component: Badge,
   argTypes: {
     variant: {
-      control: 'select',
+      control: "select",
       options: [
-        'default',
-        'success',
-        'destructive',
-        'warning',
-        'secondary',
-        'outline',
-        'ghost',
-        'link',
+        "default",
+        "success",
+        "destructive",
+        "warning",
+        "secondary",
+        "outline",
+        "ghost",
+        "link",
       ],
     },
   },
@@ -28,42 +28,42 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    children: 'Badge',
+    children: "Badge",
   },
 };
 
 export const Secondary: Story = {
   args: {
-    variant: 'secondary',
-    children: 'Secondary',
+    variant: "secondary",
+    children: "Secondary",
   },
 };
 
 export const Success: Story = {
   args: {
-    variant: 'success',
-    children: 'Success',
+    variant: "success",
+    children: "Success",
   },
 };
 
 export const Destructive: Story = {
   args: {
-    variant: 'destructive',
-    children: 'Destructive',
+    variant: "destructive",
+    children: "Destructive",
   },
 };
 
 export const Warning: Story = {
   args: {
-    variant: 'warning',
-    children: 'Warning',
+    variant: "warning",
+    children: "Warning",
   },
 };
 
 export const Outline: Story = {
   args: {
-    variant: 'outline',
-    children: 'Outline',
+    variant: "outline",
+    children: "Outline",
   },
 };
 

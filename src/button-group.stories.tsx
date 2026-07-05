@@ -1,19 +1,19 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Button } from './button';
+import { Button } from "./button";
 import {
   ButtonGroup,
   ButtonGroupSeparator,
   ButtonGroupText,
-} from './button-group';
+} from "./button-group";
 
 const meta = {
-  title: 'Actions/ButtonGroup',
+  title: "Actions/ButtonGroup",
   component: ButtonGroup,
   argTypes: {
     orientation: {
-      control: 'select',
-      options: ['horizontal', 'vertical'],
+      control: "select",
+      options: ["horizontal", "vertical"],
     },
   },
 } satisfies Meta<typeof ButtonGroup>;

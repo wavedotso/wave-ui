@@ -1,9 +1,9 @@
-import * as React from "react"
+import type * as React from "react";
 
-import { cn } from "./lib/utils"
-import { LoaderIcon } from "./lib/internal-icons"
+import { cn } from "./lib/utils";
+import { LoaderIcon } from "./lib/internal-icons";
 
-type SpinnerProps = React.ComponentProps<"svg">
+type SpinnerProps = React.ComponentProps<"svg">;
 
 function Spinner({ className, ...props }: SpinnerProps) {
   return (
@@ -17,8 +17,8 @@ function Spinner({ className, ...props }: SpinnerProps) {
       className={cn("size-4 animate-spin", className)}
       {...props}
     />
-  )
+  );
 }
 
-export { Spinner }
-export type { SpinnerProps }
+export { Spinner };
+export type { SpinnerProps };

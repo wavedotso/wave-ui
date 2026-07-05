@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   Children,
@@ -14,8 +14,8 @@ import {
   useLayoutEffect,
   useRef,
   useState,
-} from "react"
-import { useInView, useReducedMotion } from "motion/react"
+} from "react";
+import { useInView, useReducedMotion } from "motion/react";
 
 /**
  * `useLayoutEffect` warns when run during SSR. Fall back to `useEffect` on the
@@ -23,11 +23,11 @@ import { useInView, useReducedMotion } from "motion/react"
  * mismatch) stay warning-free while still committing pre-paint in the browser.
  */
 const useIsomorphicLayoutEffect =
-  typeof window !== "undefined" ? useLayoutEffect : useEffect
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 // ── Types ────────────────────────────────────────────────────────────
 
-type Direction = "up" | "down" | "left" | "right"
+type Direction = "up" | "down" | "left" | "right";
 
 /**
  * Transition override for the entrance components. Only the two fields that map
@@ -36,86 +36,86 @@ type Direction = "up" | "down" | "left" | "right"
  * motion/react's full `Transition` type (springs, keyframe arrays, camelCase
  * eases) would silently produce invalid CSS here, so it is intentionally narrowed.
  */
-type AnimateTransition = { duration?: number; ease?: string }
+type AnimateTransition = { duration?: number; ease?: string };
 
 interface AnimateOnViewProps {
-  children: ReactElement
+  children: ReactElement;
   /** Delay in seconds before animation starts. Default: 0 */
-  delay?: number
+  delay?: number;
   /** Direction to animate from. Default: 'down' */
-  from?: Direction
+  from?: Direction;
   /** Distance in px. Default: 16 (scroll reveals need more travel than `AnimateIn`) */
-  distance?: number
+  distance?: number;
   /** Also scale in (0.85 → 1). Default: false */
-  scale?: boolean
+  scale?: boolean;
   /** Blur in from a given amount in px. Default: false */
-  blur?: boolean | number
+  blur?: boolean | number;
   /** Rotate in from a given angle in degrees. Default: 0 */
-  rotate?: number
+  rotate?: number;
   /** 3D flip entrance along the axis matching `from`. Default: false */
-  flip?: boolean
+  flip?: boolean;
   /** Spring easing with overshoot. Default: false */
-  spring?: boolean
+  spring?: boolean;
   /** Trigger once or every time it enters view. Default: true */
-  once?: boolean
+  once?: boolean;
   /** Custom transition override */
-  transition?: AnimateTransition
+  transition?: AnimateTransition;
 }
 
 interface AnimateInProps {
-  children: ReactElement
+  children: ReactElement;
   /** Delay in seconds before animation starts. Default: 0 */
-  delay?: number
+  delay?: number;
   /** Direction to animate from. Default: 'down' */
-  from?: Direction
+  from?: Direction;
   /** Distance in px. Default: 4 */
-  distance?: number
+  distance?: number;
   /** Also scale in (0.85 → 1). Default: false */
-  scale?: boolean
+  scale?: boolean;
   /** Blur in from a given amount in px. Default: false */
-  blur?: boolean | number
+  blur?: boolean | number;
   /** Rotate in from a given angle in degrees. Default: 0 */
-  rotate?: number
+  rotate?: number;
   /** 3D flip entrance along the axis matching `from`. Default: false */
-  flip?: boolean
+  flip?: boolean;
   /** Spring easing with overshoot. Default: false */
-  spring?: boolean
+  spring?: boolean;
   /** Custom transition override */
-  transition?: AnimateTransition
+  transition?: AnimateTransition;
 }
 
 interface StaggerProps {
-  children: ReactElement[]
+  children: ReactElement[];
   /** Delay increment between each child in seconds. Default: 0.08 */
-  interval?: number
+  interval?: number;
   /** Base delay before the first child animates in seconds. Default: 0 */
-  baseDelay?: number
+  baseDelay?: number;
 }
 
 interface PulseProps {
-  children: ReactElement
+  children: ReactElement;
   /** Min scale factor. Default: 0.97 */
-  min?: number
+  min?: number;
   /** Max scale factor. Default: 1.03 */
-  max?: number
+  max?: number;
   /** Animation duration in seconds. Default: 2 */
-  duration?: number
+  duration?: number;
   /** Also pulse opacity between these bounds [min, max]. Off by default. */
-  opacity?: [number, number]
+  opacity?: [number, number];
   /** Pause animation. Default: false */
-  paused?: boolean
+  paused?: boolean;
 }
 
 interface FloatProps {
-  children: ReactElement
+  children: ReactElement;
   /** Vertical float distance in px. Default: 6 */
-  distance?: number
+  distance?: number;
   /** Animation duration in seconds. Default: 3 */
-  duration?: number
+  duration?: number;
   /** Also rotate slightly while floating (degrees). Default: 0 */
-  rotate?: number
+  rotate?: number;
   /** Pause animation. Default: false */
-  paused?: boolean
+  paused?: boolean;
 }
 
 // ── Internals ────────────────────────────────────────────────────────
@@ -129,7 +129,7 @@ const DIRECTION_MAP = {
   down: { prop: "translateY", value: 1 },
   left: { prop: "translateX", value: -1 },
   right: { prop: "translateX", value: 1 },
-} as const
+} as const;
 
 /** Flip axis: vertical directions flip around X, horizontal around Y */
 const FLIP_MAP = {
@@ -137,75 +137,82 @@ const FLIP_MAP = {
   down: "rotateX(-90deg)",
   left: "rotateY(-90deg)",
   right: "rotateY(90deg)",
-} as const
+} as const;
 
 /** Overshoot ("spring") easing for the opt-in `spring` prop on
  *  `AnimateIn` / `AnimateOnView`. This is `animate.tsx`'s own page-entrance
  *  bounce — the CSS recipe system intentionally has no spring, so this is a standalone constant, not a shared token. */
-const SPRING_EASE = "cubic-bezier(0.34, 1.45, 0.64, 1)"
+const SPRING_EASE = "cubic-bezier(0.34, 1.45, 0.64, 1)";
 
 interface BuildStylesOptions {
-  from: Direction
-  distance: number
-  doScale: boolean
-  blur: boolean | number
-  rotate: number
-  flip: boolean
+  from: Direction;
+  distance: number;
+  doScale: boolean;
+  blur: boolean | number;
+  rotate: number;
+  flip: boolean;
 }
 
 function buildStyles(opts: BuildStylesOptions) {
-  const { from, distance, doScale, blur, rotate, flip } = opts
-  const dir = DIRECTION_MAP[from]
+  const { from, distance, doScale, blur, rotate, flip } = opts;
+  const dir = DIRECTION_MAP[from];
 
-  const hiddenParts: string[] = []
-  if (flip) hiddenParts.push("perspective(800px)")
-  hiddenParts.push(`${dir.prop}(${dir.value * distance}px)`)
-  if (doScale) hiddenParts.push("scale(0.85)")
-  if (rotate) hiddenParts.push(`rotate(${rotate}deg)`)
-  if (flip) hiddenParts.push(FLIP_MAP[from])
+  const hiddenParts: string[] = [];
+  if (flip) hiddenParts.push("perspective(800px)");
+  hiddenParts.push(`${dir.prop}(${dir.value * distance}px)`);
+  if (doScale) hiddenParts.push("scale(0.85)");
+  if (rotate) hiddenParts.push(`rotate(${rotate}deg)`);
+  if (flip) hiddenParts.push(FLIP_MAP[from]);
 
-  const visibleParts: string[] = []
-  if (flip) visibleParts.push("perspective(800px)")
-  visibleParts.push("translateX(0) translateY(0)")
-  if (doScale) visibleParts.push("scale(1)")
-  if (rotate) visibleParts.push("rotate(0deg)")
-  if (flip) visibleParts.push(from === "up" || from === "down" ? "rotateX(0deg)" : "rotateY(0deg)")
+  const visibleParts: string[] = [];
+  if (flip) visibleParts.push("perspective(800px)");
+  visibleParts.push("translateX(0) translateY(0)");
+  if (doScale) visibleParts.push("scale(1)");
+  if (rotate) visibleParts.push("rotate(0deg)");
+  if (flip)
+    visibleParts.push(
+      from === "up" || from === "down" ? "rotateX(0deg)" : "rotateY(0deg)",
+    );
 
-  const blurPx = blur === true ? 8 : typeof blur === "number" ? blur : 0
+  const blurPx = blur === true ? 8 : typeof blur === "number" ? blur : 0;
 
   const hidden: CSSProperties = {
     opacity: "0",
     transform: hiddenParts.join(" "),
-  }
+  };
 
   const visible: CSSProperties = {
     opacity: "1",
     transform: visibleParts.join(" "),
-  }
+  };
 
   if (blurPx > 0) {
-    hidden.filter = `blur(${blurPx}px)`
-    visible.filter = "blur(0px)"
+    hidden.filter = `blur(${blurPx}px)`;
+    visible.filter = "blur(0px)";
   }
 
-  return { hidden, visible, hasFilter: blurPx > 0 }
+  return { hidden, visible, hasFilter: blurPx > 0 };
 }
 
 function mergeRefs<T>(...refs: (Ref<T> | undefined)[]) {
   return (el: T | null) => {
     refs.forEach((ref) => {
-      if (typeof ref === "function") ref(el)
+      if (typeof ref === "function") ref(el);
       else if (ref && typeof ref === "object") {
-        ;(ref as { current: T | null }).current = el
+        (ref as { current: T | null }).current = el;
       }
-    })
-  }
+    });
+  };
 }
 
-function getTransitionParams(transition?: AnimateTransition, useSpring?: boolean, fallbackDuration = 0.15) {
-  const duration = transition?.duration ?? fallbackDuration
-  const ease = useSpring ? SPRING_EASE : (transition?.ease ?? "ease-out")
-  return { duration, ease }
+function getTransitionParams(
+  transition?: AnimateTransition,
+  useSpring?: boolean,
+  fallbackDuration = 0.15,
+) {
+  const duration = transition?.duration ?? fallbackDuration;
+  const ease = useSpring ? SPRING_EASE : (transition?.ease ?? "ease-out");
+  return { duration, ease };
 }
 
 function buildTransitionStr(
@@ -217,9 +224,9 @@ function buildTransitionStr(
   const parts = [
     `opacity ${duration}s ${ease} ${delay}s`,
     `transform ${duration}s ${ease} ${delay}s`,
-  ]
-  if (hasFilter) parts.push(`filter ${duration}s ${ease} ${delay}s`)
-  return parts.join(", ")
+  ];
+  if (hasFilter) parts.push(`filter ${duration}s ${ease} ${delay}s`);
+  return parts.join(", ");
 }
 
 // ── AnimateOnView ────────────────────────────────────────────────────
@@ -253,52 +260,58 @@ function AnimateOnView({
   once = true,
   transition,
 }: AnimateOnViewProps) {
-  const ref = useRef<HTMLElement>(null)
-  const [hydrated, setHydrated] = useState(false)
-  const [settled, setSettled] = useState(false)
-  const isInView = useInView(ref, { once, margin: "-50px" })
-  const prefersReducedMotion = useReducedMotion()
+  const ref = useRef<HTMLElement>(null);
+  const [hydrated, setHydrated] = useState(false);
+  const [settled, setSettled] = useState(false);
+  const isInView = useInView(ref, { once, margin: "-50px" });
+  const prefersReducedMotion = useReducedMotion();
 
   // Commit the hidden state before the browser paints so the child never
   // flashes visible → blank → animate. Isomorphic so SSR stays warning-free.
   useIsomorphicLayoutEffect(() => {
-    setHydrated(true)
-  }, [])
+    setHydrated(true);
+  }, []);
 
   // Re-arm `will-change` for the next entrance when the element leaves view
   // (only reachable with `once={false}`).
   useEffect(() => {
-    if (!isInView) setSettled(false)
-  }, [isInView])
+    if (!isInView) setSettled(false);
+  }, [isInView]);
 
   const existingOnTransitionEnd = (
-    (children.props as { onTransitionEnd?: (e: TransitionEvent) => void })
-      ?.onTransitionEnd
-  )
+    children.props as { onTransitionEnd?: (e: TransitionEvent) => void }
+  )?.onTransitionEnd;
 
   // Drop `will-change` once the entrance finishes — leaving it applied keeps
   // the element on a compositor layer for its whole lifetime.
   const handleTransitionEnd = useCallback(
     (event: TransitionEvent) => {
-      if (event.target === ref.current) setSettled(true)
-      existingOnTransitionEnd?.(event)
+      if (event.target === ref.current) setSettled(true);
+      existingOnTransitionEnd?.(event);
     },
     [existingOnTransitionEnd],
-  )
+  );
 
-  if (!isValidElement(children)) return children
+  if (!isValidElement(children)) return children;
 
-  const childProps = children.props as Record<string, unknown>
-  const existingStyle = (childProps.style ?? {}) as CSSProperties
-  const existingRef = (childProps as { ref?: Ref<HTMLElement> }).ref
+  const childProps = children.props as Record<string, unknown>;
+  const existingStyle = (childProps.style ?? {}) as CSSProperties;
+  const existingRef = (childProps as { ref?: Ref<HTMLElement> }).ref;
 
   if (!hydrated) {
     return cloneElement(children, {
       ref: mergeRefs(ref, existingRef),
-    } as Record<string, unknown>)
+    } as Record<string, unknown>);
   }
 
-  const styles = buildStyles({ from, distance, doScale: scale, blur, rotate, flip })
+  const styles = buildStyles({
+    from,
+    distance,
+    doScale: scale,
+    blur,
+    rotate,
+    flip,
+  });
 
   // Reduced motion: render the final, resting state immediately — no
   // travel, blur, scale, or transition. Keeps the same DOM/output shape.
@@ -309,12 +322,17 @@ function AnimateOnView({
         ...existingStyle,
         ...styles.visible,
       },
-    } as Record<string, unknown>)
+    } as Record<string, unknown>);
   }
 
-  const { duration, ease } = getTransitionParams(transition, spring, 0.4)
-  const currentStyle = isInView ? styles.visible : styles.hidden
-  const transitionStr = buildTransitionStr(duration, ease, delay, styles.hasFilter)
+  const { duration, ease } = getTransitionParams(transition, spring, 0.4);
+  const currentStyle = isInView ? styles.visible : styles.hidden;
+  const transitionStr = buildTransitionStr(
+    duration,
+    ease,
+    delay,
+    styles.hasFilter,
+  );
 
   return cloneElement(children, {
     ref: mergeRefs(ref, existingRef),
@@ -325,7 +343,7 @@ function AnimateOnView({
       ...(isInView ? { transition: transitionStr } : {}),
       ...(isInView && !settled ? { willChange: "opacity, transform" } : {}),
     },
-  } as Record<string, unknown>)
+  } as Record<string, unknown>);
 }
 
 // ── AnimateIn ────────────────────────────────────────────────────────
@@ -355,45 +373,51 @@ function AnimateIn({
   spring = false,
   transition,
 }: AnimateInProps) {
-  const ref = useRef<HTMLElement>(null)
-  const [visible, setVisible] = useState(false)
-  const [settled, setSettled] = useState(false)
-  const prefersReducedMotion = useReducedMotion()
+  const ref = useRef<HTMLElement>(null);
+  const [visible, setVisible] = useState(false);
+  const [settled, setSettled] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     // Two frames so the hidden state paints before flipping to visible.
-    let inner = 0
+    let inner = 0;
     const outer = requestAnimationFrame(() => {
-      inner = requestAnimationFrame(() => setVisible(true))
-    })
+      inner = requestAnimationFrame(() => setVisible(true));
+    });
     return () => {
-      cancelAnimationFrame(outer)
-      cancelAnimationFrame(inner)
-    }
-  }, [])
+      cancelAnimationFrame(outer);
+      cancelAnimationFrame(inner);
+    };
+  }, []);
 
   const existingOnTransitionEnd = (
-    (children.props as { onTransitionEnd?: (e: TransitionEvent) => void })
-      ?.onTransitionEnd
-  )
+    children.props as { onTransitionEnd?: (e: TransitionEvent) => void }
+  )?.onTransitionEnd;
 
   // Drop `will-change` once the entrance finishes — leaving it applied keeps
   // the element on a compositor layer for its whole lifetime.
   const handleTransitionEnd = useCallback(
     (event: TransitionEvent) => {
-      if (event.target === ref.current) setSettled(true)
-      existingOnTransitionEnd?.(event)
+      if (event.target === ref.current) setSettled(true);
+      existingOnTransitionEnd?.(event);
     },
     [existingOnTransitionEnd],
-  )
+  );
 
-  if (!isValidElement(children)) return children
+  if (!isValidElement(children)) return children;
 
-  const childProps = children.props as Record<string, unknown>
-  const existingStyle = (childProps.style ?? {}) as CSSProperties
-  const existingRef = (childProps as { ref?: Ref<HTMLElement> }).ref
+  const childProps = children.props as Record<string, unknown>;
+  const existingStyle = (childProps.style ?? {}) as CSSProperties;
+  const existingRef = (childProps as { ref?: Ref<HTMLElement> }).ref;
 
-  const styles = buildStyles({ from, distance, doScale: scale, blur, rotate, flip })
+  const styles = buildStyles({
+    from,
+    distance,
+    doScale: scale,
+    blur,
+    rotate,
+    flip,
+  });
 
   // Reduced motion: render the final, resting state immediately — no
   // travel, blur, scale, or transition. Keeps the same DOM/output shape.
@@ -404,12 +428,17 @@ function AnimateIn({
         ...existingStyle,
         ...styles.visible,
       },
-    } as Record<string, unknown>)
+    } as Record<string, unknown>);
   }
 
-  const { duration, ease } = getTransitionParams(transition, spring)
-  const currentStyle = visible ? styles.visible : styles.hidden
-  const transitionStr = buildTransitionStr(duration, ease, delay, styles.hasFilter)
+  const { duration, ease } = getTransitionParams(transition, spring);
+  const currentStyle = visible ? styles.visible : styles.hidden;
+  const transitionStr = buildTransitionStr(
+    duration,
+    ease,
+    delay,
+    styles.hasFilter,
+  );
 
   return cloneElement(children, {
     ref: mergeRefs(ref, existingRef),
@@ -420,7 +449,7 @@ function AnimateIn({
       ...(visible ? { transition: transitionStr } : {}),
       ...(visible && !settled ? { willChange: "opacity, transform" } : {}),
     },
-  } as Record<string, unknown>)
+  } as Record<string, unknown>);
 }
 
 // ── Stagger ──────────────────────────────────────────────────────────
@@ -437,21 +466,17 @@ function AnimateIn({
  * </Stagger>
  * ```
  */
-function Stagger({
-  children,
-  interval = 0.08,
-  baseDelay = 0,
-}: StaggerProps) {
+function Stagger({ children, interval = 0.08, baseDelay = 0 }: StaggerProps) {
   return (
     <>
       {Children.map(children, (child, index) => {
-        if (!isValidElement(child)) return child
+        if (!isValidElement(child)) return child;
         return cloneElement(child as ReactElement<{ delay?: number }>, {
           delay: baseDelay + index * interval,
-        })
+        });
       })}
     </>
-  )
+  );
 }
 
 // ── Pulse ────────────────────────────────────────────────────────────
@@ -475,20 +500,20 @@ function Pulse({
   opacity,
   paused = false,
 }: PulseProps) {
-  const id = useId().replace(/:/g, "")
-  const [hydrated, setHydrated] = useState(false)
-  const prefersReducedMotion = useReducedMotion()
+  const id = useId().replace(/:/g, "");
+  const [hydrated, setHydrated] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
-    setHydrated(true)
-  }, [])
+    setHydrated(true);
+  }, []);
 
-  if (!isValidElement(children)) return children
-  if (!hydrated) return children
+  if (!isValidElement(children)) return children;
+  if (!hydrated) return children;
 
-  const childProps = children.props as Record<string, unknown>
-  const existingStyle = (childProps.style ?? {}) as CSSProperties
-  const existingRef = (childProps as { ref?: Ref<HTMLElement> }).ref
+  const childProps = children.props as Record<string, unknown>;
+  const existingStyle = (childProps.style ?? {}) as CSSProperties;
+  const existingRef = (childProps as { ref?: Ref<HTMLElement> }).ref;
 
   // Reduced motion: no continuous pulse — render the child at rest, no
   // keyframe injected. Same ref/style handling as the animated path.
@@ -496,17 +521,17 @@ function Pulse({
     return cloneElement(children, {
       ref: existingRef ? mergeRefs(existingRef) : undefined,
       style: existingStyle,
-    } as Record<string, unknown>)
+    } as Record<string, unknown>);
   }
 
-  const name = `pulse-${id}`
-  const opacityFrom = opacity?.[0] ?? 1
-  const opacityTo = opacity?.[1] ?? 1
+  const name = `pulse-${id}`;
+  const opacityFrom = opacity?.[0] ?? 1;
+  const opacityTo = opacity?.[1] ?? 1;
 
   const keyframes = `@keyframes ${name} {
   0%, 100% { transform: scale(${min}); opacity: ${opacityFrom}; }
   50% { transform: scale(${max}); opacity: ${opacityTo}; }
-}`
+}`;
 
   return (
     <>
@@ -520,7 +545,7 @@ function Pulse({
         },
       } as Record<string, unknown>)}
     </>
-  )
+  );
 }
 
 // ── Float ────────────────────────────────────────────────────────────
@@ -543,20 +568,20 @@ function Float({
   rotate = 0,
   paused = false,
 }: FloatProps) {
-  const id = useId().replace(/:/g, "")
-  const [hydrated, setHydrated] = useState(false)
-  const prefersReducedMotion = useReducedMotion()
+  const id = useId().replace(/:/g, "");
+  const [hydrated, setHydrated] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
-    setHydrated(true)
-  }, [])
+    setHydrated(true);
+  }, []);
 
-  if (!isValidElement(children)) return children
-  if (!hydrated) return children
+  if (!isValidElement(children)) return children;
+  if (!hydrated) return children;
 
-  const childProps = children.props as Record<string, unknown>
-  const existingStyle = (childProps.style ?? {}) as CSSProperties
-  const existingRef = (childProps as { ref?: Ref<HTMLElement> }).ref
+  const childProps = children.props as Record<string, unknown>;
+  const existingStyle = (childProps.style ?? {}) as CSSProperties;
+  const existingRef = (childProps as { ref?: Ref<HTMLElement> }).ref;
 
   // Reduced motion: no continuous float — render the child at rest, no
   // keyframe injected. Same ref/style handling as the animated path.
@@ -564,17 +589,17 @@ function Float({
     return cloneElement(children, {
       ...(existingRef ? { ref: existingRef } : {}),
       style: existingStyle,
-    } as Record<string, unknown>)
+    } as Record<string, unknown>);
   }
 
-  const name = `float-${id}`
-  const rotA = rotate ? ` rotate(${-rotate}deg)` : ""
-  const rotB = rotate ? ` rotate(${rotate}deg)` : ""
+  const name = `float-${id}`;
+  const rotA = rotate ? ` rotate(${-rotate}deg)` : "";
+  const rotB = rotate ? ` rotate(${rotate}deg)` : "";
 
   const keyframes = `@keyframes ${name} {
   0%, 100% { transform: translateY(0px)${rotA}; }
   50% { transform: translateY(${-distance}px)${rotB}; }
-}`
+}`;
 
   return (
     <>
@@ -588,12 +613,12 @@ function Float({
         },
       } as Record<string, unknown>)}
     </>
-  )
+  );
 }
 
 // ── Exports ──────────────────────────────────────────────────────────
 
-export { AnimateOnView, AnimateIn, Stagger, Pulse, Float }
+export { AnimateOnView, AnimateIn, Stagger, Pulse, Float };
 export type {
   AnimateOnViewProps,
   AnimateInProps,
@@ -602,4 +627,4 @@ export type {
   FloatProps,
   Direction,
   AnimateTransition,
-}
+};

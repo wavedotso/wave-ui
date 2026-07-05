@@ -1,37 +1,31 @@
-"use client"
+"use client";
 
-import { useRef, useEffect, useState, useId, useCallback } from "react"
-import { cn } from "./lib/utils"
+import { useRef, useEffect, useState, useId, useCallback } from "react";
+import { cn } from "./lib/utils";
 
 interface GradientRevealTextProps {
   /** The text to display */
-  text: string
+  text: string;
   /** Spotlight follow speed in seconds. Default: 0 (instant) */
-  duration?: number
+  duration?: number;
   /** Gradient colors for the reveal effect. Default: rainbow */
-  colors?: string[]
+  colors?: string[];
   /** Base stroke opacity when not hovered. Default: 0.3 */
-  baseOpacity?: number
+  baseOpacity?: number;
   /** Hovered stroke opacity. Default: 0.7 */
-  hoverOpacity?: number
+  hoverOpacity?: number;
   /** Font family for SVG text. Default: Helvetica Neue */
-  fontFamily?: string
+  fontFamily?: string;
   /** Spotlight radius multiplier relative to text height. Default: 0.6 */
-  spotlightSize?: number
+  spotlightSize?: number;
   /** Stroke width in px. Default: auto (1.5% of text height) */
-  strokeWidth?: number
+  strokeWidth?: number;
   /** Base stroke color. Default: neutral-200 (light) / neutral-800 (dark) via Tailwind */
-  baseColor?: string
-  className?: string
+  baseColor?: string;
+  className?: string;
 }
 
-const DEFAULT_COLORS = [
-  "#eab308",
-  "#ef4444",
-  "#3b82f6",
-  "#06b6d4",
-  "#8b5cf6",
-]
+const DEFAULT_COLORS = ["#eab308", "#ef4444", "#3b82f6", "#06b6d4", "#8b5cf6"];
 
 /**
  * Large decorative text with a gradient spotlight that follows the cursor.
@@ -58,147 +52,150 @@ function GradientRevealText({
   baseColor,
   className,
 }: GradientRevealTextProps) {
-  const uid = useId()
-  const svgRef = useRef<SVGSVGElement>(null)
-  const textRef = useRef<SVGTextElement>(null)
-  const gradientRef = useRef<SVGRadialGradientElement>(null)
+  const uid = useId();
+  const svgRef = useRef<SVGSVGElement>(null);
+  const textRef = useRef<SVGTextElement>(null);
+  const gradientRef = useRef<SVGRadialGradientElement>(null);
 
-  const [vb, setVb] = useState({ x: 0, y: 0, w: 100, h: 20 })
-  const [measured, setMeasured] = useState(false)
-  const [hovered, setHovered] = useState(false)
+  const [vb, setVb] = useState({ x: 0, y: 0, w: 100, h: 20 });
+  const [measured, setMeasured] = useState(false);
+  const [hovered, setHovered] = useState(false);
 
   // Target position (where cursor is) and current animated position
-  const targetPos = useRef({ cx: 0.5, cy: 0.5 })
-  const currentPos = useRef({ cx: 0.5, cy: 0.5 })
-  const rafId = useRef<number>(0)
+  const targetPos = useRef({ cx: 0.5, cy: 0.5 });
+  const currentPos = useRef({ cx: 0.5, cy: 0.5 });
+  const rafId = useRef<number>(0);
   // Kicks the smooth-follow RAF loop back to life after it parks at idle.
   // Rebound by the loop effect; a no-op when duration <= 0 (instant follow).
-  const requestFollow = useRef(() => {})
+  const requestFollow = useRef(() => {});
 
   // Measure text bbox → set viewBox to fit exactly
   const measure = useCallback(() => {
-    const el = textRef.current
-    if (!el) return
-    const bbox = el.getBBox()
-    if (bbox.width === 0) return
+    const el = textRef.current;
+    if (!el) return;
+    const bbox = el.getBBox();
+    if (bbox.width === 0) return;
 
-    setVb({ x: bbox.x, y: bbox.y, w: bbox.width, h: bbox.height })
-    setMeasured(true)
-  }, [])
+    setVb({ x: bbox.x, y: bbox.y, w: bbox.width, h: bbox.height });
+    setMeasured(true);
+  }, []);
 
   useEffect(() => {
-    measure()
-    document.fonts?.ready?.then(measure)
+    measure();
+    document.fonts?.ready?.then(measure);
     // fontFamily changes the glyph metrics → the bbox must be re-measured.
-  }, [text, fontFamily, measure])
+  }, [text, fontFamily, measure]);
 
   // Update the SVG gradient attributes directly (no React re-render)
-  const applyGradientPos = useCallback((cx: number, cy: number) => {
-    const el = gradientRef.current
-    if (!el) return
-    const svgCx = vb.x + cx * vb.w
-    const svgCy = vb.y + cy * vb.h
-    el.setAttribute("cx", String(svgCx))
-    el.setAttribute("cy", String(svgCy))
-  }, [vb])
+  const applyGradientPos = useCallback(
+    (cx: number, cy: number) => {
+      const el = gradientRef.current;
+      if (!el) return;
+      const svgCx = vb.x + cx * vb.w;
+      const svgCy = vb.y + cy * vb.h;
+      el.setAttribute("cx", String(svgCx));
+      el.setAttribute("cy", String(svgCy));
+    },
+    [vb],
+  );
 
   // RAF loop for smooth follow. Parks itself when the spotlight reaches the
   // target (idle) and is woken by requestFollow() on the next pointer move,
   // so it never spins the CPU while the cursor is still or has left.
   useEffect(() => {
     if (duration <= 0) {
-      requestFollow.current = () => {}
-      return
+      requestFollow.current = () => {};
+      return;
     }
 
     // Lerp factor: higher = faster catch-up. Derived from duration.
-    const speed = 1 - Math.pow(0.001, 1 / (duration * 60))
+    const speed = 1 - 0.001 ** (1 / (duration * 60));
     // Sub-pixel-ish threshold in normalized units — below this the follow is
     // visually settled, so we stop scheduling frames until the target moves.
-    const EPSILON = 0.0005
+    const EPSILON = 0.0005;
 
     const tick = () => {
-      const cur = currentPos.current
-      const tgt = targetPos.current
-      cur.cx += (tgt.cx - cur.cx) * speed
-      cur.cy += (tgt.cy - cur.cy) * speed
-      applyGradientPos(cur.cx, cur.cy)
+      const cur = currentPos.current;
+      const tgt = targetPos.current;
+      cur.cx += (tgt.cx - cur.cx) * speed;
+      cur.cy += (tgt.cy - cur.cy) * speed;
+      applyGradientPos(cur.cx, cur.cy);
 
       if (
         Math.abs(tgt.cx - cur.cx) < EPSILON &&
         Math.abs(tgt.cy - cur.cy) < EPSILON
       ) {
         // Snap to target and park — no more frames until woken.
-        cur.cx = tgt.cx
-        cur.cy = tgt.cy
-        applyGradientPos(cur.cx, cur.cy)
-        rafId.current = 0
-        return
+        cur.cx = tgt.cx;
+        cur.cy = tgt.cy;
+        applyGradientPos(cur.cx, cur.cy);
+        rafId.current = 0;
+        return;
       }
 
-      rafId.current = requestAnimationFrame(tick)
-    }
+      rafId.current = requestAnimationFrame(tick);
+    };
 
     requestFollow.current = () => {
-      if (rafId.current === 0) rafId.current = requestAnimationFrame(tick)
-    }
+      if (rafId.current === 0) rafId.current = requestAnimationFrame(tick);
+    };
 
     return () => {
-      requestFollow.current = () => {}
+      requestFollow.current = () => {};
       if (rafId.current !== 0) {
-        cancelAnimationFrame(rafId.current)
-        rafId.current = 0
+        cancelAnimationFrame(rafId.current);
+        rafId.current = 0;
       }
-    }
-  }, [duration, applyGradientPos])
+    };
+  }, [duration, applyGradientPos]);
 
   const updatePos = (e: React.MouseEvent<SVGSVGElement>) => {
-    const svg = svgRef.current
-    if (!svg) return
-    const rect = svg.getBoundingClientRect()
-    const cx = (e.clientX - rect.left) / rect.width
-    const cy = (e.clientY - rect.top) / rect.height
-    targetPos.current = { cx, cy }
+    const svg = svgRef.current;
+    if (!svg) return;
+    const rect = svg.getBoundingClientRect();
+    const cx = (e.clientX - rect.left) / rect.width;
+    const cy = (e.clientY - rect.top) / rect.height;
+    targetPos.current = { cx, cy };
 
     // If no smooth follow, apply instantly; otherwise wake the parked loop.
     if (duration <= 0) {
-      currentPos.current = { cx, cy }
-      applyGradientPos(cx, cy)
+      currentPos.current = { cx, cy };
+      applyGradientPos(cx, cy);
     } else {
-      requestFollow.current()
+      requestFollow.current();
     }
-  }
+  };
 
   const handleMouseEnter = (e: React.MouseEvent<SVGSVGElement>) => {
     // Snap to entry point — no lerp on first frame
-    const svg = svgRef.current
+    const svg = svgRef.current;
     if (svg) {
-      const rect = svg.getBoundingClientRect()
-      const cx = (e.clientX - rect.left) / rect.width
-      const cy = (e.clientY - rect.top) / rect.height
-      targetPos.current = { cx, cy }
-      currentPos.current = { cx, cy }
-      applyGradientPos(cx, cy)
+      const rect = svg.getBoundingClientRect();
+      const cx = (e.clientX - rect.left) / rect.width;
+      const cy = (e.clientY - rect.top) / rect.height;
+      targetPos.current = { cx, cy };
+      currentPos.current = { cx, cy };
+      applyGradientPos(cx, cy);
     }
-    setHovered(true)
-  }
+    setHovered(true);
+  };
 
   // Derived values
-  const spotlightR = vb.h * spotlightSize
-  const strokeW = strokeWidthPx ?? vb.h * 0.015
-  const initCx = vb.x + 0.5 * vb.w
-  const initCy = vb.y + 0.5 * vb.h
+  const spotlightR = vb.h * spotlightSize;
+  const strokeW = strokeWidthPx ?? vb.h * 0.015;
+  const initCx = vb.x + 0.5 * vb.w;
+  const initCy = vb.y + 0.5 * vb.h;
 
   // Unique SVG IDs
-  const gradientId = `grad-${uid}`
-  const maskId = `mask-${uid}`
-  const revealId = `reveal-${uid}`
+  const gradientId = `grad-${uid}`;
+  const maskId = `mask-${uid}`;
+  const revealId = `reveal-${uid}`;
 
   // Evenly distribute color stops
   const stops = colors.map((color, i) => ({
     offset: `${(i / Math.max(colors.length - 1, 1)) * 100}%`,
     color,
-  }))
+  }));
 
   const textStyle = {
     fontSize: "1em",
@@ -208,7 +205,7 @@ function GradientRevealText({
     strokeLinejoin: "round" as const,
     strokeLinecap: "round" as const,
     paintOrder: "stroke fill" as const,
-  }
+  };
 
   return (
     <svg
@@ -276,7 +273,11 @@ function GradientRevealText({
         y="50%"
         textAnchor="middle"
         dominantBaseline="central"
-        className={baseColor ? "font-bold" : "font-bold stroke-neutral-200 dark:stroke-neutral-800"}
+        className={
+          baseColor
+            ? "font-bold"
+            : "font-bold stroke-neutral-200 dark:stroke-neutral-800"
+        }
         style={{
           ...textStyle,
           ...(baseColor ? { stroke: baseColor } : {}),
@@ -303,8 +304,8 @@ function GradientRevealText({
         {text}
       </text>
     </svg>
-  )
+  );
 }
 
-export { GradientRevealText }
-export type { GradientRevealTextProps }
+export { GradientRevealText };
+export type { GradientRevealTextProps };

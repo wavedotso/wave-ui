@@ -1,42 +1,40 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import type * as React from "react";
 
-import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion"
+import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
 
-import { cn } from "./lib/utils"
+import { cn } from "./lib/utils";
 
-import { ChevronDownIcon, ChevronUpIcon } from "./lib/internal-icons"
+import { ChevronDownIcon, ChevronUpIcon } from "./lib/internal-icons";
 
-type AccordionProps = React.ComponentProps<typeof AccordionPrimitive.Root>
-type AccordionItemProps = React.ComponentProps<typeof AccordionPrimitive.Item>
-type AccordionTriggerProps = React.ComponentProps<typeof AccordionPrimitive.Trigger>
-type AccordionContentProps = React.ComponentProps<typeof AccordionPrimitive.Panel>
+type AccordionProps = React.ComponentProps<typeof AccordionPrimitive.Root>;
+type AccordionItemProps = React.ComponentProps<typeof AccordionPrimitive.Item>;
+type AccordionTriggerProps = React.ComponentProps<
+  typeof AccordionPrimitive.Trigger
+>;
+type AccordionContentProps = React.ComponentProps<
+  typeof AccordionPrimitive.Panel
+>;
 
 function Accordion({ className, ...props }: AccordionProps) {
   return (
     <AccordionPrimitive.Root
       data-slot="accordion"
-      className={cn(
-        "overflow-hidden flex w-full flex-col",
-        className
-      )}
+      className={cn("overflow-hidden flex w-full flex-col", className)}
       {...props}
     />
-  )
+  );
 }
 
 function AccordionItem({ className, ...props }: AccordionItemProps) {
   return (
     <AccordionPrimitive.Item
       data-slot="accordion-item"
-      className={cn(
-        "not-last:border-b border-edge",
-        className
-      )}
+      className={cn("not-last:border-b border-edge", className)}
       {...props}
     />
-  )
+  );
 }
 
 function AccordionTrigger({
@@ -50,16 +48,22 @@ function AccordionTrigger({
         data-slot="accordion-trigger"
         className={cn(
           "cursor-clickable focus-visible:ring-focus/50 focus-visible:border-focus focus-visible:after:border-focus **:data-[slot=accordion-trigger-icon]:text-muted group/accordion-trigger relative flex flex-1 items-start justify-between rounded-md border border-transparent py-2.5 text-left text-sm font-medium motion-color outline-hidden hover:underline focus-visible:ring-3 aria-disabled:pointer-events-none aria-disabled:opacity-50 **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4",
-          className
+          className,
         )}
         {...props}
       >
         {children}
-        <ChevronDownIcon data-slot="accordion-trigger-icon" className="pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden" />
-        <ChevronUpIcon data-slot="accordion-trigger-icon" className="pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline" />
+        <ChevronDownIcon
+          data-slot="accordion-trigger-icon"
+          className="pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden"
+        />
+        <ChevronUpIcon
+          data-slot="accordion-trigger-icon"
+          className="pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline"
+        />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
-  )
+  );
 }
 
 function AccordionContent({
@@ -77,25 +81,20 @@ function AccordionContent({
         data-slot="accordion-content"
         className={cn(
           "[&_a]:hover:text-contrast h-(--accordion-panel-height) pt-0 pb-2.5 data-ending-style:h-0 data-starting-style:h-0 [&_a]:underline [&_a]:underline-offset-3 [&_p:not(:last-child)]:mb-4",
-          className
+          className,
         )}
       >
         {children}
       </div>
     </AccordionPrimitive.Panel>
-  )
+  );
 }
 
-export {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-}
+export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };
 
 export type {
   AccordionProps,
   AccordionItemProps,
   AccordionTriggerProps,
   AccordionContentProps,
-}
+};

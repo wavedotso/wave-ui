@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import {
   Field,
@@ -8,12 +8,12 @@ import {
   FieldItem,
   FieldLabel,
   FieldValidity,
-} from './field';
-import { Checkbox } from './checkbox';
-import { Input } from './input';
+} from "./field";
+import { Checkbox } from "./checkbox";
+import { Input } from "./input";
 
 const meta = {
-  title: 'Forms/Field',
+  title: "Forms/Field",
   component: Field,
 } satisfies Meta<typeof Field>;
 
@@ -103,8 +103,8 @@ export const Validity: Story = {
         {(state) => (
           <FieldDescription>
             {state.validity.valueMissing
-              ? 'This field is required.'
-              : 'Looks good.'}
+              ? "This field is required."
+              : "Looks good."}
           </FieldDescription>
         )}
       </FieldValidity>

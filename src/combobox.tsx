@@ -1,79 +1,96 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Combobox as ComboboxPrimitive } from "@base-ui/react/combobox"
+import * as React from "react";
+import { Combobox as ComboboxPrimitive } from "@base-ui/react/combobox";
 
-import { cn } from "./lib/utils"
-import { Button } from "./button"
+import { cn } from "./lib/utils";
+import { Button } from "./button";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from "./input-group"
-import { ChevronDownIcon, CloseIcon, CheckIcon } from "./lib/internal-icons"
+} from "./input-group";
+import { ChevronDownIcon, CloseIcon, CheckIcon } from "./lib/internal-icons";
 
-type ComboboxProps = React.ComponentProps<typeof ComboboxPrimitive.Root>
+type ComboboxProps = React.ComponentProps<typeof ComboboxPrimitive.Root>;
 
-type ComboboxValueProps = React.ComponentProps<typeof ComboboxPrimitive.Value>
-type ComboboxTriggerProps = React.ComponentProps<typeof ComboboxPrimitive.Trigger>
-type ComboboxClearProps = React.ComponentProps<typeof ComboboxPrimitive.Clear>
-type ComboboxInputBaseProps = React.ComponentProps<typeof ComboboxPrimitive.Input>
+type ComboboxValueProps = React.ComponentProps<typeof ComboboxPrimitive.Value>;
+type ComboboxTriggerProps = React.ComponentProps<
+  typeof ComboboxPrimitive.Trigger
+>;
+type ComboboxClearProps = React.ComponentProps<typeof ComboboxPrimitive.Clear>;
+type ComboboxInputBaseProps = React.ComponentProps<
+  typeof ComboboxPrimitive.Input
+>;
 
-type ComboboxPortalProps = React.ComponentProps<typeof ComboboxPrimitive.Portal>
-type ComboboxPositionerProps = React.ComponentProps<typeof ComboboxPrimitive.Positioner>
-type ComboboxPopupProps = React.ComponentProps<typeof ComboboxPrimitive.Popup>
+type ComboboxPortalProps = React.ComponentProps<
+  typeof ComboboxPrimitive.Portal
+>;
+type ComboboxPositionerProps = React.ComponentProps<
+  typeof ComboboxPrimitive.Positioner
+>;
+type ComboboxPopupProps = React.ComponentProps<typeof ComboboxPrimitive.Popup>;
 
-type ComboboxListProps = React.ComponentProps<typeof ComboboxPrimitive.List>
-type ComboboxItemProps = React.ComponentProps<typeof ComboboxPrimitive.Item>
-type ComboboxGroupProps = React.ComponentProps<typeof ComboboxPrimitive.Group>
-type ComboboxLabelProps = React.ComponentProps<typeof ComboboxPrimitive.GroupLabel>
-type ComboboxCollectionProps = React.ComponentProps<typeof ComboboxPrimitive.Collection>
-type ComboboxEmptyProps = React.ComponentProps<typeof ComboboxPrimitive.Empty>
-type ComboboxSeparatorProps = React.ComponentProps<typeof ComboboxPrimitive.Separator>
-type ComboboxChipsProps = React.ComponentProps<typeof ComboboxPrimitive.Chips>
-type ComboboxChipBaseProps = React.ComponentProps<typeof ComboboxPrimitive.Chip>
-type ComboboxChipsInputProps = React.ComponentProps<typeof ComboboxPrimitive.Input>
+type ComboboxListProps = React.ComponentProps<typeof ComboboxPrimitive.List>;
+type ComboboxItemProps = React.ComponentProps<typeof ComboboxPrimitive.Item>;
+type ComboboxGroupProps = React.ComponentProps<typeof ComboboxPrimitive.Group>;
+type ComboboxLabelProps = React.ComponentProps<
+  typeof ComboboxPrimitive.GroupLabel
+>;
+type ComboboxCollectionProps = React.ComponentProps<
+  typeof ComboboxPrimitive.Collection
+>;
+type ComboboxEmptyProps = React.ComponentProps<typeof ComboboxPrimitive.Empty>;
+type ComboboxSeparatorProps = React.ComponentProps<
+  typeof ComboboxPrimitive.Separator
+>;
+type ComboboxChipsProps = React.ComponentProps<typeof ComboboxPrimitive.Chips>;
+type ComboboxChipBaseProps = React.ComponentProps<
+  typeof ComboboxPrimitive.Chip
+>;
+type ComboboxChipsInputProps = React.ComponentProps<
+  typeof ComboboxPrimitive.Input
+>;
 
 type ComboboxInputProps = ComboboxInputBaseProps & {
-  showTrigger?: boolean
-  showClear?: boolean
-}
+  showTrigger?: boolean;
+  showClear?: boolean;
+};
 
 type ComboboxChipProps = ComboboxChipBaseProps & {
-  showRemove?: boolean
-}
+  showRemove?: boolean;
+};
 
 type ComboboxContentProps = ComboboxPopupProps &
   Pick<
     ComboboxPositionerProps,
     "side" | "align" | "sideOffset" | "alignOffset" | "anchor"
-  >
+  >;
 
 function Combobox({ ...props }: ComboboxProps) {
-  return <ComboboxPrimitive.Root data-slot="combobox" {...props} />
+  return <ComboboxPrimitive.Root data-slot="combobox" {...props} />;
 }
 
 function ComboboxValue({ ...props }: ComboboxValueProps) {
-  return <ComboboxPrimitive.Value data-slot="combobox-value" {...props} />
+  return <ComboboxPrimitive.Value data-slot="combobox-value" {...props} />;
 }
 
-function ComboboxTrigger({ className, children, ...props }: ComboboxTriggerProps) {
+function ComboboxTrigger({
+  className,
+  children,
+  ...props
+}: ComboboxTriggerProps) {
   return (
     <ComboboxPrimitive.Trigger
       data-slot="combobox-trigger"
-      className={cn(
-        "[&_svg:not([class*='size-'])]:size-4",
-        className
-      )}
+      className={cn("[&_svg:not([class*='size-'])]:size-4", className)}
       {...props}
     >
       {children}
-      <ChevronDownIcon
-        className="text-muted pointer-events-none size-4"
-      />
+      <ChevronDownIcon className="text-muted pointer-events-none size-4" />
     </ComboboxPrimitive.Trigger>
-  )
+  );
 }
 
 function ComboboxClear({ className, ...props }: ComboboxClearProps) {
@@ -85,11 +102,9 @@ function ComboboxClear({ className, ...props }: ComboboxClearProps) {
       className={cn("motion-scale-sm", className)}
       {...props}
     >
-      <CloseIcon
-        className="pointer-events-none"
-      />
+      <CloseIcon className="pointer-events-none" />
     </ComboboxPrimitive.Clear>
-  )
+  );
 }
 
 function ComboboxInput({
@@ -105,8 +120,13 @@ function ComboboxInput({
   ...props
 }: ComboboxInputProps) {
   return (
-    <ComboboxPrimitive.InputGroup render={<InputGroup className={cn(className)} />}>
-      <ComboboxPrimitive.Input render={<InputGroupInput disabled={disabled} />} {...props} />
+    <ComboboxPrimitive.InputGroup
+      render={<InputGroup className={cn(className)} />}
+    >
+      <ComboboxPrimitive.Input
+        render={<InputGroupInput disabled={disabled} />}
+        {...props}
+      />
       <InputGroupAddon align="inline-end">
         {/* Stack the trigger chevron and clear button in one cell so they
          * cross-fade. In single-select mode Base UI mounts the Clear only
@@ -137,11 +157,11 @@ function ComboboxInput({
       </InputGroupAddon>
       {children}
     </ComboboxPrimitive.InputGroup>
-  )
+  );
 }
 
 function ComboboxPortal({ ...props }: ComboboxPortalProps) {
-  return <ComboboxPrimitive.Portal data-slot="combobox-portal" {...props} />
+  return <ComboboxPrimitive.Portal data-slot="combobox-portal" {...props} />;
 }
 
 function ComboboxPositioner({ className, ...props }: ComboboxPositionerProps) {
@@ -151,7 +171,7 @@ function ComboboxPositioner({ className, ...props }: ComboboxPositionerProps) {
       className={className}
       {...props}
     />
-  )
+  );
 }
 
 function ComboboxContent({
@@ -183,7 +203,7 @@ function ComboboxContent({
         />
       </ComboboxPositioner>
     </ComboboxPortal>
-  )
+  );
 }
 
 function ComboboxList({ className, ...props }: ComboboxListProps) {
@@ -196,7 +216,7 @@ function ComboboxList({ className, ...props }: ComboboxListProps) {
       )}
       {...props}
     />
-  )
+  );
 }
 
 function ComboboxItem({ className, children, ...props }: ComboboxItemProps) {
@@ -212,15 +232,16 @@ function ComboboxItem({ className, children, ...props }: ComboboxItemProps) {
       {children}
       <ComboboxPrimitive.ItemIndicator
         render={
-          <span data-slot="combobox-item-indicator" className="pointer-events-none absolute right-2 flex size-4 items-center justify-center" />
+          <span
+            data-slot="combobox-item-indicator"
+            className="pointer-events-none absolute right-2 flex size-4 items-center justify-center"
+          />
         }
       >
-        <CheckIcon
-          className="pointer-events-none"
-        />
+        <CheckIcon className="pointer-events-none" />
       </ComboboxPrimitive.ItemIndicator>
     </ComboboxPrimitive.Item>
-  )
+  );
 }
 
 function ComboboxGroup({ className, ...props }: ComboboxGroupProps) {
@@ -230,7 +251,7 @@ function ComboboxGroup({ className, ...props }: ComboboxGroupProps) {
       className={className}
       {...props}
     />
-  )
+  );
 }
 
 function ComboboxLabel({ className, ...props }: ComboboxLabelProps) {
@@ -240,11 +261,13 @@ function ComboboxLabel({ className, ...props }: ComboboxLabelProps) {
       className={cn("text-muted px-2 py-1.5 text-xs", className)}
       {...props}
     />
-  )
+  );
 }
 
 function ComboboxCollection({ ...props }: ComboboxCollectionProps) {
-  return <ComboboxPrimitive.Collection data-slot="combobox-collection" {...props} />
+  return (
+    <ComboboxPrimitive.Collection data-slot="combobox-collection" {...props} />
+  );
 }
 
 function ComboboxEmpty({ className, ...props }: ComboboxEmptyProps) {
@@ -257,7 +280,7 @@ function ComboboxEmpty({ className, ...props }: ComboboxEmptyProps) {
       )}
       {...props}
     />
-  )
+  );
 }
 
 function ComboboxSeparator({ className, ...props }: ComboboxSeparatorProps) {
@@ -267,7 +290,7 @@ function ComboboxSeparator({ className, ...props }: ComboboxSeparatorProps) {
       className={cn("bg-line -mx-1 my-1 h-px", className)}
       {...props}
     />
-  )
+  );
 }
 
 function ComboboxChips({ className, ...props }: ComboboxChipsProps) {
@@ -280,7 +303,7 @@ function ComboboxChips({ className, ...props }: ComboboxChipsProps) {
       )}
       {...props}
     />
-  )
+  );
 }
 
 function ComboboxChip({
@@ -306,13 +329,11 @@ function ComboboxChip({
           data-slot="combobox-chip-remove"
           aria-label="Remove"
         >
-          <CloseIcon
-            className="pointer-events-none"
-          />
+          <CloseIcon className="pointer-events-none" />
         </ComboboxPrimitive.ChipRemove>
       ) : null}
     </ComboboxPrimitive.Chip>
-  )
+  );
 }
 
 function ComboboxChipsInput({ className, ...props }: ComboboxChipsInputProps) {
@@ -322,11 +343,11 @@ function ComboboxChipsInput({ className, ...props }: ComboboxChipsInputProps) {
       className={cn("min-w-16 flex-1 outline-hidden", className)}
       {...props}
     />
-  )
+  );
 }
 
 function useComboboxAnchor() {
-  return React.useRef<HTMLDivElement | null>(null)
+  return React.useRef<HTMLDivElement | null>(null);
 }
 
 export {
@@ -347,7 +368,7 @@ export {
   ComboboxValue,
   ComboboxClear,
   useComboboxAnchor,
-}
+};
 
 export type {
   ComboboxProps,
@@ -368,4 +389,4 @@ export type {
   ComboboxInputProps,
   ComboboxChipProps,
   ComboboxContentProps,
-}
+};

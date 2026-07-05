@@ -1,19 +1,19 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Slider as SliderPrimitive } from "@base-ui/react/slider"
+import * as React from "react";
+import { Slider as SliderPrimitive } from "@base-ui/react/slider";
 
-import { cn } from "./lib/utils"
+import { cn } from "./lib/utils";
 
 type SliderProps = React.ComponentProps<typeof SliderPrimitive.Root> & {
-  controlClassName?: string
+  controlClassName?: string;
   /**
    * Accessible name for the thumb(s). The thumb is the interactive slider
    * control, so it needs its own name — a plain `aria-label` on `<Slider>`
    * labels the group, not the thumb. Receives the thumb index for range sliders.
    */
-  getThumbAriaLabel?: (index: number) => string
-}
+  getThumbAriaLabel?: (index: number) => string;
+};
 
 function Slider({
   className,
@@ -34,14 +34,14 @@ function Slider({
         : Array.isArray(defaultValue)
           ? defaultValue
           : [min, max],
-    [value, defaultValue, min, max]
-  )
+    [value, defaultValue, min, max],
+  );
 
   return (
     <SliderPrimitive.Root
       className={cn(
         "data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full",
-        className
+        className,
       )}
       data-slot="slider"
       defaultValue={defaultValue}
@@ -56,7 +56,7 @@ function Slider({
         data-slot="slider-control"
         className={cn(
           "relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-disabled:cursor-not-allowed data-[orientation=vertical]:h-full data-[orientation=vertical]:min-h-40 data-[orientation=vertical]:w-auto data-[orientation=vertical]:flex-col",
-          controlClassName
+          controlClassName,
         )}
       >
         <SliderPrimitive.Track
@@ -72,14 +72,16 @@ function Slider({
           <SliderPrimitive.Thumb
             data-slot="slider-thumb"
             key={index}
-            aria-label={getThumbAriaLabel ? getThumbAriaLabel(index) : ariaLabel}
+            aria-label={
+              getThumbAriaLabel ? getThumbAriaLabel(index) : ariaLabel
+            }
             className="border-focus ring-focus/50 relative block size-3 shrink-0 rounded-full border bg-white motion-color cursor-clickable select-none after:absolute after:-inset-2 hover:ring-3 focus-visible:ring-3 focus-visible:outline-hidden active:ring-3 data-disabled:pointer-events-none"
           />
         ))}
       </SliderPrimitive.Control>
     </SliderPrimitive.Root>
-  )
+  );
 }
 
-export { Slider }
-export type { SliderProps }
+export { Slider };
+export type { SliderProps };

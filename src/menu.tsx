@@ -1,18 +1,18 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Menu as MenuPrimitive } from "@base-ui/react/menu"
+import type * as React from "react";
+import { Menu as MenuPrimitive } from "@base-ui/react/menu";
 
-import { cn } from "./lib/utils"
-import { resolveFinalFocus, type RestoreFocusOnClose } from "./lib/focus"
+import { cn } from "./lib/utils";
+import { resolveFinalFocus, type RestoreFocusOnClose } from "./lib/focus";
 
-import { ChevronRightIcon, CheckIcon } from "./lib/internal-icons"
+import { ChevronRightIcon, CheckIcon } from "./lib/internal-icons";
 
-type MenuProps = React.ComponentProps<typeof MenuPrimitive.Root>
+type MenuProps = React.ComponentProps<typeof MenuPrimitive.Root>;
 
-type MenuPortalProps = React.ComponentProps<typeof MenuPrimitive.Portal>
+type MenuPortalProps = React.ComponentProps<typeof MenuPrimitive.Portal>;
 
-type MenuTriggerProps = React.ComponentProps<typeof MenuPrimitive.Trigger>
+type MenuTriggerProps = React.ComponentProps<typeof MenuPrimitive.Trigger>;
 
 type MenuContentProps = React.ComponentProps<typeof MenuPrimitive.Popup> &
   Pick<
@@ -25,52 +25,60 @@ type MenuContentProps = React.ComponentProps<typeof MenuPrimitive.Popup> &
      * the trigger is hover/focus-within–revealed so a pointer close
      * doesn't keep it pinned visible. See {@link RestoreFocusOnClose}.
      */
-    restoreFocusOnClose?: RestoreFocusOnClose
-  }
+    restoreFocusOnClose?: RestoreFocusOnClose;
+  };
 
-type MenuGroupProps = React.ComponentProps<typeof MenuPrimitive.Group>
+type MenuGroupProps = React.ComponentProps<typeof MenuPrimitive.Group>;
 
 type MenuLabelProps = React.ComponentProps<typeof MenuPrimitive.GroupLabel> & {
-  inset?: boolean
-}
+  inset?: boolean;
+};
 
 type MenuItemProps = React.ComponentProps<typeof MenuPrimitive.Item> & {
-  inset?: boolean
-  variant?: "default" | "destructive"
-}
+  inset?: boolean;
+  variant?: "default" | "destructive";
+};
 
-type MenuSubProps = React.ComponentProps<typeof MenuPrimitive.SubmenuRoot>
+type MenuSubProps = React.ComponentProps<typeof MenuPrimitive.SubmenuRoot>;
 
-type MenuSubTriggerProps = React.ComponentProps<typeof MenuPrimitive.SubmenuTrigger> & {
-  inset?: boolean
-}
+type MenuSubTriggerProps = React.ComponentProps<
+  typeof MenuPrimitive.SubmenuTrigger
+> & {
+  inset?: boolean;
+};
 
-type MenuSubContentProps = MenuContentProps
+type MenuSubContentProps = MenuContentProps;
 
-type MenuCheckboxItemProps = React.ComponentProps<typeof MenuPrimitive.CheckboxItem> & {
-  inset?: boolean
-}
+type MenuCheckboxItemProps = React.ComponentProps<
+  typeof MenuPrimitive.CheckboxItem
+> & {
+  inset?: boolean;
+};
 
-type MenuRadioGroupProps = React.ComponentProps<typeof MenuPrimitive.RadioGroup>
+type MenuRadioGroupProps = React.ComponentProps<
+  typeof MenuPrimitive.RadioGroup
+>;
 
-type MenuRadioItemProps = React.ComponentProps<typeof MenuPrimitive.RadioItem> & {
-  inset?: boolean
-}
+type MenuRadioItemProps = React.ComponentProps<
+  typeof MenuPrimitive.RadioItem
+> & {
+  inset?: boolean;
+};
 
-type MenuSeparatorProps = React.ComponentProps<typeof MenuPrimitive.Separator>
+type MenuSeparatorProps = React.ComponentProps<typeof MenuPrimitive.Separator>;
 
-type MenuShortcutProps = React.ComponentProps<"span">
+type MenuShortcutProps = React.ComponentProps<"span">;
 
 function Menu(props: MenuProps) {
-  return <MenuPrimitive.Root data-slot="menu" {...props} />
+  return <MenuPrimitive.Root data-slot="menu" {...props} />;
 }
 
 function MenuPortal(props: MenuPortalProps) {
-  return <MenuPrimitive.Portal data-slot="menu-portal" {...props} />
+  return <MenuPrimitive.Portal data-slot="menu-portal" {...props} />;
 }
 
 function MenuTrigger(props: MenuTriggerProps) {
-  return <MenuPrimitive.Trigger data-slot="menu-trigger" {...props} />
+  return <MenuPrimitive.Trigger data-slot="menu-trigger" {...props} />;
 }
 
 function MenuContent({
@@ -104,29 +112,25 @@ function MenuContent({
         />
       </MenuPrimitive.Positioner>
     </MenuPortal>
-  )
+  );
 }
 
 function MenuGroup(props: MenuGroupProps) {
-  return <MenuPrimitive.Group data-slot="menu-group" {...props} />
+  return <MenuPrimitive.Group data-slot="menu-group" {...props} />;
 }
 
-function MenuLabel({
-  className,
-  inset,
-  ...props
-}: MenuLabelProps) {
+function MenuLabel({ className, inset, ...props }: MenuLabelProps) {
   return (
     <MenuPrimitive.GroupLabel
       data-slot="menu-label"
       data-inset={inset}
       className={cn(
         "text-muted px-1.5 py-1 text-xs font-medium data-inset:pl-7",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function MenuItem({
@@ -146,11 +150,11 @@ function MenuItem({
       )}
       {...props}
     />
-  )
+  );
 }
 
 function MenuSub(props: MenuSubProps) {
-  return <MenuPrimitive.SubmenuRoot data-slot="menu-sub" {...props} />
+  return <MenuPrimitive.SubmenuRoot data-slot="menu-sub" {...props} />;
 }
 
 function MenuSubTrigger({
@@ -172,7 +176,7 @@ function MenuSubTrigger({
       {children}
       <ChevronRightIcon className="ml-auto" />
     </MenuPrimitive.SubmenuTrigger>
-  )
+  );
 }
 
 function MenuSubContent({
@@ -195,7 +199,7 @@ function MenuSubContent({
       sideOffset={sideOffset}
       {...props}
     />
-  )
+  );
 }
 
 function MenuCheckboxItem({
@@ -226,11 +230,11 @@ function MenuCheckboxItem({
       </span>
       {children}
     </MenuPrimitive.CheckboxItem>
-  )
+  );
 }
 
 function MenuRadioGroup(props: MenuRadioGroupProps) {
-  return <MenuPrimitive.RadioGroup data-slot="menu-radio-group" {...props} />
+  return <MenuPrimitive.RadioGroup data-slot="menu-radio-group" {...props} />;
 }
 
 function MenuRadioItem({
@@ -259,20 +263,17 @@ function MenuRadioItem({
       </span>
       {children}
     </MenuPrimitive.RadioItem>
-  )
+  );
 }
 
 function MenuSeparator({ className, ...props }: MenuSeparatorProps) {
   return (
     <MenuPrimitive.Separator
       data-slot="menu-separator"
-      className={cn(
-        "bg-line -mx-1 my-1 h-px",
-        className
-      )}
+      className={cn("bg-line -mx-1 my-1 h-px", className)}
       {...props}
     />
-  )
+  );
 }
 
 function MenuShortcut({ className, ...props }: MenuShortcutProps) {
@@ -285,7 +286,7 @@ function MenuShortcut({ className, ...props }: MenuShortcutProps) {
       )}
       {...props}
     />
-  )
+  );
 }
 
 export {
@@ -304,7 +305,7 @@ export {
   MenuSub,
   MenuSubTrigger,
   MenuSubContent,
-}
+};
 
 export type {
   MenuProps,
@@ -323,4 +324,4 @@ export type {
   MenuSeparatorProps,
   MenuShortcutProps,
   RestoreFocusOnClose,
-}
+};

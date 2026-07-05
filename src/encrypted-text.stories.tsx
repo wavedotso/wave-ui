@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { EncryptedText } from './encrypted-text';
+import { EncryptedText } from "./encrypted-text";
 
 const meta = {
-  title: 'Effects/EncryptedText',
+  title: "Effects/EncryptedText",
   component: EncryptedText,
 } satisfies Meta<typeof EncryptedText>;
 
@@ -29,7 +29,11 @@ export const SlowReveal: Story = {
 export const FastReveal: Story = {
   render: () => (
     <p className="text-lg font-medium">
-      <EncryptedText text="This text reveals quickly!" revealDelayMs={20} flipDelayMs={30} />
+      <EncryptedText
+        text="This text reveals quickly!"
+        revealDelayMs={20}
+        flipDelayMs={30}
+      />
     </p>
   ),
 };
@@ -45,7 +49,12 @@ export const ScrambleOnly: Story = {
 export const ScrambleOneChar: Story = {
   render: () => (
     <p className="text-lg font-medium">
-      <EncryptedText text="Subtle scramble" scrambleOnly scrambleOneChar flipDelayMs={80} />
+      <EncryptedText
+        text="Subtle scramble"
+        scrambleOnly
+        scrambleOneChar
+        flipDelayMs={80}
+      />
     </p>
   ),
 };

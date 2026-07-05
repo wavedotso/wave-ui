@@ -1,14 +1,14 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import type * as React from "react";
 
-import { RadioGroup as RadioGroupPrimitive } from "@base-ui/react/radio-group"
+import { RadioGroup as RadioGroupPrimitive } from "@base-ui/react/radio-group";
 
-import { Radio } from "./radio"
-import { cn } from "./lib/utils"
+import { Radio } from "./radio";
+import { cn } from "./lib/utils";
 
-type RadioGroupProps = React.ComponentProps<typeof RadioGroupPrimitive>
-type RadioGroupItemProps = React.ComponentProps<typeof Radio>
+type RadioGroupProps = React.ComponentProps<typeof RadioGroupPrimitive>;
+type RadioGroupItemProps = React.ComponentProps<typeof Radio>;
 
 function RadioGroup({ className, ...props }: RadioGroupProps) {
   return (
@@ -17,17 +17,12 @@ function RadioGroup({ className, ...props }: RadioGroupProps) {
       className={cn("grid w-full gap-2", className)}
       {...props}
     />
-  )
+  );
 }
 
 function RadioGroupItem({ ...props }: RadioGroupItemProps) {
-  return (
-    <Radio
-      data-slot="radio-group-item"
-      {...props}
-    />
-  )
+  return <Radio data-slot="radio-group-item" {...props} />;
 }
 
-export { RadioGroup, RadioGroupItem }
-export type { RadioGroupProps, RadioGroupItemProps }
+export { RadioGroup, RadioGroupItem };
+export type { RadioGroupProps, RadioGroupItemProps };

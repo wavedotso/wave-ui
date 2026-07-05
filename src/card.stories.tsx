@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import {
   Card,
@@ -8,18 +8,18 @@ import {
   CardContent,
   CardFooter,
   CardAction,
-} from './card';
-import { Button } from './button';
-import { Input } from './input';
-import { Label } from './label';
+} from "./card";
+import { Button } from "./button";
+import { Input } from "./input";
+import { Label } from "./label";
 
 const meta = {
-  title: 'Layout/Card',
+  title: "Layout/Card",
   component: Card,
   argTypes: {
     size: {
-      control: 'select',
-      options: ['default', 'sm'],
+      control: "select",
+      options: ["default", "sm"],
     },
   },
 } satisfies Meta<typeof Card>;
@@ -32,13 +32,17 @@ export const Default: Story = {
     <Card {...args} className="w-[380px]">
       <CardHeader>
         <CardTitle>Card Title</CardTitle>
-        <CardDescription>Card description with supporting text.</CardDescription>
+        <CardDescription>
+          Card description with supporting text.
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <p>Card content goes here.</p>
       </CardContent>
       <CardFooter>
-        <Button variant="default" className="w-full">Action</Button>
+        <Button variant="default" className="w-full">
+          Action
+        </Button>
       </CardFooter>
     </Card>
   ),
@@ -51,7 +55,9 @@ export const WithAction: Story = {
         <CardTitle>Notifications</CardTitle>
         <CardDescription>You have 3 unread messages.</CardDescription>
         <CardAction>
-          <Button variant="outline" size="sm">Mark all read</Button>
+          <Button variant="outline" size="sm">
+            Mark all read
+          </Button>
         </CardAction>
       </CardHeader>
       <CardContent>
@@ -89,7 +95,7 @@ export const WithForm: Story = {
 };
 
 export const Small: Story = {
-  args: { size: 'sm' },
+  args: { size: "sm" },
   render: (args) => (
     <Card {...args} className="w-[320px]">
       <CardHeader>

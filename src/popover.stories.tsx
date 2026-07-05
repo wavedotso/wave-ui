@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import {
   Popover,
@@ -9,11 +9,11 @@ import {
   PopoverPortal,
   PopoverTitle,
   PopoverTrigger,
-} from './popover';
-import { Button } from './button';
+} from "./popover";
+import { Button } from "./button";
 
 const meta = {
-  title: 'Overlay/Popover',
+  title: "Overlay/Popover",
   component: Popover,
 } satisfies Meta<typeof Popover>;
 
@@ -109,8 +109,8 @@ export const WithBackdrop: Story = {
         <PopoverHeader>
           <PopoverTitle>Dimmed background</PopoverTitle>
           <PopoverDescription>
-            The backdrop darkens the page behind this popover to focus
-            attention on it.
+            The backdrop darkens the page behind this popover to focus attention
+            on it.
           </PopoverDescription>
         </PopoverHeader>
       </PopoverContent>

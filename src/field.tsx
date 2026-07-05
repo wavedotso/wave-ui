@@ -1,20 +1,22 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Field as FieldPrimitive } from "@base-ui/react/field"
+import type * as React from "react";
+import { Field as FieldPrimitive } from "@base-ui/react/field";
 
-import { cn } from "./lib/utils"
+import { cn } from "./lib/utils";
 
-type FieldProps = React.ComponentProps<typeof FieldPrimitive.Root>
-type FieldLabelProps = React.ComponentProps<typeof FieldPrimitive.Label>
-type FieldDescriptionProps = React.ComponentProps<typeof FieldPrimitive.Description>
-type FieldItemProps = React.ComponentProps<typeof FieldPrimitive.Item>
-type FieldErrorProps = React.ComponentProps<typeof FieldPrimitive.Error>
-type FieldValidityProps = React.ComponentProps<typeof FieldPrimitive.Validity>
+type FieldProps = React.ComponentProps<typeof FieldPrimitive.Root>;
+type FieldLabelProps = React.ComponentProps<typeof FieldPrimitive.Label>;
+type FieldDescriptionProps = React.ComponentProps<
+  typeof FieldPrimitive.Description
+>;
+type FieldItemProps = React.ComponentProps<typeof FieldPrimitive.Item>;
+type FieldErrorProps = React.ComponentProps<typeof FieldPrimitive.Error>;
+type FieldValidityProps = React.ComponentProps<typeof FieldPrimitive.Validity>;
 
 // `ref` matters here for React Hook Form / focus management; it flows
 // through to the control via standard prop forwarding (React 19).
-type FieldControlProps = React.ComponentProps<typeof FieldPrimitive.Control>
+type FieldControlProps = React.ComponentProps<typeof FieldPrimitive.Control>;
 
 function Field({ className, ...props }: FieldProps) {
   return (
@@ -22,11 +24,11 @@ function Field({ className, ...props }: FieldProps) {
       data-slot="field"
       className={cn(
         "grid w-full gap-2 data-[invalid]:text-destructive",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function FieldLabel({ className, ...props }: FieldLabelProps) {
@@ -39,7 +41,7 @@ function FieldLabel({ className, ...props }: FieldLabelProps) {
       )}
       {...props}
     />
-  )
+  );
 }
 
 function FieldControl({ className, ...props }: FieldControlProps) {
@@ -54,7 +56,7 @@ function FieldControl({ className, ...props }: FieldControlProps) {
       )}
       {...props}
     />
-  )
+  );
 }
 
 function FieldDescription({ className, ...props }: FieldDescriptionProps) {
@@ -64,11 +66,11 @@ function FieldDescription({ className, ...props }: FieldDescriptionProps) {
       className={cn(
         "text-muted text-left text-sm leading-normal font-normal",
         "[&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function FieldItem({ className, ...props }: FieldItemProps) {
@@ -78,7 +80,7 @@ function FieldItem({ className, ...props }: FieldItemProps) {
       className={cn("flex items-center gap-2", className)}
       {...props}
     />
-  )
+  );
 }
 
 function FieldError({ className, ...props }: FieldErrorProps) {
@@ -88,11 +90,11 @@ function FieldError({ className, ...props }: FieldErrorProps) {
       className={cn("text-destructive text-sm font-normal", className)}
       {...props}
     />
-  )
+  );
 }
 
 // Base UI's Validity does not accept `className`/`ref` (and we don't need to style it yet), so we export it as-is.
-const FieldValidity = FieldPrimitive.Validity
+const FieldValidity = FieldPrimitive.Validity;
 
 export {
   Field,
@@ -103,7 +105,7 @@ export {
   FieldError,
   FieldValidity,
   FieldPrimitive,
-}
+};
 export type {
   FieldProps,
   FieldLabelProps,
@@ -112,4 +114,4 @@ export type {
   FieldErrorProps,
   FieldValidityProps,
   FieldControlProps,
-}
+};

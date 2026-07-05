@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { mergeProps } from "@base-ui/react/merge-props"
-import { useRender } from "@base-ui/react/use-render"
-import { cva, type VariantProps } from "class-variance-authority"
+import type * as React from "react";
+import { mergeProps } from "@base-ui/react/merge-props";
+import { useRender } from "@base-ui/react/use-render";
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "./lib/utils"
-import { Separator } from "./separator"
+import { cn } from "./lib/utils";
+import { Separator } from "./separator";
 
 const buttonGroupVariants = cva(
   "has-[>[data-slot=button-group]]:gap-2 has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:rounded-r-md flex w-fit items-stretch *:focus-visible:z-10 *:focus-visible:relative [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1",
@@ -22,18 +22,15 @@ const buttonGroupVariants = cva(
     defaultVariants: {
       orientation: "horizontal",
     },
-  }
-)
+  },
+);
 
-type ButtonGroupProps = React.ComponentProps<"div"> & VariantProps<typeof buttonGroupVariants>
-type ButtonGroupTextProps = useRender.ComponentProps<"div">
-type ButtonGroupSeparatorProps = React.ComponentProps<typeof Separator>
+type ButtonGroupProps = React.ComponentProps<"div"> &
+  VariantProps<typeof buttonGroupVariants>;
+type ButtonGroupTextProps = useRender.ComponentProps<"div">;
+type ButtonGroupSeparatorProps = React.ComponentProps<typeof Separator>;
 
-function ButtonGroup({
-  className,
-  orientation,
-  ...props
-}: ButtonGroupProps) {
+function ButtonGroup({ className, orientation, ...props }: ButtonGroupProps) {
   return (
     <div
       role="group"
@@ -42,7 +39,7 @@ function ButtonGroup({
       className={cn(buttonGroupVariants({ orientation }), className)}
       {...props}
     />
-  )
+  );
 }
 
 function ButtonGroupText({
@@ -56,16 +53,16 @@ function ButtonGroupText({
       {
         className: cn(
           "bg-secondary gap-2 rounded-md border border-edge px-2.5 text-sm font-medium [&_svg:not([class*='size-'])]:size-4 flex items-center [&_svg]:pointer-events-none",
-          className
+          className,
         ),
       },
-      props
+      props,
     ),
     render,
     state: {
       slot: "button-group-text",
     },
-  })
+  });
 }
 
 function ButtonGroupSeparator({
@@ -79,11 +76,11 @@ function ButtonGroupSeparator({
       orientation={orientation}
       className={cn(
         "bg-edge relative self-stretch data-[orientation=horizontal]:mx-px data-[orientation=horizontal]:w-auto data-[orientation=vertical]:my-px data-[orientation=vertical]:h-auto",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 export {
@@ -91,9 +88,9 @@ export {
   ButtonGroupSeparator,
   ButtonGroupText,
   buttonGroupVariants,
-}
+};
 export type {
   ButtonGroupProps,
   ButtonGroupSeparatorProps,
   ButtonGroupTextProps,
-}
+};

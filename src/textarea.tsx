@@ -1,18 +1,23 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import type * as React from "react";
 
-import { cn } from "./lib/utils"
+import { cn } from "./lib/utils";
 
 type TextareaProps = Omit<React.ComponentProps<"textarea">, "onChange"> & {
-  onChange?: React.ChangeEventHandler<HTMLTextAreaElement>
-  onValueChange?: (value: string) => void
-}
+  onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
+  onValueChange?: (value: string) => void;
+};
 
-function Textarea({ className, onChange, onValueChange, ...props }: TextareaProps) {
+function Textarea({
+  className,
+  onChange,
+  onValueChange,
+  ...props
+}: TextareaProps) {
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    onChange?.(e)
-    onValueChange?.(e.target.value)
+    onChange?.(e);
+    onValueChange?.(e.target.value);
   }
 
   return (
@@ -25,9 +30,9 @@ function Textarea({ className, onChange, onValueChange, ...props }: TextareaProp
       onChange={handleChange}
       {...props}
     />
-  )
+  );
 }
 
-export { Textarea }
+export { Textarea };
 
-export type { TextareaProps }
+export type { TextareaProps };

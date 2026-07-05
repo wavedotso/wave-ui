@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Badge } from './badge';
-import { Button } from './button';
+import { Badge } from "./badge";
+import { Button } from "./button";
 import {
   Item,
   ItemActions,
@@ -13,20 +13,20 @@ import {
   ItemMedia,
   ItemSeparator,
   ItemTitle,
-} from './item';
-import { StarIcon } from './lib/internal-icons';
+} from "./item";
+import { StarIcon } from "./lib/internal-icons";
 
 const meta = {
-  title: 'Data Display/Item',
+  title: "Data Display/Item",
   component: Item,
   argTypes: {
     variant: {
-      control: 'select',
-      options: ['default', 'outline', 'muted'],
+      control: "select",
+      options: ["default", "outline", "muted"],
     },
     size: {
-      control: 'select',
-      options: ['default', 'sm', 'xs'],
+      control: "select",
+      options: ["default", "sm", "xs"],
     },
   },
 } satisfies Meta<typeof Item>;

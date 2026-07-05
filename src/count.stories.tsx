@@ -1,6 +1,6 @@
-import { useState, useCallback } from "react"
-import type { Meta, StoryObj } from "@storybook/react-vite"
-import { Count, easeOut } from "./count"
+import { useState, useCallback } from "react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Count, easeOut } from "./count";
 
 const meta = {
   title: "Effects/Count",
@@ -9,15 +9,15 @@ const meta = {
   parameters: {
     layout: "fullscreen",
   },
-} satisfies Meta<typeof Count>
+} satisfies Meta<typeof Count>;
 
-export default meta
+export default meta;
 
 // ── Helpers ──────────────────────────────────────────────────────────
 
 function Replay({ children }: { children: React.ReactNode }) {
-  const [key, setKey] = useState(0)
-  const replay = useCallback(() => setKey((k) => k + 1), [])
+  const [key, setKey] = useState(0);
+  const replay = useCallback(() => setKey((k) => k + 1), []);
 
   return (
     <div className="relative w-[800px] py-[120px] flex items-center justify-center mx-auto">
@@ -28,13 +28,18 @@ function Replay({ children }: { children: React.ReactNode }) {
         aria-label="Replay animation"
       >
         <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden>
-          <path d="M2 8a6 6 0 0 1 10.3-4.2L11 5h4V1l-1.7 1.7A8 8 0 1 0 16 8h-2a6 6 0 0 1-12 0Z" fill="currentColor" />
+          <path
+            d="M2 8a6 6 0 0 1 10.3-4.2L11 5h4V1l-1.7 1.7A8 8 0 1 0 16 8h-2a6 6 0 0 1-12 0Z"
+            fill="currentColor"
+          />
         </svg>
         Replay
       </button>
-      <div key={key} className="w-full max-w-2xl">{children}</div>
+      <div key={key} className="w-full max-w-2xl">
+        {children}
+      </div>
     </div>
-  )
+  );
 }
 
 // ── Count Up ─────────────────────────────────────────────────────────
@@ -67,7 +72,7 @@ export const CountUpDefault: StoryObj = {
       </div>
     </Replay>
   ),
-}
+};
 
 // ── Count Down ───────────────────────────────────────────────────────
 
@@ -99,7 +104,7 @@ export const CountDown: StoryObj = {
       </div>
     </Replay>
   ),
-}
+};
 
 // ── Date Countdown ───────────────────────────────────────────────────
 
@@ -107,11 +112,11 @@ export const DateCountdown: StoryObj = {
   name: "Date Countdown (live)",
   render: () => {
     // 2 hours from now
-    const twoHours = new Date(Date.now() + 2 * 60 * 60 * 1000)
+    const twoHours = new Date(Date.now() + 2 * 60 * 60 * 1000);
     // 3 days from now
-    const threeDays = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000)
+    const threeDays = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000);
     // 30 seconds from now
-    const thirtySeconds = new Date(Date.now() + 30 * 1000)
+    const thirtySeconds = new Date(Date.now() + 30 * 1000);
 
     return (
       <Replay>
@@ -120,14 +125,18 @@ export const DateCountdown: StoryObj = {
             <Count to={threeDays}>
               <span className="block text-4xl font-extrabold tabular-nums text-white font-mono" />
             </Count>
-            <span className="text-sm text-neutral-400 mt-2 block">Proposal Deadline</span>
+            <span className="text-sm text-neutral-400 mt-2 block">
+              Proposal Deadline
+            </span>
           </div>
 
           <div>
             <Count to={twoHours}>
               <span className="block text-4xl font-extrabold tabular-nums text-white font-mono" />
             </Count>
-            <span className="text-sm text-neutral-400 mt-2 block">Auction Ends</span>
+            <span className="text-sm text-neutral-400 mt-2 block">
+              Auction Ends
+            </span>
           </div>
 
           <div>
@@ -137,20 +146,22 @@ export const DateCountdown: StoryObj = {
             >
               <span className="block text-4xl font-extrabold tabular-nums text-red-400 font-mono" />
             </Count>
-            <span className="text-sm text-neutral-400 mt-2 block">Expiring Soon (30s)</span>
+            <span className="text-sm text-neutral-400 mt-2 block">
+              Expiring Soon (30s)
+            </span>
           </div>
         </div>
       </Replay>
-    )
+    );
   },
-}
+};
 
 // ── Custom Date Format ───────────────────────────────────────────────
 
 export const CustomDateFormat: StoryObj = {
   name: "Custom Date Format",
   render: () => {
-    const future = new Date(Date.now() + 45 * 24 * 60 * 60 * 1000)
+    const future = new Date(Date.now() + 45 * 24 * 60 * 60 * 1000);
 
     return (
       <Replay>
@@ -162,26 +173,30 @@ export const CustomDateFormat: StoryObj = {
             >
               <span className="block text-5xl font-extrabold text-white" />
             </Count>
-            <span className="text-sm text-neutral-400 mt-2 block">Until Launch</span>
+            <span className="text-sm text-neutral-400 mt-2 block">
+              Until Launch
+            </span>
           </div>
 
           <div>
             <Count
               to={future}
               format={(ms) => {
-                const hours = Math.floor(ms / 3600000)
-                return `${hours.toLocaleString()} hours`
+                const hours = Math.floor(ms / 3600000);
+                return `${hours.toLocaleString()} hours`;
               }}
             >
               <span className="block text-3xl font-bold text-neutral-300" />
             </Count>
-            <span className="text-sm text-neutral-400 mt-2 block">Same deadline, different format</span>
+            <span className="text-sm text-neutral-400 mt-2 block">
+              Same deadline, different format
+            </span>
           </div>
         </div>
       </Replay>
-    )
+    );
   },
-}
+};
 
 // ── With Prefix/Suffix ───────────────────────────────────────────────
 
@@ -206,7 +221,7 @@ export const Formatting: StoryObj = {
       </div>
     </Replay>
   ),
-}
+};
 
 // ── Delay ────────────────────────────────────────────────────────────
 
@@ -226,27 +241,31 @@ export const Delay: StoryObj = {
           <Count to={2400} delay={0.4}>
             <span className="block text-4xl font-extrabold tabular-nums text-white" />
           </Count>
-          <span className="text-sm text-neutral-400 mt-2 block">0.4s delay</span>
+          <span className="text-sm text-neutral-400 mt-2 block">
+            0.4s delay
+          </span>
         </div>
 
         <div>
           <Count to={3600} delay={0.8}>
             <span className="block text-4xl font-extrabold tabular-nums text-white" />
           </Count>
-          <span className="text-sm text-neutral-400 mt-2 block">0.8s delay</span>
+          <span className="text-sm text-neutral-400 mt-2 block">
+            0.8s delay
+          </span>
         </div>
       </div>
     </Replay>
   ),
-}
+};
 
 // ── Easing ───────────────────────────────────────────────────────────
 
 // Linear: constant speed, no acceleration.
-const linear = (t: number) => t
+const linear = (t: number) => t;
 // Ease-in-out cubic: slow start, fast middle, slow finish.
 const easeInOut = (t: number) =>
-  t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
+  t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2;
 
 export const Easing: StoryObj = {
   name: "Easing",
@@ -257,7 +276,9 @@ export const Easing: StoryObj = {
           <Count to={5000} duration={2000} easing={easeOut}>
             <span className="block text-4xl font-extrabold tabular-nums text-white" />
           </Count>
-          <span className="text-sm text-neutral-400 mt-2 block">easeOut (default)</span>
+          <span className="text-sm text-neutral-400 mt-2 block">
+            easeOut (default)
+          </span>
         </div>
 
         <div>
@@ -276,7 +297,7 @@ export const Easing: StoryObj = {
       </div>
     </Replay>
   ),
-}
+};
 
 // ── Retrigger (once={false}) ─────────────────────────────────────────
 
@@ -294,14 +315,18 @@ export const Retrigger: StoryObj = {
           <Count to={2500} once>
             <span className="block text-4xl font-extrabold tabular-nums text-white" />
           </Count>
-          <span className="text-sm text-neutral-400 mt-2 block">once (default) — counts once</span>
+          <span className="text-sm text-neutral-400 mt-2 block">
+            once (default) — counts once
+          </span>
         </div>
 
         <div>
           <Count to={2500} once={false}>
             <span className="block text-4xl font-extrabold tabular-nums text-white" />
           </Count>
-          <span className="text-sm text-neutral-400 mt-2 block">once={"{false}"} — recounts on re-entry</span>
+          <span className="text-sm text-neutral-400 mt-2 block">
+            once={"{false}"} — recounts on re-entry
+          </span>
         </div>
       </div>
 
@@ -310,4 +335,4 @@ export const Retrigger: StoryObj = {
       </div>
     </div>
   ),
-}
+};

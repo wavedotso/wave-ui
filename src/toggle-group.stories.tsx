@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { ToggleGroup, ToggleGroupItem } from './toggle-group'
+import { ToggleGroup, ToggleGroupItem } from "./toggle-group";
 
 const meta = {
-  title: 'Forms/ToggleGroup',
+  title: "Forms/ToggleGroup",
   component: ToggleGroup,
-} satisfies Meta<typeof ToggleGroup>
+} satisfies Meta<typeof ToggleGroup>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: () => (
@@ -24,7 +24,7 @@ export const Default: Story = {
       </ToggleGroupItem>
     </ToggleGroup>
   ),
-}
+};
 
 export const Outline: Story = {
   render: () => (
@@ -40,7 +40,7 @@ export const Outline: Story = {
       </ToggleGroupItem>
     </ToggleGroup>
   ),
-}
+};
 
 export const Vertical: Story = {
   render: () => (
@@ -56,7 +56,7 @@ export const Vertical: Story = {
       </ToggleGroupItem>
     </ToggleGroup>
   ),
-}
+};
 
 export const WithSpacing: Story = {
   render: () => (
@@ -72,7 +72,7 @@ export const WithSpacing: Story = {
       </ToggleGroupItem>
     </ToggleGroup>
   ),
-}
+};
 
 export const Small: Story = {
   render: () => (
@@ -88,37 +88,67 @@ export const Small: Story = {
       </ToggleGroupItem>
     </ToggleGroup>
   ),
-}
+};
 
 function AlignLeftIcon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <line x1="17" x2="3" y1="10" y2="10" />
       <line x1="21" x2="3" y1="6" y2="6" />
       <line x1="21" x2="3" y1="14" y2="14" />
       <line x1="17" x2="3" y1="18" y2="18" />
     </svg>
-  )
+  );
 }
 
 function AlignCenterIcon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <line x1="18" x2="6" y1="10" y2="10" />
       <line x1="21" x2="3" y1="6" y2="6" />
       <line x1="21" x2="3" y1="14" y2="14" />
       <line x1="18" x2="6" y1="18" y2="18" />
     </svg>
-  )
+  );
 }
 
 function AlignRightIcon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <line x1="21" x2="7" y1="10" y2="10" />
       <line x1="21" x2="3" y1="6" y2="6" />
       <line x1="21" x2="3" y1="14" y2="14" />
       <line x1="21" x2="7" y1="18" y2="18" />
     </svg>
-  )
+  );
 }

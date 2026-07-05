@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Slider } from './slider';
+import { Slider } from "./slider";
 
 const meta = {
-  title: 'Forms/Slider',
+  title: "Forms/Slider",
   component: Slider,
 } satisfies Meta<typeof Slider>;
 
@@ -69,7 +69,7 @@ export const CustomRange: Story = {
 export const Vertical: Story = {
   args: {
     defaultValue: [50],
-    orientation: 'vertical',
+    orientation: "vertical",
   },
   decorators: [
     (Story) => (

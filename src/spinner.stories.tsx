@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Spinner } from './spinner';
+import { Spinner } from "./spinner";
 
 const meta = {
-  title: 'Feedback/Spinner',
+  title: "Feedback/Spinner",
   component: Spinner,
 } satisfies Meta<typeof Spinner>;
 
@@ -14,19 +14,19 @@ export const Default: Story = {};
 
 export const Large: Story = {
   args: {
-    className: 'size-8',
+    className: "size-8",
   },
 };
 
 export const ExtraLarge: Story = {
   args: {
-    className: 'size-12',
+    className: "size-12",
   },
 };
 
 export const CustomColor: Story = {
   args: {
-    className: 'size-6 text-primary',
+    className: "size-6 text-primary",
   },
 };
 

@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
-import * as React from 'react'
-import type { Meta, StoryObj } from '@storybook/react-vite'
+import * as React from "react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import {
   Pagination,
@@ -11,15 +11,15 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from './pagination'
+} from "./pagination";
 
 const meta = {
-  title: 'Navigation/Pagination',
+  title: "Navigation/Pagination",
   component: Pagination,
-} satisfies Meta<typeof Pagination>
+} satisfies Meta<typeof Pagination>;
 
-export default meta
-type Story = StoryObj
+export default meta;
+type Story = StoryObj;
 
 export const Default: Story = {
   render: () => (
@@ -51,7 +51,7 @@ export const Default: Story = {
       </PaginationContent>
     </Pagination>
   ),
-}
+};
 
 export const WithEllipsis: Story = {
   render: () => (
@@ -89,14 +89,18 @@ export const WithEllipsis: Story = {
       </PaginationContent>
     </Pagination>
   ),
-}
+};
 
 export const FirstPage: Story = {
   render: () => (
     <Pagination>
       <PaginationContent>
         <PaginationItem>
-          <PaginationPrevious href="#" aria-disabled className="pointer-events-none opacity-50" />
+          <PaginationPrevious
+            href="#"
+            aria-disabled
+            className="pointer-events-none opacity-50"
+          />
         </PaginationItem>
         <PaginationItem>
           <PaginationLink href="#" isActive>
@@ -121,7 +125,7 @@ export const FirstPage: Story = {
       </PaginationContent>
     </Pagination>
   ),
-}
+};
 
 export const LastPage: Story = {
   render: () => (
@@ -148,32 +152,43 @@ export const LastPage: Story = {
           </PaginationLink>
         </PaginationItem>
         <PaginationItem>
-          <PaginationNext href="#" aria-disabled className="pointer-events-none opacity-50" />
+          <PaginationNext
+            href="#"
+            aria-disabled
+            className="pointer-events-none opacity-50"
+          />
         </PaginationItem>
       </PaginationContent>
     </Pagination>
   ),
-}
+};
 
 function ControlledPagination() {
-  const totalPages = 10
-  const [page, setPage] = React.useState(1)
+  const totalPages = 10;
+  const [page, setPage] = React.useState(1);
 
   const getVisiblePages = () => {
     if (totalPages <= 5) {
-      return Array.from({ length: totalPages }, (_, i) => i + 1)
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
     }
 
-    if (page <= 3) return [1, 2, 3, 4, 5]
+    if (page <= 3) return [1, 2, 3, 4, 5];
     if (page >= totalPages - 2)
-      return [totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages]
+      return [
+        totalPages - 4,
+        totalPages - 3,
+        totalPages - 2,
+        totalPages - 1,
+        totalPages,
+      ];
 
-    return [page - 2, page - 1, page, page + 1, page + 2]
-  }
+    return [page - 2, page - 1, page, page + 1, page + 2];
+  };
 
-  const visiblePages = getVisiblePages()
-  const showStartEllipsis = (visiblePages[0] ?? 1) > 1
-  const showEndEllipsis = (visiblePages[visiblePages.length - 1] ?? totalPages) < totalPages
+  const visiblePages = getVisiblePages();
+  const showStartEllipsis = (visiblePages[0] ?? 1) > 1;
+  const showEndEllipsis =
+    (visiblePages[visiblePages.length - 1] ?? totalPages) < totalPages;
 
   return (
     <Pagination>
@@ -182,11 +197,13 @@ function ControlledPagination() {
           <PaginationPrevious
             href="#"
             onClick={(e) => {
-              e.preventDefault()
-              setPage((p) => Math.max(1, p - 1))
+              e.preventDefault();
+              setPage((p) => Math.max(1, p - 1));
             }}
             aria-disabled={page === 1 || undefined}
-            className={page === 1 ? 'pointer-events-none opacity-50' : undefined}
+            className={
+              page === 1 ? "pointer-events-none opacity-50" : undefined
+            }
           />
         </PaginationItem>
 
@@ -196,8 +213,8 @@ function ControlledPagination() {
               <PaginationLink
                 href="#"
                 onClick={(e) => {
-                  e.preventDefault()
-                  setPage(1)
+                  e.preventDefault();
+                  setPage(1);
                 }}
               >
                 1
@@ -215,8 +232,8 @@ function ControlledPagination() {
               href="#"
               isActive={p === page}
               onClick={(e) => {
-                e.preventDefault()
-                setPage(p)
+                e.preventDefault();
+                setPage(p);
               }}
             >
               {p}
@@ -233,8 +250,8 @@ function ControlledPagination() {
               <PaginationLink
                 href="#"
                 onClick={(e) => {
-                  e.preventDefault()
-                  setPage(totalPages)
+                  e.preventDefault();
+                  setPage(totalPages);
                 }}
               >
                 {totalPages}
@@ -247,18 +264,20 @@ function ControlledPagination() {
           <PaginationNext
             href="#"
             onClick={(e) => {
-              e.preventDefault()
-              setPage((p) => Math.min(totalPages, p + 1))
+              e.preventDefault();
+              setPage((p) => Math.min(totalPages, p + 1));
             }}
             aria-disabled={page === totalPages || undefined}
-            className={page === totalPages ? 'pointer-events-none opacity-50' : undefined}
+            className={
+              page === totalPages ? "pointer-events-none opacity-50" : undefined
+            }
           />
         </PaginationItem>
       </PaginationContent>
     </Pagination>
-  )
+  );
 }
 
 export const Controlled: Story = {
   render: () => <ControlledPagination />,
-}
+};

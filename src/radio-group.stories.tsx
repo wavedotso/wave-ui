@@ -1,16 +1,16 @@
-import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { RadioGroup, RadioGroupItem } from './radio-group'
-import { Field, FieldItem, FieldLabel, FieldDescription } from './field'
-import { Label } from './label'
+import { RadioGroup, RadioGroupItem } from "./radio-group";
+import { Field, FieldItem, FieldLabel, FieldDescription } from "./field";
+import { Label } from "./label";
 
 const meta = {
-  title: 'Forms/RadioGroup',
+  title: "Forms/RadioGroup",
   component: RadioGroup,
-} satisfies Meta<typeof RadioGroup>
+} satisfies Meta<typeof RadioGroup>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: () => (
@@ -29,7 +29,7 @@ export const Default: Story = {
       </div>
     </RadioGroup>
   ),
-}
+};
 
 export const Horizontal: Story = {
   render: () => (
@@ -48,7 +48,7 @@ export const Horizontal: Story = {
       </div>
     </RadioGroup>
   ),
-}
+};
 
 export const WithField: Story = {
   render: () => (
@@ -71,7 +71,7 @@ export const WithField: Story = {
       </RadioGroup>
     </Field>
   ),
-}
+};
 
 export const WithDisabled: Story = {
   render: () => (
@@ -92,7 +92,7 @@ export const WithDisabled: Story = {
       </div>
     </RadioGroup>
   ),
-}
+};
 
 export const Invalid: Story = {
   render: () => (
@@ -111,4 +111,4 @@ export const Invalid: Story = {
       <p className="text-destructive text-sm">Please select a plan.</p>
     </div>
   ),
-}
+};

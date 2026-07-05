@@ -1,20 +1,16 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { OTPInput, OTPInputContext } from "input-otp"
+import * as React from "react";
+import { OTPInput, OTPInputContext } from "input-otp";
 
-import { cn } from "./lib/utils"
-import { MinusIcon } from "./lib/internal-icons"
+import { cn } from "./lib/utils";
+import { MinusIcon } from "./lib/internal-icons";
 
 type InputOTPProps = React.ComponentProps<typeof OTPInput> & {
-  containerClassName?: string
-}
+  containerClassName?: string;
+};
 
-function InputOTP({
-  className,
-  containerClassName,
-  ...props
-}: InputOTPProps) {
+function InputOTP({ className, containerClassName, ...props }: InputOTPProps) {
   return (
     <OTPInput
       data-slot="input-otp"
@@ -26,10 +22,10 @@ function InputOTP({
       className={cn("disabled:cursor-not-allowed", className)}
       {...props}
     />
-  )
+  );
 }
 
-type InputOTPGroupProps = React.ComponentProps<"div">
+type InputOTPGroupProps = React.ComponentProps<"div">;
 
 function InputOTPGroup({ className, ...props }: InputOTPGroupProps) {
   return (
@@ -38,16 +34,16 @@ function InputOTPGroup({ className, ...props }: InputOTPGroupProps) {
       className={cn("flex items-center rounded-md", className)}
       {...props}
     />
-  )
+  );
 }
 
 type InputOTPSlotProps = React.ComponentProps<"div"> & {
-  index: number
-}
+  index: number;
+};
 
 function InputOTPSlot({ index, className, ...props }: InputOTPSlotProps) {
-  const inputOTPContext = React.useContext(OTPInputContext)
-  const { char, hasFakeCaret, isActive } = inputOTPContext?.slots[index] ?? {}
+  const inputOTPContext = React.useContext(OTPInputContext);
+  const { char, hasFakeCaret, isActive } = inputOTPContext?.slots[index] ?? {};
 
   return (
     <div
@@ -68,10 +64,10 @@ function InputOTPSlot({ index, className, ...props }: InputOTPSlotProps) {
         </div>
       )}
     </div>
-  )
+  );
 }
 
-type InputOTPSeparatorProps = React.ComponentProps<"div">
+type InputOTPSeparatorProps = React.ComponentProps<"div">;
 
 function InputOTPSeparator({ className, ...props }: InputOTPSeparatorProps) {
   return (
@@ -81,23 +77,18 @@ function InputOTPSeparator({ className, ...props }: InputOTPSeparatorProps) {
         "flex items-center [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
-      role="separator"
+      aria-hidden="true"
       {...props}
     >
       <MinusIcon />
     </div>
-  )
+  );
 }
 
-export {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-  InputOTPSeparator
-}
+export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator };
 export type {
   InputOTPProps,
   InputOTPGroupProps,
   InputOTPSlotProps,
-  InputOTPSeparatorProps
-}
+  InputOTPSeparatorProps,
+};

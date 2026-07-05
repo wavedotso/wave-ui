@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react-vite"
-import { GradientRevealText } from "./gradient-reveal-text"
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { GradientRevealText } from "./gradient-reveal-text";
 
 const meta: Meta<typeof GradientRevealText> = {
   title: "Effects/GradientRevealText",
@@ -25,26 +25,33 @@ const meta: Meta<typeof GradientRevealText> = {
   },
   decorators: [
     (Story) => (
-      <div style={{ width: 600, background: "black", padding: 32, borderRadius: 12 }}>
+      <div
+        style={{
+          width: 600,
+          background: "black",
+          padding: 32,
+          borderRadius: 12,
+        }}
+      >
         <Story />
       </div>
     ),
   ],
-}
-export default meta
+};
+export default meta;
 
-type Story = StoryObj<typeof GradientRevealText>
+type Story = StoryObj<typeof GradientRevealText>;
 
 export const Default: Story = {
   args: { text: "WAVE SOCIAL" },
-}
+};
 
 export const CustomColors: Story = {
   args: {
     text: "WAVE",
     colors: ["#22d3ee", "#a78bfa", "#f472b6"],
   },
-}
+};
 
 export const SmoothFollow: Story = {
   name: "Smooth Spotlight",
@@ -53,7 +60,7 @@ export const SmoothFollow: Story = {
     duration: 2,
     spotlightSize: 0.8,
   },
-}
+};
 
 export const LargeSpotlight: Story = {
   args: {
@@ -61,7 +68,7 @@ export const LargeSpotlight: Story = {
     spotlightSize: 1.5,
     hoverOpacity: 0.5,
   },
-}
+};
 
 export const ThickStroke: Story = {
   name: "Thick Stroke",
@@ -70,7 +77,7 @@ export const ThickStroke: Story = {
     strokeWidth: 4,
     baseOpacity: 0.4,
   },
-}
+};
 
 export const CustomBaseColor: Story = {
   name: "Custom Base Color",
@@ -79,7 +86,7 @@ export const CustomBaseColor: Story = {
     baseColor: "#0074de",
     baseOpacity: 0.5,
   },
-}
+};
 
 export const OnLightBackground: Story = {
   name: "Light Background",
@@ -89,9 +96,16 @@ export const OnLightBackground: Story = {
   },
   decorators: [
     (Story) => (
-      <div style={{ width: 600, background: "white", padding: 32, borderRadius: 12 }}>
+      <div
+        style={{
+          width: 600,
+          background: "white",
+          padding: 32,
+          borderRadius: 12,
+        }}
+      >
         <Story />
       </div>
     ),
   ],
-}
+};

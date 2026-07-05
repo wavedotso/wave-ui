@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { ScrollArea, ScrollBar } from './scroll-area';
-import { Separator } from './separator';
+import { ScrollArea, ScrollBar } from "./scroll-area";
+import { Separator } from "./separator";
 
 const meta = {
-  title: 'Layout/ScrollArea',
+  title: "Layout/ScrollArea",
   component: ScrollArea,
 } satisfies Meta<typeof ScrollArea>;
 
@@ -53,7 +53,9 @@ export const Both: Story = {
       <div className="p-4" style={{ width: 600 }}>
         {Array.from({ length: 30 }, (_, i) => (
           <p key={i} className="text-sm leading-relaxed">
-            Line {i + 1} — This is a long line of text to demonstrate both vertical and horizontal scrollbars working together in the scroll area component.
+            Line {i + 1} — This is a long line of text to demonstrate both
+            vertical and horizontal scrollbars working together in the scroll
+            area component.
           </p>
         ))}
       </div>

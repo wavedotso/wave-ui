@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import {
   Sidebar,
@@ -24,13 +24,13 @@ import {
   SidebarSeparator,
   SidebarTrigger,
   useSidebar,
-} from './sidebar';
+} from "./sidebar";
 
 const meta = {
-  title: 'Layout/Sidebar',
+  title: "Layout/Sidebar",
   component: Sidebar,
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
 } satisfies Meta<typeof Sidebar>;
 
@@ -42,8 +42,8 @@ type Story = StoryObj<typeof meta>;
 // ---------------------------------------------------------------------------
 
 const SIDEBAR_STYLE = {
-  '--sidebar-width': '15rem',
-  '--sidebar-width-icon': '3.75rem',
+  "--sidebar-width": "15rem",
+  "--sidebar-width-icon": "3.75rem",
 } as React.CSSProperties;
 
 // ---------------------------------------------------------------------------
@@ -52,7 +52,17 @@ const SIDEBAR_STYLE = {
 
 function PlusIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="size-4" {...props}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="size-4"
+      {...props}
+    >
       <path d="M5 12h14" />
       <path d="M12 5v14" />
     </svg>
@@ -61,7 +71,17 @@ function PlusIcon(props: React.SVGProps<SVGSVGElement>) {
 
 function HomeIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="size-4" {...props}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="size-4"
+      {...props}
+    >
       <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
       <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
     </svg>
@@ -70,7 +90,17 @@ function HomeIcon(props: React.SVGProps<SVGSVGElement>) {
 
 function InboxIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="size-4" {...props}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="size-4"
+      {...props}
+    >
       <polyline points="22 12 16 12 14 15 10 15 8 12 2 12" />
       <path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" />
     </svg>
@@ -79,7 +109,17 @@ function InboxIcon(props: React.SVGProps<SVGSVGElement>) {
 
 function CalendarIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="size-4" {...props}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="size-4"
+      {...props}
+    >
       <path d="M8 2v4" />
       <path d="M16 2v4" />
       <rect width="18" height="18" x="3" y="4" rx="2" />
@@ -90,7 +130,17 @@ function CalendarIcon(props: React.SVGProps<SVGSVGElement>) {
 
 function SearchIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="size-4" {...props}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="size-4"
+      {...props}
+    >
       <circle cx="11" cy="11" r="8" />
       <path d="m21 21-4.3-4.3" />
     </svg>
@@ -99,7 +149,17 @@ function SearchIcon(props: React.SVGProps<SVGSVGElement>) {
 
 function SettingsIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="size-4" {...props}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="size-4"
+      {...props}
+    >
       <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
       <circle cx="12" cy="12" r="3" />
     </svg>
@@ -108,7 +168,17 @@ function SettingsIcon(props: React.SVGProps<SVGSVGElement>) {
 
 function MoreHorizontalIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="size-4" {...props}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="size-4"
+      {...props}
+    >
       <circle cx="12" cy="12" r="1" />
       <circle cx="19" cy="12" r="1" />
       <circle cx="5" cy="12" r="1" />
@@ -118,7 +188,17 @@ function MoreHorizontalIcon(props: React.SVGProps<SVGSVGElement>) {
 
 function ChevronRightIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="size-4" {...props}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="size-4"
+      {...props}
+    >
       <path d="m9 18 6-6-6-6" />
     </svg>
   );
@@ -129,18 +209,18 @@ function ChevronRightIcon(props: React.SVGProps<SVGSVGElement>) {
 // ---------------------------------------------------------------------------
 
 const NAV_ITEMS = [
-  { label: 'Home', icon: HomeIcon },
-  { label: 'Inbox', icon: InboxIcon, badge: '12' },
-  { label: 'Calendar', icon: CalendarIcon },
-  { label: 'Search', icon: SearchIcon },
-  { label: 'Settings', icon: SettingsIcon },
+  { label: "Home", icon: HomeIcon },
+  { label: "Inbox", icon: InboxIcon, badge: "12" },
+  { label: "Calendar", icon: CalendarIcon },
+  { label: "Search", icon: SearchIcon },
+  { label: "Settings", icon: SettingsIcon },
 ];
 
 const PROJECTS = [
-  { name: 'Design System', emoji: '🎨' },
-  { name: 'Mobile App', emoji: '📱' },
-  { name: 'Marketing Site', emoji: '🌐' },
-  { name: 'API Platform', emoji: '🔗' },
+  { name: "Design System", emoji: "🎨" },
+  { name: "Mobile App", emoji: "📱" },
+  { name: "Marketing Site", emoji: "🌐" },
+  { name: "API Platform", emoji: "🔗" },
 ];
 
 // ---------------------------------------------------------------------------
@@ -149,7 +229,14 @@ const PROJECTS = [
 
 function WaveLogomarkIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 176 144" fill="none" stroke="currentColor" strokeWidth="12" aria-label="Wave" {...props}>
+    <svg
+      viewBox="0 0 176 144"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="12"
+      aria-label="Wave"
+      {...props}
+    >
       <path d="M88 30c32.033 0 58-5.373 58-12S120.033 6 88 6c-32.032 0-58 5.373-58 12s25.968 12 58 12Z" />
       <path d="M88 84c45.287 0 82-5.373 82-12s-36.713-12-82-12S6 65.373 6 72s36.713 12 82 12Z" />
       <path d="M88 138c32.033 0 58-5.373 58-12s-25.967-12-58-12c-32.032 0-58 5.373-58 12s25.968 12 58 12Z" />
@@ -160,7 +247,7 @@ function WaveLogomarkIcon(props: React.SVGProps<SVGSVGElement>) {
 /** Trigger that only renders when the sidebar is collapsed. */
 function CollapsedTrigger() {
   const { state } = useSidebar();
-  if (state !== 'collapsed') return null;
+  if (state !== "collapsed") return null;
   return <SidebarTrigger />;
 }
 
@@ -209,7 +296,10 @@ export const Default: Story = {
               <SidebarMenu>
                 {NAV_ITEMS.map((item) => (
                   <SidebarMenuItem key={item.label}>
-                    <SidebarMenuButton isActive={item.label === 'Home'} tooltip={item.label}>
+                    <SidebarMenuButton
+                      isActive={item.label === "Home"}
+                      tooltip={item.label}
+                    >
                       <item.icon />
                       <span>{item.label}</span>
                     </SidebarMenuButton>
@@ -290,9 +380,11 @@ export const IconCollapsible: Story = {
                     <div className="flex size-8 shrink-0 items-center justify-center">
                       <WaveLogomarkIcon className="size-6" />
                     </div>
-                    <span className="truncate text-sm font-medium group-data-[collapsible=icon]:hidden">Wave</span>
+                    <span className="truncate text-sm font-medium group-data-[collapsible=icon]:hidden">
+                      Wave
+                    </span>
                   </SidebarMenuButton>
-              </SidebarMenuItem>
+                </SidebarMenuItem>
               </SidebarMenu>
               <SidebarTrigger className="text-muted group-data-[collapsible=icon]:hidden" />
             </div>
@@ -304,9 +396,14 @@ export const IconCollapsible: Story = {
               <SidebarMenu>
                 {NAV_ITEMS.map((item) => (
                   <SidebarMenuItem key={item.label}>
-                    <SidebarMenuButton isActive={item.label === 'Home'} tooltip={item.label}>
+                    <SidebarMenuButton
+                      isActive={item.label === "Home"}
+                      tooltip={item.label}
+                    >
                       <item.icon />
-                      <span className="group-data-[collapsible=icon]:hidden">{item.label}</span>
+                      <span className="group-data-[collapsible=icon]:hidden">
+                        {item.label}
+                      </span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
@@ -322,7 +419,9 @@ export const IconCollapsible: Story = {
                 <div className="bg-secondary flex size-8 items-center justify-center rounded-full text-xs">
                   S
                 </div>
-                <span className="group-data-[collapsible=icon]:hidden">Saulo</span>
+                <span className="group-data-[collapsible=icon]:hidden">
+                  Saulo
+                </span>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
@@ -355,7 +454,9 @@ export const Floating: Story = {
                   <div className="flex size-8 shrink-0 items-center justify-center">
                     <WaveLogomarkIcon className="size-6" />
                   </div>
-                  <span className="truncate text-sm font-medium group-data-[collapsible=icon]:hidden">Wave</span>
+                  <span className="truncate text-sm font-medium group-data-[collapsible=icon]:hidden">
+                    Wave
+                  </span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
@@ -366,9 +467,14 @@ export const Floating: Story = {
               <SidebarMenu>
                 {NAV_ITEMS.map((item) => (
                   <SidebarMenuItem key={item.label}>
-                    <SidebarMenuButton isActive={item.label === 'Home'} tooltip={item.label}>
+                    <SidebarMenuButton
+                      isActive={item.label === "Home"}
+                      tooltip={item.label}
+                    >
                       <item.icon />
-                      <span className="group-data-[collapsible=icon]:hidden">{item.label}</span>
+                      <span className="group-data-[collapsible=icon]:hidden">
+                        {item.label}
+                      </span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
@@ -401,7 +507,9 @@ export const Inset: Story = {
                 <div className="flex size-8 shrink-0 items-center justify-center">
                   <WaveLogomarkIcon className="size-6" />
                 </div>
-                <span className="truncate text-sm font-medium group-data-[collapsible=icon]:hidden">Wave</span>
+                <span className="truncate text-sm font-medium group-data-[collapsible=icon]:hidden">
+                  Wave
+                </span>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
@@ -413,7 +521,7 @@ export const Inset: Story = {
               <SidebarMenu>
                 {NAV_ITEMS.map((item) => (
                   <SidebarMenuItem key={item.label}>
-                    <SidebarMenuButton isActive={item.label === 'Home'}>
+                    <SidebarMenuButton isActive={item.label === "Home"}>
                       <item.icon />
                       <span>{item.label}</span>
                     </SidebarMenuButton>
@@ -460,7 +568,9 @@ export const RightSide: Story = {
                   <SidebarMenuItem key={item.label}>
                     <SidebarMenuButton tooltip={item.label}>
                       <item.icon />
-                      <span className="group-data-[collapsible=icon]:hidden">{item.label}</span>
+                      <span className="group-data-[collapsible=icon]:hidden">
+                        {item.label}
+                      </span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}

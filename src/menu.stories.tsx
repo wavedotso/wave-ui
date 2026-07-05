@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useState } from "react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import {
   Menu,
@@ -16,12 +16,12 @@ import {
   MenuSub,
   MenuSubTrigger,
   MenuSubContent,
-} from './menu';
-import { Button } from './button';
-import { StarIcon, TrashIcon } from './lib/internal-icons';
+} from "./menu";
+import { Button } from "./button";
+import { StarIcon, TrashIcon } from "./lib/internal-icons";
 
 const meta = {
-  title: 'Overlay/Menu',
+  title: "Overlay/Menu",
   component: Menu,
 } satisfies Meta<typeof Menu>;
 
@@ -35,18 +35,28 @@ export const Default: Story = {
       <MenuContent>
         <MenuGroup>
           <MenuLabel>My Account</MenuLabel>
-          <MenuItem>Profile<MenuShortcut>⌘P</MenuShortcut></MenuItem>
-          <MenuItem>Settings<MenuShortcut>⌘S</MenuShortcut></MenuItem>
-          <MenuItem>Keyboard shortcuts<MenuShortcut>⌘K</MenuShortcut></MenuItem>
+          <MenuItem>
+            Profile<MenuShortcut>⌘P</MenuShortcut>
+          </MenuItem>
+          <MenuItem>
+            Settings<MenuShortcut>⌘S</MenuShortcut>
+          </MenuItem>
+          <MenuItem>
+            Keyboard shortcuts<MenuShortcut>⌘K</MenuShortcut>
+          </MenuItem>
         </MenuGroup>
         <MenuSeparator />
         <MenuGroup>
           <MenuItem>Team</MenuItem>
           <MenuItem>Invite users</MenuItem>
-          <MenuItem>New team<MenuShortcut>⌘T</MenuShortcut></MenuItem>
+          <MenuItem>
+            New team<MenuShortcut>⌘T</MenuShortcut>
+          </MenuItem>
         </MenuGroup>
         <MenuSeparator />
-        <MenuItem variant="destructive">Log out<MenuShortcut>⇧⌘Q</MenuShortcut></MenuItem>
+        <MenuItem variant="destructive">
+          Log out<MenuShortcut>⇧⌘Q</MenuShortcut>
+        </MenuItem>
       </MenuContent>
     </Menu>
   ),
@@ -83,7 +93,10 @@ function CheckboxDemo() {
     <Menu>
       <MenuTrigger render={<Button variant="outline" />}>View</MenuTrigger>
       <MenuContent>
-        <MenuCheckboxItem checked={showStatusBar} onCheckedChange={setShowStatusBar}>
+        <MenuCheckboxItem
+          checked={showStatusBar}
+          onCheckedChange={setShowStatusBar}
+        >
           Status bar
         </MenuCheckboxItem>
         <MenuCheckboxItem checked={showPanel} onCheckedChange={setShowPanel}>
@@ -101,7 +114,7 @@ export const WithCheckbox: Story = {
 };
 
 function RadioDemo() {
-  const [theme, setTheme] = useState('system');
+  const [theme, setTheme] = useState("system");
 
   return (
     <Menu>
@@ -160,7 +173,9 @@ export const WithDisabled: Story = {
         <MenuItem>Duplicate</MenuItem>
         <MenuItem disabled>Archive</MenuItem>
         <MenuSeparator />
-        <MenuItem variant="destructive" disabled>Delete</MenuItem>
+        <MenuItem variant="destructive" disabled>
+          Delete
+        </MenuItem>
       </MenuContent>
     </Menu>
   ),

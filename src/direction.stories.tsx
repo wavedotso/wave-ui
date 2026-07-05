@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { DirectionProvider, useDirection } from './direction';
-import { Input } from './input';
-import { Button } from './button';
-import { Label } from './label';
+import { DirectionProvider, useDirection } from "./direction";
+import { Input } from "./input";
+import { Button } from "./button";
+import { Label } from "./label";
 
 const meta = {
-  title: 'Utilities/DirectionProvider',
+  title: "Utilities/DirectionProvider",
   component: DirectionProvider,
 } satisfies Meta<typeof DirectionProvider>;
 
@@ -16,9 +16,7 @@ type Story = StoryObj<typeof meta>;
 function DirectionIndicator() {
   const direction = useDirection();
   return (
-    <span className="text-muted text-xs font-mono">
-      direction: {direction}
-    </span>
+    <span className="text-muted text-xs font-mono">direction: {direction}</span>
   );
 }
 

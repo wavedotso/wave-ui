@@ -1,17 +1,21 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import type * as React from "react";
 
-import { Collapsible as CollapsiblePrimitive } from "@base-ui/react/collapsible"
+import { Collapsible as CollapsiblePrimitive } from "@base-ui/react/collapsible";
 
-import { cn } from "./lib/utils"
+import { cn } from "./lib/utils";
 
-type CollapsibleProps = React.ComponentProps<typeof CollapsiblePrimitive.Root>
-type CollapsibleTriggerProps = React.ComponentProps<typeof CollapsiblePrimitive.Trigger>
-type CollapsibleContentProps = React.ComponentProps<typeof CollapsiblePrimitive.Panel>
+type CollapsibleProps = React.ComponentProps<typeof CollapsiblePrimitive.Root>;
+type CollapsibleTriggerProps = React.ComponentProps<
+  typeof CollapsiblePrimitive.Trigger
+>;
+type CollapsibleContentProps = React.ComponentProps<
+  typeof CollapsiblePrimitive.Panel
+>;
 
 function Collapsible({ ...props }: CollapsibleProps) {
-  return <CollapsiblePrimitive.Root data-slot="collapsible" {...props} />
+  return <CollapsiblePrimitive.Root data-slot="collapsible" {...props} />;
 }
 
 function CollapsibleTrigger({ className, ...props }: CollapsibleTriggerProps) {
@@ -21,23 +25,19 @@ function CollapsibleTrigger({ className, ...props }: CollapsibleTriggerProps) {
       className={cn("cursor-clickable", className)}
       {...props}
     />
-  )
+  );
 }
 
 function CollapsibleContent({ ...props }: CollapsibleContentProps) {
   return (
     <CollapsiblePrimitive.Panel data-slot="collapsible-content" {...props} />
-  )
+  );
 }
 
-export {
-  Collapsible,
-  CollapsibleTrigger,
-  CollapsibleContent
-}
+export { Collapsible, CollapsibleTrigger, CollapsibleContent };
 
 export type {
   CollapsibleProps,
   CollapsibleTriggerProps,
-  CollapsibleContentProps
-}
+  CollapsibleContentProps,
+};

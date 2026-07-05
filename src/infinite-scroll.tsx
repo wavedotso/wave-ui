@@ -1,21 +1,21 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import { cn } from "./lib/utils"
-import { Spinner } from "./spinner"
+import { cn } from "./lib/utils";
+import { Spinner } from "./spinner";
 
 type InfiniteScrollProps = React.ComponentProps<"div"> & {
-  onLoadMore: () => void
-  hasMore: boolean
-  isLoading?: boolean
-  direction?: "down" | "up"
-  root?: React.RefObject<Element | null>
-  rootMargin?: string
-  threshold?: number
-  loader?: React.ReactNode
-  endMessage?: React.ReactNode
-}
+  onLoadMore: () => void;
+  hasMore: boolean;
+  isLoading?: boolean;
+  direction?: "down" | "up";
+  root?: React.RefObject<Element | null>;
+  rootMargin?: string;
+  threshold?: number;
+  loader?: React.ReactNode;
+  endMessage?: React.ReactNode;
+};
 
 function InfiniteScroll({
   onLoadMore,
@@ -31,43 +31,43 @@ function InfiniteScroll({
   children,
   ...props
 }: InfiniteScrollProps) {
-  const sentinelRef = React.useRef<HTMLDivElement>(null)
+  const sentinelRef = React.useRef<HTMLDivElement>(null);
 
-  const onLoadMoreRef = React.useRef(onLoadMore)
+  const onLoadMoreRef = React.useRef(onLoadMore);
   React.useEffect(() => {
-    onLoadMoreRef.current = onLoadMore
-  }, [onLoadMore])
+    onLoadMoreRef.current = onLoadMore;
+  }, [onLoadMore]);
 
   React.useEffect(() => {
-    const sentinel = sentinelRef.current
+    const sentinel = sentinelRef.current;
     // Don't observe while a load is in flight. Re-observing when `isLoading`
     // flips back to false re-checks the sentinel's CURRENT visibility (an
     // IntersectionObserver fires an initial callback on `observe`), so a
     // sentinel that stayed in view across the load triggers the next page.
     // Without this the observer only fires on intersection *transitions* and
     // stalls once the sentinel stops moving.
-    if (!sentinel || !hasMore || isLoading) return
+    if (!sentinel || !hasMore || isLoading) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
-        const [entry] = entries
+        const [entry] = entries;
         if (entry?.isIntersecting) {
-          onLoadMoreRef.current()
+          onLoadMoreRef.current();
         }
       },
       {
         root: root?.current ?? null,
         rootMargin,
         threshold,
-      }
-    )
+      },
+    );
 
-    observer.observe(sentinel)
+    observer.observe(sentinel);
 
     return () => {
-      observer.disconnect()
-    }
-  }, [hasMore, isLoading, root, rootMargin, threshold])
+      observer.disconnect();
+    };
+  }, [hasMore, isLoading, root, rootMargin, threshold]);
 
   const loaderContent = isLoading && (
     <div
@@ -76,7 +76,7 @@ function InfiniteScroll({
     >
       {loader ?? <Spinner className="size-6 text-muted" />}
     </div>
-  )
+  );
 
   const endContent = !hasMore && !isLoading && endMessage && (
     <div
@@ -85,7 +85,7 @@ function InfiniteScroll({
     >
       {endMessage}
     </div>
-  )
+  );
 
   const sentinel = (
     <div
@@ -94,7 +94,7 @@ function InfiniteScroll({
       aria-hidden="true"
       className="h-px"
     />
-  )
+  );
 
   return (
     <div
@@ -121,8 +121,8 @@ function InfiniteScroll({
         </>
       )}
     </div>
-  )
+  );
 }
 
-export { InfiniteScroll }
-export type { InfiniteScrollProps }
+export { InfiniteScroll };
+export type { InfiniteScrollProps };

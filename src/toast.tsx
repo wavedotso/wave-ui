@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Toast as ToastPrimitive } from "@base-ui/react/toast"
-import { cva } from "class-variance-authority"
+import * as React from "react";
+import { Toast as ToastPrimitive } from "@base-ui/react/toast";
+import { cva } from "class-variance-authority";
 
-import { cn } from "./lib/utils"
+import { cn } from "./lib/utils";
 import {
   CloseIcon,
   SuccessCircleIcon,
@@ -12,29 +12,26 @@ import {
   AlertTriangleIcon,
   ErrorCircleIcon,
   LoaderIcon,
-} from "./lib/internal-icons"
+} from "./lib/internal-icons";
 
 // ---------------------------------------------------------------------------
 // Styles
 // ---------------------------------------------------------------------------
 
 const toastRootClass =
-  "bg-elevated text-contrast ring-contrast/10 rounded-md p-4 text-sm shadow-md ring-1 outline-hidden"
+  "bg-elevated text-contrast ring-contrast/10 rounded-md p-4 text-sm shadow-md ring-1 outline-hidden";
 
-const toastIconVariants = cva(
-  "mt-0.5 size-4 shrink-0",
-  {
-    variants: {
-      type: {
-        loading: "text-muted animate-spin",
-        success: "text-success",
-        info: "text-info",
-        warning: "text-warning",
-        error: "text-destructive",
-      },
+const toastIconVariants = cva("mt-0.5 size-4 shrink-0", {
+  variants: {
+    type: {
+      loading: "text-muted animate-spin",
+      success: "text-success",
+      info: "text-info",
+      warning: "text-warning",
+      error: "text-destructive",
     },
-  }
-)
+  },
+});
 
 const toastViewportVariants = cva(
   "fixed z-[100] flex w-full outline-hidden sm:max-w-sm",
@@ -53,24 +50,24 @@ const toastViewportVariants = cva(
       position: "bottom-right",
     },
   },
-)
+);
 
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
 
-type ToastType = "loading" | "success" | "info" | "warning" | "error"
+type ToastType = "loading" | "success" | "info" | "warning" | "error";
 
 type ToastOptions = {
-  title?: string
-  description?: string
-  type?: ToastType
-  timeout?: number
-  priority?: "low" | "high"
-  actionProps?: React.ComponentPropsWithoutRef<"button">
-  onClose?: () => void
-  onRemove?: () => void
-}
+  title?: string;
+  description?: string;
+  type?: ToastType;
+  timeout?: number;
+  priority?: "low" | "high";
+  actionProps?: React.ComponentPropsWithoutRef<"button">;
+  onClose?: () => void;
+  onRemove?: () => void;
+};
 
 type ToasterPosition =
   | "top-left"
@@ -78,34 +75,36 @@ type ToasterPosition =
   | "top-right"
   | "bottom-left"
   | "bottom-center"
-  | "bottom-right"
+  | "bottom-right";
 
 type ToasterProps = {
-  position?: ToasterPosition
-  limit?: number
-  timeout?: number
-}
+  position?: ToasterPosition;
+  limit?: number;
+  timeout?: number;
+};
 
-type ToastProps = React.ComponentProps<typeof ToastPrimitive.Root>
-type ToastIconProps = { type?: ToastType }
-type ToastTitleProps = React.ComponentProps<typeof ToastPrimitive.Title>
-type ToastDescriptionProps = React.ComponentProps<typeof ToastPrimitive.Description>
-type ToastActionProps = React.ComponentProps<typeof ToastPrimitive.Action>
-type ToastCloseProps = React.ComponentProps<typeof ToastPrimitive.Close>
+type ToastProps = React.ComponentProps<typeof ToastPrimitive.Root>;
+type ToastIconProps = { type?: ToastType };
+type ToastTitleProps = React.ComponentProps<typeof ToastPrimitive.Title>;
+type ToastDescriptionProps = React.ComponentProps<
+  typeof ToastPrimitive.Description
+>;
+type ToastActionProps = React.ComponentProps<typeof ToastPrimitive.Action>;
+type ToastCloseProps = React.ComponentProps<typeof ToastPrimitive.Close>;
 
 // ---------------------------------------------------------------------------
 // Toast manager API
 // ---------------------------------------------------------------------------
 
-const toastManager = ToastPrimitive.createToastManager()
+const toastManager = ToastPrimitive.createToastManager();
 
 const toast = Object.assign(
   (titleOrOptions: string | ToastOptions) => {
     const options =
       typeof titleOrOptions === "string"
         ? { title: titleOrOptions }
-        : titleOrOptions
-    return toastManager.add(options)
+        : titleOrOptions;
+    return toastManager.add(options);
   },
   {
     success: (title: string, options?: Omit<ToastOptions, "type" | "title">) =>
@@ -135,7 +134,7 @@ const toast = Object.assign(
 
     promise: toastManager.promise.bind(toastManager),
   },
-)
+);
 
 // ---------------------------------------------------------------------------
 // Icons
@@ -147,7 +146,7 @@ const iconMap = {
   info: InfoCircleIcon,
   warning: AlertTriangleIcon,
   error: ErrorCircleIcon,
-} as const
+} as const;
 
 const toastTypeLabels: Record<ToastType, string> = {
   loading: "Loading",
@@ -155,14 +154,14 @@ const toastTypeLabels: Record<ToastType, string> = {
   info: "Information",
   warning: "Warning",
   error: "Error",
-}
+};
 
 function ToastIcon({ type }: ToastIconProps) {
   // `type` is a plain string at runtime (the manager accepts arbitrary values),
   // so guard against unknown keys — an unrecognized type renders nothing rather
   // than dereferencing an undefined icon component and throwing.
-  if (!type || !(type in iconMap)) return null
-  const Icon = iconMap[type]
+  if (!type || !(type in iconMap)) return null;
+  const Icon = iconMap[type];
   return (
     <>
       <Icon className={cn(toastIconVariants({ type }))} />
@@ -170,7 +169,7 @@ function ToastIcon({ type }: ToastIconProps) {
        * isn't conveyed by color alone. */}
       <span className="sr-only">{toastTypeLabels[type]}</span>
     </>
-  )
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -184,7 +183,7 @@ function Toast({ className, ...props }: ToastProps) {
       className={cn(toastRootClass, className)}
       {...props}
     />
-  )
+  );
 }
 
 function ToastBody({ className, ...props }: React.ComponentProps<"div">) {
@@ -194,7 +193,7 @@ function ToastBody({ className, ...props }: React.ComponentProps<"div">) {
       className={cn("flex flex-1 flex-col gap-1", className)}
       {...props}
     />
-  )
+  );
 }
 
 function ToastTitle({ className, ...props }: ToastTitleProps) {
@@ -204,7 +203,7 @@ function ToastTitle({ className, ...props }: ToastTitleProps) {
       className={cn("text-sm font-medium", className)}
       {...props}
     />
-  )
+  );
 }
 
 function ToastDescription({ className, ...props }: ToastDescriptionProps) {
@@ -214,7 +213,7 @@ function ToastDescription({ className, ...props }: ToastDescriptionProps) {
       className={cn("text-muted text-sm", className)}
       {...props}
     />
-  )
+  );
 }
 
 function ToastAction({ className, ...props }: ToastActionProps) {
@@ -227,7 +226,7 @@ function ToastAction({ className, ...props }: ToastActionProps) {
       )}
       {...props}
     />
-  )
+  );
 }
 
 function ToastClose({ className, children, ...props }: ToastCloseProps) {
@@ -247,7 +246,7 @@ function ToastClose({ className, children, ...props }: ToastCloseProps) {
         </>
       )}
     </ToastPrimitive.Close>
-  )
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -284,7 +283,7 @@ const STACKING_BASE = [
   // Collapse the stacking motion under reduced motion — toasts appear and
   // restack instantly instead of sliding/scaling.
   "motion-reduce:[transition:none]",
-].join(" ")
+].join(" ");
 
 // Direction-specific classes — sign flips for anchor, offset, transform, enter/exit
 const STACKING_TOP = [
@@ -294,7 +293,7 @@ const STACKING_TOP = [
   "after:absolute after:bottom-full after:left-0 after:h-[calc(var(--toast-gap)+1px)] after:w-full after:content-['']",
   "data-[starting-style]:[transform:translateY(-150%)]",
   "[&[data-ending-style]:not([data-limited]):not([data-swipe-direction])]:[transform:translateY(-150%)]",
-].join(" ")
+].join(" ");
 
 const STACKING_BOTTOM = [
   "[--toast-stack-offset-y:calc(var(--toast-offset-y)*-1+calc(var(--toast-index)*var(--toast-gap)*-1)+var(--toast-swipe-movement-y))]",
@@ -303,18 +302,20 @@ const STACKING_BOTTOM = [
   "after:absolute after:top-full after:left-0 after:h-[calc(var(--toast-gap)+1px)] after:w-full after:content-['']",
   "data-[starting-style]:[transform:translateY(150%)]",
   "[&[data-ending-style]:not([data-limited]):not([data-swipe-direction])]:[transform:translateY(150%)]",
-].join(" ")
+].join(" ");
 
-const STACKING_TOP_CLASS = `${STACKING_BASE} ${STACKING_TOP}`
-const STACKING_BOTTOM_CLASS = `${STACKING_BASE} ${STACKING_BOTTOM}`
+const STACKING_TOP_CLASS = `${STACKING_BASE} ${STACKING_TOP}`;
+const STACKING_BOTTOM_CLASS = `${STACKING_BASE} ${STACKING_BOTTOM}`;
 
 // ---------------------------------------------------------------------------
 // Toaster
 // ---------------------------------------------------------------------------
 
-function ToasterContent({ position = "bottom-right" }: Pick<ToasterProps, "position">) {
-  const { toasts } = ToastPrimitive.useToastManager()
-  const isTop = position.startsWith("top")
+function ToasterContent({
+  position = "bottom-right",
+}: Pick<ToasterProps, "position">) {
+  const { toasts } = ToastPrimitive.useToastManager();
+  const isTop = position.startsWith("top");
 
   return (
     <ToastPrimitive.Portal>
@@ -353,7 +354,7 @@ function ToasterContent({ position = "bottom-right" }: Pick<ToasterProps, "posit
         ))}
       </ToastPrimitive.Viewport>
     </ToastPrimitive.Portal>
-  )
+  );
 }
 
 // The toast manager is a module-level singleton, so every mounted <Toaster/>
@@ -361,52 +362,52 @@ function ToasterContent({ position = "bottom-right" }: Pick<ToasterProps, "posit
 // elects a single primary Toaster (the first mounted); the rest render null.
 // Guards against a consumer accidentally rendering two, and against Storybook
 // autodocs rendering several stories — each with a Toaster — on one page.
-const mountedToasters: symbol[] = []
-const toasterListeners = new Set<() => void>()
+const mountedToasters: symbol[] = [];
+const toasterListeners = new Set<() => void>();
 
 function notifyToasters() {
   for (const listener of toasterListeners) {
-    listener()
+    listener();
   }
 }
 
 function useIsPrimaryToaster() {
-  const keyRef = React.useRef<symbol | null>(null)
+  const keyRef = React.useRef<symbol | null>(null);
   if (keyRef.current === null) {
-    keyRef.current = Symbol("toaster")
+    keyRef.current = Symbol("toaster");
   }
-  const key = keyRef.current
+  const key = keyRef.current;
 
   const isPrimary = React.useSyncExternalStore(
     React.useCallback((onChange: () => void) => {
-      toasterListeners.add(onChange)
+      toasterListeners.add(onChange);
       return () => {
-        toasterListeners.delete(onChange)
-      }
+        toasterListeners.delete(onChange);
+      };
     }, []),
     () => mountedToasters[0] === key,
     () => false,
-  )
+  );
 
   React.useEffect(() => {
-    mountedToasters.push(key)
-    notifyToasters()
+    mountedToasters.push(key);
+    notifyToasters();
     return () => {
-      const index = mountedToasters.indexOf(key)
+      const index = mountedToasters.indexOf(key);
       if (index !== -1) {
-        mountedToasters.splice(index, 1)
+        mountedToasters.splice(index, 1);
       }
-      notifyToasters()
-    }
-  }, [key])
+      notifyToasters();
+    };
+  }, [key]);
 
-  return isPrimary
+  return isPrimary;
 }
 
 function Toaster({ position, limit, timeout }: ToasterProps) {
-  const isPrimary = useIsPrimaryToaster()
+  const isPrimary = useIsPrimaryToaster();
   if (!isPrimary) {
-    return null
+    return null;
   }
   return (
     <ToastPrimitive.Provider
@@ -416,7 +417,7 @@ function Toaster({ position, limit, timeout }: ToasterProps) {
     >
       <ToasterContent position={position} />
     </ToastPrimitive.Provider>
-  )
+  );
 }
 
 export {
@@ -432,7 +433,7 @@ export {
   ToastDescription,
   ToastAction,
   ToastClose,
-}
+};
 
 export type {
   ToastType,
@@ -445,4 +446,4 @@ export type {
   ToastDescriptionProps,
   ToastActionProps,
   ToastCloseProps,
-}
+};

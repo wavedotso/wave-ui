@@ -1,6 +1,6 @@
-import { type CSSProperties, forwardRef, useState, useCallback } from "react"
-import type { Meta, StoryObj } from "@storybook/react-vite"
-import { AnimateOnView, AnimateIn, Stagger, Pulse, Float } from "./animate"
+import { type CSSProperties, forwardRef, useState, useCallback } from "react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { AnimateOnView, AnimateIn, Stagger, Pulse, Float } from "./animate";
 
 const meta: Meta = {
   title: "Effects/Animate",
@@ -21,8 +21,8 @@ const meta: Meta = {
     flip: { control: "boolean" },
     spring: { control: "boolean" },
   },
-}
-export default meta
+};
+export default meta;
 
 // ── Helpers ──────────────────────────────────────────────────────────
 
@@ -38,12 +38,12 @@ const DemoCard = forwardRef<
   >
     {label}
   </div>
-))
-DemoCard.displayName = "DemoCard"
+));
+DemoCard.displayName = "DemoCard";
 
 function Replay({ children }: { children: React.ReactNode }) {
-  const [key, setKey] = useState(0)
-  const replay = useCallback(() => setKey((k) => k + 1), [])
+  const [key, setKey] = useState(0);
+  const replay = useCallback(() => setKey((k) => k + 1), []);
 
   return (
     <div className="relative w-[800px] py-[120px] flex items-center justify-center mx-auto">
@@ -54,13 +54,18 @@ function Replay({ children }: { children: React.ReactNode }) {
         aria-label="Replay animation"
       >
         <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden>
-          <path d="M2 8a6 6 0 0 1 10.3-4.2L11 5h4V1l-1.7 1.7A8 8 0 1 0 16 8h-2a6 6 0 0 1-12 0Z" fill="currentColor" />
+          <path
+            d="M2 8a6 6 0 0 1 10.3-4.2L11 5h4V1l-1.7 1.7A8 8 0 1 0 16 8h-2a6 6 0 0 1-12 0Z"
+            fill="currentColor"
+          />
         </svg>
         Replay
       </button>
-      <div key={key} className="w-full max-w-2xl">{children}</div>
+      <div key={key} className="w-full max-w-2xl">
+        {children}
+      </div>
     </div>
-  )
+  );
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -69,7 +74,16 @@ function Replay({ children }: { children: React.ReactNode }) {
 
 export const MountAnimation: StoryObj = {
   name: "AnimateIn",
-  args: { from: "down", delay: 0, distance: 20, scale: false, blur: false, rotate: 0, flip: false, spring: false },
+  args: {
+    from: "down",
+    delay: 0,
+    distance: 20,
+    scale: false,
+    blur: false,
+    rotate: 0,
+    flip: false,
+    spring: false,
+  },
   render: (args) => (
     <Replay key={JSON.stringify(args)}>
       <div className="p-8">
@@ -79,11 +93,20 @@ export const MountAnimation: StoryObj = {
       </div>
     </Replay>
   ),
-}
+};
 
 export const OnViewAnimation: StoryObj = {
   name: "AnimateOnView",
-  args: { from: "down", delay: 0, distance: 20, scale: false, blur: false, rotate: 0, flip: false, spring: false },
+  args: {
+    from: "down",
+    delay: 0,
+    distance: 20,
+    scale: false,
+    blur: false,
+    rotate: 0,
+    flip: false,
+    spring: false,
+  },
   render: (args) => (
     <Replay key={JSON.stringify(args)}>
       <div className="p-8">
@@ -93,24 +116,28 @@ export const OnViewAnimation: StoryObj = {
       </div>
     </Replay>
   ),
-}
+};
 
 export const RepeatOnView: StoryObj = {
   name: "AnimateOnView (once={false})",
   render: () => (
     <div className="w-[800px] mx-auto py-[60px] px-8">
       <p className="mb-8 text-center text-sm text-neutral-400">
-        Scroll the card out of view and back — with <code>once={"{false}"}</code>{" "}
-        it re-animates every time it re-enters, unlike the default.
+        Scroll the card out of view and back — with{" "}
+        <code>once={"{false}"}</code> it re-animates every time it re-enters,
+        unlike the default.
       </p>
       <div className="h-[120vh]" aria-hidden />
       <AnimateOnView once={false} from="up" blur scale distance={40}>
-        <DemoCard label="I re-animate every time I scroll into view" color="#0f766e" />
+        <DemoCard
+          label="I re-animate every time I scroll into view"
+          color="#0f766e"
+        />
       </AnimateOnView>
       <div className="h-[80vh]" aria-hidden />
     </div>
   ),
-}
+};
 
 export const BlurEntrance: StoryObj = {
   name: "Blur",
@@ -129,7 +156,7 @@ export const BlurEntrance: StoryObj = {
       </div>
     </Replay>
   ),
-}
+};
 
 export const ScaleEntrance: StoryObj = {
   name: "Scale",
@@ -145,7 +172,7 @@ export const ScaleEntrance: StoryObj = {
       </div>
     </Replay>
   ),
-}
+};
 
 export const RotateEntrance: StoryObj = {
   name: "Rotate",
@@ -164,7 +191,7 @@ export const RotateEntrance: StoryObj = {
       </div>
     </Replay>
   ),
-}
+};
 
 export const FlipEntrance: StoryObj = {
   name: "Flip",
@@ -186,7 +213,7 @@ export const FlipEntrance: StoryObj = {
       </div>
     </Replay>
   ),
-}
+};
 
 export const SpringEntrance: StoryObj = {
   name: "Spring",
@@ -205,17 +232,24 @@ export const SpringEntrance: StoryObj = {
       </div>
     </Replay>
   ),
-}
+};
 
 export const CustomTransition: StoryObj = {
   name: "Custom Transition",
   render: () => (
     <Replay>
       <div className="p-8 flex flex-col gap-4">
-        <AnimateIn distance={40} transition={{ duration: 0.2, ease: "ease-out" }}>
+        <AnimateIn
+          distance={40}
+          transition={{ duration: 0.2, ease: "ease-out" }}
+        >
           <DemoCard label="Fast (0.2s, ease-out)" color="#0f766e" />
         </AnimateIn>
-        <AnimateIn distance={40} transition={{ duration: 1.2, ease: "ease-in-out" }} delay={0.2}>
+        <AnimateIn
+          distance={40}
+          transition={{ duration: 1.2, ease: "ease-in-out" }}
+          delay={0.2}
+        >
           <DemoCard label="Slow (1.2s, ease-in-out)" color="#0e7490" />
         </AnimateIn>
         <AnimateIn
@@ -228,7 +262,7 @@ export const CustomTransition: StoryObj = {
       </div>
     </Replay>
   ),
-}
+};
 
 export const ComboEntrance: StoryObj = {
   name: "Combo (Blur + Scale + Spring)",
@@ -247,7 +281,7 @@ export const ComboEntrance: StoryObj = {
       </div>
     </Replay>
   ),
-}
+};
 
 export const Directions: StoryObj = {
   name: "All Directions",
@@ -269,7 +303,7 @@ export const Directions: StoryObj = {
       </div>
     </Replay>
   ),
-}
+};
 
 export const FadeOnly: StoryObj = {
   name: "Fade Only",
@@ -282,7 +316,7 @@ export const FadeOnly: StoryObj = {
       </div>
     </Replay>
   ),
-}
+};
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // STAGGER
@@ -294,18 +328,23 @@ export const StaggeredCards: StoryObj = {
     <Replay>
       <div className="p-8">
         <div className="grid grid-cols-3 gap-4">
-          {["#ef4444", "#3b82f6", "#10b981", "#f59e0b", "#8b5cf6", "#ec4899"].map(
-            (color, i) => (
-              <AnimateIn key={color} delay={i * 0.1} from="up" distance={30}>
-                <DemoCard label={`Card ${i + 1}`} color={color} />
-              </AnimateIn>
-            ),
-          )}
+          {[
+            "#ef4444",
+            "#3b82f6",
+            "#10b981",
+            "#f59e0b",
+            "#8b5cf6",
+            "#ec4899",
+          ].map((color, i) => (
+            <AnimateIn key={color} delay={i * 0.1} from="up" distance={30}>
+              <DemoCard label={`Card ${i + 1}`} color={color} />
+            </AnimateIn>
+          ))}
         </div>
       </div>
     </Replay>
   ),
-}
+};
 
 export const StaggerComponent: StoryObj = {
   name: "Stagger (auto)",
@@ -314,19 +353,24 @@ export const StaggerComponent: StoryObj = {
       <div className="p-8">
         <div className="grid grid-cols-3 gap-4">
           <Stagger interval={0.12}>
-            {["#ef4444", "#3b82f6", "#10b981", "#f59e0b", "#8b5cf6", "#ec4899"].map(
-              (color, i) => (
-                <AnimateIn key={color} from="up" distance={30} scale>
-                  <DemoCard label={`Card ${i + 1}`} color={color} />
-                </AnimateIn>
-              ),
-            )}
+            {[
+              "#ef4444",
+              "#3b82f6",
+              "#10b981",
+              "#f59e0b",
+              "#8b5cf6",
+              "#ec4899",
+            ].map((color, i) => (
+              <AnimateIn key={color} from="up" distance={30} scale>
+                <DemoCard label={`Card ${i + 1}`} color={color} />
+              </AnimateIn>
+            ))}
           </Stagger>
         </div>
       </div>
     </Replay>
   ),
-}
+};
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // CONTINUOUS ANIMATIONS
@@ -369,7 +413,7 @@ export const PulseDefault: StoryObj = {
       </div>
     </Replay>
   ),
-}
+};
 
 export const FloatDefault: StoryObj = {
   name: "Float",
@@ -399,13 +443,13 @@ export const FloatDefault: StoryObj = {
       </div>
     </Replay>
   ),
-}
+};
 
 export const Paused: StoryObj = {
   name: "Paused (Pulse + Float)",
   render: () => {
     const PausedDemo = () => {
-      const [paused, setPaused] = useState(false)
+      const [paused, setPaused] = useState(false);
       return (
         <div className="w-[800px] mx-auto py-[80px] px-8 flex flex-col items-center gap-8">
           <button
@@ -432,11 +476,11 @@ export const Paused: StoryObj = {
             </div>
           </div>
         </div>
-      )
-    }
-    return <PausedDemo />
+      );
+    };
+    return <PausedDemo />;
   },
-}
+};
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // SHOWCASE
@@ -483,4 +527,4 @@ export const Showcase: StoryObj = {
       </div>
     </Replay>
   ),
-}
+};

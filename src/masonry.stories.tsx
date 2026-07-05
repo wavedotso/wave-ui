@@ -1,22 +1,22 @@
-import * as React from 'react'
-import type { Meta, StoryObj } from '@storybook/react-vite'
+import * as React from "react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Masonry, MasonryItem } from './masonry'
-import { InfiniteScroll } from './infinite-scroll'
-import { TrashIcon } from './lib/internal-icons'
+import { Masonry, MasonryItem } from "./masonry";
+import { InfiniteScroll } from "./infinite-scroll";
+import { TrashIcon } from "./lib/internal-icons";
 
 const meta = {
-  title: 'Layout/Masonry',
+  title: "Layout/Masonry",
   component: Masonry,
   parameters: {
-    layout: 'padded',
+    layout: "padded",
   },
-} satisfies Meta<typeof Masonry>
+} satisfies Meta<typeof Masonry>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-const HEIGHTS = [120, 180, 100, 150, 200, 110, 160, 220, 130, 90, 190, 140]
+const HEIGHTS = [120, 180, 100, 150, 200, 110, 160, 220, 130, 90, 190, 140];
 
 const COLORS = [
   "#f43f5e",
@@ -31,26 +31,27 @@ const COLORS = [
   "#ec4899",
   "#84cc16",
   "#06b6d4",
-]
+];
 
 function hexToRgba(hex: string, alpha: number): string {
-  const r = parseInt(hex.slice(1, 3), 16)
-  const g = parseInt(hex.slice(3, 5), 16)
-  const b = parseInt(hex.slice(5, 7), 16)
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
 function DemoCard({ index, height }: { index: number; height: number }) {
   return (
     <div
       className="flex flex-col items-center justify-center rounded-lg shadow-sm"
-      style={{ height, backgroundColor: hexToRgba(COLORS[index % COLORS.length]!, 0.4) }}
+      style={{
+        height,
+        backgroundColor: hexToRgba(COLORS[index % COLORS.length]!, 0.4),
+      }}
     >
-      <span className="text-sm font-semibold text-contrast">
-        {index + 1}
-      </span>
+      <span className="text-sm font-semibold text-contrast">{index + 1}</span>
     </div>
-  )
+  );
 }
 
 export const Default: Story = {
@@ -63,7 +64,7 @@ export const Default: Story = {
       ))}
     </Masonry>
   ),
-}
+};
 
 export const FixedColumns: Story = {
   render: () => (
@@ -75,7 +76,7 @@ export const FixedColumns: Story = {
       ))}
     </Masonry>
   ),
-}
+};
 
 export const Responsive: Story = {
   render: () => (
@@ -87,20 +88,28 @@ export const Responsive: Story = {
       ))}
     </Masonry>
   ),
-}
+};
 
 export const WithPromoted: Story = {
   render: () => (
     <Masonry columns={4} gap={4} className="w-full">
       {/* Promoted items — pinned at the top, span multiple columns */}
       <MasonryItem span={2}>
-        <div className="flex items-center justify-center rounded-lg border-2 border-primary/30 bg-primary/5 shadow-sm" style={{ height: 200 }}>
+        <div
+          className="flex items-center justify-center rounded-lg border-2 border-primary/30 bg-primary/5 shadow-sm"
+          style={{ height: 200 }}
+        >
           <span className="text-sm font-semibold text-primary">Featured</span>
         </div>
       </MasonryItem>
       <MasonryItem span={2}>
-        <div className="flex items-center justify-center rounded-lg border-2 border-amber-500/30 bg-amber-500/5 shadow-sm" style={{ height: 160 }}>
-          <span className="text-sm font-semibold text-amber-600 dark:text-amber-400">Promoted</span>
+        <div
+          className="flex items-center justify-center rounded-lg border-2 border-amber-500/30 bg-amber-500/5 shadow-sm"
+          style={{ height: 160 }}
+        >
+          <span className="text-sm font-semibold text-amber-600 dark:text-amber-400">
+            Promoted
+          </span>
         </div>
       </MasonryItem>
 
@@ -112,7 +121,7 @@ export const WithPromoted: Story = {
       ))}
     </Masonry>
   ),
-}
+};
 
 export const CustomGap: Story = {
   render: () => (
@@ -124,18 +133,18 @@ export const CustomGap: Story = {
       ))}
     </Masonry>
   ),
-}
+};
 
 function RemovableDemo() {
   const [items, setItems] = React.useState(() =>
     Array.from({ length: 12 }, (_, i) => ({
       id: i,
       height: HEIGHTS[i % HEIGHTS.length]!,
-    }))
-  )
+    })),
+  );
 
   function handleRemove(id: number) {
-    setItems((prev) => prev.filter((item) => item.id !== id))
+    setItems((prev) => prev.filter((item) => item.id !== id));
   }
 
   return (
@@ -162,39 +171,39 @@ function RemovableDemo() {
         </MasonryItem>
       ))}
     </Masonry>
-  )
+  );
 }
 
 export const WithRemovable: Story = {
   render: () => <RemovableDemo />,
-}
+};
 
 function InfiniteScrollDemo() {
-  const BATCH = 30
+  const BATCH = 30;
   const [items, setItems] = React.useState(() =>
     Array.from({ length: BATCH }, (_, i) => ({
       id: i,
       height: HEIGHTS[i % HEIGHTS.length]!,
-    }))
-  )
-  const [hasMore, setHasMore] = React.useState(true)
-  const [isLoading, setIsLoading] = React.useState(false)
+    })),
+  );
+  const [hasMore, setHasMore] = React.useState(true);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const loadMore = React.useCallback(() => {
-    setIsLoading(true)
+    setIsLoading(true);
     setTimeout(() => {
       setItems((prev) => {
         const next = Array.from({ length: BATCH }, (_, i) => ({
           id: prev.length + i,
           height: HEIGHTS[(prev.length + i) % HEIGHTS.length]!,
-        }))
-        const all = [...prev, ...next]
-        if (all.length >= 300) setHasMore(false)
-        return all
-      })
-      setIsLoading(false)
-    }, 600)
-  }, [])
+        }));
+        const all = [...prev, ...next];
+        if (all.length >= 300) setHasMore(false);
+        return all;
+      });
+      setIsLoading(false);
+    }, 600);
+  }, []);
 
   return (
     <InfiniteScroll
@@ -220,9 +229,9 @@ function InfiniteScrollDemo() {
         ))}
       </Masonry>
     </InfiniteScroll>
-  )
+  );
 }
 
 export const WithInfiniteScroll: Story = {
   render: () => <InfiniteScrollDemo />,
-}
+};

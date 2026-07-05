@@ -1,15 +1,15 @@
-import * as React from "react"
+import type * as React from "react";
 
-import { cn } from "./lib/utils"
+import { cn } from "./lib/utils";
 
-type TableProps = React.ComponentProps<"table">
-type TableHeaderProps = React.ComponentProps<"thead">
-type TableBodyProps = React.ComponentProps<"tbody">
-type TableFooterProps = React.ComponentProps<"tfoot">
-type TableRowProps = React.ComponentProps<"tr">
-type TableHeadProps = React.ComponentProps<"th">
-type TableCellProps = React.ComponentProps<"td">
-type TableCaptionProps = React.ComponentProps<"caption">
+type TableProps = React.ComponentProps<"table">;
+type TableHeaderProps = React.ComponentProps<"thead">;
+type TableBodyProps = React.ComponentProps<"tbody">;
+type TableFooterProps = React.ComponentProps<"tfoot">;
+type TableRowProps = React.ComponentProps<"tr">;
+type TableHeadProps = React.ComponentProps<"th">;
+type TableCellProps = React.ComponentProps<"td">;
+type TableCaptionProps = React.ComponentProps<"caption">;
 
 function Table({ className, ...props }: TableProps) {
   return (
@@ -26,7 +26,7 @@ function Table({ className, ...props }: TableProps) {
         {...props}
       />
     </div>
-  )
+  );
 }
 
 function TableHeader({ className, ...props }: TableHeaderProps) {
@@ -36,7 +36,7 @@ function TableHeader({ className, ...props }: TableHeaderProps) {
       className={cn("[&_tr]:border-b [&_tr]:border-edge", className)}
       {...props}
     />
-  )
+  );
 }
 
 function TableBody({ className, ...props }: TableBodyProps) {
@@ -46,7 +46,7 @@ function TableBody({ className, ...props }: TableBodyProps) {
       className={cn("[&_tr:last-child]:border-0", className)}
       {...props}
     />
-  )
+  );
 }
 
 function TableFooter({ className, ...props }: TableFooterProps) {
@@ -55,11 +55,11 @@ function TableFooter({ className, ...props }: TableFooterProps) {
       data-slot="table-footer"
       className={cn(
         "bg-secondary/50 border-t border-edge font-medium [&>tr]:last:border-b-0",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function TableRow({ className, ...props }: TableRowProps) {
@@ -68,11 +68,11 @@ function TableRow({ className, ...props }: TableRowProps) {
       data-slot="table-row"
       className={cn(
         "hover:bg-secondary/50 aria-selected:bg-secondary border-b border-edge transition-colors",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function TableHead({ className, ...props }: TableHeadProps) {
@@ -81,11 +81,11 @@ function TableHead({ className, ...props }: TableHeadProps) {
       data-slot="table-head"
       className={cn(
         "text-contrast h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function TableCell({ className, ...props }: TableCellProps) {
@@ -94,11 +94,11 @@ function TableCell({ className, ...props }: TableCellProps) {
       data-slot="table-cell"
       className={cn(
         "p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function TableCaption({ className, ...props }: TableCaptionProps) {
@@ -108,7 +108,7 @@ function TableCaption({ className, ...props }: TableCaptionProps) {
       className={cn("text-muted mt-4 text-sm", className)}
       {...props}
     />
-  )
+  );
 }
 
 export {
@@ -120,7 +120,7 @@ export {
   TableRow,
   TableCell,
   TableCaption,
-}
+};
 
 export type {
   TableProps,
@@ -131,4 +131,4 @@ export type {
   TableHeadProps,
   TableCellProps,
   TableCaptionProps,
-}
+};

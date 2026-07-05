@@ -1,8 +1,8 @@
-import * as React from "react"
+import type * as React from "react";
 
-import { cn } from "./lib/utils"
+import { cn } from "./lib/utils";
 
-type SkeletonProps = React.ComponentProps<"div">
+type SkeletonProps = React.ComponentProps<"div">;
 
 function Skeleton({ className, ...props }: SkeletonProps) {
   return (
@@ -11,8 +11,8 @@ function Skeleton({ className, ...props }: SkeletonProps) {
       className={cn("bg-secondary animate-pulse rounded-md", className)}
       {...props}
     />
-  )
+  );
 }
 
-export { Skeleton }
-export type { SkeletonProps }
+export { Skeleton };
+export type { SkeletonProps };

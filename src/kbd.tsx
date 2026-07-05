@@ -1,10 +1,10 @@
-import * as React from "react"
+import type * as React from "react";
 
-import { cn } from "./lib/utils"
+import { cn } from "./lib/utils";
 
-type KbdProps = React.ComponentProps<"kbd">
+type KbdProps = React.ComponentProps<"kbd">;
 
-type KbdGroupProps = React.ComponentProps<"div">
+type KbdGroupProps = React.ComponentProps<"div">;
 
 function Kbd({ className, ...props }: KbdProps) {
   return (
@@ -16,7 +16,7 @@ function Kbd({ className, ...props }: KbdProps) {
       )}
       {...props}
     />
-  )
+  );
 }
 
 function KbdGroup({ className, ...props }: KbdGroupProps) {
@@ -26,8 +26,8 @@ function KbdGroup({ className, ...props }: KbdGroupProps) {
       className={cn("inline-flex items-center gap-1", className)}
       {...props}
     />
-  )
+  );
 }
 
-export { Kbd, KbdGroup }
-export type { KbdProps, KbdGroupProps }
+export { Kbd, KbdGroup };
+export type { KbdProps, KbdGroupProps };

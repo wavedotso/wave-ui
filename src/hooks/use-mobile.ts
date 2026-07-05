@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import * as React from "react";
 
@@ -11,7 +11,7 @@ const DEFAULT_MOBILE_BREAKPOINT = 768;
  */
 export function useIsMobile(breakpoint: number = DEFAULT_MOBILE_BREAKPOINT) {
   const [isMobile, setIsMobile] = React.useState(() => {
-    if (typeof window === 'undefined') return false;
+    if (typeof window === "undefined") return false;
     return window.innerWidth < breakpoint;
   });
 

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   type ReactElement,
@@ -8,68 +8,68 @@ import {
   useEffect,
   useRef,
   useState,
-} from "react"
-import { useInView, useReducedMotion } from "motion/react"
+} from "react";
+import { useInView, useReducedMotion } from "motion/react";
 
 // ── Types ────────────────────────────────────────────────────────────
 
 interface CountProps {
   /** Target number or Date to count to */
-  to: number | Date
+  to: number | Date;
   /** Starting number. Default: 0. Ignored when `to` is a Date. */
-  from?: number
+  from?: number;
   /** Animation duration in milliseconds. Default: 900. Ignored when `to` is a Date. */
-  duration?: number
+  duration?: number;
   /** Delay before starting in seconds. Default: 0 */
-  delay?: number
+  delay?: number;
   /**
    * Format the value for display.
    * - For numbers: receives the current interpolated number.
    * - For dates: receives remaining milliseconds.
    * Default: toLocaleString() for numbers, dd:hh:mm:ss for dates.
    */
-  format?: (value: number) => string
+  format?: (value: number) => string;
   /** Prefix string (e.g., "$"). Default: '' */
-  prefix?: string
+  prefix?: string;
   /** Suffix string (e.g., "%", "+"). Default: '' */
-  suffix?: string
+  suffix?: string;
   /** Element to render into. Receives the formatted value as children. */
-  children: ReactElement
+  children: ReactElement;
   /** Trigger once. Default: true */
-  once?: boolean
+  once?: boolean;
   /** Easing function. Default: easeOut. Ignored when `to` is a Date. */
-  easing?: (t: number) => number
+  easing?: (t: number) => number;
   /** Called when the count finishes (reaches target or date passes). */
-  onComplete?: () => void
+  onComplete?: () => void;
 }
 
 /** @deprecated Use `Count` instead. `CountUp` is an alias kept for backwards compatibility. */
-type CountUpProps = CountProps
+type CountUpProps = CountProps;
 
 // ── Easing ───────────────────────────────────────────────────────────
 
 /** Cubic ease-out: fast start, smooth deceleration */
 function easeOut(t: number): number {
-  return 1 - Math.pow(1 - t, 3)
+  return 1 - (1 - t) ** 3;
 }
 
 // ── Date Formatting ──────────────────────────────────────────────────
 
 function formatCountdown(ms: number): string {
-  if (ms <= 0) return "00:00:00"
+  if (ms <= 0) return "00:00:00";
 
-  const totalSeconds = Math.floor(ms / 1000)
-  const days = Math.floor(totalSeconds / 86400)
-  const hours = Math.floor((totalSeconds % 86400) / 3600)
-  const minutes = Math.floor((totalSeconds % 3600) / 60)
-  const seconds = totalSeconds % 60
+  const totalSeconds = Math.floor(ms / 1000);
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
 
-  const pad = (n: number) => String(n).padStart(2, "0")
+  const pad = (n: number) => String(n).padStart(2, "0");
 
   if (days > 0) {
-    return `${days}d ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`
+    return `${days}d ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
   }
-  return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`
+  return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
 }
 
 // ── Ref Merge ────────────────────────────────────────────────────────
@@ -79,12 +79,12 @@ function mergeRef(
   externalRef?: Ref<HTMLElement>,
 ) {
   return (el: HTMLElement | null) => {
-    ;(internalRef as { current: HTMLElement | null }).current = el
-    if (typeof externalRef === "function") externalRef(el)
+    (internalRef as { current: HTMLElement | null }).current = el;
+    if (typeof externalRef === "function") externalRef(el);
     else if (externalRef && typeof externalRef === "object") {
-      ;(externalRef as { current: HTMLElement | null }).current = el
+      (externalRef as { current: HTMLElement | null }).current = el;
     }
-  }
+  };
 }
 
 // ── Count ────────────────────────────────────────────────────────────
@@ -134,7 +134,7 @@ function Count({
   easing = easeOut,
   onComplete,
 }: CountProps) {
-  const isDate = to instanceof Date
+  const isDate = to instanceof Date;
 
   if (isDate) {
     return (
@@ -149,7 +149,7 @@ function Count({
       >
         {children}
       </DateCount>
-    )
+    );
   }
 
   return (
@@ -167,7 +167,7 @@ function Count({
     >
       {children}
     </NumberCount>
-  )
+  );
 }
 
 // ── Number Count (up or down) ────────────────────────────────────────
@@ -185,43 +185,46 @@ function NumberCount({
   easing,
   onComplete,
 }: {
-  to: number
-  from: number
-  duration: number
-  delay: number
-  format?: (value: number) => string
-  prefix: string
-  suffix: string
-  children: ReactElement
-  once: boolean
-  easing: (t: number) => number
-  onComplete?: () => void
+  to: number;
+  from: number;
+  duration: number;
+  delay: number;
+  format?: (value: number) => string;
+  prefix: string;
+  suffix: string;
+  children: ReactElement;
+  once: boolean;
+  easing: (t: number) => number;
+  onComplete?: () => void;
 }) {
-  const ref = useRef<HTMLElement>(null)
-  const isInView = useInView(ref, { once, margin: "-50px" })
-  const prefersReducedMotion = useReducedMotion()
-  const [display, setDisplay] = useState(start)
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once, margin: "-50px" });
+  const prefersReducedMotion = useReducedMotion();
+  const [display, setDisplay] = useState(start);
 
   // Keep the callbacks in refs so a parent re-render with inline `easing` /
   // `onComplete` props doesn't re-run the animation effect — which would cancel
   // the in-flight rAF and freeze the counter mid-count. The effect below keys
   // only on the values that should actually (re)start the animation, so a live
   // `to` change or a re-entry (with `once={false}`) restarts cleanly.
-  const easingRef = useRef(easing)
-  const onCompleteRef = useRef(onComplete)
+  const easingRef = useRef(easing);
+  const onCompleteRef = useRef(onComplete);
   useEffect(() => {
-    easingRef.current = easing
-    onCompleteRef.current = onComplete
-  })
+    easingRef.current = easing;
+    onCompleteRef.current = onComplete;
+  });
 
-  const formatFn = format ?? ((n: number) =>
-    Number.isInteger(to) ? Math.round(n).toLocaleString() : n.toLocaleString()
-  )
+  const formatFn =
+    format ??
+    ((n: number) =>
+      Number.isInteger(to)
+        ? Math.round(n).toLocaleString()
+        : n.toLocaleString());
 
   useEffect(() => {
-    if (!isInView) return
+    if (!isInView) return;
 
-    const delayMs = delay * 1000
+    const delayMs = delay * 1000;
 
     // Vestibular safety: skip the count-up/down tween entirely under
     // prefers-reduced-motion and snap to the final value. We still honor the
@@ -229,50 +232,50 @@ function NumberCount({
     // resting state and lifecycle of the animated path.
     if (prefersReducedMotion) {
       const timer = setTimeout(() => {
-        setDisplay(to)
-        onCompleteRef.current?.()
-      }, delayMs)
+        setDisplay(to);
+        onCompleteRef.current?.();
+      }, delayMs);
 
-      return () => clearTimeout(timer)
+      return () => clearTimeout(timer);
     }
 
-    let raf: number
-    let startTime: number
+    let raf: number;
+    let startTime: number;
 
     const timer = setTimeout(() => {
       const animate = (timestamp: number) => {
-        if (!startTime) startTime = timestamp
-        const elapsed = timestamp - startTime
-        const progress = Math.min(elapsed / duration, 1)
-        const current = start + (to - start) * easingRef.current(progress)
+        if (!startTime) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const current = start + (to - start) * easingRef.current(progress);
 
-        setDisplay(current)
+        setDisplay(current);
 
         if (progress < 1) {
-          raf = requestAnimationFrame(animate)
+          raf = requestAnimationFrame(animate);
         } else {
-          onCompleteRef.current?.()
+          onCompleteRef.current?.();
         }
-      }
+      };
 
-      raf = requestAnimationFrame(animate)
-    }, delayMs)
+      raf = requestAnimationFrame(animate);
+    }, delayMs);
 
     return () => {
-      clearTimeout(timer)
-      cancelAnimationFrame(raf)
-    }
-  }, [isInView, to, start, duration, delay, prefersReducedMotion])
+      clearTimeout(timer);
+      cancelAnimationFrame(raf);
+    };
+  }, [isInView, to, start, duration, delay, prefersReducedMotion]);
 
-  if (!isValidElement(children)) return children
+  if (!isValidElement(children)) return children;
 
-  const childProps = children.props as Record<string, unknown>
-  const existingRef = (childProps as { ref?: Ref<HTMLElement> }).ref
+  const childProps = children.props as Record<string, unknown>;
+  const existingRef = (childProps as { ref?: Ref<HTMLElement> }).ref;
 
   return cloneElement(children, {
     ref: mergeRef(ref, existingRef),
     children: `${prefix}${formatFn(display)}${suffix}`,
-  } as Record<string, unknown>)
+  } as Record<string, unknown>);
 }
 
 // ── Date Count (live countdown) ──────────────────────────────────────
@@ -287,71 +290,73 @@ function DateCount({
   once,
   onComplete,
 }: {
-  to: Date
-  delay: number
-  format?: (value: number) => string
-  prefix: string
-  suffix: string
-  children: ReactElement
-  once: boolean
-  onComplete?: () => void
+  to: Date;
+  delay: number;
+  format?: (value: number) => string;
+  prefix: string;
+  suffix: string;
+  children: ReactElement;
+  once: boolean;
+  onComplete?: () => void;
 }) {
-  const ref = useRef<HTMLElement>(null)
-  const isInView = useInView(ref, { once, margin: "-50px" })
-  const [remaining, setRemaining] = useState(() => Math.max(0, to.getTime() - Date.now()))
-  const [started, setStarted] = useState(false)
-  const completedRef = useRef(false)
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once, margin: "-50px" });
+  const [remaining, setRemaining] = useState(() =>
+    Math.max(0, to.getTime() - Date.now()),
+  );
+  const [started, setStarted] = useState(false);
+  const completedRef = useRef(false);
 
-  const formatFn = format ?? formatCountdown
-
-  useEffect(() => {
-    if (!isInView || started) return
-    const timer = setTimeout(() => setStarted(true), delay * 1000)
-    return () => clearTimeout(timer)
-  }, [isInView, delay, started])
+  const formatFn = format ?? formatCountdown;
 
   useEffect(() => {
-    if (!started) return
+    if (!isInView || started) return;
+    const timer = setTimeout(() => setStarted(true), delay * 1000);
+    return () => clearTimeout(timer);
+  }, [isInView, delay, started]);
 
-    let interval: ReturnType<typeof setInterval> | undefined
+  useEffect(() => {
+    if (!started) return;
+
+    let interval: ReturnType<typeof setInterval> | undefined;
 
     const tick = () => {
-      const ms = Math.max(0, to.getTime() - Date.now())
-      setRemaining(ms)
+      const ms = Math.max(0, to.getTime() - Date.now());
+      setRemaining(ms);
 
       // Countdown reached zero: fire `onComplete` once and stop ticking —
       // no point re-running `Date.now()`/`setRemaining(0)` every second forever.
       if (ms <= 0) {
-        clearInterval(interval)
+        clearInterval(interval);
         if (!completedRef.current) {
-          completedRef.current = true
-          onComplete?.()
+          completedRef.current = true;
+          onComplete?.();
         }
-        return true
+        return true;
       }
-      return false
-    }
+      return false;
+    };
 
     // Skip arming the interval entirely if the target is already in the past.
-    if (!tick()) interval = setInterval(tick, 1000)
-    return () => clearInterval(interval)
-  }, [started, to, onComplete])
+    if (!tick()) interval = setInterval(tick, 1000);
+    return () => clearInterval(interval);
+  }, [started, to, onComplete]);
 
-  if (!isValidElement(children)) return children
+  if (!isValidElement(children)) return children;
 
-  const childProps = children.props as Record<string, unknown>
-  const existingRef = (childProps as { ref?: Ref<HTMLElement> }).ref
+  const childProps = children.props as Record<string, unknown>;
+  const existingRef = (childProps as { ref?: Ref<HTMLElement> }).ref;
 
   return cloneElement(children, {
     ref: mergeRef(ref, existingRef),
     children: `${prefix}${formatFn(remaining)}${suffix}`,
-  } as Record<string, unknown>)
+  } as Record<string, unknown>);
 }
 
 // ── Exports ──────────────────────────────────────────────────────────
 
 /** @deprecated Use `Count` instead */
-const CountUp = Count
+const CountUp = Count;
 
-export { Count, CountUp, easeOut }
-export type { CountProps, CountUpProps }
+export { Count, CountUp, easeOut };
+export type { CountProps, CountUpProps };

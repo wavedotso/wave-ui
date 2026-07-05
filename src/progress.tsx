@@ -1,20 +1,27 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Progress as ProgressPrimitive } from "@base-ui/react/progress"
+import type * as React from "react";
+import { Progress as ProgressPrimitive } from "@base-ui/react/progress";
 
-import { cn } from "./lib/utils"
+import { cn } from "./lib/utils";
 
 // `value` is typed from the primitive, so it accepts `number | null`;
 // `null` puts the progress bar into its indeterminate state (Base UI then
 // emits `data-indeterminate` on the root and omits the indicator width).
-type ProgressProps = React.ComponentProps<typeof ProgressPrimitive.Root>
-type ProgressTrackProps = React.ComponentProps<typeof ProgressPrimitive.Track>
-type ProgressIndicatorProps = React.ComponentProps<typeof ProgressPrimitive.Indicator>
-type ProgressLabelProps = React.ComponentProps<typeof ProgressPrimitive.Label>
-type ProgressValueProps = React.ComponentProps<typeof ProgressPrimitive.Value>
+type ProgressProps = React.ComponentProps<typeof ProgressPrimitive.Root>;
+type ProgressTrackProps = React.ComponentProps<typeof ProgressPrimitive.Track>;
+type ProgressIndicatorProps = React.ComponentProps<
+  typeof ProgressPrimitive.Indicator
+>;
+type ProgressLabelProps = React.ComponentProps<typeof ProgressPrimitive.Label>;
+type ProgressValueProps = React.ComponentProps<typeof ProgressPrimitive.Value>;
 
-function Progress({ className, children, value = null, ...props }: ProgressProps) {
+function Progress({
+  className,
+  children,
+  value = null,
+  ...props
+}: ProgressProps) {
   return (
     <ProgressPrimitive.Root
       value={value}
@@ -27,7 +34,7 @@ function Progress({ className, children, value = null, ...props }: ProgressProps
         <ProgressIndicator />
       </ProgressTrack>
     </ProgressPrimitive.Root>
-  )
+  );
 }
 
 function ProgressTrack({ className, ...props }: ProgressTrackProps) {
@@ -35,12 +42,12 @@ function ProgressTrack({ className, ...props }: ProgressTrackProps) {
     <ProgressPrimitive.Track
       className={cn(
         "bg-secondary relative flex h-1 w-full items-center overflow-x-hidden rounded-full",
-        className
+        className,
       )}
       data-slot="progress-track"
       {...props}
     />
-  )
+  );
 }
 
 function ProgressIndicator({ className, ...props }: ProgressIndicatorProps) {
@@ -53,11 +60,11 @@ function ProgressIndicator({ className, ...props }: ProgressIndicatorProps) {
         // invisible zero-width bar), so give it a sensible pulsing partial
         // fill instead of collapsing to nothing.
         "group-data-indeterminate/progress:w-2/5 group-data-indeterminate/progress:animate-pulse",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function ProgressLabel({ className, ...props }: ProgressLabelProps) {
@@ -67,20 +74,17 @@ function ProgressLabel({ className, ...props }: ProgressLabelProps) {
       data-slot="progress-label"
       {...props}
     />
-  )
+  );
 }
 
 function ProgressValue({ className, ...props }: ProgressValueProps) {
   return (
     <ProgressPrimitive.Value
-      className={cn(
-        "text-muted ml-auto text-sm tabular-nums",
-        className
-      )}
+      className={cn("text-muted ml-auto text-sm tabular-nums", className)}
       data-slot="progress-value"
       {...props}
     />
-  )
+  );
 }
 
 export {
@@ -89,7 +93,7 @@ export {
   ProgressIndicator,
   ProgressLabel,
   ProgressValue,
-}
+};
 
 export type {
   ProgressProps,
@@ -97,4 +101,4 @@ export type {
   ProgressIndicatorProps,
   ProgressLabelProps,
   ProgressValueProps,
-}
+};

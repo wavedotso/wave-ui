@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react-vite"
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { FilmGrain, type FilmGrainProps } from "./film-grain"
+import { FilmGrain, type FilmGrainProps } from "./film-grain";
 
 /** Force remount when controls change so WebGL reinitializes */
 function GrainPreview({
@@ -9,12 +9,12 @@ function GrainPreview({
   label,
   labelColor = "rgba(255,255,255,0.6)",
 }: {
-  args: FilmGrainProps
-  bg: string
-  label: string
-  labelColor?: string
+  args: FilmGrainProps;
+  bg: string;
+  label: string;
+  labelColor?: string;
 }) {
-  const key = `${args.density}-${args.opacity}-${args.fps}-${args.color}-${args.blendMode}`
+  const key = `${args.density}-${args.opacity}-${args.fps}-${args.color}-${args.blendMode}`;
 
   return (
     <div
@@ -42,7 +42,7 @@ function GrainPreview({
         {label}
       </div>
     </div>
-  )
+  );
 }
 
 const meta = {
@@ -74,10 +74,10 @@ const meta = {
       ],
     },
   },
-} satisfies Meta<typeof FilmGrain>
+} satisfies Meta<typeof FilmGrain>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: (args) => (
@@ -87,7 +87,7 @@ export const Default: Story = {
       label="WebGL grain with canvas fallback (overlay blend)"
     />
   ),
-}
+};
 
 export const OnDarkBackground: Story = {
   args: {
@@ -98,7 +98,7 @@ export const OnDarkBackground: Story = {
   render: (args) => (
     <GrainPreview args={args} bg="#000" label="Film grain on dark background" />
   ),
-}
+};
 
 export const OnLightBackground: Story = {
   args: {
@@ -115,7 +115,7 @@ export const OnLightBackground: Story = {
       labelColor="rgba(0,0,0,0.6)"
     />
   ),
-}
+};
 
 export const SoftLight: Story = {
   args: {
@@ -130,7 +130,7 @@ export const SoftLight: Story = {
       label="Soft-light blend — closest to analog film"
     />
   ),
-}
+};
 
 export const TintedGrain: Story = {
   args: {
@@ -142,7 +142,7 @@ export const TintedGrain: Story = {
   render: (args) => (
     <GrainPreview args={args} bg="#030712" label="Tinted grain (#01c3a8)" />
   ),
-}
+};
 
 export const WithContent: Story = {
   args: {
@@ -151,7 +151,7 @@ export const WithContent: Story = {
     blendMode: "soft-light",
   },
   render: (args) => {
-    const key = `${args.density}-${args.opacity}-${args.fps}-${args.color}-${args.blendMode}`
+    const key = `${args.density}-${args.opacity}-${args.fps}-${args.color}-${args.blendMode}`;
 
     return (
       <div
@@ -193,6 +193,6 @@ export const WithContent: Story = {
           </p>
         </div>
       </div>
-    )
+    );
   },
-}
+};

@@ -67,7 +67,9 @@ const twMerge = extendTailwindMerge<"motion-enter">({
 type CnValue<State> = ClassValue | ((state: State) => ClassValue);
 
 export function cn(...inputs: ClassValue[]): string;
-export function cn<State>(...inputs: CnValue<State>[]): (state: State) => string;
+export function cn<State>(
+  ...inputs: CnValue<State>[]
+): (state: State) => string;
 export function cn<State>(...inputs: CnValue<State>[]) {
   const hasFn = inputs.some((v) => typeof v === "function");
 

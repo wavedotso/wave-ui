@@ -1,16 +1,16 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Alert, AlertTitle, AlertDescription, AlertAction } from './alert';
-import { Button } from './button';
-import { InfoCircleIcon } from './lib/internal-icons';
+import { Alert, AlertTitle, AlertDescription, AlertAction } from "./alert";
+import { Button } from "./button";
+import { InfoCircleIcon } from "./lib/internal-icons";
 
 const meta = {
-  title: 'Feedback/Alert',
+  title: "Feedback/Alert",
   component: Alert,
   argTypes: {
     variant: {
-      control: 'select',
-      options: ['default', 'destructive'],
+      control: "select",
+      options: ["default", "destructive"],
     },
   },
 } satisfies Meta<typeof Alert>;
@@ -55,7 +55,10 @@ export const WithIcon: Story = {
 export const WrappedIcon: Story = {
   render: (args) => (
     <Alert {...args} className="w-[420px]">
-      <span data-icon="inline-start" className="grid size-6 place-items-center rounded-full bg-primary/10">
+      <span
+        data-icon="inline-start"
+        className="grid size-6 place-items-center rounded-full bg-primary/10"
+      >
         <InfoCircleIcon className="size-3.5" />
       </span>
       <AlertTitle>Heads up!</AlertTitle>
@@ -85,7 +88,9 @@ export const WithAction: Story = {
         A new version of the app is available.
       </AlertDescription>
       <AlertAction>
-        <Button size="xs" variant="outline">Update</Button>
+        <Button size="xs" variant="outline">
+          Update
+        </Button>
       </AlertAction>
     </Alert>
   ),

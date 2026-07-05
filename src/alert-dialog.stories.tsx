@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import {
   AlertDialog,
@@ -11,11 +11,11 @@ import {
   AlertDialogMedia,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from './alert-dialog';
-import { Button } from './button';
+} from "./alert-dialog";
+import { Button } from "./button";
 
 const meta = {
-  title: 'Overlay/AlertDialog',
+  title: "Overlay/AlertDialog",
   component: AlertDialog,
 } satisfies Meta<typeof AlertDialog>;
 
@@ -97,9 +97,7 @@ export const WithMedia: Story = {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Keep Access</AlertDialogCancel>
-          <AlertDialogAction variant="destructive">
-            Revoke
-          </AlertDialogAction>
+          <AlertDialogAction variant="destructive">Revoke</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

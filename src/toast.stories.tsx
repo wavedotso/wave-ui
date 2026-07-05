@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import * as React from 'react';
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import * as React from "react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Button } from './button';
-import { toast, Toaster, type ToasterProps } from './toast';
+import { Button } from "./button";
+import { toast, Toaster, type ToasterProps } from "./toast";
 
 const meta = {
-  title: 'Feedback/Toast',
+  title: "Feedback/Toast",
   component: Toaster,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 } satisfies Meta<typeof Toaster>;
 
@@ -23,17 +23,14 @@ export const Default: Story = {
     return (
       <>
         <div className="flex flex-wrap gap-2">
-          <Button
-            variant="outline"
-            onClick={() => toast('Event created')}
-          >
+          <Button variant="outline" onClick={() => toast("Event created")}>
             Default
           </Button>
           <Button
             variant="outline"
             onClick={() =>
-              toast.success('Success!', {
-                description: 'Your changes have been saved.',
+              toast.success("Success!", {
+                description: "Your changes have been saved.",
               })
             }
           >
@@ -42,8 +39,8 @@ export const Default: Story = {
           <Button
             variant="outline"
             onClick={() =>
-              toast.error('Error', {
-                description: 'Something went wrong.',
+              toast.error("Error", {
+                description: "Something went wrong.",
               })
             }
           >
@@ -52,8 +49,8 @@ export const Default: Story = {
           <Button
             variant="outline"
             onClick={() =>
-              toast.warning('Warning', {
-                description: 'Approaching storage limit.',
+              toast.warning("Warning", {
+                description: "Approaching storage limit.",
               })
             }
           >
@@ -62,27 +59,24 @@ export const Default: Story = {
           <Button
             variant="outline"
             onClick={() =>
-              toast.info('Info', {
-                description: 'A new version is available.',
+              toast.info("Info", {
+                description: "A new version is available.",
               })
             }
           >
             Info
           </Button>
-          <Button
-            variant="outline"
-            onClick={() => toast.loading('Loading…')}
-          >
+          <Button variant="outline" onClick={() => toast.loading("Loading…")}>
             Loading
           </Button>
           <Button
             variant="outline"
             onClick={() =>
-              toast.success('File deleted', {
-                description: 'archive.zip was moved to trash.',
+              toast.success("File deleted", {
+                description: "archive.zip was moved to trash.",
                 actionProps: {
-                  children: 'Undo',
-                  onClick: () => toast.info('Restored!'),
+                  children: "Undo",
+                  onClick: () => toast.info("Restored!"),
                 },
               })
             }
@@ -108,9 +102,9 @@ export const WithPromise: Story = {
               toast.promise(
                 new Promise<void>((resolve) => setTimeout(resolve, 2000)),
                 {
-                  loading: 'Saving changes…',
-                  success: 'Changes saved!',
-                  error: 'Failed to save.',
+                  loading: "Saving changes…",
+                  success: "Changes saved!",
+                  error: "Failed to save.",
                 },
               );
             }}
@@ -122,12 +116,12 @@ export const WithPromise: Story = {
             onClick={() => {
               toast.promise(
                 new Promise<void>((_, reject) =>
-                  setTimeout(() => reject(new Error('Network error')), 2000),
+                  setTimeout(() => reject(new Error("Network error")), 2000),
                 ),
                 {
-                  loading: 'Uploading file…',
-                  success: 'Upload complete!',
-                  error: 'Upload failed.',
+                  loading: "Uploading file…",
+                  success: "Upload complete!",
+                  error: "Upload failed.",
                 },
               );
             }}
@@ -144,16 +138,16 @@ export const WithPromise: Story = {
 /** Toaster positioned at different corners and edges. */
 export const Positions: Story = {
   render: function Render() {
-    type Position = NonNullable<ToasterProps['position']>;
+    type Position = NonNullable<ToasterProps["position"]>;
     const positions: Position[] = [
-      'top-left',
-      'top-center',
-      'top-right',
-      'bottom-left',
-      'bottom-center',
-      'bottom-right',
+      "top-left",
+      "top-center",
+      "top-right",
+      "bottom-left",
+      "bottom-center",
+      "bottom-right",
     ];
-    const [active, setActive] = React.useState<Position>('bottom-right');
+    const [active, setActive] = React.useState<Position>("bottom-right");
 
     return (
       <>
@@ -161,7 +155,7 @@ export const Positions: Story = {
           {positions.map((pos) => (
             <Button
               key={pos}
-              variant={pos === active ? 'default' : 'outline'}
+              variant={pos === active ? "default" : "outline"}
               onClick={() => {
                 setActive(pos);
                 toast.info(pos, {
@@ -194,9 +188,10 @@ export const Limit: Story = {
           variant="outline"
           onClick={() => {
             for (let i = 0; i < 6; i++) {
-              const n = (counter.current += 1);
+              counter.current += 1;
+              const n = counter.current;
               toast.info(`Notification ${n}`, {
-                description: 'Only three stay on screen; the rest queue.',
+                description: "Only three stay on screen; the rest queue.",
               });
             }
           }}
@@ -222,8 +217,8 @@ export const Timeout: Story = {
           <Button
             variant="outline"
             onClick={() =>
-              toast.info('Auto-dismiss', {
-                description: 'This toast disappears after 2 seconds.',
+              toast.info("Auto-dismiss", {
+                description: "This toast disappears after 2 seconds.",
               })
             }
           >
@@ -232,8 +227,8 @@ export const Timeout: Story = {
           <Button
             variant="outline"
             onClick={() =>
-              toast.info('Persistent', {
-                description: 'This toast stays until you close it.',
+              toast.info("Persistent", {
+                description: "This toast stays until you close it.",
                 timeout: 0,
               })
             }
@@ -262,8 +257,8 @@ export const UpdateAndDismiss: Story = {
           <Button
             variant="outline"
             onClick={() => {
-              idRef.current = toast.loading('Processing…', {
-                description: 'Hang tight while we work.',
+              idRef.current = toast.loading("Processing…", {
+                description: "Hang tight while we work.",
               });
             }}
           >
@@ -274,9 +269,9 @@ export const UpdateAndDismiss: Story = {
             onClick={() => {
               if (idRef.current) {
                 toast.update(idRef.current, {
-                  type: 'success',
-                  title: 'Done!',
-                  description: 'The task completed successfully.',
+                  type: "success",
+                  title: "Done!",
+                  description: "The task completed successfully.",
                   timeout: 4000,
                 });
               }

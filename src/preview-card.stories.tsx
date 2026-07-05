@@ -1,19 +1,19 @@
-import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import {
   PreviewCard,
   PreviewCardContent,
   PreviewCardTrigger,
-} from './preview-card'
-import { Avatar, AvatarFallback, AvatarImage } from './avatar'
+} from "./preview-card";
+import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 
 const meta = {
-  title: 'Overlay/PreviewCard',
+  title: "Overlay/PreviewCard",
   component: PreviewCard,
-} satisfies Meta<typeof PreviewCard>
+} satisfies Meta<typeof PreviewCard>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: () => (
@@ -34,15 +34,13 @@ export const Default: Story = {
           </Avatar>
           <div className="flex flex-col gap-1">
             <p className="text-sm font-semibold">Wave</p>
-            <p className="text-muted text-xs">
-              Make a wave in the internet.
-            </p>
+            <p className="text-muted text-xs">Make a wave in the internet.</p>
           </div>
         </div>
       </PreviewCardContent>
     </PreviewCard>
   ),
-}
+};
 
 export const SideTop: Story = {
   render: () => (
@@ -69,7 +67,7 @@ export const SideTop: Story = {
       </PreviewCardContent>
     </PreviewCard>
   ),
-}
+};
 
 export const SideRight: Story = {
   render: () => (
@@ -90,15 +88,13 @@ export const SideRight: Story = {
           </Avatar>
           <div className="flex flex-col gap-1">
             <p className="text-sm font-semibold">Vercel</p>
-            <p className="text-muted text-xs">
-              Develop. Preview. Ship.
-            </p>
+            <p className="text-muted text-xs">Develop. Preview. Ship.</p>
           </div>
         </div>
       </PreviewCardContent>
     </PreviewCard>
   ),
-}
+};
 
 export const RichContent: Story = {
   render: () => (
@@ -124,15 +120,16 @@ export const RichContent: Story = {
             </div>
           </div>
           <p className="text-muted text-xs leading-relaxed">
-            AI assistant by Anthropic. Helpful, harmless, and honest. Your favorite coding partner.
+            AI assistant by Anthropic. Helpful, harmless, and honest. Your
+            favorite coding partner.
           </p>
           <div className="flex gap-4 text-xs">
             <span>
-              <span className="font-semibold">1</span>{' '}
+              <span className="font-semibold">1</span>{" "}
               <span className="text-muted">Following</span>
             </span>
             <span>
-              <span className="font-semibold">617.8K</span>{' '}
+              <span className="font-semibold">617.8K</span>{" "}
               <span className="text-muted">Followers</span>
             </span>
           </div>
@@ -140,4 +137,4 @@ export const RichContent: Story = {
       </PreviewCardContent>
     </PreviewCard>
   ),
-}
+};

@@ -1,67 +1,60 @@
-import * as React from "react"
+import type * as React from "react";
 
-import { Button } from "./button"
+import { Button } from "./button";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
   EllipsisIcon,
-} from "./lib/internal-icons"
+} from "./lib/internal-icons";
 
-import { cn } from "./lib/utils"
+import { cn } from "./lib/utils";
 
-type PaginationProps = React.ComponentProps<"nav">
+type PaginationProps = React.ComponentProps<"nav">;
 
-type PaginationContentProps = React.ComponentProps<"ul">
+type PaginationContentProps = React.ComponentProps<"ul">;
 
-type PaginationItemProps = React.ComponentProps<"li">
+type PaginationItemProps = React.ComponentProps<"li">;
 
 type PaginationLinkProps = {
-  isActive?: boolean
+  isActive?: boolean;
   /** Marks the link disabled — aria-disabled, removed from tab order, non-interactive. */
-  disabled?: boolean
+  disabled?: boolean;
 } & Pick<React.ComponentProps<typeof Button>, "size"> &
-  React.ComponentProps<"a">
+  React.ComponentProps<"a">;
 
 type PaginationPreviousProps = PaginationLinkProps & {
-  text?: string
-}
+  text?: string;
+};
 
 type PaginationNextProps = PaginationLinkProps & {
-  text?: string
-}
+  text?: string;
+};
 
-type PaginationEllipsisProps = React.ComponentProps<"span">
+type PaginationEllipsisProps = React.ComponentProps<"span">;
 
 function Pagination({ className, ...props }: PaginationProps) {
   return (
     <nav
-      role="navigation"
       aria-label="pagination"
       data-slot="pagination"
-      className={cn(
-        "mx-auto flex w-full justify-center",
-        className
-      )}
+      className={cn("mx-auto flex w-full justify-center", className)}
       {...props}
     />
-  )
+  );
 }
 
 function PaginationContent({ className, ...props }: PaginationContentProps) {
   return (
     <ul
       data-slot="pagination-content"
-      className={cn(
-        "flex items-center gap-0.5",
-        className
-      )}
+      className={cn("flex items-center gap-0.5", className)}
       {...props}
     />
-  )
+  );
 }
 
 function PaginationItem(props: PaginationItemProps) {
-  return <li data-slot="pagination-item" {...props} />
+  return <li data-slot="pagination-item" {...props} />;
 }
 
 function PaginationLink({
@@ -87,7 +80,7 @@ function PaginationLink({
         />
       }
     />
-  )
+  );
 }
 
 function PaginationPrevious({
@@ -105,7 +98,7 @@ function PaginationPrevious({
       <ChevronLeftIcon data-icon="inline-start" />
       <span className="hidden sm:block">{text}</span>
     </PaginationLink>
-  )
+  );
 }
 
 function PaginationNext({
@@ -123,7 +116,7 @@ function PaginationNext({
       <span className="hidden sm:block">{text}</span>
       <ChevronRightIcon data-icon="inline-end" />
     </PaginationLink>
-  )
+  );
 }
 
 function PaginationEllipsis({ className, ...props }: PaginationEllipsisProps) {
@@ -139,7 +132,7 @@ function PaginationEllipsis({ className, ...props }: PaginationEllipsisProps) {
       <EllipsisIcon />
       <span className="sr-only">More pages</span>
     </span>
-  )
+  );
 }
 
 export {
@@ -150,7 +143,7 @@ export {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-}
+};
 
 export type {
   PaginationProps,
@@ -160,4 +153,4 @@ export type {
   PaginationPreviousProps,
   PaginationNextProps,
   PaginationEllipsisProps,
-}
+};

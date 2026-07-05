@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import {
   Avatar,
@@ -7,15 +7,15 @@ import {
   AvatarBadge,
   AvatarGroup,
   AvatarGroupCount,
-} from './avatar';
+} from "./avatar";
 
 const meta = {
-  title: 'Data Display/Avatar',
+  title: "Data Display/Avatar",
   component: Avatar,
   argTypes: {
     size: {
-      control: 'select',
-      options: ['default', 'sm', 'lg'],
+      control: "select",
+      options: ["default", "sm", "lg"],
     },
   },
 } satisfies Meta<typeof Avatar>;
@@ -41,7 +41,7 @@ export const WithFallback: Story = {
 };
 
 export const Small: Story = {
-  args: { size: 'sm' },
+  args: { size: "sm" },
   render: (args) => (
     <Avatar {...args}>
       <AvatarFallback>S</AvatarFallback>
@@ -50,7 +50,7 @@ export const Small: Story = {
 };
 
 export const Large: Story = {
-  args: { size: 'lg' },
+  args: { size: "lg" },
   render: (args) => (
     <Avatar {...args}>
       <AvatarImage src="https://i.pravatar.cc/150?u=wave-lg" alt="User" />

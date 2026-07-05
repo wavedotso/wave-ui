@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Label } from './label';
-import { RadioGroup } from './radio-group';
-import { Radio } from './radio';
+import { Label } from "./label";
+import { RadioGroup } from "./radio-group";
+import { Radio } from "./radio";
 
 const meta = {
-  title: 'Forms/Radio',
+  title: "Forms/Radio",
   component: Radio,
 } satisfies Meta<typeof Radio>;
 

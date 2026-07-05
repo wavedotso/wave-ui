@@ -1,39 +1,46 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { PreviewCard as PreviewCardPrimitive } from "@base-ui/react/preview-card"
+import type * as React from "react";
+import { PreviewCard as PreviewCardPrimitive } from "@base-ui/react/preview-card";
 
-import { cn } from "./lib/utils"
+import { cn } from "./lib/utils";
 
-type PreviewCardProps = React.ComponentProps<typeof PreviewCardPrimitive.Root>
-type PreviewCardTriggerProps = React.ComponentProps<typeof PreviewCardPrimitive.Trigger>
-type PreviewCardPortalProps = React.ComponentProps<typeof PreviewCardPrimitive.Portal>
-type PreviewCardPositionerProps = React.ComponentProps<typeof PreviewCardPrimitive.Positioner>
-type PreviewCardPopupProps = React.ComponentProps<typeof PreviewCardPrimitive.Popup>
+type PreviewCardProps = React.ComponentProps<typeof PreviewCardPrimitive.Root>;
+type PreviewCardTriggerProps = React.ComponentProps<
+  typeof PreviewCardPrimitive.Trigger
+>;
+type PreviewCardPortalProps = React.ComponentProps<
+  typeof PreviewCardPrimitive.Portal
+>;
+type PreviewCardPositionerProps = React.ComponentProps<
+  typeof PreviewCardPrimitive.Positioner
+>;
+type PreviewCardPopupProps = React.ComponentProps<
+  typeof PreviewCardPrimitive.Popup
+>;
 
 type PreviewCardContentProps = PreviewCardPopupProps &
   Pick<
     PreviewCardPositionerProps,
     "align" | "alignOffset" | "side" | "sideOffset" | "anchor"
   > & {
-    positionerClassName?: string
-  }
+    positionerClassName?: string;
+  };
 
 function PreviewCard({ ...props }: PreviewCardProps) {
-  return <PreviewCardPrimitive.Root data-slot="preview-card" {...props} />
+  return <PreviewCardPrimitive.Root data-slot="preview-card" {...props} />;
 }
 
 function PreviewCardTrigger({ ...props }: PreviewCardTriggerProps) {
   return (
-    <PreviewCardPrimitive.Trigger
-      data-slot="preview-card-trigger"
-      {...props}
-    />
-  )
+    <PreviewCardPrimitive.Trigger data-slot="preview-card-trigger" {...props} />
+  );
 }
 
 function PreviewCardPortal({ ...props }: PreviewCardPortalProps) {
-  return <PreviewCardPrimitive.Portal data-slot="preview-card-portal" {...props} />
+  return (
+    <PreviewCardPrimitive.Portal data-slot="preview-card-portal" {...props} />
+  );
 }
 
 function PreviewCardPositioner({
@@ -46,7 +53,7 @@ function PreviewCardPositioner({
       className={className}
       {...props}
     />
-  )
+  );
 }
 
 function PreviewCardContent({
@@ -79,7 +86,7 @@ function PreviewCardContent({
         />
       </PreviewCardPositioner>
     </PreviewCardPortal>
-  )
+  );
 }
 
 export {
@@ -88,7 +95,7 @@ export {
   PreviewCardContent,
   PreviewCardPortal,
   PreviewCardPositioner,
-}
+};
 
 export type {
   PreviewCardProps,
@@ -96,4 +103,4 @@ export type {
   PreviewCardContentProps,
   PreviewCardPortalProps,
   PreviewCardPositionerProps,
-}
+};

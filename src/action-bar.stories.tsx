@@ -1,12 +1,16 @@
-'use client';
+"use client";
 
-import * as React from 'react';
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import * as React from "react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { ActionBarProvider, useActionBar, useActionBarGuard } from './action-bar';
-import { Input } from './input';
-import { Label } from './label';
-import { Button } from './button';
+import {
+  ActionBarProvider,
+  useActionBar,
+  useActionBarGuard,
+} from "./action-bar";
+import { Input } from "./input";
+import { Label } from "./label";
+import { Button } from "./button";
 
 /**
  * Global action bar for unsaved changes.
@@ -58,10 +62,10 @@ import { Button } from './button';
  * - `beforeunload` guard for browser close/refresh
  */
 const meta = {
-  title: 'Feedback/ActionBar',
+  title: "Feedback/ActionBar",
   component: ActionBarProvider,
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
 } satisfies Meta<typeof ActionBarProvider>;
 
@@ -69,11 +73,11 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 function DemoForm() {
-  const [value, setValue] = React.useState('');
-  const [saved, setSaved] = React.useState('');
+  const [value, setValue] = React.useState("");
+  const [saved, setSaved] = React.useState("");
   const [saving, setSaving] = React.useState(false);
 
-  useActionBar('demo', {
+  useActionBar("demo", {
     hasChanges: value !== saved,
     saving,
     onSave: async () => {
@@ -111,8 +115,8 @@ export const Default: Story = {
  * these lets one ActionBar aggregate their state.
  */
 function FieldForm({ id, label }: { id: string; label: string }) {
-  const [value, setValue] = React.useState('');
-  const [saved, setSaved] = React.useState('');
+  const [value, setValue] = React.useState("");
+  const [saved, setSaved] = React.useState("");
   const [saving, setSaving] = React.useState(false);
 
   useActionBar(id, {
@@ -165,7 +169,7 @@ export const MultiForm: Story = {
  */
 export const PluralMessage: Story = {
   args: {
-    message: 'One field has unsaved changes',
+    message: "One field has unsaved changes",
     pluralMessage: (count) => `${count} fields have unsaved changes`,
     children: (
       <div className="mx-auto max-w-md space-y-6 p-12">
@@ -185,7 +189,7 @@ export const PluralMessage: Story = {
  * announces on a blocked attempt.
  */
 function GuardDemo() {
-  const [route, setRoute] = React.useState('/settings');
+  const [route, setRoute] = React.useState("/settings");
   const guardedPush = useActionBarGuard(setRoute);
 
   return (
@@ -195,22 +199,23 @@ function GuardDemo() {
       <nav className="flex gap-2">
         <Button
           type="button"
-          variant={route === '/settings' ? 'secondary' : 'ghost'}
-          onClick={() => guardedPush('/settings')}
+          variant={route === "/settings" ? "secondary" : "ghost"}
+          onClick={() => guardedPush("/settings")}
         >
           Settings
         </Button>
         <Button
           type="button"
-          variant={route === '/billing' ? 'secondary' : 'ghost'}
-          onClick={() => guardedPush('/billing')}
+          variant={route === "/billing" ? "secondary" : "ghost"}
+          onClick={() => guardedPush("/billing")}
         >
           Billing
         </Button>
       </nav>
 
       <p className="text-soft text-sm">
-        Current route: <span className="text-contrast font-medium">{route}</span>
+        Current route:{" "}
+        <span className="text-contrast font-medium">{route}</span>
       </p>
 
       <FieldForm id="guarded" label="Display name" />
@@ -225,7 +230,7 @@ function GuardDemo() {
 
 export const NavigationGuard: Story = {
   args: {
-    blockedMessage: 'Save or reset your changes before leaving this page',
+    blockedMessage: "Save or reset your changes before leaving this page",
     children: <GuardDemo />,
   },
 };

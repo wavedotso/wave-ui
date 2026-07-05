@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { AspectRatio } from './aspect-ratio';
+import { AspectRatio } from "./aspect-ratio";
 
 const meta = {
-  title: 'Layout/AspectRatio',
+  title: "Layout/AspectRatio",
   component: AspectRatio,
 } satisfies Meta<typeof AspectRatio>;
 

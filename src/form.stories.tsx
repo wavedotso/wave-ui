@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import {
   Form,
@@ -8,10 +8,10 @@ import {
   FormMessage,
   fieldControlProps,
   useForm,
-} from './form';
-import { Input } from './input';
-import { Textarea } from './textarea';
-import { Button } from './button';
+} from "./form";
+import { Input } from "./input";
+import { Textarea } from "./textarea";
+import { Button } from "./button";
 import {
   Select,
   SelectContent,
@@ -19,11 +19,11 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from './select';
-import { Switch } from './switch';
+} from "./select";
+import { Switch } from "./switch";
 
 const meta = {
-  title: 'Forms/Form',
+  title: "Forms/Form",
   component: Form,
 } satisfies Meta<typeof Form>;
 
@@ -38,7 +38,7 @@ type ContactValues = {
 
 function ContactFormDemo() {
   const form = useForm<ContactValues>({
-    defaultValues: { name: '', email: '', message: '' },
+    defaultValues: { name: "", email: "", message: "" },
   });
 
   function onSubmit(data: ContactValues) {
@@ -50,10 +50,14 @@ function ContactFormDemo() {
       <FormField
         name="name"
         label="Name"
-        rules={{ required: 'Name is required' }}
+        rules={{ required: "Name is required" }}
         render={({ id, field, fieldState }) => (
           <Input
-            {...fieldControlProps(field, { id, invalid: fieldState.invalid, native: true })}
+            {...fieldControlProps(field, {
+              id,
+              invalid: fieldState.invalid,
+              native: true,
+            })}
             placeholder="Your name"
           />
         )}
@@ -62,12 +66,19 @@ function ContactFormDemo() {
         name="email"
         label="Email"
         rules={{
-          required: 'Email is required',
-          pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: 'Invalid email' },
+          required: "Email is required",
+          pattern: {
+            value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            message: "Invalid email",
+          },
         }}
         render={({ id, field, fieldState }) => (
           <Input
-            {...fieldControlProps(field, { id, invalid: fieldState.invalid, native: true })}
+            {...fieldControlProps(field, {
+              id,
+              invalid: fieldState.invalid,
+              native: true,
+            })}
             type="email"
             placeholder="you@example.com"
           />
@@ -77,16 +88,22 @@ function ContactFormDemo() {
         name="message"
         label="Message"
         description="Tell us how we can help."
-        rules={{ required: 'Message is required' }}
+        rules={{ required: "Message is required" }}
         render={({ id, field, fieldState }) => (
           <Textarea
-            {...fieldControlProps(field, { id, invalid: fieldState.invalid, native: true })}
+            {...fieldControlProps(field, {
+              id,
+              invalid: fieldState.invalid,
+              native: true,
+            })}
             placeholder="Your message..."
           />
         )}
       />
       <FormActions>
-        <Button type="submit" variant="default">Send</Button>
+        <Button type="submit" variant="default">
+          Send
+        </Button>
       </FormActions>
     </Form>
   );
@@ -103,11 +120,13 @@ type LoginValues = {
 
 function WithErrorDemo() {
   const form = useForm<LoginValues>({
-    defaultValues: { email: '', password: '' },
+    defaultValues: { email: "", password: "" },
   });
 
   function onSubmit() {
-    form.setError('root', { message: 'Invalid email or password. Please try again.' });
+    form.setError("root", {
+      message: "Invalid email or password. Please try again.",
+    });
   }
 
   return (
@@ -116,10 +135,14 @@ function WithErrorDemo() {
       <FormField
         name="email"
         label="Email"
-        rules={{ required: 'Email is required' }}
+        rules={{ required: "Email is required" }}
         render={({ id, field, fieldState }) => (
           <Input
-            {...fieldControlProps(field, { id, invalid: fieldState.invalid, native: true })}
+            {...fieldControlProps(field, {
+              id,
+              invalid: fieldState.invalid,
+              native: true,
+            })}
             type="email"
             placeholder="you@example.com"
           />
@@ -128,21 +151,25 @@ function WithErrorDemo() {
       <FormField
         name="password"
         label="Password"
-        rules={{ required: 'Password is required' }}
+        rules={{ required: "Password is required" }}
         render={({ id, field, fieldState }) => (
           <Input
-            {...fieldControlProps(field, { id, invalid: fieldState.invalid, native: true })}
+            {...fieldControlProps(field, {
+              id,
+              invalid: fieldState.invalid,
+              native: true,
+            })}
             type="password"
             placeholder="••••••••"
           />
         )}
       />
       <FormActions>
-        <Button type="submit" variant="default">Sign in</Button>
+        <Button type="submit" variant="default">
+          Sign in
+        </Button>
       </FormActions>
-      <FormMessage>
-        Don&apos;t have an account? Sign up.
-      </FormMessage>
+      <FormMessage>Don&apos;t have an account? Sign up.</FormMessage>
     </Form>
   );
 }
@@ -159,7 +186,7 @@ type SettingsValues = {
 
 function WithSelectDemo() {
   const form = useForm<SettingsValues>({
-    defaultValues: { username: '', role: 'viewer', notifications: true },
+    defaultValues: { username: "", role: "viewer", notifications: true },
   });
 
   function onSubmit(data: SettingsValues) {
@@ -171,10 +198,14 @@ function WithSelectDemo() {
       <FormField
         name="username"
         label="Username"
-        rules={{ required: 'Username is required' }}
+        rules={{ required: "Username is required" }}
         render={({ id, field, fieldState }) => (
           <Input
-            {...fieldControlProps(field, { id, invalid: fieldState.invalid, native: true })}
+            {...fieldControlProps(field, {
+              id,
+              invalid: fieldState.invalid,
+              native: true,
+            })}
             placeholder="johndoe"
           />
         )}
@@ -202,14 +233,13 @@ function WithSelectDemo() {
         label="Email notifications"
         description="Receive updates about your account."
         render={({ field }) => (
-          <Switch
-            checked={field.value}
-            onCheckedChange={field.onChange}
-          />
+          <Switch checked={field.value} onCheckedChange={field.onChange} />
         )}
       />
       <FormActions>
-        <Button type="submit" variant="default">Save</Button>
+        <Button type="submit" variant="default">
+          Save
+        </Button>
         <Button type="reset" variant="ghost" onClick={() => form.reset()}>
           Reset
         </Button>

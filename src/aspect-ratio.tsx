@@ -1,13 +1,13 @@
-import * as React from "react"
+import type * as React from "react";
 
-import { cn } from "./lib/utils"
+import { cn } from "./lib/utils";
 
 // --- Types ---
 
 type AspectRatioProps = React.ComponentProps<"div"> & {
   /** The width-to-height ratio (e.g. 16/9, 4/3, 1) */
-  ratio: number
-}
+  ratio: number;
+};
 
 // --- Components ---
 
@@ -19,10 +19,10 @@ function AspectRatio({ ratio, className, ...props }: AspectRatioProps) {
       className={cn("relative aspect-(--ratio)", className)}
       {...props}
     />
-  )
+  );
 }
 
 // --- Exports ---
 
-export { AspectRatio }
-export type { AspectRatioProps }
+export { AspectRatio };
+export type { AspectRatioProps };

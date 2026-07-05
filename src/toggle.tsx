@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Toggle as TogglePrimitive } from "@base-ui/react/toggle"
-import { cva, type VariantProps } from "class-variance-authority"
+import type * as React from "react";
+import { Toggle as TogglePrimitive } from "@base-ui/react/toggle";
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "./lib/utils"
+import { cn } from "./lib/utils";
 
 const toggleVariants = cva(
   "cursor-clickable hover:text-contrast focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive data-pressed:bg-secondary gap-1 rounded-md text-sm font-medium motion-color [&_svg:not([class*='size-'])]:size-4 group/toggle hover:bg-secondary inline-flex items-center justify-center whitespace-nowrap outline-hidden focus-visible:ring-3 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
@@ -25,10 +25,10 @@ const toggleVariants = cva(
       size: "default",
     },
   },
-)
+);
 
 type ToggleProps = React.ComponentProps<typeof TogglePrimitive> &
-  VariantProps<typeof toggleVariants>
+  VariantProps<typeof toggleVariants>;
 
 function Toggle({
   className,
@@ -42,8 +42,8 @@ function Toggle({
       className={cn(toggleVariants({ variant, size }), className)}
       {...props}
     />
-  )
+  );
 }
 
-export { Toggle, toggleVariants }
-export type { ToggleProps }
+export { Toggle, toggleVariants };
+export type { ToggleProps };

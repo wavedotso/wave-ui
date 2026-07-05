@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Button } from './button';
+import { Button } from "./button";
 import {
   Drawer,
   DrawerClose,
@@ -10,12 +10,12 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from './drawer';
-import { Input } from './input';
-import { Label } from './label';
+} from "./drawer";
+import { Input } from "./input";
+import { Label } from "./label";
 
 const meta = {
-  title: 'Overlay/Drawer',
+  title: "Overlay/Drawer",
   component: Drawer,
 } satisfies Meta<typeof Drawer>;
 
@@ -65,7 +65,7 @@ export const Right: Story = {
           </DrawerDescription>
         </DrawerHeader>
         <nav className="flex flex-col gap-1 p-4">
-          {['Dashboard', 'Projects', 'Tasks', 'Settings'].map((item) => (
+          {["Dashboard", "Projects", "Tasks", "Settings"].map((item) => (
             <button
               key={item}
               className="text-contrast hover:bg-secondary rounded-md px-3 py-2 text-left text-sm transition-colors"
@@ -92,7 +92,7 @@ export const Left: Story = {
           <DrawerDescription>Application navigation links.</DrawerDescription>
         </DrawerHeader>
         <nav className="flex flex-col gap-1 p-4">
-          {['Home', 'Inbox', 'Calendar', 'Archive'].map((item) => (
+          {["Home", "Inbox", "Calendar", "Archive"].map((item) => (
             <button
               key={item}
               className="text-contrast hover:bg-secondary rounded-md px-3 py-2 text-left text-sm transition-colors"

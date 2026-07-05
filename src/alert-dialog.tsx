@@ -1,49 +1,69 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { AlertDialog as AlertDialogPrimitive } from "@base-ui/react/alert-dialog"
+import type * as React from "react";
+import { AlertDialog as AlertDialogPrimitive } from "@base-ui/react/alert-dialog";
 
-import { Button } from "./button"
-import { cn } from "./lib/utils"
+import { Button } from "./button";
+import { cn } from "./lib/utils";
 
-type AlertDialogProps = React.ComponentProps<typeof AlertDialogPrimitive.Root>
+type AlertDialogProps = React.ComponentProps<typeof AlertDialogPrimitive.Root>;
 
-type AlertDialogTriggerProps = React.ComponentProps<typeof AlertDialogPrimitive.Trigger>
+type AlertDialogTriggerProps = React.ComponentProps<
+  typeof AlertDialogPrimitive.Trigger
+>;
 
-type AlertDialogPortalProps = React.ComponentProps<typeof AlertDialogPrimitive.Portal>
+type AlertDialogPortalProps = React.ComponentProps<
+  typeof AlertDialogPrimitive.Portal
+>;
 
-type AlertDialogOverlayProps = React.ComponentProps<typeof AlertDialogPrimitive.Backdrop>
+type AlertDialogOverlayProps = React.ComponentProps<
+  typeof AlertDialogPrimitive.Backdrop
+>;
 
-type AlertDialogContentProps = React.ComponentProps<typeof AlertDialogPrimitive.Popup> & {
-  size?: "default" | "sm" | "lg" | "xl"
-}
+type AlertDialogContentProps = React.ComponentProps<
+  typeof AlertDialogPrimitive.Popup
+> & {
+  size?: "default" | "sm" | "lg" | "xl";
+};
 
-type AlertDialogHeaderProps = React.ComponentProps<"div">
+type AlertDialogHeaderProps = React.ComponentProps<"div">;
 
-type AlertDialogFooterProps = React.ComponentProps<"div">
+type AlertDialogFooterProps = React.ComponentProps<"div">;
 
-type AlertDialogMediaProps = React.ComponentProps<"div">
+type AlertDialogMediaProps = React.ComponentProps<"div">;
 
-type AlertDialogTitleProps = React.ComponentProps<typeof AlertDialogPrimitive.Title>
+type AlertDialogTitleProps = React.ComponentProps<
+  typeof AlertDialogPrimitive.Title
+>;
 
-type AlertDialogDescriptionProps = React.ComponentProps<typeof AlertDialogPrimitive.Description>
+type AlertDialogDescriptionProps = React.ComponentProps<
+  typeof AlertDialogPrimitive.Description
+>;
 
-type AlertDialogActionProps = React.ComponentProps<typeof AlertDialogPrimitive.Close> &
-  Pick<React.ComponentProps<typeof Button>, "variant" | "size">
+type AlertDialogActionProps = React.ComponentProps<
+  typeof AlertDialogPrimitive.Close
+> &
+  Pick<React.ComponentProps<typeof Button>, "variant" | "size">;
 
-type AlertDialogCancelProps = React.ComponentProps<typeof AlertDialogPrimitive.Close> &
-  Pick<React.ComponentProps<typeof Button>, "variant" | "size">
+type AlertDialogCancelProps = React.ComponentProps<
+  typeof AlertDialogPrimitive.Close
+> &
+  Pick<React.ComponentProps<typeof Button>, "variant" | "size">;
 
 function AlertDialog({ ...props }: AlertDialogProps) {
-  return <AlertDialogPrimitive.Root data-slot="alert-dialog" {...props} />
+  return <AlertDialogPrimitive.Root data-slot="alert-dialog" {...props} />;
 }
 
 function AlertDialogTrigger({ ...props }: AlertDialogTriggerProps) {
-  return <AlertDialogPrimitive.Trigger data-slot="alert-dialog-trigger" {...props} />
+  return (
+    <AlertDialogPrimitive.Trigger data-slot="alert-dialog-trigger" {...props} />
+  );
 }
 
 function AlertDialogPortal({ ...props }: AlertDialogPortalProps) {
-  return <AlertDialogPrimitive.Portal data-slot="alert-dialog-portal" {...props} />
+  return (
+    <AlertDialogPrimitive.Portal data-slot="alert-dialog-portal" {...props} />
+  );
 }
 
 function AlertDialogOverlay({ className, ...props }: AlertDialogOverlayProps) {
@@ -56,7 +76,7 @@ function AlertDialogOverlay({ className, ...props }: AlertDialogOverlayProps) {
       )}
       {...props}
     />
-  )
+  );
 }
 
 function AlertDialogContent({
@@ -77,7 +97,7 @@ function AlertDialogContent({
         {...props}
       />
     </AlertDialogPortal>
-  )
+  );
 }
 
 function AlertDialogHeader({ className, ...props }: AlertDialogHeaderProps) {
@@ -90,7 +110,7 @@ function AlertDialogHeader({ className, ...props }: AlertDialogHeaderProps) {
       )}
       {...props}
     />
-  )
+  );
 }
 
 function AlertDialogFooter({ className, ...props }: AlertDialogFooterProps) {
@@ -103,7 +123,7 @@ function AlertDialogFooter({ className, ...props }: AlertDialogFooterProps) {
       )}
       {...props}
     />
-  )
+  );
 }
 
 function AlertDialogMedia({ className, ...props }: AlertDialogMediaProps) {
@@ -116,7 +136,7 @@ function AlertDialogMedia({ className, ...props }: AlertDialogMediaProps) {
       )}
       {...props}
     />
-  )
+  );
 }
 
 function AlertDialogTitle({ className, ...props }: AlertDialogTitleProps) {
@@ -129,7 +149,7 @@ function AlertDialogTitle({ className, ...props }: AlertDialogTitleProps) {
       )}
       {...props}
     />
-  )
+  );
 }
 
 function AlertDialogDescription({
@@ -145,7 +165,7 @@ function AlertDialogDescription({
       )}
       {...props}
     />
-  )
+  );
 }
 
 function AlertDialogAction({
@@ -161,7 +181,7 @@ function AlertDialogAction({
       render={<Button variant={variant} size={size} />}
       {...props}
     />
-  )
+  );
 }
 
 function AlertDialogCancel({
@@ -177,7 +197,7 @@ function AlertDialogCancel({
       render={<Button variant={variant} size={size} />}
       {...props}
     />
-  )
+  );
 }
 
 export {
@@ -193,7 +213,7 @@ export {
   AlertDialogPortal,
   AlertDialogTitle,
   AlertDialogTrigger,
-}
+};
 
 export type {
   AlertDialogProps,
@@ -208,4 +228,4 @@ export type {
   AlertDialogDescriptionProps,
   AlertDialogActionProps,
   AlertDialogCancelProps,
-}
+};
