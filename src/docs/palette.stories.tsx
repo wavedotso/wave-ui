@@ -47,7 +47,7 @@ const BRAND_GROUPS: Group[] = [
 const THEME_GROUPS: Group[] = [
   {
     label: 'Graphite — neutral (default)',
-    note: 'Default neutral ramp — active with no theme class (or `.theme-graphite`). Feeds `--ui-*`.',
+    note: 'Default neutral ramp — active with no theme class (or `.theme-graphite`).',
     tokens: [
       { name: '--graphite-50' },
       { name: '--graphite-100' },
@@ -81,7 +81,7 @@ const THEME_GROUPS: Group[] = [
   },
   {
     label: 'Paper — warm',
-    note: 'Warm off-white → deep warm-neutral ramp — active under `.theme-paper`.',
+    note: 'Warm off-white ramp — active under `.theme-paper`.',
     tokens: [
       { name: '--paper-50' },
       { name: '--paper-100' },
