@@ -81,7 +81,7 @@ const THEME_GROUPS: Group[] = [
   },
   {
     label: 'Paper — warm',
-    note: 'Warm cream → sepia neutral ramp — active under `.theme-paper`.',
+    note: 'Warm off-white → deep warm-neutral ramp — active under `.theme-paper`.',
     tokens: [
       { name: '--paper-50' },
       { name: '--paper-100' },

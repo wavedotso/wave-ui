@@ -330,7 +330,7 @@ function ActionBarProvider({
             <div
               data-slot="action-bar-content"
               className={cn(
-                "flex items-center gap-6 rounded-lg border border-line/60 bg-surface px-5 py-2.5 shadow-lg ring-1 ring-line backdrop-blur-sm",
+                "flex items-center gap-6 rounded-lg border border-line/60 bg-surface px-5 py-2.5 shadow-lg ring-1 ring-line",
                 className
               )}
             >

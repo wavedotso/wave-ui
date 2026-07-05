@@ -4,7 +4,7 @@
  * NOT a public entry point — imported by components via relative paths.
  */
 
-import { forwardRef } from 'react';
+import * as React from 'react';
 
 type IconProps = React.SVGProps<SVGSVGElement>;
 
@@ -133,23 +133,20 @@ export function SidebarPanelIcon(props: IconProps) {
   );
 }
 
-/** `forwardRef` because `Spinner` exposes this as `React.ComponentProps<"svg">`. */
-export const LoaderIcon = forwardRef<SVGSVGElement, IconProps>(
-  function LoaderIcon(props, ref) {
-    return (
-      <svg {...SVG_BASE} ref={ref} {...props}>
-        <path d="M12 2v4" />
-        <path d="m16.2 7.8 2.9-2.9" />
-        <path d="M18 12h4" />
-        <path d="m16.2 16.2 2.9 2.9" />
-        <path d="M12 18v4" />
-        <path d="m4.9 19.1 2.9-2.9" />
-        <path d="M2 12h4" />
-        <path d="m4.9 4.9 2.9 2.9" />
-      </svg>
-    );
-  },
-);
+export function LoaderIcon(props: IconProps) {
+  return (
+    <svg {...SVG_BASE} {...props}>
+      <path d="M12 2v4" />
+      <path d="m16.2 7.8 2.9-2.9" />
+      <path d="M18 12h4" />
+      <path d="m16.2 16.2 2.9 2.9" />
+      <path d="M12 18v4" />
+      <path d="m4.9 19.1 2.9-2.9" />
+      <path d="M2 12h4" />
+      <path d="m4.9 4.9 2.9 2.9" />
+    </svg>
+  );
+}
 
 // ---------------------------------------------------------------------------
 // Toast status icons
