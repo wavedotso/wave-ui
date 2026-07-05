@@ -54,7 +54,7 @@ function InputOTPSlot({ index, className, ...props }: InputOTPSlotProps) {
       data-slot="input-otp-slot"
       data-active={isActive || undefined}
       className={cn(
-        "border-edge dark:bg-edge/30 relative flex size-9 items-center justify-center border-y border-r text-sm motion-color outline-none first:rounded-l-md first:border-l last:rounded-r-md",
+        "border-edge dark:bg-edge/30 relative flex size-9 items-center justify-center border-y border-r text-sm motion-color outline-hidden first:rounded-l-md first:border-l last:rounded-r-md",
         "data-active:border-focus data-active:ring-3 data-active:ring-focus/50 data-active:z-10",
         "group-has-aria-invalid/input-otp:border-destructive group-has-aria-invalid/input-otp:data-active:ring-3 group-has-aria-invalid/input-otp:data-active:ring-destructive/20 dark:group-has-aria-invalid/input-otp:data-active:ring-destructive/40",
         className,

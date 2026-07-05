@@ -62,13 +62,13 @@ function DrawerContent({
       <DrawerOverlay />
       <DrawerPrimitive.Viewport
         data-slot="drawer-viewport"
-        className="fixed inset-0 z-50 outline-none"
+        className="fixed inset-0 z-50 outline-hidden"
       >
         <DrawerPrimitive.Popup
           data-slot="drawer-content"
           className={cn(
             // Base layout & appearance
-            "group/drawer-content bg-foundation fixed z-50 flex flex-col overflow-y-auto border-edge text-sm shadow-lg outline-none",
+            "group/drawer-content bg-foundation fixed z-50 flex flex-col overflow-y-auto border-edge text-sm shadow-lg outline-hidden",
             // Transition — animate translate at the lg tier + the one curve; disable during swipe
             "transition-[translate] duration-(--duration-lg) ease-(--ease) data-[swiping]:duration-0",
             // Bottom drawer (swipeDirection="down")

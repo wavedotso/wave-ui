@@ -70,7 +70,7 @@ function AlertDialogContent({
         data-slot="alert-dialog-content"
         data-size={size}
         className={cn(
-          "motion-scale-lg bg-foundation ring-contrast/10 group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 gap-4 rounded-lg p-4 ring-1 outline-none data-[size=default]:max-w-xs data-[size=sm]:max-w-xs data-[size=lg]:max-w-lg data-[size=xl]:max-w-xl data-[size=default]:sm:max-w-sm data-[size=lg]:sm:max-w-lg data-[size=xl]:sm:max-w-xl",
+          "motion-scale-lg bg-foundation ring-contrast/10 group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 gap-4 rounded-lg p-4 ring-1 outline-hidden data-[size=default]:max-w-xs data-[size=sm]:max-w-xs data-[size=lg]:max-w-lg data-[size=xl]:max-w-xl data-[size=default]:sm:max-w-sm data-[size=lg]:sm:max-w-lg data-[size=xl]:sm:max-w-xl",
           className,
         )}
         {...props}
@@ -154,7 +154,7 @@ function AlertDialogAction({
   return (
     <Button
       data-slot="alert-dialog-action"
-      className={cn(className)}
+      className={className}
       {...props}
     />
   )

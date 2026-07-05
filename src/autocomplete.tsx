@@ -44,7 +44,7 @@ function AutocompleteInput({ className, ...props }: AutocompleteInputProps) {
     <AutocompletePrimitive.Input
       data-slot="autocomplete-input"
       className={cn(
-        "dark:bg-edge/30 border-edge focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-edge/50 dark:disabled:bg-edge/80 placeholder:text-soft h-8 w-full min-w-0 rounded-md border bg-transparent px-2.5 py-1 text-base transition-colors outline-none focus-visible:ring-3 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:ring-3 md:text-sm",
+        "dark:bg-edge/30 border-edge focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-edge/50 dark:disabled:bg-edge/80 placeholder:text-soft h-8 w-full min-w-0 rounded-md border bg-transparent px-2.5 py-1 text-base transition-colors outline-hidden focus-visible:ring-3 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:ring-3 md:text-sm",
         className,
       )}
       {...props}
@@ -92,7 +92,7 @@ function AutocompletePortal({ className, ...props }: AutocompletePortalProps) {
   return (
     <AutocompletePrimitive.Portal
       data-slot="autocomplete-portal"
-      className={cn(className)}
+      className={className}
       {...props}
     />
   )
@@ -112,7 +112,7 @@ function AutocompletePositioner({ className, ...props }: AutocompletePositionerP
   return (
     <AutocompletePrimitive.Positioner
       data-slot="autocomplete-positioner"
-      className={cn(className)}
+      className={className}
       {...props}
     />
   )
@@ -175,7 +175,7 @@ function AutocompleteRow({ className, ...props }: AutocompleteRowProps) {
   return (
     <AutocompletePrimitive.Row
       data-slot="autocomplete-row"
-      className={cn(className)}
+      className={className}
       {...props}
     />
   )

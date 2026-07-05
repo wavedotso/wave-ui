@@ -17,8 +17,10 @@
  * file's location in node_modules/@waveso/ui/dist/. */
 @source "./";
 
-/* Tailwind v4 `dark:` variant — applied when any ancestor has `.dark`. */
-@custom-variant dark (&:is(.dark *));
+/* Tailwind v4 `dark:` variant — applies to the `.dark` element itself and any
+ * descendant. `:where()` keeps utilities at their normal (zero-added) specificity
+ * so the cascade is decided by source order, like every other Tailwind utility. */
+@custom-variant dark (&:where(.dark, .dark *));
 
 /* ---------------------------------------------------------------------------
  * Light theme (default)
@@ -164,9 +166,11 @@
   --info: var(--wave-500); /* the one blue — Wave Blue (= --primary / --focus) */
 
   /* Presence */
-  --presence-online: oklch(0.710 0.185 155); /* = success colour */
-  --presence-away: oklch(0.830 0.156 93); /* = warning colour */
-  --presence-busy: oklch(0.620 0.200 25); /* = destructive colour */
+  /* Presence dots reuse the status colours — aliased, not duplicated, so they
+   * stay in sync (and follow a consumer's `--success`/etc. override). */
+  --presence-online: var(--success);
+  --presence-away: var(--warning);
+  --presence-busy: var(--destructive);
   --presence-invisible: var(--foundation); /* invisible = the page itself; pair with a border so the dot reads as a hollow ring */
 
   /* Radius */
@@ -253,10 +257,10 @@
   --info: var(--wave-400); /* brighter Wave Blue for legible text-info on dark surfaces */
 
   /* Presence */
-  --presence-online: oklch(0.735 0.185 155); /* brighter on dark, like status */
-  --presence-away: oklch(0.850 0.156 93);
-  --presence-busy: oklch(0.630 0.200 25);
-  --presence-invisible: var(--foundation); /* re-declared so it re-resolves to the dark foundation */
+  --presence-online: var(--success);
+  --presence-away: var(--warning);
+  --presence-busy: var(--destructive);
+  --presence-invisible: var(--foundation); /* re-resolves to the dark foundation */
 }
 
 /* ---------------------------------------------------------------------------

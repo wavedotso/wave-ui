@@ -90,7 +90,7 @@ function ContextMenuContent({
     <ContextMenuPrimitive.Portal>
       <ContextMenuPrimitive.Positioner
         data-slot="context-menu-positioner"
-        className="isolate z-50 outline-none"
+        className="isolate z-50 outline-hidden"
         align={align}
         alignOffset={alignOffset}
         side={side}
@@ -99,7 +99,7 @@ function ContextMenuContent({
         <ContextMenuPrimitive.Popup
           data-slot="context-menu-content"
           className={cn(
-            "motion-pop-md ring-contrast/10 bg-elevated text-contrast z-50 max-h-(--available-height) min-w-36 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-md p-1 shadow-md ring-1 outline-none",
+            "motion-pop-md ring-contrast/10 bg-elevated text-contrast z-50 max-h-(--available-height) min-w-36 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-md p-1 shadow-md ring-1 outline-hidden",
             className,
           )}
           finalFocus={resolveFinalFocus(restoreFocusOnClose, finalFocus)}

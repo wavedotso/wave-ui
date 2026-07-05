@@ -80,7 +80,7 @@ function DialogContent({
       <DialogPrimitive.Popup
         data-slot="dialog-content"
         className={cn(
-          "motion-scale-lg bg-foundation ring-contrast/10 fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-lg p-4 text-sm ring-1 outline-none sm:max-w-sm",
+          "motion-scale-lg bg-foundation ring-contrast/10 fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-lg p-4 text-sm ring-1 outline-hidden sm:max-w-sm",
           className
         )}
         {...props}

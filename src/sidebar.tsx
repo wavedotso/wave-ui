@@ -329,7 +329,7 @@ function SidebarTrigger({
       aria-expanded={open}
       variant="ghost"
       size="icon-sm"
-      className={cn(className)}
+      className={className}
       onClick={(event) => {
         onClick?.(event)
         toggleSidebar()

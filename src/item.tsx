@@ -9,7 +9,7 @@ import { cn } from "./lib/utils"
 import { Separator } from "./separator"
 
 const itemVariants = cva(
-  "[a]:hover:bg-secondary rounded-md border text-sm w-full group/item focus-visible:border-focus focus-visible:ring-focus/50 flex items-center flex-wrap outline-none motion-color focus-visible:ring-3",
+  "[a]:hover:bg-secondary rounded-md border text-sm w-full group/item focus-visible:border-focus focus-visible:ring-focus/50 flex items-center flex-wrap outline-hidden motion-color focus-visible:ring-3",
   {
     variants: {
       variant: {
