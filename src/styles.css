@@ -42,11 +42,14 @@
  * circular arc: softer, friendlier. It composes with `border-radius` and
  * respects borders / rings / shadows, and degrades to normal rounding where
  * unsupported (Chrome 2025+ today; Safari/Firefox pending). Pills and circles
- * opt back out — a squircled circle reads as an app icon, not an avatar. */
+ * opt back out — a squircled circle reads as an app icon, not an avatar.
+ * `::file-selector-button` is listed too — `*` doesn't match pseudo-elements,
+ * so the file-input button would otherwise stay round at the squircle radius. */
 @layer base {
   *,
   ::before,
-  ::after {
+  ::after,
+  ::file-selector-button {
     corner-shape: squircle;
   }
   [class*="rounded-full"] {

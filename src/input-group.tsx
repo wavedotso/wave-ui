@@ -23,7 +23,7 @@ type InputGroupButtonProps = Omit<
 
 type InputGroupTextProps = React.ComponentProps<"span">;
 
-type InputGroupInputProps = React.ComponentProps<"input">;
+type InputGroupInputProps = React.ComponentProps<typeof Input>;
 
 type InputGroupTextareaProps = React.ComponentProps<"textarea">;
 

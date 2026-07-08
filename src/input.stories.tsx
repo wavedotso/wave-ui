@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import { Button } from "./button";
 import { Input } from "./input";
 
 const meta = {
@@ -9,6 +10,10 @@ const meta = {
     type: {
       control: "select",
       options: ["text", "email", "password", "number", "search", "tel", "url"],
+    },
+    size: {
+      control: "select",
+      options: ["xs", "sm", "default", "lg"],
     },
     disabled: { control: "boolean" },
     placeholder: { control: "text" },
@@ -55,6 +60,7 @@ export const WithValue: Story = {
 export const File: Story = {
   args: {
     type: "file",
+    size: "default"
   },
 };
 
@@ -63,4 +69,36 @@ export const Invalid: Story = {
     "aria-invalid": true,
     defaultValue: "Invalid value",
   },
+};
+
+/**
+ * The shared control ladder: `xs` (24) · `sm` (32) · `default` (36) · `lg` (40).
+ * Same tiers and names as Button, so sizes are interchangeable across the form.
+ */
+export const Sizes: Story = {
+  render: () => (
+    <div className="flex w-72 flex-col gap-3">
+      <Input size="xs" placeholder="xs — 24px" />
+      <Input size="sm" placeholder="sm — 32px" />
+      <Input size="default" placeholder="default — 36px" />
+      <Input size="lg" placeholder="lg — 40px" />
+    </div>
+  ),
+};
+
+/**
+ * The point of the shared ladder: pair an input with a same-`size` button and
+ * the row lines up perfectly.
+ */
+export const PairedWithButton: Story = {
+  render: () => (
+    <div className="flex flex-col gap-3">
+      {(["xs", "sm", "default", "lg"] as const).map((size) => (
+        <div key={size} className="flex items-center gap-2">
+          <Input size={size} placeholder={`${size} input`} className="w-56" />
+          <Button size={size}>Save</Button>
+        </div>
+      ))}
+    </div>
+  ),
 };
