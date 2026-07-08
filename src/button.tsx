@@ -11,8 +11,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          "bg-primary text-white hover:bg-primary/80",
+        default: "bg-primary text-white hover:bg-primary/80",
         outline:
           "border-edge bg-foundation hover:bg-secondary/80 hover:text-contrast dark:bg-edge/30 aria-expanded:bg-secondary aria-expanded:text-contrast",
         secondary:
@@ -21,26 +20,19 @@ const buttonVariants = cva(
           "text-contrast hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-contrast",
         destructive:
           "bg-destructive text-white hover:bg-destructive/80 focus-visible:ring-destructive/50",
-        link:
-          "text-primary underline-offset-4 hover:underline",
+        link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
         default:
           "h-9 gap-1.5 px-3 has-data-[icon=inline-end]:pe-2.5 has-data-[icon=inline-start]:ps-2.5",
-        xs:
-          "h-6 gap-1 rounded-sm px-2.5 text-xs in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pe-2 has-data-[icon=inline-start]:ps-2 [&_svg:not([class*='size-'])]:size-3",
-        sm:
-          "h-8 gap-1 px-3 has-data-[icon=inline-end]:pe-2 has-data-[icon=inline-start]:ps-2",
-        lg:
-          "h-10 gap-1.5 px-4 has-data-[icon=inline-end]:pe-3 has-data-[icon=inline-start]:ps-3",
-        icon:
-          "size-9",
+        xs: "h-6 gap-1 rounded-sm px-2.5 text-xs in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pe-2 has-data-[icon=inline-start]:ps-2 [&_svg:not([class*='size-'])]:size-3",
+        sm: "h-8 gap-1 px-3 has-data-[icon=inline-end]:pe-2 has-data-[icon=inline-start]:ps-2",
+        lg: "h-10 gap-1.5 px-4 has-data-[icon=inline-end]:pe-3 has-data-[icon=inline-start]:ps-3",
+        icon: "size-9",
         "icon-xs":
           "size-6 rounded-sm in-data-[slot=button-group]:rounded-md [&_svg:not([class*='size-'])]:size-3",
-        "icon-sm":
-          "size-8",
-        "icon-lg":
-          "size-10",
+        "icon-sm": "size-8",
+        "icon-lg": "size-10",
       },
     },
     defaultVariants: {
