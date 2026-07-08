@@ -82,10 +82,10 @@ export function ColorGuide() {
               <strong className="font-semibold text-contrast">
                 Supply a light and a dark variant for anything colored.
               </strong>{" "}
-              Surfaces, text and borders flip on the <Code>.dark</Code> axis;
-              the neutral character switches with the theme class (Graphite ·
-              Ink · Paper). Status colors carry both variants and the dark one
-              is always{" "}
+              Surfaces, text and borders flip between the light theme (Paper)
+              and the two dark themes (Graphite · Ink); the <Code>dark:</Code>{" "}
+              variant fires on both. Status colors carry both variants and the
+              dark one is always{" "}
               <strong className="font-semibold text-contrast">
                 slightly brighter, never darker
               </strong>{" "}

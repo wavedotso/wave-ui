@@ -59,9 +59,15 @@ This is the right shape for a system centered on an emphasis ladder: clean and m
 
 The three themes are a homage to the **pre-digital writing desk** — the _surface_, the _pen_, the _pencil_ — and each maps to its color: cream ***Paper***, blue-black ***Ink***, gray ***Graphite***.
 
-**Graphite** is the default **neutral pencil-gray** theme, built on a low-saturation dark-neutral family with a subtle blue bias. That bias keeps the light steps from going flat — a tiny cool cast instead of pure gray.
+Wave **follows your operating system by default** — a light OS gets **Paper**, a dark OS gets **Graphite** (the neutral pencil-gray theme, a low-saturation dark-neutral with a subtle blue bias so its steps never go flat). **Ink**, the deep-navy _night_ theme, is opt-in.
 
-**Paper** and **Ink** are an elegant classic pair, each with a purpose: Paper is tuned for daytime and bright spaces; Ink for night and dark spaces. In every theme the _structure_ (text and borders) stays a cool-biased neutral, while the _surface_ carries the identity.
+| Theme | Role | Select with |
+| --- | --- | --- |
+| **Paper** | Light | light OS · `<html class="paper">` |
+| **Graphite** | Dark | dark OS · `<html class="graphite">` |
+| **Ink** | Night (premium) | `<html class="ink">` |
+
+A pinned class always beats the OS — put `.paper`, `.graphite`, or `.ink` on your `<html>` (or any subtree) from your app's own theme toggle. In every theme the _structure_ (text and borders) stays a cool-biased neutral, while the _surface_ carries the identity.
 
 ## Taxonomy
 
@@ -144,7 +150,7 @@ Import Tailwind, then the Wave UI preset, in your CSS entry point:
 @import "@waveso/ui/styles.css";
 ```
 
-The preset provides every CSS variable (colors, radii, motion, shadows) with light and dark support. Override any variable in your own `:root` / `.dark` blocks to customize the theme.
+The preset provides every CSS variable (colors, radii, motion, shadows) with light and dark support. Override any variable in your own `:root` or a theme block (`.graphite`, `.ink`, …) to customize the theme.
 
 ## Usage
 

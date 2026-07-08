@@ -43,11 +43,36 @@ const BRAND_GROUPS: Group[] = [
   },
 ];
 
-// The three neutral ramps — one per theme. Only the active theme's ramp feeds `--ui-*`.
+// Status ramps — mode-stable, shared by every theme (like Wave). 500 = the locked status color.
+const rampTokens = (prefix: string): Token[] =>
+  [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map((s) => ({
+    name: `--${prefix}-${s}`,
+  }));
+
+const STATUS_GROUPS: Group[] = [
+  {
+    label: "Success — green",
+    note: "Emerald ramp (H155). `success-500` is the locked `--success`.",
+    tokens: rampTokens("success"),
+  },
+  {
+    label: "Warning — amber",
+    note: "Amber ramp (H93). `warning-500` is the locked `--warning` — it sits light (yellow is intrinsically bright), so the upper swatches compress.",
+    tokens: rampTokens("warning"),
+  },
+  {
+    label: "Destructive — red",
+    note: "Red ramp (H25). `destructive-500` is the locked `--destructive`.",
+    tokens: rampTokens("destructive"),
+  },
+];
+
+// The three neutral ramps — one per theme. Each theme's semantic layer references
+// its ramp directly: Paper → light, Graphite → default dark, Ink → night.
 const THEME_GROUPS: Group[] = [
   {
-    label: "Graphite — neutral (default)",
-    note: "Default neutral ramp — active with no theme class (or `.theme-graphite`).",
+    label: "Graphite — neutral (dark)",
+    note: "The neutral dark theme — the dark-OS default, and pinned with `.graphite`.",
     tokens: [
       { name: "--graphite-50" },
       { name: "--graphite-100" },
@@ -63,8 +88,8 @@ const THEME_GROUPS: Group[] = [
     ],
   },
   {
-    label: "Ink — navy",
-    note: "Deep-navy neutral ramp — active under `.theme-ink`.",
+    label: "Ink — navy (night)",
+    note: "The premium night theme — opt-in only, active under `.ink`.",
     tokens: [
       { name: "--ink-50" },
       { name: "--ink-100" },
@@ -80,8 +105,8 @@ const THEME_GROUPS: Group[] = [
     ],
   },
   {
-    label: "Paper — warm",
-    note: "Warm off-white ramp — active under `.theme-paper`.",
+    label: "Paper — warm (light)",
+    note: "The light theme — the light-OS default, and pinned with `.paper`.",
     tokens: [
       { name: "--paper-50" },
       { name: "--paper-100" },
@@ -206,9 +231,11 @@ function Swatch({
   React.useEffect(() => {
     if (!ref.current) return;
     // Read the RESOLVED background-color so tokens that alias another var
-    // (e.g. `var(--ui-200)` → the active theme's ramp) display real hex/rgba.
+    // (e.g. `var(--paper-200)` → the active theme's ramp) display real hex/rgba.
     setResolved(formatColor(getComputedStyle(ref.current).backgroundColor));
-  }, [name, bg]);
+    // Resolve once on mount — the swatch's bg is a live CSS var (updates with
+    // the theme on its own); only the printed hex is a mount-time snapshot.
+  }, []);
 
   const label = labelOverride ?? name.replace(/^--(color-)?/, "");
 
@@ -328,6 +355,10 @@ function PaletteView({ groups }: { groups: Group[] }) {
 
 export const Brand: Story = {
   render: () => <PaletteView groups={BRAND_GROUPS} />,
+};
+
+export const Status: Story = {
+  render: () => <PaletteView groups={STATUS_GROUPS} />,
 };
 
 export const Themes: Story = {

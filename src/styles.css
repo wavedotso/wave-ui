@@ -7,7 +7,7 @@
  *   @import '@waveso/ui/styles.css';
  *
  * This brings the `dark` variant, every theme token (override in your own
- * :root / .dark), motion tokens + recipes, the few self-hosted keyframe
+ * :root or a theme class), motion tokens + recipes, the few self-hosted keyframe
  * utilities the components need, and the `@source` rule. No other
  * library-related imports needed — zero runtime dependencies.
  */
@@ -17,13 +17,33 @@
  * file's location in node_modules/@waveso/ui/dist/. */
 @source "./";
 
-/* Tailwind v4 `dark:` variant — applies to the `.dark` element itself and any
- * descendant. `:where()` keeps utilities at their normal (zero-added) specificity
- * so the cascade is decided by source order, like every other Tailwind utility. */
-@custom-variant dark (&:where(.dark, .dark *));
+/* Tailwind v4 `dark:` variant — fires on the DARK themes (`.graphite`, `.ink`)
+ * AND on the OS-dark default when no theme is pinned. `.paper` (light) always
+ * opts out. `:where()` keeps utilities at zero-added specificity so source order
+ * decides the cascade, like every Tailwind utility. A future dark theme gets
+ * added to both lists below. */
+@custom-variant dark {
+  &:where(.graphite, .graphite *, .ink, .ink *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(
+      :root:not(.paper):not(.graphite):not(.ink),
+      :root:not(.paper):not(.graphite):not(.ink) *
+    ) {
+      @slot;
+    }
+  }
+}
 
 /* ---------------------------------------------------------------------------
- * Light theme (default)
+ * Themes — named by identity: Paper (light) · Graphite (dark) · Ink (dark)
+ *
+ * Follows the OS by default: no class → Paper on a light system, Graphite on a
+ * dark one (`@media prefers-color-scheme`). Pin one by name — `.paper`,
+ * `.graphite`, `.ink` — and it always beats the OS. A theme class sits on the
+ * same <html> as `:root`, so every var() alias below (inverse, presence)
+ * re-resolves to the active theme.
  * ------------------------------------------------------------------------- */
 
 :root {
@@ -47,11 +67,50 @@
   --wave-900: oklch(0.284 0.088 255); /* #042954 */
   --wave-950: oklch(0.226 0.060 255); /* #061C37 */
 
-  /* ── Neutral theme palettes (primitives) ─────────────────────────────────
-   * Three complete neutral ramps, one per theme. The theme class on <html>
-   * wires the ACTIVE one into the `--ui-*` alias (step 2); the semantic layer
-   * reads `--ui-*`, never these directly. `--wave-*` (brand) is shared by all
-   * three. Default theme = Graphite.
+  /* Status ramps — shared across every theme (mode-stable, like Wave).
+   * 500 = the locked status colour; the semantic layer picks a swatch per
+   * light/dark (base + hover) so components never carry a `dark:` for it. */
+  --success-50:  oklch(0.975 0.014 155); /* #F0FAF3 */
+  --success-100: oklch(0.951 0.034 155); /* #DEF6E5 */
+  --success-200: oklch(0.911 0.068 155); /* #BFF0CE */
+  --success-300: oklch(0.857 0.113 155); /* #91E6B0 */
+  --success-400: oklch(0.797 0.165 155); /* #4FDB8D */
+  --success-500: oklch(0.710 0.185 155); /* #00C26B */
+  --success-600: oklch(0.620 0.176 155); /* #00A354 */
+  --success-700: oklch(0.504 0.151 155); /* #007C3B */
+  --success-800: oklch(0.388 0.119 155); /* #005626 */
+  --success-900: oklch(0.287 0.088 155); /* #003615 */
+  --success-950: oklch(0.200 0.060 155); /* #001D09 */
+
+  --warning-50:  oklch(0.975 0.012 93); /* #F9F7EE */
+  --warning-100: oklch(0.962 0.029 93); /* #F9F2DD */
+  --warning-200: oklch(0.940 0.058 93); /* #F8EBC0 */
+  --warning-300: oklch(0.911 0.095 93); /* #F7E198 */
+  --warning-400: oklch(0.878 0.139 93); /* #F6D460 */
+  --warning-500: oklch(0.830 0.156 93); /* #EAC434 */
+  --warning-600: oklch(0.719 0.148 93); /* #C4A100 */
+  --warning-700: oklch(0.576 0.127 93); /* #937600 */
+  --warning-800: oklch(0.432 0.100 93); /* #634E00 */
+  --warning-900: oklch(0.308 0.075 93); /* #3D2E00 */
+  --warning-950: oklch(0.200 0.051 93); /* #1E1500 */
+
+  --destructive-50:  oklch(0.975 0.015 25); /* #FFF3F2 */
+  --destructive-100: oklch(0.943 0.037 25); /* #FFE3E0 */
+  --destructive-200: oklch(0.890 0.074 25); /* #FFC8C2 */
+  --destructive-300: oklch(0.817 0.122 25); /* #FFA39B */
+  --destructive-400: oklch(0.736 0.178 25); /* #FF756E */
+  --destructive-500: oklch(0.620 0.200 25); /* #E64343 */
+  --destructive-600: oklch(0.546 0.190 25); /* #C72D32 */
+  --destructive-700: oklch(0.451 0.163 25); /* #9C1C21 */
+  --destructive-800: oklch(0.355 0.128 25); /* #701115 */
+  --destructive-900: oklch(0.272 0.096 25); /* #4C0A0C */
+  --destructive-950: oklch(0.200 0.065 25); /* #2D0606 */
+
+  /* ── Neutral ramps (primitives) ───────────────────────────────────────────
+   * Three complete neutral ramps. Each theme's semantic block below references
+   * exactly one of them directly: Paper → light, Graphite → default dark, Ink →
+   * night. `--wave-*` (brand) is shared by all three. Never used by components
+   * directly — only through the semantic tokens (`--foundation`, `--contrast`…).
    * ──────────────────────────────────────────────────────────────────────── */
 
   /* Graphite — neutral grey (default) */
@@ -95,55 +154,23 @@
   --paper-900: oklch(0.224 0.008 118); /* #1B1C18 */
   --paper-950: oklch(0.156 0.008 119); /* #0C0D09 */
 
-  /* Active neutral alias — the theme class on <html> repoints these to one of
-   * the ramps above (step 3). Default (no theme class) = Graphite. The semantic
-   * layer below reads ONLY `--ui-*`; components never touch a ramp directly. */
-  --ui-50:  var(--graphite-50);
-  --ui-100: var(--graphite-100);
-  --ui-200: var(--graphite-200);
-  --ui-300: var(--graphite-300);
-  --ui-400: var(--graphite-400);
-  --ui-500: var(--graphite-500);
-  --ui-600: var(--graphite-600);
-  --ui-700: var(--graphite-700);
-  --ui-800: var(--graphite-800);
-  --ui-900: var(--graphite-900);
-  --ui-950: var(--graphite-950);
-
   /* ========================================================================
-   * Semantic tokens — light (default). The spec's `.light` block lives in
-   * `:root` so consumers get the light theme without needing a `.light` class.
+   * Theme-independent tokens — identical in Paper / Graphite / Ink. The
+   * per-theme semantic tokens (surfaces, text, borders, secondary, shadow,
+   * status) live in the theme blocks below; the aliases here (`inverse`,
+   * `presence`) read those, so they re-resolve to whatever theme is on <html>.
    * ====================================================================== */
 
-  /* Backgrounds = elevation */
-  --foundation: var(--ui-200);
-  --surface: var(--ui-100);
-  --elevated: var(--ui-50);
-
-  /* Contrast = emphasis — highest-contrast text → muted → soft. */
-  --contrast: var(--ui-950);
-  --muted: var(--ui-600);
-  --soft: var(--ui-500);
-
-  /* Inverse — an inverted neutral pair (e.g. the dark tooltip). Aliases, so
-   * they auto-flip with `.dark` (var() re-resolves at the use site). */
+  /* Inverse — an inverted neutral pair (e.g. the dark tooltip). Aliases of the
+   * active theme's own `--contrast` / `--foundation`. */
   --surface-inverse: var(--contrast);
   --contrast-inverse: var(--foundation);
 
-  /* Brand — `primary` wired to the Wave ramp; `secondary` is the neutral fill
-   * (secondary/ghost buttons, hovers, selected) at ui-300; `accent` is the
-   * bright signal (Wave Blue 300, the strand now-glow). No per-fill on-color
-   * tokens: text on the saturated fills is
-   * `text-white`, text on the neutral `secondary` is `text-contrast`. */
+  /* Brand — `primary` = the Wave ramp; `accent` = the bright signal (Wave Blue
+   * 300, the strand now-glow). `secondary` (the neutral fill) is per-theme, so
+   * it lives in the theme blocks. Text on the saturated fills is `text-white`. */
   --primary: var(--wave-500);
-  --secondary: var(--ui-300);
   --accent: var(--wave-300); /* the bright signal — the strand's "now" cursor glow */
-
-  /* Borders = structure — mixed from the ACTIVE palette so they auto-match
-   * every theme: a hairline of the darkest neutral in light mode. */
-  --line: color-mix(in srgb, var(--ui-950) 7%, transparent);
-  --edge: color-mix(in srgb, var(--ui-950) 14%, transparent);
-  --solid: var(--ui-300);
 
   /* Rings = brand themed */
   --focus: var(--primary);
@@ -151,23 +178,8 @@
   /* Scrim — the dim behind modal overlays (dialog / drawer / alert backdrop). */
   --scrim: oklch(0 0 0 / 0.1);
 
-  /* Shadow — two dials for the layered `shadow-*` scale: `--shadow-color` (oklch
-   * components `L C H` — a deep cool-tinted near-black, never pure black which
-   * reads heavy) and `--shadow-strength` (per-layer alpha / intensity). Both
-   * resolve per :root/.dark, so retinting OR dimming every shadow is one token.
-   * For a colored surface set a named tint, e.g. `--shadow-color-primary`. */
-  --shadow-color: 0.159 0.021 263; /* was hsl(220 45% 6%) */
-  --shadow-strength: 0.22;
-
-  /* Status */
-  --destructive: oklch(0.620 0.200 25);
-  --success: oklch(0.710 0.185 155); /* cool emerald — distinct from the warning yellow, kept ownable (off the Apple/Tailwind default) */
-  --warning: oklch(0.830 0.156 93);
-  --info: var(--wave-500); /* the one blue — Wave Blue (= --primary / --focus) */
-
-  /* Presence */
-  /* Presence dots reuse the status colours — aliased, not duplicated, so they
-   * stay in sync (and follow a consumer's `--success`/etc. override). */
+  /* Presence — dots reuse the status colours (aliased, not duplicated, so they
+   * stay in sync and follow a consumer's `--success`/etc. override). */
   --presence-online: var(--success);
   --presence-away: var(--warning);
   --presence-busy: var(--destructive);
@@ -219,73 +231,102 @@
 }
 
 /* ---------------------------------------------------------------------------
- * Dark theme
+ * Paper — the LIGHT theme, and the default. The single source for Paper's
+ * per-theme tokens, shared by `:root` (the default) and `.paper` (explicit —
+ * what a theme toggle sets, or to override an inherited dark theme in a nested
+ * scope).
  * ------------------------------------------------------------------------- */
-
-.dark {
-  /* Backgrounds = elevation */
-  --foundation: var(--ui-950);
-  --surface: var(--ui-900);
-  --elevated: var(--ui-800);
-
-  /* Contrast = emphasis */
-  --contrast: var(--ui-100);
-  --muted: var(--ui-400);
-  --soft: var(--ui-600);
-
-  /* Brand — only `secondary` differs from light; mirrored to ui-700 so the
-   * neutral fill stands out against the dark surfaces. primary / accent /
-   * inverse / focus auto-flip or stay constant via the `:root` definitions. */
-  --secondary: var(--ui-700);
-
-  /* Borders = structure — a hairline of the lightest neutral (auto-matches theme). */
-  --line: color-mix(in srgb, var(--ui-50) 5%, transparent);
-  --edge: color-mix(in srgb, var(--ui-50) 13%, transparent);
-  --solid: var(--ui-700);
-
-  /* Shadow — darker tint, lower strength: a near-black shadow on a dark
-   * surface reads heavier than on white, so dim it. */
-  --shadow-color: 0.125 0.011 259; /* was hsl(220 40% 3%) */
-  --shadow-strength: 0.18;
-
-  /* Status */
-  /* Slightly BRIGHTER than the :root (light) values.
-   * Never darker, or the colour recedes on dark surfaces (the old reversal bug). */
-  --destructive: oklch(0.630 0.200 25);
-  --success: oklch(0.735 0.185 155); /* green A, hue-aware lift (+.025) brighter than light */
-  --warning: oklch(0.850 0.156 93);
-  --info: var(--wave-400); /* brighter Wave Blue for legible text-info on dark surfaces */
-
-  /* Presence */
-  --presence-online: var(--success);
-  --presence-away: var(--warning);
-  --presence-busy: var(--destructive);
-  --presence-invisible: var(--foundation); /* re-resolves to the dark foundation */
+:root,
+.paper {
+  --foundation: var(--paper-200);
+  --surface: var(--paper-100);
+  --elevated: var(--paper-50);
+  --contrast: var(--paper-950);
+  --muted: var(--paper-600);
+  --soft: var(--paper-500);
+  --secondary: var(--paper-300);
+  --line: color-mix(in srgb, var(--paper-950) 7%, transparent);
+  --edge: color-mix(in srgb, var(--paper-950) 14%, transparent);
+  --solid: var(--paper-300);
+  --shadow-color: 0.159 0.021 263;
+  --shadow-strength: 0.22;
+  --destructive: oklch(0.620 0.200 25);
+  --success: oklch(0.710 0.185 155);
+  --warning: oklch(0.830 0.156 93);
+  --info: var(--wave-500);
 }
 
 /* ---------------------------------------------------------------------------
- * Theme presets — each repoints the `--ui-*` alias to one neutral ramp. Put a
- * class on a root element: `<html class="theme-paper">`. Graphite is also the bare
- * `:root` default, so `theme-graphite` is optional/explicit. Light vs dark is the
- * separate `.dark` axis — they compose (e.g. `class="theme-paper dark"`).
+ * Graphite — the DARK theme (neutral). Two ways in: the OS-dark default (the
+ * `@media` block, active only when no theme is pinned) and an explicit
+ * `.graphite` (what a theme toggle sets). Same tokens both ways — a media query
+ * can't be folded into a plain class selector, so they're stated once each.
+ * Status brightens and the shadow dims for the dark surface; any pinned theme
+ * beats the OS.
  * ------------------------------------------------------------------------- */
-.theme-graphite {
-  --ui-50: var(--graphite-50);   --ui-100: var(--graphite-100); --ui-200: var(--graphite-200);
-  --ui-300: var(--graphite-300); --ui-400: var(--graphite-400); --ui-500: var(--graphite-500);
-  --ui-600: var(--graphite-600); --ui-700: var(--graphite-700); --ui-800: var(--graphite-800);
-  --ui-900: var(--graphite-900); --ui-950: var(--graphite-950);
+@media (prefers-color-scheme: dark) {
+  :root:not(.paper):not(.graphite):not(.ink) {
+    --foundation: var(--graphite-950);
+    --surface: var(--graphite-900);
+    --elevated: var(--graphite-800);
+    --contrast: var(--graphite-100);
+    --muted: var(--graphite-400);
+    --soft: var(--graphite-600);
+    --secondary: var(--graphite-700);
+    --line: color-mix(in srgb, var(--graphite-50) 5%, transparent);
+    --edge: color-mix(in srgb, var(--graphite-50) 13%, transparent);
+    --solid: var(--graphite-700);
+    --shadow-color: 0.125 0.011 259;
+    --shadow-strength: 0.18;
+    --destructive: oklch(0.630 0.200 25);
+    --success: oklch(0.735 0.185 155);
+    --warning: oklch(0.850 0.156 93);
+    --info: var(--wave-400);
+  }
 }
-.theme-ink {
-  --ui-50: var(--ink-50);   --ui-100: var(--ink-100); --ui-200: var(--ink-200);
-  --ui-300: var(--ink-300); --ui-400: var(--ink-400); --ui-500: var(--ink-500);
-  --ui-600: var(--ink-600); --ui-700: var(--ink-700); --ui-800: var(--ink-800);
-  --ui-900: var(--ink-900); --ui-950: var(--ink-950);
+
+.graphite {
+  --foundation: var(--graphite-950);
+  --surface: var(--graphite-900);
+  --elevated: var(--graphite-800);
+  --contrast: var(--graphite-100);
+  --muted: var(--graphite-400);
+  --soft: var(--graphite-600);
+  --secondary: var(--graphite-700);
+  --line: color-mix(in srgb, var(--graphite-50) 5%, transparent);
+  --edge: color-mix(in srgb, var(--graphite-50) 13%, transparent);
+  --solid: var(--graphite-700);
+  --shadow-color: 0.125 0.011 259;
+  --shadow-strength: 0.18;
+  --destructive: oklch(0.630 0.200 25);
+  --success: oklch(0.735 0.185 155);
+  --warning: oklch(0.850 0.156 93);
+  --info: var(--wave-400);
 }
-.theme-paper {
-  --ui-50: var(--paper-50);   --ui-100: var(--paper-100); --ui-200: var(--paper-200);
-  --ui-300: var(--paper-300); --ui-400: var(--paper-400); --ui-500: var(--paper-500);
-  --ui-600: var(--paper-600); --ui-700: var(--paper-700); --ui-800: var(--paper-800);
-  --ui-900: var(--paper-900); --ui-950: var(--paper-950);
+
+/* ---------------------------------------------------------------------------
+ * Ink — the premium night theme. Opt-in only: `<html class="ink">`.
+ * A complete, self-contained dark theme (deep navy), separate from the Graphite
+ * default dark. It's dark, so it drives the `dark:` variant too. primary /
+ * accent / focus / inverse / presence stay constant or re-resolve via `:root`.
+ * ------------------------------------------------------------------------- */
+.ink {
+  --foundation: var(--ink-950);
+  --surface: var(--ink-900);
+  --elevated: var(--ink-800);
+  --contrast: var(--ink-100);
+  --muted: var(--ink-400);
+  --soft: var(--ink-600);
+  --secondary: var(--ink-700);
+  --line: color-mix(in srgb, var(--ink-50) 5%, transparent);
+  --edge: color-mix(in srgb, var(--ink-50) 13%, transparent);
+  --solid: var(--ink-700);
+  --shadow-color: 0.125 0.011 259;
+  --shadow-strength: 0.18;
+  --destructive: oklch(0.630 0.200 25);
+  --success: oklch(0.735 0.185 155);
+  --warning: oklch(0.850 0.156 93);
+  --info: var(--wave-400);
 }
 
 /* ---------------------------------------------------------------------------
@@ -350,7 +391,7 @@
 }
 
 /* Shadow scale — layered, tinted by `--shadow-color` and dimmed by
- * `--shadow-strength` (both resolve per :root/.dark, so retinting or dimming
+ * `--shadow-strength` (both resolve per theme, so retinting or dimming
  * every shadow is one token). Tiers differ by layer count + spread, not alpha.
  * Overrides Tailwind's shadow-sm/md/lg. */
 @theme {

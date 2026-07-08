@@ -4,18 +4,18 @@ import { useEffect } from "storybook/preview-api";
 import { ThemedDocsContainer } from "./themed-docs-container";
 import "./storybook.css";
 
-// One control, three themes — each carries its own palette AND mode, so there's
-// no separate light/dark toggle to drift out of sync. The class on the preview
-// <html> repoints the `--ui-*` alias and `.dark` flips the semantic mode; the
-// whole UI re-skins from it. (The library still supports every palette × mode
-// for consumers — this is just the curated set Storybook previews.)
+// One control, three themes — each maps to its identity class on the preview
+// <html>: `.paper` (light), `.graphite` (dark), `.ink` (dark night). Each class
+// is a complete, self-contained theme, so there's no separate light/dark toggle.
 const THEMES = {
-  graphite: { class: "theme-graphite", dark: true },
-  ink: { class: "theme-ink", dark: true },
-  paper: { class: "theme-paper", dark: false },
+  graphite: { class: "graphite" },
+  paper: { class: "paper" },
+  ink: { class: "ink" },
 } as const;
 
 type ThemeName = keyof typeof THEMES;
+
+const THEME_CLASSES = ["paper", "graphite", "ink"];
 
 const withTheme: Decorator = (Story, context) => {
   const themeName = (context.globals.theme as ThemeName) ?? "graphite";
@@ -27,11 +27,8 @@ const withTheme: Decorator = (Story, context) => {
   useEffect(() => {
     const root = document.documentElement;
     const theme = THEMES[themeName] ?? THEMES.graphite;
-    for (const t of Object.values(THEMES)) {
-      root.classList.remove(t.class);
-    }
+    root.classList.remove(...THEME_CLASSES);
     root.classList.add(theme.class);
-    root.classList.toggle("dark", theme.dark);
   }, [themeName]);
   return Story();
 };
@@ -46,8 +43,8 @@ export const globalTypes = {
       icon: "paintbrush",
       items: [
         { value: "graphite", title: "Graphite", right: "dark" },
-        { value: "ink", title: "Ink", right: "midnight" },
         { value: "paper", title: "Paper", right: "light" },
+        { value: "ink", title: "Ink", right: "night" },
       ],
       dynamicTitle: true,
     },

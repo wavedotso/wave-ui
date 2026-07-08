@@ -2,10 +2,11 @@
   /* Per-theme foundation background, painted before the CSS bundle loads (the
    * theme class is set by the script below) so refresh / navigation never flash.
    * Hardcoded to mirror each theme's `--foundation` — the CSS vars aren't
-   * available pre-bundle. Graphite is the bare default. */
-  html { background-color: #2C2D32; }                   /* Graphite (dark, default) — graphite-950 */
-  html.theme-ink { background-color: #020812; }      /* Ink (deep navy) — ink-950 page */
-  html.theme-paper { background-color: #EFF0EB; }    /* Paper (cool)    — paper-200 foundation */
+   * available pre-bundle. Graphite (`.graphite`) is Storybook's default. */
+  html,
+  html.graphite { background-color: #2C2D32; }       /* Graphite (default dark) — graphite-950 */
+  html.paper { background-color: #EFF0EB; }          /* Paper (light) — paper-200 foundation */
+  html.ink { background-color: #020812; }            /* Ink (night) — ink-950 page */
 
   /* Storybook's own chrome / white loaders / docs blocks → inherit the theme
    * background above so nothing flashes white. `!important` is used ONLY here
@@ -27,14 +28,14 @@
   }
 </style>
 <script>
-  // Set the theme class (and `.dark` for dark modes) before first paint, from the
-  // persisted toolbar choice in the iframe URL `globals`, else the Graphite default.
-  // Mirrors preview.ts THEMES.
+  // Set the theme class before first paint, from the persisted toolbar choice in
+  // the iframe URL `globals`, else the Graphite (`.graphite`) default. Mirrors
+  // preview.ts THEMES — each theme is its own identity class.
   (function () {
     var THEMES = {
-      graphite: { cls: 'theme-graphite', dark: true },
-      ink:      { cls: 'theme-ink',      dark: true },
-      paper:    { cls: 'theme-paper',    dark: false },
+      graphite: 'graphite',
+      paper:    'paper',
+      ink:      'ink',
     };
     var name;
     try {
@@ -42,9 +43,7 @@
       var m = globals.match(/theme:([\w-]+)/);
       if (m) name = m[1];
     } catch (e) {}
-    var t = THEMES[name] || THEMES.graphite;
     var root = document.documentElement;
-    root.classList.add(t.cls);
-    if (t.dark) root.classList.add('dark');
+    root.classList.add(THEMES[name] || THEMES.graphite);
   })();
 </script>
