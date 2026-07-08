@@ -111,22 +111,23 @@ export const TrailingIcon: Story = {
 };
 
 /**
- * Icon-only: mark with both not needed — use a single side, or wrap.
- * Here the icon carries `data-icon="inline-start"` and the badge is
- * given an accessible label.
+ * Icon-only: pad it square with `p-1` so the lone icon sits dead-center (the
+ * `data-icon` spacing convention is for an icon *next to text*, so it doesn't
+ * apply here). Give the badge an accessible label.
  */
 export const IconOnly: Story = {
   render: () => (
-    <Badge variant="outline" aria-label="Verified">
-      <CheckIcon data-icon="inline-start" />
+    <Badge variant="outline" aria-label="Verified" className="p-1">
+      <CheckIcon />
     </Badge>
   ),
 };
 
 /**
- * The escape hatch the convention is designed for: the icon does NOT
- * have to be a bare `<svg>`. Wrap anything (a sized span, a spinner, an
- * avatar) and put `data-icon` on the wrapper — spacing still applies.
+ * The escape hatch the convention is designed for: the icon does NOT have to be
+ * a bare `<svg>`. Wrap anything and put `data-icon` on the wrapper — the spacing
+ * still applies, and a nested `<svg>` is auto-sized just like a direct one (add
+ * a `size-*` class on the icon to opt out).
  */
 export const WrappedIcon: Story = {
   render: () => (
@@ -158,8 +159,8 @@ export const WithIcons: Story = {
         <CheckIcon data-icon="inline-start" />
         Active
       </Badge>
-      <Badge variant="destructive" aria-label="Error">
-        <CloseIcon data-icon="inline-start" />
+      <Badge variant="destructive" aria-label="Error" className="p-1">
+        <CloseIcon />
       </Badge>
     </div>
   ),
