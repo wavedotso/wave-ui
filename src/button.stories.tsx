@@ -14,7 +14,6 @@ const meta = {
         "outline",
         "secondary",
         "ghost",
-        "success",
         "destructive",
         "link",
       ],
@@ -26,7 +25,6 @@ const meta = {
         "xs",
         "sm",
         "lg",
-        "xl",
         "icon",
         "icon-xs",
         "icon-sm",
@@ -67,13 +65,6 @@ export const Ghost: Story = {
   },
 };
 
-export const Success: Story = {
-  args: {
-    variant: "success",
-    children: "Success",
-  },
-};
-
 export const Destructive: Story = {
   args: {
     variant: "destructive",
@@ -102,13 +93,6 @@ export const Large: Story = {
   },
 };
 
-export const ExtraSmall: Story = {
-  args: {
-    size: "xs",
-    children: "XS",
-  },
-};
-
 export const Disabled: Story = {
   args: {
     disabled: true,
@@ -123,7 +107,6 @@ export const AllVariants: Story = {
       <Button variant="outline">Outline</Button>
       <Button variant="secondary">Secondary</Button>
       <Button variant="ghost">Ghost</Button>
-      <Button variant="success">Success</Button>
       <Button variant="destructive">Destructive</Button>
       <Button variant="link">Link</Button>
     </div>
@@ -133,11 +116,10 @@ export const AllVariants: Story = {
 export const AllSizes: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
-      <Button size="xs">Extra Small</Button>
+      <Button size="xs">Extra small</Button>
       <Button size="sm">Small</Button>
       <Button size="default">Default</Button>
       <Button size="lg">Large</Button>
-      <Button size="xl">Extra Large</Button>
     </div>
   ),
 };
@@ -182,8 +164,8 @@ export const WithIcons: Story = {
         Dismiss
         <CloseIcon data-icon="inline-end" />
       </Button>
-      <Button variant="ghost" size="sm" aria-label="Close">
-        <CloseIcon data-icon="inline-start" />
+      <Button variant="ghost" size="icon-sm" aria-label="Close">
+        <CloseIcon />
       </Button>
     </div>
   ),

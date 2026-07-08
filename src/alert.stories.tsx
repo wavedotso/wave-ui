@@ -88,7 +88,7 @@ export const WithAction: Story = {
         A new version of the app is available.
       </AlertDescription>
       <AlertAction>
-        <Button size="xs" variant="outline">
+        <Button size="sm" variant="outline">
           Update
         </Button>
       </AlertAction>
