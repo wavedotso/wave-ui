@@ -1,5 +1,22 @@
 # @waveso/ui
 
+## 0.13.0
+
+### Minor Changes
+
+- 1538e52: Badge reworked as a solid, display-first element.
+
+  - **Solid status fills.** `success`, `warning`, and `destructive` are now solid colour fills with legible text, replacing the soft tinted look — matching the library's "colour in the fill, not the text" model. (`default` / `secondary` were already solid.)
+  - **Display, not interactive.** A badge is a label, so it no longer carries hover styling by default (`ghost` and `link` previously hovered on any element). Interactive styling applies only when a badge is rendered as a link (`render={<a … />}`).
+  - **Icons.** A wrapped/nested icon (not a bare `<svg>` child) is now sized correctly and no longer shrinks. Mark a leading or trailing icon with `data-icon="inline-start"` / `"inline-end"` to tighten that side's padding.
+  - **Logical padding** (`ps` / `pe`) so leading/trailing spacing follows text direction (RTL-safe).
+
+- 38443f1: Squircle corners — every rounded corner now renders as an iOS-style continuous superellipse.
+
+  A global `corner-shape: squircle` turns every `border-radius` into a squircle (a smoother, friendlier corner than a plain circular arc), and the base radius bumps `0.625rem → 1rem` so shapes keep their intended roundness — a squircle reads tighter than a circular arc at the same radius.
+
+  It's **progressive enhancement**: supporting browsers (Chrome 2025+) get squircles; everywhere else (Safari / Firefox pending) falls back cleanly to normal circular rounding, and the radius bump is scoped with `@supports` so those browsers keep the original values — nothing breaks. Pills and circles (`rounded-full`) opt out, so avatars and status dots stay perfectly round.
+
 ## 0.12.0
 
 ### Minor Changes
