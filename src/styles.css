@@ -37,6 +37,24 @@
 }
 
 /* ---------------------------------------------------------------------------
+ * Squircle corners — progressive enhancement. `corner-shape` renders every
+ * `border-radius` as a continuous superellipse (iOS-style) instead of a plain
+ * circular arc: softer, friendlier. It composes with `border-radius` and
+ * respects borders / rings / shadows, and degrades to normal rounding where
+ * unsupported (Chrome 2025+ today; Safari/Firefox pending). Pills and circles
+ * opt back out — a squircled circle reads as an app icon, not an avatar. */
+@layer base {
+  *,
+  ::before,
+  ::after {
+    corner-shape: squircle;
+  }
+  [class*="rounded-full"] {
+    corner-shape: round;
+  }
+}
+
+/* ---------------------------------------------------------------------------
  * Themes — named by identity: Paper (light) · Graphite (dark) · Ink (dark)
  *
  * Follows the OS by default: no class → Paper on a light system, Graphite on a
@@ -228,6 +246,16 @@
   --stagger-sm: 30ms;    /* list-item delay */
   --stagger-md: 60ms;
   --stagger-lg: 90ms;
+}
+
+/* A squircle reads tighter than a circular arc at the same radius, so where
+ * `corner-shape` is active we bump the radius to restore the intended roundness.
+ * Scoped via @supports — browsers without squircles keep the original values.
+ * Starting value; nudge by eye in Chrome. Feeds --radius-sm/md/lg (all calc off it). */
+@supports (corner-shape: squircle) {
+  :root {
+    --radius: 1rem;
+  }
 }
 
 /* ---------------------------------------------------------------------------
