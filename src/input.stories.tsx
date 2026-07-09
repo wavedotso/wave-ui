@@ -60,7 +60,7 @@ export const WithValue: Story = {
 export const File: Story = {
   args: {
     type: "file",
-    size: "default"
+    size: "default",
   },
 };
 
