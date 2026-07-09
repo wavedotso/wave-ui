@@ -7,7 +7,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "./lib/utils";
 
 const buttonVariants = cva(
-  "cursor-clickable focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-destructive/30 aria-invalid:border-destructive rounded-md border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 [&_svg:not([class*='size-'])]:size-4 inline-flex items-center justify-center whitespace-nowrap motion-color disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-hidden group/button select-none active:not-aria-[haspopup]:scale-[0.97]",
+  "cursor-clickable focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-destructive/30 aria-invalid:border-destructive rounded-md border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-3 aria-invalid:ring-3 [&_svg:not([class*='size-'])]:size-4 inline-flex items-center justify-center whitespace-nowrap motion-color disabled:pointer-events-none disabled:opacity-30 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-hidden group/button select-none active:not-aria-[haspopup]:scale-[0.97]",
   {
     variants: {
       variant: {

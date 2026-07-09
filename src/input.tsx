@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "./lib/utils";
 
 const inputVariants = cva(
-  "dark:bg-edge/30 hover:bg-edge/50 dark:hover:bg-edge/50 border-edge focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-destructive/30 aria-invalid:border-destructive disabled:bg-edge/50 dark:disabled:bg-edge/80 placeholder:text-soft flex w-full min-w-0 items-center overflow-hidden rounded-md border bg-transparent motion-color outline-hidden file:inline-flex file:my-[3px] file:items-center file:me-3 file:cursor-clickable file:rounded-md file:border-0 file:bg-primary file:px-2.5 file:leading-none file:font-medium file:text-white file:motion-color file:hover:bg-primary/80 focus-visible:ring-3 disabled:pointer-events-none disabled:opacity-50 aria-invalid:ring-3",
+  "bg-edge hover:border-focus focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-destructive/30 aria-invalid:border-destructive placeholder:text-soft flex w-full min-w-0 items-center overflow-hidden rounded-md border border-transparent motion-color outline-hidden file:inline-flex file:my-[3px] file:items-center file:me-3 file:cursor-clickable file:rounded-md file:border-0 file:bg-primary file:px-2.5 file:leading-none file:font-medium file:text-white file:motion-color file:hover:bg-primary/80 focus-visible:ring-3 disabled:pointer-events-none disabled:opacity-30 aria-invalid:ring-3",
   {
     variants: {
       // Shared control ladder — same tiers/names as Button, so a `sm` input,
