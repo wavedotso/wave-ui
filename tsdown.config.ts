@@ -33,6 +33,13 @@ export default defineConfig({
   platform: "neutral",
   unbundle: true,
   dts: true,
+  // tsdown/rolldown raises a MODULE_LEVEL_DIRECTIVE warning for every
+  // "use client" file, cautioning that the directive "may not be preserved
+  // when bundling". In `unbundle` mode it IS preserved — every client module
+  // in dist/ still starts with "use client" — so the warning is a false alarm
+  // for this setup. Drop the per-file noise (a genuine drop would surface in
+  // check:package / consumer RSC use, not this generic bundler caution).
+  suppressWarnings: ["may not be preserved when bundling"],
   // No sourcemaps: `src` is not in the published `files`, so `.js.map` /
   // `.d.ts.map` would point at paths that don't ship — broken dead weight in
   // the tarball. Storybook/Vite build from `src` directly, so dev debugging is
