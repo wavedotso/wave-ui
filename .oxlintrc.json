@@ -1,0 +1,41 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "typescript", "jsx-a11y", "unicorn", "oxc"],
+  "env": { "browser": true, "es2024": true },
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn",
+    "perf": "warn"
+  },
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "typescript/no-non-null-assertion": "off",
+    "jsx-a11y/prefer-tag-over-role": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "jsx-a11y/no-noninteractive-tabindex": "off",
+    "jsx-a11y/interactive-supports-focus": "off",
+    "react/exhaustive-effect-dependencies": "warn",
+    "react/no-array-index-key": "warn",
+    "react/refs": "off",
+    "react/set-state-in-effect": "warn",
+    "jsx-a11y/no-noninteractive-element-interactions": "warn",
+    "unicorn/no-new-array": "warn",
+    "unicorn/consistent-function-scoping": "warn",
+    "unicorn/no-useless-fallback-in-spread": "warn"
+  },
+  "ignorePatterns": ["**/*.d.ts", "dist", "storybook-static"],
+  "overrides": [
+    {
+      "files": ["**/*.stories.tsx", "**/*.test.tsx", "src/docs/**"],
+      "rules": {
+        "jsx-a11y/heading-has-content": "off",
+        "jsx-a11y/anchor-is-valid": "off",
+        "jsx-a11y/click-events-have-key-events": "off",
+        "jsx-a11y/no-static-element-interactions": "off",
+        "jsx-a11y/role-has-required-aria-props": "off",
+        "jsx-a11y/control-has-associated-label": "off",
+        "react/button-has-type": "off"
+      }
+    }
+  ]
+}

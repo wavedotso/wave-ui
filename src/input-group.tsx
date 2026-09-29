@@ -96,7 +96,9 @@ function InputGroupAddon({
   ...props
 }: InputGroupAddonProps) {
   return (
-    // biome-ignore lint/a11y/useKeyWithClickEvents: click-to-focus affordance; the click only forwards focus to the keyboard-accessible input, it is not itself a control.
+    // click-to-focus affordance; the click only forwards focus to the
+    // keyboard-accessible input, it is not itself a control.
+    // oxlint-disable-next-line jsx-a11y/click-events-have-key-events
     <div
       role="group"
       data-slot="input-group-addon"
