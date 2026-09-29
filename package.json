@@ -7,6 +7,7 @@
     "*.css"
   ],
   "license": "MIT",
+  "packageManager": "pnpm@11.21.0",
   "keywords": [
     "react",
     "react-19",
@@ -56,10 +57,10 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "chromatic": "chromatic --exit-zero-on-changes",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "pnpm build",
     "changeset": "changeset",
     "version": "changeset version",
-    "release": "npm run build && changeset publish"
+    "release": "pnpm build && changeset publish"
   },
   "peerDependencies": {
     "@base-ui/react": "^1.6.0",

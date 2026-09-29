@@ -1,4 +1,4 @@
-import type { Preview, Decorator } from "@storybook/react";
+import type { Preview, Decorator } from "@storybook/react-vite";
 import { useEffect } from "storybook/preview-api";
 
 import { ThemedDocsContainer } from "./themed-docs-container";
