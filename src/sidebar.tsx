@@ -50,7 +50,8 @@ const SIDEBAR_DEFAULT_KEYBOARD_SHORTCUT = "b";
  */
 function cookiePersist(name = "sidebar-state", maxAge = 60 * 60 * 24 * 7) {
   return (open: boolean) => {
-    // biome-ignore lint/suspicious/noDocumentCookie: intentional synchronous cookie for sidebar-state persistence (CookieStore is async + less supported).
+    // Intentional synchronous cookie for sidebar-state persistence
+    // (CookieStore is async + less widely supported).
     document.cookie = `${name}=${open}; path=/; max-age=${maxAge}`;
   };
 }

@@ -67,7 +67,7 @@ function initWebGL(gl: WebGLRenderingContext): WebGLUniforms | null {
     return null;
   }
 
-  // biome-ignore lint/correctness/useHookAtTopLevel: gl.useProgram is a WebGL API method, not a React hook.
+  // gl.useProgram is a WebGL API method, not a React hook.
   gl.useProgram(program);
 
   const buffer = gl.createBuffer();
