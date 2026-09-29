@@ -11,7 +11,7 @@ place before it ships, so components read as one surface rather than a pile of p
 ## The cursor speaks in a binary
 
 A pointer means _clickable_; the default arrow means _not_ — that's the whole vocabulary.
-Disabled controls fade with `opacity-50` and stop responding (`pointer-events-none`); we
+Disabled controls fade and stop responding (`pointer-events-none`); we
 don't add `cursor-not-allowed` on top. It's partly redundant — the opacity already says
 "disabled" — but mostly it simply can't work: `pointer-events-none` takes the element out
 of hit-testing, which suppresses the cursor entirely, so a `cursor-not-allowed` set beside

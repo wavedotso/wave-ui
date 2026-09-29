@@ -180,7 +180,7 @@ Every component is built on a [Base UI](https://base-ui.com) primitive — full 
 
 A comprehensive set spanning **actions, forms, layout, navigation, overlays, feedback, data display, and motion effects** — all built on Base UI primitives and driven by the theme tokens.
 
-Browse every component, with live variants and source, in **Storybook** (`npm run storybook`). A full documentation site is on the way at **[ui.wave.so](https://ui.wave.so)**.
+Browse every component, with live variants and source, in **Storybook** (`pnpm storybook`). A full documentation site is on the way at **[ui.wave.so](https://ui.wave.so)**.
 
 ## Requirements
 
@@ -203,11 +203,13 @@ Some components have optional peer dependencies — install only what you use:
 ## Development
 
 ```bash
-npm install
-npm run storybook    # Start Storybook
-npm run build        # Build the library
-npm run typecheck    # Type-check
-npm run dev          # Watch mode
+pnpm install
+pnpm storybook       # Start Storybook
+pnpm build           # Build the library
+pnpm typecheck       # Type-check
+pnpm lint            # Lint with oxlint (pnpm lint:fix to autofix)
+pnpm format          # Format with oxfmt (pnpm format:check to verify)
+pnpm dev             # Watch mode
 ```
 
 ### Project structure
@@ -228,7 +230,7 @@ src/
 
 This project uses [Changesets](https://github.com/changesets/changesets) with GitHub Actions.
 
-1. Run `npx changeset` to describe your changes (patch, minor, or major)
+1. Run `pnpm changeset` to describe your changes (patch, minor, or major)
 2. Commit the generated changeset file with your PR
 3. When merged to `main`, CI automatically versions and publishes to npm
 
@@ -238,9 +240,9 @@ This project uses [Changesets](https://github.com/changesets/changesets) with Gi
 If you're not using the GitHub Actions workflow, you can publish manually. Changesets skips versions already published to npm, so this won't conflict if CI has already run.
 
 ```bash
-npx changeset              # Create a changeset
-npx changeset version      # Apply version bump
-npm run release            # Build and publish to npm
+pnpm changeset             # Create a changeset
+pnpm changeset version     # Apply version bump
+pnpm release               # Build and publish to npm
 ```
 
 </details>

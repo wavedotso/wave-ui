@@ -5,15 +5,15 @@ Thanks for your interest in improving `@waveso/ui`. This guide covers the setup,
 ## Prerequisites
 
 - **Node** `>=20`
-- **npm** (the repo uses `package-lock.json`)
+- **pnpm** `11` (the repo pins `"packageManager": "pnpm@11.21.0"` and uses `pnpm-lock.yaml`)
 
 ## Setup
 
 ```bash
 git clone https://github.com/wavedotso/wave-ui
 cd wave-ui
-npm install
-npm run storybook   # http://localhost:6006 — the dev surface
+pnpm install
+pnpm storybook   # http://localhost:6006 — the dev surface
 ```
 
 ## Workflow
@@ -29,20 +29,21 @@ Every component lives in `src/<name>.tsx` with a matching `src/<name>.stories.ts
 
 | Script | What it does |
 |---|---|
-| `npm run storybook` | Dev surface (port 6006) |
-| `npm run lint` | Biome lint + format check |
-| `npm run lint:fix` | Apply safe lint fixes |
-| `npm run format` | Format with Biome |
-| `npm run typecheck` | `tsc --noEmit` |
-| `npm test` | Run the vitest suite |
-| `npm run build` | Build the library to `dist/` |
-| `npm run check:package` | Validate packaging (`publint` + `attw`) |
+| `pnpm storybook` | Dev surface (port 6006) |
+| `pnpm lint` | Lint with oxlint |
+| `pnpm lint:fix` | Apply safe lint fixes (oxlint) |
+| `pnpm format` | Format with oxfmt (`oxfmt --write`) |
+| `pnpm format:check` | Check formatting without writing |
+| `pnpm typecheck` | `tsc --noEmit` |
+| `pnpm test` | Run the vitest suite |
+| `pnpm build` | Build the library to `dist/` |
+| `pnpm check:package` | Validate packaging (`publint` + `attw`) |
 
 CI runs all of these on every PR, so run them locally first.
 
 ## Conventions
 
-Formatting and most style rules are **enforced by Biome** (`biome.json`) — run `npm run format` and you don't have to think about it. Beyond that:
+Formatting is **enforced by oxfmt** (`.oxfmtrc.json`) and linting by **oxlint** (`.oxlintrc.json`) — run `pnpm format` and `pnpm lint` and you don't have to think about it. Beyond that:
 
 - **`data-slot` on every rendered element** — it's the styling-hook contract for consumers.
 - **Base UI data attributes** — `data-open` / `data-closed` / `data-popup-open`. Never Radix-style `data-[state=*]`.
@@ -61,7 +62,7 @@ Focused behavior/a11y tests live in `src/<name>.test.tsx` (vitest + `@testing-li
 The project uses [Changesets](https://github.com/changesets/changesets). After a substantive change:
 
 ```bash
-npx changeset
+pnpm changeset
 ```
 
 Pick the bump (patch / minor / major) and write a **consumer-facing** description — it becomes the changelog entry. Commit the generated file with your PR. When merged to `main`, CI versions and publishes to npm automatically. Pure-internal changes (refactors, tests, docs, formatting) don't need a changeset.
@@ -69,7 +70,7 @@ Pick the bump (patch / minor / major) and write a **consumer-facing** descriptio
 ## Opening a PR
 
 - Keep PRs focused; avoid unrelated refactors.
-- Make sure `npm run lint`, `npm run typecheck`, `npm test`, and `npm run build` pass.
+- Make sure `pnpm lint`, `pnpm format:check`, `pnpm typecheck`, `pnpm test`, and `pnpm build` pass.
 - Fill in the PR template.
 
 Thank you! 👋
