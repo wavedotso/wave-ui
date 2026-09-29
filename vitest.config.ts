@@ -6,7 +6,7 @@ export default defineConfig({
     globals: false,
     setupFiles: ["./vitest.setup.ts"],
   },
-  esbuild: {
-    jsx: "automatic",
-  },
+  // JSX is transformed by Vitest 5's oxc pipeline, which reads the automatic
+  // runtime straight from tsconfig's `jsx: "react-jsx"`. (The old
+  // `esbuild.jsx` option is ignored under oxc and only emitted a warning.)
 });
