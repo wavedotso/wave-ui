@@ -98,6 +98,70 @@ export const Default: Story = {
 };
 
 /**
+ * The `size` prop on `AutocompleteInput` follows the shared control ladder
+ * (`xs` / `sm` / `default` / `lg` = 24 / 32 / 36 / 40px), so it lines up with a
+ * matching `Input`, `Select`, or `Button`.
+ */
+export const Sizes: Story = {
+  render: () => (
+    <div className="grid gap-4">
+      <Autocomplete items={countries}>
+        <AutocompleteInput size="xs" placeholder="Extra small" />
+        <AutocompleteContent>
+          <AutocompleteEmpty>No countries found.</AutocompleteEmpty>
+          <AutocompleteList>
+            {(item) => (
+              <AutocompleteItem key={item.value} value={item}>
+                {item.label}
+              </AutocompleteItem>
+            )}
+          </AutocompleteList>
+        </AutocompleteContent>
+      </Autocomplete>
+      <Autocomplete items={countries}>
+        <AutocompleteInput size="sm" placeholder="Small" />
+        <AutocompleteContent>
+          <AutocompleteEmpty>No countries found.</AutocompleteEmpty>
+          <AutocompleteList>
+            {(item) => (
+              <AutocompleteItem key={item.value} value={item}>
+                {item.label}
+              </AutocompleteItem>
+            )}
+          </AutocompleteList>
+        </AutocompleteContent>
+      </Autocomplete>
+      <Autocomplete items={countries}>
+        <AutocompleteInput size="default" placeholder="Default" />
+        <AutocompleteContent>
+          <AutocompleteEmpty>No countries found.</AutocompleteEmpty>
+          <AutocompleteList>
+            {(item) => (
+              <AutocompleteItem key={item.value} value={item}>
+                {item.label}
+              </AutocompleteItem>
+            )}
+          </AutocompleteList>
+        </AutocompleteContent>
+      </Autocomplete>
+      <Autocomplete items={countries}>
+        <AutocompleteInput size="lg" placeholder="Large" />
+        <AutocompleteContent>
+          <AutocompleteEmpty>No countries found.</AutocompleteEmpty>
+          <AutocompleteList>
+            {(item) => (
+              <AutocompleteItem key={item.value} value={item}>
+                {item.label}
+              </AutocompleteItem>
+            )}
+          </AutocompleteList>
+        </AutocompleteContent>
+      </Autocomplete>
+    </div>
+  ),
+};
+
+/**
  * Wire the `Label` to the input with matching `htmlFor` / `id` so clicking the
  * label focuses the field and screen readers announce it.
  */

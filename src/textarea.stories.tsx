@@ -6,6 +6,10 @@ const meta = {
   title: "Forms/Textarea",
   component: Textarea,
   argTypes: {
+    size: {
+      control: "select",
+      options: ["xs", "sm", "default", "lg"],
+    },
     disabled: { control: "boolean" },
     placeholder: { control: "text" },
   },
@@ -38,4 +42,20 @@ export const Invalid: Story = {
     "aria-invalid": true,
     defaultValue: "Invalid content",
   },
+};
+
+/**
+ * The shared control ladder: `xs` · `sm` · `default` · `lg`. Same tiers and names
+ * as Button and Input, but mapped to a `min-h-*` floor since a textarea grows with
+ * its content rather than sitting at a fixed height.
+ */
+export const Sizes: Story = {
+  render: () => (
+    <div className="flex w-72 flex-col gap-3">
+      <Textarea size="xs" placeholder="xs — 48px min" />
+      <Textarea size="sm" placeholder="sm — 56px min" />
+      <Textarea size="default" placeholder="default — 64px min" />
+      <Textarea size="lg" placeholder="lg — 80px min" />
+    </div>
+  ),
 };

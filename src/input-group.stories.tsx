@@ -26,6 +26,25 @@ export const Default: Story = {
   ),
 };
 
+/**
+ * The shared control ladder — `xs` · `sm` · `default` · `lg` (24 / 32 / 36 / 44).
+ * The height lives on the group; the inner control tracks it via CSS.
+ */
+export const Sizes: Story = {
+  render: () => (
+    <div className="flex max-w-xs flex-col gap-3">
+      {(["xs", "sm", "default", "lg"] as const).map((size) => (
+        <InputGroup key={size} size={size}>
+          <InputGroupInput placeholder={`${size} — search...`} />
+          <InputGroupAddon align="inline-end">
+            <StarIcon />
+          </InputGroupAddon>
+        </InputGroup>
+      ))}
+    </div>
+  ),
+};
+
 export const WithInlineStartAddon: Story = {
   render: () => (
     <InputGroup className="max-w-xs">
@@ -67,7 +86,7 @@ export const WithBlockStartAddon: Story = {
     <InputGroup className="max-w-xs">
       <InputGroupAddon align="block-start" className="border-edge border-b">
         <InputGroupText>Compose</InputGroupText>
-        <InputGroupButton className="ml-auto" aria-label="Favorite">
+        <InputGroupButton size="icon" className="ml-auto" aria-label="Favorite">
           <StarIcon />
         </InputGroupButton>
       </InputGroupAddon>
@@ -82,7 +101,7 @@ export const WithBlockEndAddon: Story = {
       <InputGroupTextarea placeholder="Write a message..." />
       <InputGroupAddon align="block-end" className="border-edge border-t">
         <InputGroupText>0 / 280</InputGroupText>
-        <InputGroupButton size="sm" variant="default" className="ml-auto">
+        <InputGroupButton variant="default" className="ml-auto">
           Send
         </InputGroupButton>
       </InputGroupAddon>
@@ -102,39 +121,48 @@ export const WithButton: Story = {
 };
 
 /**
- * `InputGroupButton` ships four sizes: text buttons `xs` (default) and
- * `sm`, plus icon-only `icon-xs` and `icon-sm`. Icon-only buttons must
- * carry an `aria-label`.
+ * `InputGroupButton` has two shapes: `default` (a padded pill) and `icon` (a
+ * square). There is no tier prop — both stretch to the field height and inherit
+ * the group's size, so a button in a `sm` group is tighter than one in an `lg`
+ * group with nothing to set per button. Icon buttons must carry an `aria-label`.
  */
-export const ButtonSizes: Story = {
+export const Buttons: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
-      <InputGroup className="max-w-xs">
-        <InputGroupInput placeholder="size=xs (default)" />
+      <InputGroup size="xs" className="max-w-xs">
+        <InputGroupInput placeholder="xs group" />
         <InputGroupAddon align="inline-end">
-          <InputGroupButton size="xs">Go</InputGroupButton>
-        </InputGroupAddon>
-      </InputGroup>
-      <InputGroup className="max-w-xs">
-        <InputGroupInput placeholder="size=sm" />
-        <InputGroupAddon align="inline-end">
-          <InputGroupButton size="sm">Go</InputGroupButton>
-        </InputGroupAddon>
-      </InputGroup>
-      <InputGroup className="max-w-xs">
-        <InputGroupInput placeholder="size=icon-xs" />
-        <InputGroupAddon align="inline-end">
-          <InputGroupButton size="icon-xs" aria-label="Confirm">
-            <CheckIcon />
-          </InputGroupButton>
-        </InputGroupAddon>
-      </InputGroup>
-      <InputGroup className="max-w-xs">
-        <InputGroupInput placeholder="size=icon-sm" />
-        <InputGroupAddon align="inline-end">
-          <InputGroupButton size="icon-sm" aria-label="Clear">
+          <InputGroupButton size="icon" aria-label="Clear">
             <CloseIcon />
           </InputGroupButton>
+          <InputGroupButton>Go</InputGroupButton>
+        </InputGroupAddon>
+      </InputGroup>
+      <InputGroup size="sm" className="max-w-xs">
+        <InputGroupInput placeholder="sm group" />
+        <InputGroupAddon align="inline-end">
+          <InputGroupButton size="icon" aria-label="Clear">
+            <CloseIcon />
+          </InputGroupButton>
+          <InputGroupButton>Go</InputGroupButton>
+        </InputGroupAddon>
+      </InputGroup>
+      <InputGroup className="max-w-xs">
+        <InputGroupInput placeholder="default group" />
+        <InputGroupAddon align="inline-end">
+          <InputGroupButton size="icon" aria-label="Clear">
+            <CloseIcon />
+          </InputGroupButton>
+          <InputGroupButton>Go</InputGroupButton>
+        </InputGroupAddon>
+      </InputGroup>
+      <InputGroup size="lg" className="max-w-xs">
+        <InputGroupInput placeholder="lg group" />
+        <InputGroupAddon align="inline-end">
+          <InputGroupButton size="icon" aria-label="Confirm">
+            <CheckIcon />
+          </InputGroupButton>
+          <InputGroupButton>Go</InputGroupButton>
         </InputGroupAddon>
       </InputGroup>
     </div>

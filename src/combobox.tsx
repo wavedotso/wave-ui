@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { Combobox as ComboboxPrimitive } from "@base-ui/react/combobox";
+import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "./lib/utils";
 import { Button } from "./button";
@@ -45,7 +46,8 @@ type ComboboxEmptyProps = React.ComponentProps<typeof ComboboxPrimitive.Empty>;
 type ComboboxSeparatorProps = React.ComponentProps<
   typeof ComboboxPrimitive.Separator
 >;
-type ComboboxChipsProps = React.ComponentProps<typeof ComboboxPrimitive.Chips>;
+type ComboboxChipsProps = React.ComponentProps<typeof ComboboxPrimitive.Chips> &
+  VariantProps<typeof comboboxChipsVariants>;
 type ComboboxChipBaseProps = React.ComponentProps<
   typeof ComboboxPrimitive.Chip
 >;
@@ -53,9 +55,12 @@ type ComboboxChipsInputProps = React.ComponentProps<
   typeof ComboboxPrimitive.Input
 >;
 
-type ComboboxInputProps = ComboboxInputBaseProps & {
+// Native `<input>` carries a `size` (character-width) attr → Omit before adding
+// the CVA-style tier prop, same as Input. Forwarded to the InputGroup surface.
+type ComboboxInputProps = Omit<ComboboxInputBaseProps, "size"> & {
   showTrigger?: boolean;
   showClear?: boolean;
+  size?: "xs" | "sm" | "default" | "lg";
 };
 
 type ComboboxChipProps = ComboboxChipBaseProps & {
@@ -98,7 +103,7 @@ function ComboboxClear({ className, ...props }: ComboboxClearProps) {
     <ComboboxPrimitive.Clear
       data-slot="combobox-clear"
       aria-label="Clear"
-      render={<InputGroupButton variant="ghost" size="icon-xs" />}
+      render={<InputGroupButton variant="ghost" size="icon" />}
       className={cn("motion-scale-sm", className)}
       {...props}
     >
@@ -117,11 +122,12 @@ function ComboboxInput({
   disabled,
   showTrigger = true,
   showClear = false,
+  size = "default",
   ...props
 }: ComboboxInputProps) {
   return (
     <ComboboxPrimitive.InputGroup
-      render={<InputGroup className={cn(className)} />}
+      render={<InputGroup size={size} className={cn(className)} />}
     >
       <ComboboxPrimitive.Input
         render={<InputGroupInput disabled={disabled} />}
@@ -137,7 +143,7 @@ function ComboboxInput({
         <div className="relative grid size-6 *:[grid-area:1/1]">
           {showTrigger ? (
             <InputGroupButton
-              size="icon-xs"
+              size="icon"
               variant="ghost"
               nativeButton
               render={<ComboboxTrigger />}
@@ -293,14 +299,36 @@ function ComboboxSeparator({ className, ...props }: ComboboxSeparatorProps) {
   );
 }
 
-function ComboboxChips({ className, ...props }: ComboboxChipsProps) {
+const comboboxChipsVariants = cva(
+  "bg-edge hover:border-focus focus-within:border-focus focus-within:ring-focus/50 has-aria-invalid:ring-destructive/30 has-aria-invalid:border-destructive flex flex-wrap items-center gap-1 rounded-md border border-transparent motion-color focus-within:ring-3 has-aria-invalid:ring-3 has-data-[slot=combobox-chip]:px-1",
+  {
+    variants: {
+      // Multi-select field surface — mirrors the family ladder, but as a `min-h`
+      // floor since it grows with wrapped chips. `has-…:px-1` above tightens the
+      // padding once chips are present, overriding the per-tier px.
+      size: {
+        xs: "min-h-6 rounded-sm px-2 py-0.5 text-xs",
+        sm: "min-h-8 px-3 py-1 text-sm",
+        default: "min-h-9 px-3 py-1 text-base",
+        lg: "min-h-11 px-4 py-1.5 text-lg",
+      },
+    },
+    defaultVariants: {
+      size: "default",
+    },
+  },
+);
+
+function ComboboxChips({
+  className,
+  size = "default",
+  ...props
+}: ComboboxChipsProps) {
   return (
     <ComboboxPrimitive.Chips
       data-slot="combobox-chips"
-      className={cn(
-        "dark:bg-edge/30 border-edge focus-within:border-focus focus-within:ring-focus/50 has-aria-invalid:ring-destructive/30 has-aria-invalid:border-destructive flex min-h-8 flex-wrap items-center gap-1 rounded-md border bg-transparent bg-clip-padding px-2.5 py-1 text-sm transition-colors focus-within:ring-3 has-aria-invalid:ring-3 has-data-[slot=combobox-chip]:px-1",
-        className,
-      )}
+      data-size={size}
+      className={cn(comboboxChipsVariants({ size }), className)}
       {...props}
     />
   );
@@ -367,6 +395,7 @@ export {
   ComboboxTrigger,
   ComboboxValue,
   ComboboxClear,
+  comboboxChipsVariants,
   useComboboxAnchor,
 };
 

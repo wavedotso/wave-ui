@@ -1,0 +1,44 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Principles" />
+
+# Principles
+
+Wave UI favors restraint. When two approaches are equally correct, we pick the one that
+adds the least — fewer states, fewer cursors, fewer special cases. A signal earns its
+place before it ships, so components read as one surface rather than a pile of parts.
+
+## The cursor speaks in a binary
+
+A pointer means _clickable_; the default arrow means _not_ — that's the whole vocabulary.
+Disabled controls fade with `opacity-50` and stop responding (`pointer-events-none`); we
+don't add `cursor-not-allowed` on top. It's partly redundant — the opacity already says
+"disabled" — but mostly it simply can't work: `pointer-events-none` takes the element out
+of hit-testing, which suppresses the cursor entirely, so a `cursor-not-allowed` set beside
+it never paints. It's one or the other, and blocking the interaction is the stronger choice.
+
+## Focus survives high-contrast mode
+
+Components suppress the default browser outline with `outline-hidden`, never `outline-none`.
+`outline-none` deletes the outline outright; `outline-hidden` keeps a real outline that's
+merely _transparent_. That distinction matters in Windows High Contrast / forced-colors
+mode, where our custom focus ring — a `box-shadow` — is stripped away entirely: the
+still-present outline gets repainted in a system color, so keyboard focus stays obvious.
+`outline-none` would leave those users with no focus indicator at all. Hide the outline,
+never delete it.
+
+## Structure reacts to direct children, not grandchildren
+
+Layout-shaping selectors use the direct-child combinator — `has-[>[data-align=block-end]]:…`,
+not `has-[[data-align=block-end]]:…`. The `>` scopes the match to a component's **own** slots:
+an addon a consumer drops _directly_ into an InputGroup can flip it to a column, but a
+`data-align` that happens to sit deep inside some nested component never should. Drop the `>`
+and a grandchild can silently reshape its ancestor.
+
+State is the deliberate exception. Focus and invalid selectors _omit_ the `>`
+(`has-[[data-slot=input-group-control]:focus-visible]:…`) because the real control is often
+rendered a level down via Base UI's `render`-prop composition, so the group must catch the
+state anywhere inside it. The rule of thumb: **structure keys off direct children; state keys
+off any descendant.**
+
+_This page is where that thinking lives — add to it as the system grows._

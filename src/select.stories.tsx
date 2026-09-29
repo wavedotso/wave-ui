@@ -84,20 +84,29 @@ export const WithGroups: Story = {
   ),
 };
 
-export const Small: Story = {
+/**
+ * The trigger shares the control ladder with Input and Button: `xs`/`sm`/
+ * `default`/`lg` map to 24/32/36/40px, so a `sm` select lines up with a `sm`
+ * input and a `sm` button. `default` is 36px.
+ */
+export const Sizes: Story = {
   render: () => (
-    <Select defaultValue="active">
-      <SelectTrigger size="sm">
-        <SelectValue placeholder="Status" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectItem value="active">Active</SelectItem>
-          <SelectItem value="inactive">Inactive</SelectItem>
-          <SelectItem value="archived">Archived</SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+    <div className="flex items-center gap-4">
+      {(["xs", "sm", "default", "lg"] as const).map((size) => (
+        <Select key={size} defaultValue="active">
+          <SelectTrigger size={size}>
+            <SelectValue placeholder="Status" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectItem value="active">Active</SelectItem>
+              <SelectItem value="inactive">Inactive</SelectItem>
+              <SelectItem value="archived">Archived</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      ))}
+    </div>
   ),
 };
 

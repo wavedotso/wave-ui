@@ -3,6 +3,7 @@
 import type * as React from "react";
 
 import { Select as SelectPrimitive } from "@base-ui/react/select";
+import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "./lib/utils";
 import {
@@ -40,9 +41,29 @@ type SelectScrollDownButtonProps = React.ComponentProps<
   typeof SelectPrimitive.ScrollDownArrow
 >;
 
-type SelectTriggerProps = SelectTriggerBaseProps & {
-  size?: "sm" | "default";
-};
+const selectTriggerVariants = cva(
+  "data-placeholder:text-soft bg-edge hover:border-focus focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-destructive/30 aria-invalid:border-destructive flex w-fit items-center justify-between gap-1.5 rounded-md border border-transparent whitespace-nowrap motion-color outline-hidden select-none focus-visible:ring-3 disabled:pointer-events-none disabled:opacity-30 aria-invalid:ring-3 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  {
+    variants: {
+      // Shared control ladder — same tiers/names as Input and Button, so a `sm`
+      // select, `sm` input and `sm` button line up. Flat font ladder 12/14/16/18 —
+      // one size per tier, no responsive split. Trigger is a `<button>`, so no
+      // `size` Omit.
+      size: {
+        xs: "h-6 rounded-sm px-2 text-xs",
+        sm: "h-8 px-3 text-sm",
+        default: "h-9 px-3 text-base",
+        lg: "h-11 px-4 text-lg",
+      },
+    },
+    defaultVariants: {
+      size: "default",
+    },
+  },
+);
+
+type SelectTriggerProps = SelectTriggerBaseProps &
+  VariantProps<typeof selectTriggerVariants>;
 
 type SelectContentProps = SelectPopupProps &
   Pick<
@@ -110,10 +131,7 @@ function SelectTrigger({
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
       data-size={size}
-      className={cn(
-        "border-edge data-placeholder:text-soft dark:bg-edge/30 dark:hover:bg-edge/50 focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-destructive/30 aria-invalid:border-destructive flex w-fit items-center justify-between gap-1.5 rounded-md border bg-transparent py-2 pr-2 pl-2.5 text-sm whitespace-nowrap motion-color outline-hidden select-none focus-visible:ring-3 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:ring-3 data-[size=default]:h-8 data-[size=sm]:h-7 data-[size=sm]:rounded-sm *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-        className,
-      )}
+      className={cn(selectTriggerVariants({ size }), className)}
       {...props}
     >
       {children}
@@ -263,6 +281,7 @@ export {
   SelectScrollUpButton,
   SelectSeparator,
   SelectTrigger,
+  selectTriggerVariants,
   SelectValue,
 };
 

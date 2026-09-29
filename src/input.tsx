@@ -9,18 +9,18 @@ const inputVariants = cva(
   {
     variants: {
       // Shared control ladder — same tiers/names as Button, so a `sm` input,
-      // `sm` select and `sm` button line up. `text-base` on the touch sizes keeps
-      // the 16px that stops iOS zoom-on-focus, dropping to `md:text-sm` on desktop.
+      // `sm` select and `sm` button line up. Flat font ladder 12/14/16/18 — one
+      // size per tier, no responsive split.
       //
       // The file button is inset 3px from the field: `file:my-[3px]` sets the
-      // top/bottom gap and `file:h-*` (tier height − 2px border − 6px margin, landing
-      // on the h-4/6/7/8 scale) fills the rest, while `file:-ms-*` pulls it 3px off the
-      // leading edge. Fixed px because `::file-selector-button` ignores `%`/flex heights.
+      // top/bottom gap and `file:h-*` (tier height − 2px border − 6px margin) fills
+      // the rest, while `file:-ms-*` (tier px − 3) pulls it off the leading edge.
+      // Fixed px because `::file-selector-button` ignores `%`/flex heights.
       size: {
         xs: "h-6 rounded-sm px-2 text-xs file:-ms-[5px] file:h-4",
-        sm: "h-8 px-2.5 text-base file:-ms-[7px] file:h-6 md:text-sm",
-        default: "h-9 px-3 text-base file:-ms-[9px] file:h-7 md:text-sm",
-        lg: "h-10 px-3.5 text-base file:-ms-[11px] file:h-8",
+        sm: "h-8 px-3 text-sm file:-ms-[9px] file:h-6",
+        default: "h-9 px-3 text-base file:-ms-[9px] file:h-7",
+        lg: "h-11 px-4 text-lg file:-ms-[13px] file:h-9",
       },
     },
     defaultVariants: {

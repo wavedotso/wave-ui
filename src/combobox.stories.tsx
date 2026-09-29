@@ -109,6 +109,31 @@ export const Default: Story = {
   ),
 };
 
+export const Sizes: Story = {
+  render: () => (
+    <div className="flex w-72 flex-col gap-3">
+      {(["xs", "sm", "default", "lg"] as const).map((size) => (
+        <Combobox key={size} items={fruits}>
+          <ComboboxInput
+            size={size}
+            placeholder={`${size} — search fruits...`}
+          />
+          <ComboboxContent>
+            <ComboboxEmpty>No fruits found.</ComboboxEmpty>
+            <ComboboxList>
+              {(item) => (
+                <ComboboxItem key={item.value} value={item}>
+                  {item.label}
+                </ComboboxItem>
+              )}
+            </ComboboxList>
+          </ComboboxContent>
+        </Combobox>
+      ))}
+    </div>
+  ),
+};
+
 export const WithLabel: Story = {
   render: () => (
     <div className="grid gap-2">

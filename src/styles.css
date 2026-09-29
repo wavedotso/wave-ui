@@ -457,6 +457,24 @@
   cursor: var(--cursor-clickable);
 }
 
+/* `resize-handle` — a subtle corner grip for a resizable field, shown on hover.
+ * Painted as a `background-image` (a <textarea> is a replaced element, so no
+ * `::after`) inset into the bottom-right corner, while the native
+ * `::-webkit-resizer` is kept transparent so the corner still drags. A neutral
+ * gray reads on every theme, like a native scrollbar grip. WebKit/Chromium
+ * paint it; Firefox keeps its own native grip. Pair with a `resize-*` utility. */
+@utility resize-handle {
+  &::-webkit-resizer {
+    background: transparent;
+  }
+  &:hover {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M12 0C12 5.4 11.5 8.5 10 10C8.5 11.5 5.4 12 0 12' stroke='white' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 5px bottom 5px;
+    background-size: 12px 12px;
+  }
+}
+
 /* `motion-color` — interaction-state transition for controls: smoothly
  * animates color / background / border / ring (box-shadow) on hover, focus,
  * pressed, checked, etc. Runs at the `sm` tier (controls are small + fast). A

@@ -3,15 +3,19 @@
 import type * as React from "react";
 
 import { Autocomplete as AutocompletePrimitive } from "@base-ui/react/autocomplete";
+import type { VariantProps } from "class-variance-authority";
 
+import { inputVariants } from "./input";
 import { cn } from "./lib/utils";
 
 type AutocompleteProps = React.ComponentProps<
   typeof AutocompletePrimitive.Root
 >;
-type AutocompleteInputProps = React.ComponentProps<
-  typeof AutocompletePrimitive.Input
->;
+type AutocompleteInputProps = Omit<
+  React.ComponentProps<typeof AutocompletePrimitive.Input>,
+  "size"
+> &
+  VariantProps<typeof inputVariants>;
 type AutocompleteTriggerProps = React.ComponentProps<
   typeof AutocompletePrimitive.Trigger
 >;
@@ -79,14 +83,16 @@ function Autocomplete({ ...props }: AutocompleteProps) {
   return <AutocompletePrimitive.Root data-slot="autocomplete" {...props} />;
 }
 
-function AutocompleteInput({ className, ...props }: AutocompleteInputProps) {
+function AutocompleteInput({
+  className,
+  size = "default",
+  ...props
+}: AutocompleteInputProps) {
   return (
     <AutocompletePrimitive.Input
       data-slot="autocomplete-input"
-      className={cn(
-        "dark:bg-edge/30 border-edge focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-destructive/30 aria-invalid:border-destructive disabled:bg-edge/50 dark:disabled:bg-edge/80 placeholder:text-soft h-8 w-full min-w-0 rounded-md border bg-transparent px-2.5 py-1 text-base transition-colors outline-hidden focus-visible:ring-3 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:ring-3 md:text-sm",
-        className,
-      )}
+      data-size={size}
+      className={cn(inputVariants({ size }), className)}
       {...props}
     />
   );
