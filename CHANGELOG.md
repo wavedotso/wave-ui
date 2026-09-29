@@ -1,5 +1,11 @@
 # @waveso/ui
 
+## 0.15.1
+
+### Patch Changes
+
+- beb3f29: Widen the optional `motion` peer range to `^12.0.0 || ^13.0.0`. The library only uses motion's stable core APIs (`AnimatePresence`, `motion`, `useReducedMotion`, `useInView`), which are unchanged across both majors, so consumers on Motion 13 no longer get a peer-dependency warning.
+
 ## 0.15.0
 
 ### Minor Changes
@@ -7,7 +13,6 @@
 - b825c06: Unify the form family on one flat type scale, one size ladder, and a borderless-filled surface. Button, Input, Select, Textarea, Autocomplete, Combobox and Input Group now share the same `xs` · `sm` · `default` · `lg` tiers (heights **24 / 32 / 36 / 44px**) and the same flat font ladder (**12 / 14 / 16 / 18px**), so any control lines up with any other — and with a Button — at the same size.
 
   ### ⚠️ Breaking
-
   - **Default controls are 4px taller (32px → 36px).** `Select`, `InputGroup`, and multi-select `Combobox` chips now default to 36px to pair with the default `Button`/`Input`. Existing markup with no `size` grows 4px and may reflow surrounding layout — pass `size="sm"` to keep 32px. (`Input` already made this jump in `0.14.0`.)
   - **Desktop default font is now 16px (was 14px).** The responsive `md:text-sm` split is gone — the ladder is flat `12/14/16/18` at every breakpoint. `default` / `sm` / `lg` controls that relied on the 14px desktop step will reflow.
   - **`InputGroupButton` sizes changed.** `size` went from `xs | sm | icon-xs | icon-sm` (default `xs`) to `default | icon` (default `default`), and the default `variant` is now the filled `default` (was `ghost`). Migrate: text buttons → `size="default"`, icon buttons → `size="icon"`; add `variant="ghost"` to keep the old transparent look. Inline addon buttons stretch to the field height automatically.
@@ -15,12 +20,10 @@
   - **`Select` `size="sm"` was redefined** — 28px → 32px, and it now inherits the `md` corner radius (was `rounded-sm`).
 
   ### Added
-
   - **`size` prop across the family** — `Select`, `Textarea`, `Autocomplete`, `InputGroup`, and `Combobox` chips gain the `xs | sm | default | lg` ladder, plus new composable CVA exports: `selectTriggerVariants`, `textareaVariants`, `inputGroupVariants`, `comboboxChipsVariants`. Each control emits a `data-size` attribute as a styling hook.
   - **Resizable `Textarea`** — vertical resize is on by default (`resize-y`) with a subtle hover-only corner grip (new `resize-handle` utility). It also resizes when used inside an `InputGroup`.
 
   ### Changed
-
   - **Borderless-filled surfaces** — every control moves from a bordered/transparent look to a solid `bg-edge` fill with a transparent border that reveals the focus color on hover. Purely visual; no usage change.
   - **Aligned disabled state** — disabled controls are now `opacity-30` (was `50`), with no background tint and no `not-allowed` cursor (`pointer-events-none`), consistent across Button and every field.
   - **Button** — default font 14px → 16px (height unchanged at 36px); `lg` grows 40px → 44px with 18px text; `icon-lg` 40px → 44px; `xs` horizontal padding 10px → 8px.
@@ -314,7 +317,6 @@
   Accordion, Alert Dialog, Card, Dialog, Drawer, and Table borders now reference the semantic border tokens explicitly (`border-edge` / `border-line`) instead of inheriting a default color, so dividers and outlines render consistently across themes.
 
   ## Dependencies (fixes)
-
   - `motion`, `react-hook-form`, and `input-otp` are now declared in **`peerDependencies`** (still optional via `peerDependenciesMeta`) — previously they lived only under `peerDependenciesMeta`, so no version range reached consumers.
   - **`tailwindcss` (`^4.0.0`)** is now a declared peer — it is required to process the shipped utility classes.
   - Removed dead optional peers `react-day-picker`, `embla-carousel-react`, and `usehooks-ts`.
@@ -416,14 +418,12 @@
   ***
 
   ## Components
-
   - **`Button` / `Badge`: the filled style is now `default`.** The soft-tinted default is removed and the former `variant="solid"` is renamed to `default`. A `<Button>` / `<Badge>` with **no** `variant` now renders **filled**. Migration: drop `variant="solid"` (it's the default), or set `outline` / `ghost` / `secondary` if you relied on the soft look.
   - **`Dialog` now has a built-in close button** (top-right ✕); `DialogTitle` reserves room for it (`pr-8`) so long titles wrap before the corner.
 
   ***
 
   ## Dependencies
-
   - **`@base-ui/react` peer bumped to `^1.6.0`** (from `^1.5.0`), inheriting upstream fixes for Toast, Combobox, Menu, Drawer, and Slider. Note: Base UI 1.6 removes the `region` role from `Accordion.Root` — a minor DOM/a11y change.
 
 ## 0.5.0
@@ -443,7 +443,6 @@
   They read from one set of overridable `:root` tokens — `--duration`, `--ease`, `--blur`, `--scale`, `--offset`, `--stagger` — so you can retune the whole library's feel from your own `:root`. (Small icon targets pin an absolute blur via `--motion-scale-blur`, so they stay crisp no matter how you set the surface `--blur`.)
 
   ### Behavior changes to know about
-
   - **Popups animate differently now.** Every flyout uses the recipes above (blur + directional slide / scale / fade) instead of the old zoom-and-slide, and dialogs now zoom in. If you targeted the old `data-open:animate-in` / `zoom-in-95` / `slide-in-from-*` classes, they're gone.
   - **`transition-all` removed library-wide.** Controls transition only the properties that actually change (color, background, border, ring), so unrelated changes — layout, or transitions you add via `className` — no longer animate by accident. `Progress` animates `width`; the `Sidebar` rail is timed to the panel it borders.
   - **`Animate` defaults changed.** `AnimateIn` is snappier (4px / 0.15s); `AnimateOnView` is tuned for scroll reveals (16px / 0.4s). The opt-in `spring` prop keeps its overshoot. Pass props to override.
@@ -481,7 +480,6 @@
 - aab9fa8: Correctness fixes, accessibility fixes, and a few consumer-facing contract changes.
 
   ### Breaking
-
   - **Sidebar:** removed the `data-state` attribute — now uses Collapsible's native `data-open`/`data-closed`. Migrate selectors: `[data-state=collapsed]` → `[data-closed]`, `[data-state=expanded]` → `[data-open]`.
   - **Table:** a selected `TableRow` now styles off `aria-selected` instead of `data-state="selected"`. Set `aria-selected="true"` on selected rows.
   - **Accordion:** `[data-slot="accordion-content"]` now targets the inner content region; the outer animated panel is `[data-slot="accordion-panel"]`.
@@ -489,7 +487,6 @@
   - **Tooltip:** `TooltipProvider` no longer forces `delay={0}`; it inherits Base UI's 600ms hover-intent delay. Pass `delay` to customize.
 
   ### Fixed
-
   - **Drawer:** swipe-to-dismiss and touch scroll-lock now work (missing `Drawer.Viewport` wrapper).
   - **RSC:** `Badge`, `Breadcrumb`, `ButtonGroup`, `Item` now declare `"use client"` (they use the `useRender` hook and threw in server trees).
   - **Combobox:** dropdown no longer clips long options — grows from trigger width up to available width.
@@ -499,7 +496,6 @@
   - Corrected the misleading `disablePointerDismissal` JSDoc on `Dialog`.
 
   ### Added
-
   - New `data-slot` styling hooks: `context-menu-positioner`, `context-menu-checkbox-item-indicator`, `context-menu-radio-item-indicator`, `tooltip-positioner`, `select-item-text`, `select-item-indicator`, `combobox-item-indicator`, `accordion-panel`, `drawer-drag-handle`.
 
 ## 0.1.0
