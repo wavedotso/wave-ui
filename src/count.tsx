@@ -55,6 +55,8 @@ function easeOut(t: number): number {
 
 // ── Date Formatting ──────────────────────────────────────────────────
 
+const pad = (n: number) => String(n).padStart(2, "0");
+
 function formatCountdown(ms: number): string {
   if (ms <= 0) return "00:00:00";
 
@@ -63,8 +65,6 @@ function formatCountdown(ms: number): string {
   const hours = Math.floor((totalSeconds % 86400) / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
   const seconds = totalSeconds % 60;
-
-  const pad = (n: number) => String(n).padStart(2, "0");
 
   if (days > 0) {
     return `${days}d ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;

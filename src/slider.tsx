@@ -27,7 +27,7 @@ function Slider({
   getThumbAriaLabel,
   ...props
 }: SliderProps) {
-  const _values = React.useMemo(
+  const resolvedValues = React.useMemo(
     () =>
       Array.isArray(value)
         ? value
@@ -68,7 +68,7 @@ function Slider({
             className="bg-primary select-none data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full"
           />
         </SliderPrimitive.Track>
-        {Array.from({ length: _values.length }, (_, index) => (
+        {Array.from({ length: resolvedValues.length }, (_, index) => (
           <SliderPrimitive.Thumb
             data-slot="slider-thumb"
             key={index}

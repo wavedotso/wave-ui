@@ -156,7 +156,7 @@ function SidebarProvider({
   );
 
   const toggleSidebar = React.useCallback(() => {
-    return isMobile ? setOpenMobile((open) => !open) : setOpen((open) => !open);
+    return isMobile ? setOpenMobile((prev) => !prev) : setOpen((prev) => !prev);
   }, [isMobile, setOpen, setOpenMobile]);
 
   React.useEffect(() => {

@@ -84,6 +84,7 @@ function GradientRevealText({
     measure();
     document.fonts?.ready?.then(measure);
     // fontFamily changes the glyph metrics → the bbox must be re-measured.
+    // oxlint-disable-next-line react/exhaustive-effect-dependencies -- text & fontFamily are intentional re-run triggers; listing them keeps re-measure explicit even though `measure` also closes over them
   }, [text, fontFamily, measure]);
 
   // Update the SVG gradient attributes directly (no React re-render)
@@ -208,6 +209,7 @@ function GradientRevealText({
   };
 
   return (
+    // oxlint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- pointer handlers only reposition the decorative gradient; the element exposes no interactive behavior
     <svg
       ref={svgRef}
       data-slot="gradient-reveal-text"

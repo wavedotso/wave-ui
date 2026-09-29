@@ -99,6 +99,8 @@ interface ActionBarProviderProps {
   className?: string;
 }
 
+const defaultPluralMessage = (count: number) => `${count} unsaved changes`;
+
 /**
  * Global action bar for unsaved changes.
  *
@@ -126,7 +128,7 @@ interface ActionBarProviderProps {
 function ActionBarProvider({
   children,
   message = "You have unsaved changes",
-  pluralMessage = (count) => `${count} unsaved changes`,
+  pluralMessage = defaultPluralMessage,
   blockedMessage = "Save or reset your changes before leaving this page",
   labels,
   className,

@@ -5,10 +5,10 @@ const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(ts|tsx)"],
   staticDirs: ["../assets"],
   addons: ["@storybook/addon-docs", "@storybook/addon-a11y"],
-  async viteFinal(config) {
+  async viteFinal(viteConfig) {
     const { default: tailwindcss } = await import("@tailwindcss/vite");
     const { mergeConfig } = await import("vite");
-    return mergeConfig(config, {
+    return mergeConfig(viteConfig, {
       plugins: [tailwindcss()],
     });
   },

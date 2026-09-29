@@ -105,7 +105,7 @@ function Masonry({
       container!.style.removeProperty("gap");
 
       const colWidth = (containerWidth - (colCount - 1) * gapPx) / colCount;
-      const columnBottoms = new Array<number>(colCount).fill(0);
+      const columnBottoms = Array.from({ length: colCount }, () => 0);
 
       // Partition items: spanning (top-pinned) vs regular
       const topItems: { el: HTMLElement; span: number }[] = [];
