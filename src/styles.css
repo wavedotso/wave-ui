@@ -654,6 +654,27 @@
   filter: blur(0.001px);
   scale: 1;
   translate: 0;
+  /* Pop from the anchored EDGE, centered along it — symmetric left/right for
+   * top/bottom dropdowns — regardless of start/end alignment. Base UI 1.8
+   * changed its `--transform-origin` to pin to the aligned corner (#5015),
+   * which reads as a left-to-right grow; these per-side rules restore the
+   * symmetric pop and replace the old `origin-(--transform-origin)` that each
+   * popup used to carry. */
+  transform-origin: center top;
+  &[data-side="bottom"] {
+    transform-origin: center top;
+  }
+  &[data-side="top"] {
+    transform-origin: center bottom;
+  }
+  &[data-side="left"],
+  &[data-side="inline-start"] {
+    transform-origin: right center;
+  }
+  &[data-side="right"],
+  &[data-side="inline-end"] {
+    transform-origin: left center;
+  }
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;

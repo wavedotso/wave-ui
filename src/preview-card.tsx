@@ -79,7 +79,7 @@ function PreviewCardContent({
         <PreviewCardPrimitive.Popup
           data-slot="preview-card-content"
           className={cn(
-            "motion-pop-md bg-elevated text-contrast ring-contrast/10 z-50 w-64 origin-(--transform-origin) rounded-md p-2.5 text-sm shadow-md ring-1 outline-hidden",
+            "motion-pop-md bg-elevated text-contrast ring-contrast/10 z-50 w-64 rounded-md p-2.5 text-sm shadow-md ring-1 outline-hidden",
             className,
           )}
           {...props}

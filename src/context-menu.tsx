@@ -127,7 +127,7 @@ function ContextMenuContent({
         <ContextMenuPrimitive.Popup
           data-slot="context-menu-content"
           className={cn(
-            "motion-pop-md ring-contrast/10 bg-elevated text-contrast z-50 max-h-(--available-height) min-w-36 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-md p-1 shadow-md ring-1 outline-hidden",
+            "motion-pop-md ring-contrast/10 bg-elevated text-contrast z-50 max-h-(--available-height) min-w-36 overflow-x-hidden overflow-y-auto rounded-md p-1 shadow-md ring-1 outline-hidden",
             className,
           )}
           finalFocus={resolveFinalFocus(restoreFocusOnClose, finalFocus)}

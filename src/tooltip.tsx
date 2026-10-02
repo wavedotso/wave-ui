@@ -107,7 +107,7 @@ function TooltipContent({
         <TooltipPrimitive.Popup
           data-slot="tooltip-content"
           className={cn(
-            "motion-pop-md bg-surface-inverse text-contrast-inverse z-50 w-fit max-w-xs origin-(--transform-origin) rounded-sm px-3 py-1.5 text-xs",
+            "motion-pop-md bg-surface-inverse text-contrast-inverse z-50 w-fit max-w-xs rounded-sm px-3 py-1.5 text-xs",
             className,
           )}
           {...props}
