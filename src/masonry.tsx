@@ -10,6 +10,7 @@ import {
 } from "motion/react";
 
 import { StarIcon } from "./lib/internal-icons";
+import { mergeRefs } from "./lib/merge-refs";
 import { cn } from "./lib/utils";
 
 const STAGGER_STEP = 0.05; // 50ms between each item's enter animation
@@ -33,9 +34,11 @@ function Masonry({
   gap = 4,
   className,
   children,
+  ref,
   ...props
 }: MasonryProps) {
   const containerRef = React.useRef<HTMLDivElement>(null);
+  const mergedRef = React.useMemo(() => mergeRefs(containerRef, ref), [ref]);
   const rafRef = React.useRef<number>(0);
   const staggerCounterRef = React.useRef(0);
 
@@ -226,7 +229,7 @@ function Masonry({
   return (
     <MasonryStaggerContext.Provider value={getStaggerIndex}>
       <div
-        ref={containerRef}
+        ref={mergedRef}
         data-slot="masonry"
         className={cn("relative", className)}
         {...props}

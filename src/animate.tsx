@@ -17,6 +17,8 @@ import {
 } from "react";
 import { useInView, useReducedMotion } from "motion/react";
 
+import { mergeRefs } from "./lib/merge-refs";
+
 /**
  * `useLayoutEffect` warns when run during SSR. Fall back to `useEffect` on the
  * server so entrance components (which render on the server to avoid hydration
@@ -192,17 +194,6 @@ function buildStyles(opts: BuildStylesOptions) {
   }
 
   return { hidden, visible, hasFilter: blurPx > 0 };
-}
-
-function mergeRefs<T>(...refs: (Ref<T> | undefined)[]) {
-  return (el: T | null) => {
-    refs.forEach((ref) => {
-      if (typeof ref === "function") ref(el);
-      else if (ref && typeof ref === "object") {
-        (ref as { current: T | null }).current = el;
-      }
-    });
-  };
 }
 
 function getTransitionParams(
