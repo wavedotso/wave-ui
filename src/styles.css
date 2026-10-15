@@ -70,9 +70,12 @@
  * `.graphite`, `.ink` — and it always beats the OS. A theme class sits on the
  * same <html> as `:root`, so every var() alias below (inverse, presence)
  * re-resolves to the active theme.
+ *
+ * Every default here sits in `:where(:root)` (zero specificity), so an app's
+ * own `:root` override wins whatever order the stylesheets load in.
  * ------------------------------------------------------------------------- */
 
-:root {
+:where(:root) {
   /* ========================================================================
    * Palettes — raw primitives. No `--color-` prefix on purpose: these live in
    * `:root`, not `@theme`, so they generate NO utilities (no `bg-graphite-300`).
@@ -261,7 +264,7 @@
  * Scoped via @supports — browsers without squircles keep the original values.
  * Starting value; nudge by eye in Chrome. Feeds --radius-sm/md/lg (all calc off it). */
 @supports (corner-shape: squircle) {
-  :root {
+  :where(:root) {
     --radius: 1rem;
   }
 }
@@ -706,6 +709,31 @@
   &[data-side=inline-end][data-ending-style] { translate: var(--offset-md) 0; }
 }
 
+/* `motion-spin-{sm,md,lg}` — continuous rotation for loaders, three speeds (sm
+ * fastest → lg calmest). LINEAR (a spinner rotates at a constant rate) and
+ * literal durations (a visible spin needs ~0.5–1s, not the 150–250ms
+ * transition tiers). Reduced motion slows every tier to a calm 1.5s instead of
+ * stopping it: a frozen spinner reads as broken. A plain layered `@utility`, so
+ * variants work and a consumer's own utility can still override it. */
+@utility motion-spin-sm {
+  animation: motion-spin 0.5s linear infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation-duration: 1.5s;
+  }
+}
+@utility motion-spin-md {
+  animation: motion-spin 0.75s linear infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation-duration: 1.5s;
+  }
+}
+@utility motion-spin-lg {
+  animation: motion-spin 1s linear infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation-duration: 1.5s;
+  }
+}
+
 /* Recipe transitions — UNLAYERED on purpose (see note above): beats any
  * layered `transition-*` utility on the same element without `!important`. */
 .motion-scrim {
@@ -760,20 +788,14 @@
               translate var(--duration-md) var(--ease);
 }
 
-/* Spin — continuous rotation for loaders, three speeds (sm fastest → lg
- * calmest). LINEAR (a spinner rotates at a constant rate) and literal
- * durations (a visible spin needs ~0.5–1s, not the 150–250ms transition
- * tiers). Reduced motion slows these to a calm rate rather than stopping them
- * — see the reduced-motion block. */
-.motion-spin-sm { animation: spin 0.5s linear infinite; }
-.motion-spin-md { animation: spin 0.75s linear infinite; }
-.motion-spin-lg { animation: spin 1s linear infinite; }
-
 /* ---------------------------------------------------------------------------
- * Reduced motion — one block, every token zeroes, every recipe collapses.
+ * Reduced motion — every token zeroes, so every transition recipe collapses.
+ * Spinners slow down instead of stopping (inside `motion-spin-*`). `html:root`
+ * on purpose: one step stronger than a plain `:root`, so an app that tunes the
+ * motion tokens in its own `:root` can't switch reduced motion back on.
  * ------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
-  :root {
+  html:root {
     --duration-sm: 0ms; --duration-md: 0ms; --duration-lg: 0ms;
     --blur-sm: 0px; --blur-md: 0px; --blur-lg: 0px;
     --scale-sm: 1; --scale-md: 1; --scale-lg: 1;
@@ -787,22 +809,15 @@
   .animate-caret-blink {
     animation: none;
   }
-
-  /* Spinners keep spinning — a frozen one reads as broken — but all tiers slow
-   * to a calm rate so the motion stays gentle. */
-  .motion-spin-sm,
-  .motion-spin-md,
-  .motion-spin-lg {
-    animation: spin 1.5s linear infinite;
-  }
 }
 
 /* ---------------------------------------------------------------------------
  * Keyframe utilities — self-hosted (replaces the former `tw-animate-css` dep,
- * now removed). Only the three the library actually uses; `animate-spin` /
+ * now removed). Only the four the library actually uses; `animate-spin` /
  * `animate-pulse` come from Tailwind core. Registering via `@theme` generates
  * the `animate-accordion-down` / `animate-accordion-up` / `animate-caret-blink`
- * utilities. Accordion height runs on our motion tokens (`md` tier + the curve)
+ * utilities; `motion-spin` drives the `motion-spin-*` utilities and is named
+ * apart from Tailwind's `spin` so an app's own `spin` keyframe can't replace it. Accordion height runs on our motion tokens (`md` tier + the curve)
  * and uses Base UI's `--accordion-panel-height` (the Radix var tw-animate
  * targeted is never set under Base UI). Collapses under reduced motion via
  * `--duration-md`. */
@@ -819,7 +834,7 @@
   from { height: var(--accordion-panel-height); }
   to { height: 0; }
 }
-@keyframes spin {
+@keyframes motion-spin {
   to { transform: rotate(360deg); }
 }
 @keyframes caret-blink {
