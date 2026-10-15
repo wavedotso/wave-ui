@@ -271,8 +271,13 @@
  * per-theme tokens, shared by `:root` (the default) and `.paper` (explicit —
  * what a theme toggle sets, or to override an inherited dark theme in a nested
  * scope).
+ *
+ * `:where()` keeps the default at zero specificity, here and on the OS-dark
+ * block below, so both are defaults in the cascade too: any rule an app writes
+ * after this file wins, a plain `:root { --foundation: … }` included, on a
+ * dark system as on a light one. A pinned theme class still beats both.
  * ------------------------------------------------------------------------- */
-:root,
+:where(:root),
 .paper {
   --foundation: var(--paper-200);
   --surface: var(--paper-100);
@@ -298,10 +303,12 @@
  * `.graphite` (what a theme toggle sets). Same tokens both ways — a media query
  * can't be folded into a plain class selector, so they're stated once each.
  * Status brightens and the shadow dims for the dark surface; any pinned theme
- * beats the OS.
+ * beats the OS. The OS-dark default is wrapped in `:where()`, as Paper's is:
+ * written bare, its three `:not()`s outweighed an app's own `:root` override,
+ * which was then ignored on every dark system.
  * ------------------------------------------------------------------------- */
 @media (prefers-color-scheme: dark) {
-  :root:not(.paper):not(.graphite):not(.ink) {
+  :where(:root:not(.paper):not(.graphite):not(.ink)) {
     --foundation: var(--graphite-950);
     --surface: var(--graphite-900);
     --elevated: var(--graphite-800);
@@ -753,6 +760,15 @@
               translate var(--duration-md) var(--ease);
 }
 
+/* Spin — continuous rotation for loaders, three speeds (sm fastest → lg
+ * calmest). LINEAR (a spinner rotates at a constant rate) and literal
+ * durations (a visible spin needs ~0.5–1s, not the 150–250ms transition
+ * tiers). Reduced motion slows these to a calm rate rather than stopping them
+ * — see the reduced-motion block. */
+.motion-spin-sm { animation: spin 0.5s linear infinite; }
+.motion-spin-md { animation: spin 0.75s linear infinite; }
+.motion-spin-lg { animation: spin 1s linear infinite; }
+
 /* ---------------------------------------------------------------------------
  * Reduced motion — one block, every token zeroes, every recipe collapses.
  * ------------------------------------------------------------------------- */
@@ -770,6 +786,14 @@
    * `animate-spin` loader is intentionally left running — it signals activity.) */
   .animate-caret-blink {
     animation: none;
+  }
+
+  /* Spinners keep spinning — a frozen one reads as broken — but all tiers slow
+   * to a calm rate so the motion stays gentle. */
+  .motion-spin-sm,
+  .motion-spin-md,
+  .motion-spin-lg {
+    animation: spin 1.5s linear infinite;
   }
 }
 
@@ -794,6 +818,9 @@
 @keyframes accordion-up {
   from { height: var(--accordion-panel-height); }
   to { height: 0; }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 @keyframes caret-blink {
   0%, 70%, 100% { opacity: 1; }
