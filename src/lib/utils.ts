@@ -8,9 +8,11 @@ import { extendTailwindMerge } from "tailwind-merge";
  *   exclusive — the last one applied wins (e.g. a consumer overriding a
  *   component's default animation). `motion-color` / `motion-scrim` are left out
  *   on purpose: they compose with an enter recipe on the same element.
+ * - the spin speeds (`motion-spin-*`) are mutually exclusive too, so a
+ *   consumer's `motion-spin-lg` replaces a component's `motion-spin-sm`.
  * - `cursor-clickable` joins the built-in `cursor` group.
  */
-const twMerge = extendTailwindMerge<"motion-enter">({
+const twMerge = extendTailwindMerge<"motion-enter" | "motion-spin">({
   extend: {
     classGroups: {
       "motion-enter": [
@@ -25,6 +27,7 @@ const twMerge = extendTailwindMerge<"motion-enter">({
         "motion-fade-lg",
         "motion-pop-md",
       ],
+      "motion-spin": ["motion-spin-sm", "motion-spin-md", "motion-spin-lg"],
       cursor: ["cursor-clickable"],
     },
   },
