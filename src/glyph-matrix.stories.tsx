@@ -14,7 +14,7 @@ const meta: Meta<typeof GlyphMatrix> = {
   },
   decorators: [
     (Story) => (
-      <div className="border-line h-72 w-full max-w-xl overflow-hidden rounded-lg border">
+      <div className="border-line h-72 w-xl max-w-full overflow-hidden rounded-lg border">
         <Story />
       </div>
     ),
