@@ -1,14 +1,18 @@
 "use client";
 
 import * as React from "react";
+import { mergeProps } from "@base-ui/react/merge-props";
+import { useRender } from "@base-ui/react/use-render";
 
-import { mergeRefs } from "./lib/merge-refs";
 import { cn } from "./lib/utils";
 
-interface VideoTextProps extends React.ComponentProps<"div"> {
+interface VideoTextProps extends Omit<
+  useRender.ComponentProps<"div">,
+  "children"
+> {
   /** Video source URL. */
   src: string;
-  /** The text the video shows through. Also announced to screen readers. */
+  /** The text the video shows through. Rendered as real, selectable text. */
   text: string;
   /** Image shown in the letters until the video can play. */
   poster?: string;
@@ -16,32 +20,26 @@ interface VideoTextProps extends React.ComponentProps<"div"> {
   muted?: boolean;
   loop?: boolean;
   preload?: "auto" | "metadata" | "none";
-  /**
-   * A number is a percentage of the component's width; a string (`"8rem"`)
-   * is used as-is.
-   */
-  fontSize?: string | number;
 }
 
-const XML_ESCAPES: Record<string, string> = {
-  "&": "&amp;",
-  "<": "&lt;",
-  ">": "&gt;",
-  '"': "&quot;",
-  "'": "&apos;",
-};
+interface WordBox {
+  x: number;
+  y: number;
+}
 
-/** Keeps text like `R&D` or `"Wave"` from breaking the SVG markup. */
-function escapeXml(value: string | number) {
-  return String(value).replace(/[&<>"']/g, (char) => XML_ESCAPES[char] ?? char);
+function isSameLayout(a: WordBox[], b: WordBox[]) {
+  return (
+    a.length === b.length &&
+    a.every((box, index) => box.x === b[index]?.x && box.y === b[index]?.y)
+  );
 }
 
 /**
- * Text cut out of a playing video. The letters take the root's `font-family`
- * and `font-weight`, so `font-*` classes style them. The mask is an SVG image,
- * which can't load web fonts: system fonts (the library default) render as
- * set, and a web font falls back to the next font in its stack. Until the
- * video paints, the letters show in the current text color.
+ * Text cut out of a playing video. The text is real: it wraps, aligns and
+ * takes its font from the usual classes (`text-*`, `font-*`, web fonts
+ * included), and `render` can make it a heading. Each word is measured and
+ * copied into an SVG clip path that the video is clipped to. Until that's
+ * measured, and while the video loads, the letters show in the text color.
  */
 function VideoText({
   src,
@@ -51,28 +49,67 @@ function VideoText({
   muted = true,
   loop = true,
   preload = "auto",
-  fontSize = 20,
   className,
+  render,
   ref,
   ...props
 }: VideoTextProps) {
   const rootRef = React.useRef<HTMLDivElement>(null);
-  const mergedRef = React.useMemo(() => mergeRefs(rootRef, ref), [ref]);
+  const labelRef = React.useRef<HTMLSpanElement>(null);
+  const baselineRef = React.useRef<HTMLSpanElement>(null);
   const videoRef = React.useRef<HTMLVideoElement>(null);
-  // Generic stand-ins for the first render (and the server), replaced by the
-  // root's computed font before paint.
-  const [fontFamily, setFontFamily] = React.useState("sans-serif");
-  const [fontWeight, setFontWeight] = React.useState("bold");
+  const [boxes, setBoxes] = React.useState<WordBox[]>([]);
 
-  // Read once on mount, before paint, from the root's `font-*` classes.
+  const clipId = `video-text-${React.useId().replace(/[^\w-]/g, "")}`;
+  const clipPath = `url(#${clipId})`;
+  const words = React.useMemo(() => text.split(/\s+/).filter(Boolean), [text]);
+  const isMeasured = words.length > 0 && boxes.length === words.length;
+
+  // Where each word landed, re-read when the box resizes (rewrapping) or a
+  // web font finishes loading (new metrics). SVG text sits on its baseline,
+  // so `y` is the word's top plus the line's baseline offset. Measured from
+  // client rects for sub-pixel accuracy (`offsetLeft` rounds to whole
+  // pixels), relative to the padding box the clip path is laid out in, and
+  // divided by `scale` so a transformed ancestor doesn't skew them.
   React.useLayoutEffect(() => {
     const root = rootRef.current;
-    if (!root) return;
+    const label = labelRef.current;
+    const baseline = baselineRef.current;
+    if (!root || !label || !baseline) return;
 
-    const computed = getComputedStyle(root);
-    setFontFamily(computed.fontFamily);
-    setFontWeight(computed.fontWeight);
-  }, []);
+    const measure = () => {
+      const rootRect = root.getBoundingClientRect();
+      const scale = root.offsetWidth ? rootRect.width / root.offsetWidth : 1;
+      const left = rootRect.left + root.clientLeft * scale;
+      const top = rootRect.top + root.clientTop * scale;
+      const spans = label.querySelectorAll<HTMLElement>(
+        '[data-slot="video-text-word"]',
+      );
+      const first = spans[0]?.getBoundingClientRect();
+      const offset = first
+        ? baseline.getBoundingClientRect().top - first.top
+        : 0;
+      const next = words.map((_, index) => {
+        const rect = spans[index]?.getBoundingClientRect();
+        return rect
+          ? {
+              x: (rect.left - left) / scale,
+              y: (rect.top + offset - top) / scale,
+            }
+          : { x: 0, y: 0 };
+      });
+      setBoxes((prev) => (isSameLayout(prev, next) ? prev : next));
+    };
+
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(root);
+    document.fonts.addEventListener("loadingdone", measure);
+    return () => {
+      observer.disconnect();
+      document.fonts.removeEventListener("loadingdone", measure);
+    };
+  }, [words]);
 
   // A looping video is decorative motion, so it holds still while reduced
   // motion is on, like the library's other effects, and resumes when it's
@@ -105,30 +142,62 @@ function VideoText({
     };
   }, []);
 
-  // Inside the SVG image, `vw` is a percentage of the image, which is sized
-  // to the component.
-  const size = typeof fontSize === "number" ? `${fontSize}vw` : fontSize;
-  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%'><text x='50%' y='50%' font-size='${escapeXml(size)}' font-weight='${escapeXml(fontWeight)}' text-anchor='middle' dominant-baseline='middle' font-family='${escapeXml(fontFamily)}'>${escapeXml(text)}</text></svg>`;
-  const mask = `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
-
-  return (
-    <div
-      ref={mergedRef}
-      data-slot="video-text"
-      className={cn("relative size-full font-sans font-bold", className)}
-      {...props}
-    >
-      <div
+  // Spans only inside, so `render={<h1 />}` stays valid HTML.
+  const content = (
+    <>
+      <span
+        ref={labelRef}
+        data-slot="video-text-label"
+        className={cn(isMeasured && "text-transparent")}
+      >
+        <span
+          ref={baselineRef}
+          data-slot="video-text-baseline"
+          className="inline-block size-0 align-baseline"
+        />
+        {words.map((word, index) => (
+          <React.Fragment key={`${index}-${word}`}>
+            {index > 0 && " "}
+            <span data-slot="video-text-word">{word}</span>
+          </React.Fragment>
+        ))}
+      </span>
+      <svg
+        data-slot="video-text-defs"
+        aria-hidden="true"
+        className="absolute size-0 overflow-hidden [direction:ltr]"
+      >
+        <clipPath
+          id={clipId}
+          data-slot="video-text-clip"
+          clipPathUnits="userSpaceOnUse"
+        >
+          {words.map((word, index) => (
+            <text
+              key={`${index}-${word}`}
+              data-slot="video-text-clip-word"
+              x={boxes[index]?.x ?? 0}
+              y={boxes[index]?.y ?? 0}
+            >
+              {word}
+            </text>
+          ))}
+        </clipPath>
+      </svg>
+      <span
         data-slot="video-text-mask"
         aria-hidden="true"
-        className="absolute inset-0 flex items-center justify-center bg-current mask-contain mask-center mask-no-repeat"
-        style={{ maskImage: mask, WebkitMaskImage: mask }}
+        className={cn(
+          "pointer-events-none absolute inset-0 bg-current",
+          !isMeasured && "invisible",
+        )}
+        style={{ clipPath, WebkitClipPath: clipPath }}
       >
-        {/* oxlint-disable-next-line jsx-a11y/media-has-caption -- decorative, muted and aria-hidden; the text is announced by the sr-only label */}
+        {/* oxlint-disable-next-line jsx-a11y/media-has-caption -- decorative, muted and aria-hidden; the real text carries the meaning */}
         <video
           ref={videoRef}
           data-slot="video-text-video"
-          className="size-full object-cover"
+          className="block size-full object-cover"
           src={src}
           poster={poster}
           autoPlay={autoPlay}
@@ -139,12 +208,25 @@ function VideoText({
           disablePictureInPicture
           disableRemotePlayback
         />
-      </div>
-      <span data-slot="video-text-label" className="sr-only">
-        {text}
       </span>
-    </div>
+    </>
   );
+
+  return useRender({
+    defaultTagName: "div",
+    ref: ref ? [rootRef, ref] : rootRef,
+    render,
+    props: mergeProps<"div">(
+      {
+        className: cn("relative font-sans font-bold", className),
+        children: content,
+      },
+      props,
+    ),
+    state: {
+      slot: "video-text",
+    },
+  });
 }
 
 export { VideoText };

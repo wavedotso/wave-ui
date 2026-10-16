@@ -15,13 +15,12 @@ const meta: Meta<typeof VideoText> = {
   },
   argTypes: {
     text: { control: "text" },
-    fontSize: { control: { type: "range", min: 5, max: 40, step: 1 } },
     autoPlay: { control: "boolean" },
     loop: { control: "boolean" },
   },
   decorators: [
     (Story) => (
-      <div className="h-64 w-2xl max-w-full">
+      <div className="w-2xl max-w-full text-center text-9xl">
         <Story />
       </div>
     ),
@@ -36,7 +35,19 @@ export const Default: Story = {};
 export const Heavy: Story = {
   args: {
     className: "font-black",
-    fontSize: 26,
+  },
+};
+
+export const MultiLine: Story = {
+  args: {
+    text: "Designed in the details",
+    className: "text-7xl leading-none",
+  },
+};
+
+export const Heading: Story = {
+  args: {
+    render: <h1 />,
   },
 };
 
