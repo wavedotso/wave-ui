@@ -7,10 +7,8 @@ const meta: Meta<typeof GlyphMatrix> = {
   component: GlyphMatrix,
   argTypes: {
     glyphs: { control: "text" },
-    cellSize: { control: { type: "range", min: 8, max: 32, step: 1 } },
-    mutationRate: { control: { type: "range", min: 0, max: 0.3, step: 0.01 } },
-    interval: { control: { type: "range", min: 16, max: 500, step: 1 } },
-    fadeBottom: { control: { type: "range", min: 0, max: 1, step: 0.05 } },
+    speed: { control: { type: "range", min: 0, max: 3, step: 0.1 } },
+    glitch: { control: "boolean" },
   },
   decorators: [
     (Story) => (
@@ -24,6 +22,17 @@ const meta: Meta<typeof GlyphMatrix> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+// The field behind a line of text, cleared around it by a radial mask.
+const behindContent: Story["render"] = (args) => (
+  <div className="relative flex h-full items-center justify-center">
+    <GlyphMatrix
+      {...args}
+      className="absolute inset-0 mask-radial-from-transparent mask-radial-to-black"
+    />
+    <p className="text-contrast relative text-lg font-medium">Content on top</p>
+  </div>
+);
+
 export const Default: Story = {};
 
 export const Primary: Story = {
@@ -32,26 +41,66 @@ export const Primary: Story = {
   },
 };
 
-export const Binary: Story = {
+export const Calm: Story = {
   args: {
-    glyphs: "01",
-    cellSize: 16,
+    glitch: false,
   },
 };
 
-export const NoFade: Story = {
+export const CalmClassic: Story = {
   args: {
-    fadeBottom: 0,
+    glitch: false,
+    glyphs: "01·•+*/\\<>=",
+    className: "text-muted",
+  },
+};
+
+export const CalmPrimary: Story = {
+  args: {
+    glitch: false,
+    className: "text-primary",
+  },
+};
+
+export const CalmFadeBottom: Story = {
+  args: {
+    glitch: false,
+    className: "mask-b-from-40%",
+  },
+};
+
+export const CalmBackground: Story = {
+  args: {
+    glitch: false,
+  },
+  render: behindContent,
+};
+
+export const GreenFlares: Story = {
+  args: {
+    className: "accent-success",
+  },
+};
+
+export const Binary: Story = {
+  args: {
+    glyphs: "01",
+    className: "text-base",
+  },
+};
+
+export const FadeBottom: Story = {
+  args: {
+    className: "mask-b-from-40%",
+  },
+};
+
+export const Vignette: Story = {
+  args: {
+    className: "mask-radial-from-40% mask-radial-to-80%",
   },
 };
 
 export const Background: Story = {
-  render: (args) => (
-    <div className="relative flex h-full items-center justify-center">
-      <GlyphMatrix {...args} className="absolute inset-0" />
-      <p className="text-contrast relative text-lg font-medium">
-        Content on top
-      </p>
-    </div>
-  ),
+  render: behindContent,
 };
