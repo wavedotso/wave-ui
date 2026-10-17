@@ -84,3 +84,68 @@ export const CustomCharset: Story = {
     </p>
   ),
 };
+
+export const FromCenter: Story = {
+  render: () => (
+    <p className="text-lg font-medium">
+      <EncryptedText
+        text="Reveals from the middle out"
+        revealDirection="center"
+      />
+    </p>
+  ),
+};
+
+export const RandomOrder: Story = {
+  render: () => (
+    <p className="text-lg font-medium">
+      <EncryptedText
+        text="Reveals in a random order"
+        revealDirection="random"
+        revealDelayMs={70}
+      />
+    </p>
+  ),
+};
+
+export const ScrambleOnHover: Story = {
+  render: () => (
+    <p className="text-lg font-medium">
+      <EncryptedText text="Hover me to scramble again" scrambleOnHover />
+    </p>
+  ),
+};
+
+export const Loop: Story = {
+  render: () => (
+    <p className="text-lg font-medium">
+      <EncryptedText
+        text="Decrypting, again and again"
+        loop
+        loopDelayMs={1500}
+      />
+    </p>
+  ),
+};
+
+export const InSentence: Story = {
+  render: () => (
+    <p className="max-w-md text-lg">
+      The words around it stay put:{" "}
+      <EncryptedText
+        text="no shifting while it scrambles"
+        encryptedClassName="text-muted"
+        loop
+      />{" "}
+      — each character keeps its real width.
+    </p>
+  ),
+};
+
+export const EmojiAndAccents: Story = {
+  render: () => (
+    <p className="text-lg font-medium">
+      <EncryptedText text="Ship it 🚀 — café, naïve, 日本" />
+    </p>
+  ),
+};

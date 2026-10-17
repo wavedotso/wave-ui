@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { useReducedMotion } from "motion/react";
 
 import { cn } from "./lib/utils";
 
@@ -14,24 +13,123 @@ type EncryptedTextProps = React.ComponentProps<"span"> & {
   revealedClassName?: string;
   scrambleOnly?: boolean;
   scrambleOneChar?: boolean;
+  /** Where the reveal begins. Default: "start" */
+  revealDirection?: "start" | "end" | "center" | "random";
+  /** Scramble and reveal again when hovered. Default: false */
+  scrambleOnHover?: boolean;
+  /** Scramble and reveal again after every reveal. Default: false */
+  loop?: boolean;
+  /** Pause between a reveal and the next loop, in ms. Default: 2000 */
+  loopDelayMs?: number;
 };
+
+interface Frame {
+  glyphs: string[];
+  scales: number[];
+  /** Each character's place in the reveal order; -1 for spaces. */
+  ranks: number[];
+  revealed: number;
+}
 
 const DEFAULT_CHARSET =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-={}[];:,.<>/?";
+const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
+/** Opacity of a scrambled character far from its turn. */
+const ENCRYPTED_OPACITY = 0.6;
+/** Characters ahead of the reveal that brighten toward full opacity. */
+const LEAD = 4;
 
-function randomChar(charset: string): string {
-  return charset.charAt(Math.floor(Math.random() * charset.length));
+function isSpace(char: string) {
+  return /\s/.test(char);
 }
 
-function scramblePreservingSpaces(original: string, charset: string): string {
-  if (!original) return "";
-  let result = "";
-  for (let i = 0; i < original.length; i += 1) {
-    result += original[i] === " " ? " " : randomChar(charset);
+function randomGlyph(pool: string[]) {
+  return pool[Math.floor(Math.random() * pool.length)] ?? "";
+}
+
+/**
+ * A scramble that's the same on the server and in the browser, so the text
+ * can start encrypted without a hydration mismatch.
+ */
+function initialFrame(chars: string[], pool: string[]): Frame {
+  let rank = 0;
+  return {
+    glyphs: chars.map((char, index) =>
+      isSpace(char)
+        ? char
+        : (pool[((char.codePointAt(0) ?? 0) + index * 7) % pool.length] ??
+          char),
+    ),
+    scales: chars.map(() => 1),
+    ranks: chars.map((char) => (isSpace(char) ? -1 : rank++)),
+    revealed: 0,
+  };
+}
+
+/** Each character's place in the reveal order for a direction; -1 for spaces. */
+function rankLetters(
+  chars: string[],
+  direction: NonNullable<EncryptedTextProps["revealDirection"]>,
+) {
+  const order = chars.flatMap((char, index) => (isSpace(char) ? [] : [index]));
+  if (direction === "end") order.reverse();
+  if (direction === "center") {
+    const middle = (chars.length - 1) / 2;
+    order.sort((a, b) => Math.abs(a - middle) - Math.abs(b - middle));
   }
-  return result;
+  if (direction === "random") {
+    for (let i = order.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [order[i], order[j]] = [order[j] ?? 0, order[i] ?? 0];
+    }
+  }
+  const ranks = chars.map(() => -1);
+  order.forEach((index, rank) => {
+    ranks[index] = rank;
+  });
+  return ranks;
 }
 
+const glyphWidths = new Map<string, number>();
+let measurer: CanvasRenderingContext2D | null | undefined;
+
+/** Measures a glyph in a font, caching it once the font has loaded. */
+function measureGlyph(font: string, glyph: string) {
+  const key = `${font}|${glyph}`;
+  const cached = glyphWidths.get(key);
+  if (cached !== undefined) return cached;
+
+  measurer ??= document.createElement("canvas").getContext("2d");
+  if (!measurer) return 0;
+  measurer.font = font;
+  const width = measurer.measureText(glyph).width;
+  // A web font still loading would be measured as its fallback.
+  if (document.fonts.check(font)) glyphWidths.set(key, width);
+  return width;
+}
+
+/** How much to narrow a stand-in glyph so it fits the real one's width. */
+function squeeze(font: string, char: string, glyph: string) {
+  const room = measureGlyph(font, char);
+  const need = measureGlyph(font, glyph);
+  return need > room && need > 0 ? Math.max(0.05, room / need) : 1;
+}
+
+function subscribeReducedMotion(onChange: () => void) {
+  const query = window.matchMedia(REDUCED_MOTION);
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+}
+
+const getReducedMotion = () => window.matchMedia(REDUCED_MOTION).matches;
+const getServerReducedMotion = () => false;
+
+/**
+ * Text that starts scrambled and reveals itself, character by character, once
+ * it scrolls into view. Each character keeps its real width while scrambled
+ * (the stand-in glyph sits over an invisible copy and narrows to fit), so the
+ * text never shifts what's around it. Screen readers get the real text.
+ */
 function EncryptedText({
   text,
   className,
@@ -42,22 +140,33 @@ function EncryptedText({
   revealedClassName,
   scrambleOnly = false,
   scrambleOneChar = false,
+  revealDirection = "start",
+  scrambleOnHover = false,
+  loop = false,
+  loopDelayMs = 2000,
+  onPointerEnter,
   ...props
 }: EncryptedTextProps) {
-  const prefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion = React.useSyncExternalStore(
+    subscribeReducedMotion,
+    getReducedMotion,
+    getServerReducedMotion,
+  );
   const ref = React.useRef<HTMLSpanElement>(null);
+  const restartRef = React.useRef<(() => void) | null>(null);
+  const isRunningRef = React.useRef(false);
   const [isInView, setIsInView] = React.useState(false);
-  const [revealCount, setRevealCount] = React.useState(0);
-  const [, setFlipTick] = React.useState(0);
 
-  const animationFrameRef = React.useRef<number | null>(null);
-  const startTimeRef = React.useRef(0);
-  const lastFlipTimeRef = React.useRef(0);
-  // Populated inside the animation effect (client-only). Left empty on the
-  // first render so SSR and the initial client render show plain text and
-  // agree — scrambling with Math.random() here would cause a hydration
-  // mismatch.
-  const scrambleCharsRef = React.useRef<string[]>([]);
+  const chars = React.useMemo(() => Array.from(text), [text]);
+  const pool = React.useMemo(
+    () => Array.from(charset.length > 0 ? charset : DEFAULT_CHARSET),
+    [charset],
+  );
+  const initial = React.useMemo(() => initialFrame(chars, pool), [chars, pool]);
+  // A frame is only used for the text it was built from, so a new `text`
+  // never shows a stale scramble before its own run starts.
+  const [live, setLive] = React.useState<{ chars: string[]; frame: Frame }>();
+  const frame = live?.chars === chars ? live.frame : initial;
 
   React.useEffect(() => {
     if (prefersReducedMotion) return;
@@ -79,127 +188,216 @@ function EncryptedText({
   }, [prefersReducedMotion]);
 
   React.useEffect(() => {
-    if (prefersReducedMotion) return;
-    if (!isInView) return;
+    const root = ref.current;
+    if (prefersReducedMotion || !isInView || !root) return;
 
-    const initial = text ? scramblePreservingSpaces(text, charset) : "";
-    scrambleCharsRef.current = initial.split("");
-    startTimeRef.current = performance.now();
-    lastFlipTimeRef.current = startTimeRef.current;
-    setRevealCount(0);
+    const computed = getComputedStyle(root);
+    const font = `${computed.fontStyle} ${computed.fontWeight} ${computed.fontSize} ${computed.fontFamily}`;
+    const letters = chars.filter((char) => !isSpace(char)).length;
+    let glyphs: string[] = [];
+    let scales: number[] = [];
+    let ranks: number[] = [];
+    let revealed = 0;
+    let start = 0;
+    let lastFlip = 0;
+    let frameId = 0;
+    let timer: ReturnType<typeof setTimeout> | undefined;
 
-    let isCancelled = false;
-
-    const update = (now: number) => {
-      if (isCancelled) return;
-
-      const totalLength = text.length;
-
-      if (scrambleOnly) {
-        const timeSinceLastFlip = now - lastFlipTimeRef.current;
-        if (timeSinceLastFlip >= Math.max(0, flipDelayMs)) {
-          if (scrambleOneChar) {
-            const indices: number[] = [];
-            for (let i = 0; i < totalLength; i++) {
-              if (text[i] !== " ") indices.push(i);
-            }
-            if (indices.length > 0) {
-              const idx = indices[Math.floor(Math.random() * indices.length)]!;
-              scrambleCharsRef.current[idx] = randomChar(charset);
-            }
-          } else {
-            for (let index = 0; index < totalLength; index += 1) {
-              scrambleCharsRef.current[index] =
-                text[index] === " " ? " " : randomChar(charset);
-            }
-          }
-          lastFlipTimeRef.current = now;
-          setFlipTick((t) => (t + 1) & 0xffff);
-        }
-        animationFrameRef.current = requestAnimationFrame(update);
-        return;
-      }
-
-      const elapsedMs = now - startTimeRef.current;
-      const currentRevealCount = Math.min(
-        totalLength,
-        Math.floor(elapsedMs / Math.max(1, revealDelayMs)),
-      );
-
-      setRevealCount(currentRevealCount);
-
-      if (currentRevealCount >= totalLength) return;
-
-      const timeSinceLastFlip = now - lastFlipTimeRef.current;
-      if (timeSinceLastFlip >= Math.max(0, flipDelayMs)) {
-        for (let index = currentRevealCount; index < totalLength; index += 1) {
-          scrambleCharsRef.current[index] =
-            text[index] === " " ? " " : randomChar(charset);
-        }
-        lastFlipTimeRef.current = now;
-        // Repaint the flipped glyphs — mutating the ref alone won't, so
-        // without this flipDelayMs would be clamped to revealDelayMs.
-        setFlipTick((t) => (t + 1) & 0xffff);
-      }
-
-      animationFrameRef.current = requestAnimationFrame(update);
+    const scramble = (index: number) => {
+      const glyph = randomGlyph(pool);
+      glyphs[index] = glyph;
+      scales[index] = squeeze(font, chars[index] ?? glyph, glyph);
     };
 
-    animationFrameRef.current = requestAnimationFrame(update);
+    const publish = () => {
+      setLive({
+        chars,
+        frame: { glyphs: [...glyphs], scales: [...scales], ranks, revealed },
+      });
+    };
+
+    // Each frame: move the reveal on, and every `flipDelayMs` give the
+    // still-scrambled characters new glyphs. Re-renders only when either
+    // happens.
+    const update = (now: number) => {
+      let isChanged = false;
+
+      if (!scrambleOnly) {
+        const next = Math.min(
+          letters,
+          Math.floor((now - start) / Math.max(1, revealDelayMs)),
+        );
+        isChanged = next !== revealed;
+        revealed = next;
+
+        if (revealed >= letters) {
+          publish();
+          isRunningRef.current = false;
+          if (loop) timer = setTimeout(run, Math.max(0, loopDelayMs));
+          return;
+        }
+      }
+
+      if (now - lastFlip >= Math.max(0, flipDelayMs)) {
+        lastFlip = now;
+        isChanged = true;
+        if (scrambleOnly && scrambleOneChar) {
+          const scrambled = chars.flatMap((char, index) =>
+            isSpace(char) ? [] : [index],
+          );
+          const index = scrambled[Math.floor(Math.random() * scrambled.length)];
+          if (index !== undefined) scramble(index);
+        } else {
+          chars.forEach((char, index) => {
+            if (!isSpace(char) && (ranks[index] ?? 0) >= revealed) {
+              scramble(index);
+            }
+          });
+        }
+      }
+
+      if (isChanged) publish();
+      frameId = requestAnimationFrame(update);
+    };
+
+    // Scrambles every character and starts the reveal over.
+    const run = () => {
+      cancelAnimationFrame(frameId);
+      clearTimeout(timer);
+      isRunningRef.current = true;
+      ranks = rankLetters(chars, revealDirection);
+      glyphs = [...chars];
+      scales = chars.map(() => 1);
+      chars.forEach((char, index) => {
+        if (!isSpace(char)) scramble(index);
+      });
+      revealed = 0;
+      start = performance.now();
+      lastFlip = start;
+      publish();
+      frameId = requestAnimationFrame(update);
+    };
+
+    restartRef.current = run;
+    run();
 
     return () => {
-      isCancelled = true;
-      if (animationFrameRef.current !== null) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
+      cancelAnimationFrame(frameId);
+      clearTimeout(timer);
+      isRunningRef.current = false;
+      restartRef.current = null;
     };
   }, [
     prefersReducedMotion,
     isInView,
-    text,
+    chars,
+    pool,
     revealDelayMs,
-    charset,
     flipDelayMs,
     scrambleOnly,
     scrambleOneChar,
+    revealDirection,
+    loop,
+    loopDelayMs,
   ]);
+
+  const handlePointerEnter = (event: React.PointerEvent<HTMLSpanElement>) => {
+    onPointerEnter?.(event);
+    if (scrambleOnHover && !scrambleOnly && !isRunningRef.current) {
+      restartRef.current?.();
+    }
+  };
 
   if (!text) return null;
 
+  // Words stay whole: each character is its own box, which could otherwise
+  // break a word across lines mid-scramble.
+  const words: { start: number; letters: string[] }[] = [];
+  chars.forEach((char, index) => {
+    const word = words.at(-1);
+    if (isSpace(char) || !word || isSpace(chars[index - 1] ?? " ")) {
+      words.push({ start: index, letters: [char] });
+    } else {
+      word.letters.push(char);
+    }
+  });
+
   return (
-    <span ref={ref} data-slot="encrypted-text" className={className} {...props}>
+    <span
+      ref={ref}
+      data-slot="encrypted-text"
+      className={className}
+      onPointerEnter={handlePointerEnter}
+      {...props}
+    >
       {/* Real text for assistive tech; the animated glyphs below are decorative
        * (aria-label on a role-less span is unreliable, and the scrambled
        * characters must not be read out). */}
       <span className="sr-only">{text}</span>
-      {text.split("").map((char, index) => {
-        // Reduced motion: skip the scramble entirely and show every
-        // character in its final revealed form from the first frame.
-        // Before the animation starts (SSR + first client render, until the
-        // in-view effect populates scrambleCharsRef), show plain text so
-        // server and client agree — no Math.random() during render.
-        const isRevealed =
-          prefersReducedMotion ||
-          !isInView ||
-          (!scrambleOnly && index < revealCount);
-        const displayChar = isRevealed
-          ? char
-          : char === " "
-            ? " "
-            : (scrambleCharsRef.current[index] ?? char);
-
-        return (
+      {words.map((word) =>
+        isSpace(word.letters[0] ?? "") ? (
+          <React.Fragment key={word.start}>{word.letters[0]}</React.Fragment>
+        ) : (
           <span
-            key={index}
+            key={word.start}
             aria-hidden="true"
-            data-slot="encrypted-text-char"
-            data-revealed={isRevealed || undefined}
-            className={cn(isRevealed ? revealedClassName : encryptedClassName)}
+            data-slot="encrypted-text-word"
+            className="whitespace-nowrap"
           >
-            {displayChar}
+            {word.letters.map((char, offset) => {
+              const index = word.start + offset;
+              const rank = frame.ranks[index] ?? 0;
+              // Reduced motion skips the scramble and shows the real text.
+              const isRevealed =
+                prefersReducedMotion ||
+                (!scrambleOnly && rank < frame.revealed);
+              const distance = rank - frame.revealed;
+              const lift = Math.max(0, 1 - distance / LEAD);
+              const scale = frame.scales[index] ?? 1;
+
+              return (
+                <span
+                  key={index}
+                  data-slot="encrypted-text-char"
+                  data-revealed={isRevealed || undefined}
+                  className={cn(
+                    "motion-color relative inline-block",
+                    isRevealed ? revealedClassName : encryptedClassName,
+                  )}
+                  style={
+                    isRevealed || scrambleOnly
+                      ? undefined
+                      : {
+                          opacity:
+                            ENCRYPTED_OPACITY + (1 - ENCRYPTED_OPACITY) * lift,
+                        }
+                  }
+                >
+                  {isRevealed ? (
+                    char
+                  ) : (
+                    <>
+                      <span
+                        data-slot="encrypted-text-ghost"
+                        className="invisible"
+                      >
+                        {char}
+                      </span>
+                      <span
+                        data-slot="encrypted-text-glyph"
+                        className="absolute top-0 left-1/2 -translate-x-1/2"
+                        style={scale < 1 ? { scale: `${scale} 1` } : undefined}
+                      >
+                        {frame.glyphs[index] ?? char}
+                      </span>
+                    </>
+                  )}
+                </span>
+              );
+            })}
           </span>
-        );
-      })}
+        ),
+      )}
     </span>
   );
 }
