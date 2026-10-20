@@ -24,7 +24,7 @@ const toastRootClass =
 const toastIconVariants = cva("mt-0.5 size-4 shrink-0", {
   variants: {
     type: {
-      loading: "text-muted animate-spin",
+      loading: "text-muted motion-spin-sm",
       success: "text-success",
       info: "text-info",
       warning: "text-warning",
