@@ -66,6 +66,10 @@ const preview: Preview = {
     layout: "centered",
     options: {
       storySort: {
+        // Alphabetical by title, so a story file added while Storybook runs
+        // lands in place instead of at the end. Stories inside a component
+        // keep their written order (names aren't compared).
+        method: "alphabetical",
         order: [
           "Welcome",
           "Principles",
