@@ -5,22 +5,63 @@ import { ScrollArea as ScrollAreaPrimitive } from "@base-ui/react/scroll-area";
 
 import { cn } from "./lib/utils";
 
-type ScrollAreaProps = React.ComponentProps<typeof ScrollAreaPrimitive.Root>;
+type ScrollAreaProps = React.ComponentProps<typeof ScrollAreaPrimitive.Root> & {
+  /**
+   * Fade the content out toward any edge that has more to scroll to. On by
+   * default; the fade size follows `--scroll-area-fade` (default `2.5rem`).
+   */
+  fade?: boolean;
+};
 
-function ScrollArea({ className, children, ...props }: ScrollAreaProps) {
+/**
+ * The edge fade is a mask, so the content itself turns transparent and
+ * whatever is behind it shows through: no shadow color to match, in any
+ * theme. Each edge has a fixed fade (`--scroll-area-fade`) that switches on
+ * when Base UI marks that edge as having more content (`data-overflow-*`):
+ * its edge opacity goes from 1 (none) to 0 (fully faded).
+ * The two axes are intersected; the horizontal one flips in right-to-left
+ * layouts, where Base UI's "start" is the right edge.
+ */
+const FADE_MASK =
+  "[--scroll-area-fade-x:to_right] rtl:[--scroll-area-fade-x:to_left] data-overflow-y-start:[--scroll-area-fade-top:0] data-overflow-y-end:[--scroll-area-fade-bottom:0] data-overflow-x-start:[--scroll-area-fade-start:0] data-overflow-x-end:[--scroll-area-fade-end:0] [mask-composite:intersect] [mask-image:linear-gradient(to_bottom,rgb(0_0_0/var(--scroll-area-fade-top,1)),#000_var(--scroll-area-fade,2.5rem),#000_calc(100%_-_var(--scroll-area-fade,2.5rem)),rgb(0_0_0/var(--scroll-area-fade-bottom,1))),linear-gradient(var(--scroll-area-fade-x),rgb(0_0_0/var(--scroll-area-fade-start,1)),#000_var(--scroll-area-fade,2.5rem),#000_calc(100%_-_var(--scroll-area-fade,2.5rem)),rgb(0_0_0/var(--scroll-area-fade-end,1)))]";
+
+/**
+ * A scrollable region with styled scrollbars. Both scrollbars are built in:
+ * Base UI only mounts one when its axis overflows, so pass content and the
+ * right bars appear. They fade in while the area is hovered or scrolling.
+ */
+function ScrollArea({
+  className,
+  children,
+  fade = true,
+  ...props
+}: ScrollAreaProps) {
   return (
     <ScrollAreaPrimitive.Root
       data-slot="scroll-area"
-      className={cn("relative", className)}
+      className={cn(
+        // The focus ring lives on the root: a mask clips everything its
+        // element paints, the viewport's own ring included.
+        "relative motion-color has-[>[data-slot=scroll-area-viewport]:focus-visible]:ring-3 has-[>[data-slot=scroll-area-viewport]:focus-visible]:ring-focus/50 has-[>[data-slot=scroll-area-viewport]:focus-visible]:outline-hidden",
+        className,
+      )}
       {...props}
     >
       <ScrollAreaPrimitive.Viewport
         data-slot="scroll-area-viewport"
-        className="focus-visible:ring-focus/50 size-full rounded-[inherit] motion-color outline-hidden focus-visible:ring-3 focus-visible:outline-1"
+        className={cn(
+          "size-full rounded-[inherit] outline-hidden",
+          fade && FADE_MASK,
+        )}
       >
-        {children}
+        {/* Content is what Base UI watches for size changes, so the thumb
+         * keeps up when the content grows or shrinks after mount. */}
+        <ScrollAreaPrimitive.Content data-slot="scroll-area-content">
+          {children}
+        </ScrollAreaPrimitive.Content>
       </ScrollAreaPrimitive.Viewport>
-      <ScrollBar />
+      <ScrollBar orientation="vertical" />
+      <ScrollBar orientation="horizontal" />
       <ScrollAreaPrimitive.Corner data-slot="scroll-area-corner" />
     </ScrollAreaPrimitive.Root>
   );
@@ -30,6 +71,9 @@ type ScrollBarProps = React.ComponentProps<
   typeof ScrollAreaPrimitive.Scrollbar
 >;
 
+// Hidden until the area is hovered or scrolling: it appears at once when
+// scrolling starts and fades out on the motion tokens once it stops. The 1px
+// transparent border is a spacer between the content and the bar.
 function ScrollBar({
   className,
   orientation = "vertical",
@@ -40,14 +84,14 @@ function ScrollBar({
       data-slot="scroll-area-scrollbar"
       orientation={orientation}
       className={cn(
-        "flex touch-none p-px transition-colors select-none data-[orientation=horizontal]:h-2.5 data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:border-t data-[orientation=horizontal]:border-t-transparent data-[orientation=vertical]:h-full data-[orientation=vertical]:w-2.5 data-[orientation=vertical]:border-l data-[orientation=vertical]:border-l-transparent",
+        "pointer-events-none flex touch-none p-px opacity-0 transition-opacity duration-(--duration-md) ease-(--ease) select-none data-hovering:pointer-events-auto data-hovering:opacity-100 data-scrolling:pointer-events-auto data-scrolling:opacity-100 data-scrolling:duration-0 data-[orientation=horizontal]:h-2.5 data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:border-t data-[orientation=horizontal]:border-t-transparent data-[orientation=vertical]:h-full data-[orientation=vertical]:w-2.5 data-[orientation=vertical]:border-s data-[orientation=vertical]:border-s-transparent",
         className,
       )}
       {...props}
     >
       <ScrollAreaPrimitive.Thumb
         data-slot="scroll-area-thumb"
-        className="bg-line relative flex-1 rounded-full"
+        className="bg-edge relative flex-1 rounded-full"
       />
     </ScrollAreaPrimitive.Scrollbar>
   );

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { ScrollArea, ScrollBar } from "./scroll-area";
+import { ScrollArea } from "./scroll-area";
 import { Separator } from "./separator";
 
 const meta = {
@@ -29,6 +29,7 @@ export const Default: Story = {
   ),
 };
 
+/** Wide content gets a horizontal scrollbar on its own; no extra markup. */
 export const Horizontal: Story = {
   render: () => (
     <ScrollArea className="w-72 rounded-md border border-edge">
@@ -42,11 +43,11 @@ export const Horizontal: Story = {
           </div>
         ))}
       </div>
-      <ScrollBar orientation="horizontal" />
     </ScrollArea>
   ),
 };
 
+/** Content that overflows both ways gets both scrollbars and a corner. */
 export const Both: Story = {
   render: () => (
     <ScrollArea className="h-72 w-72 rounded-md border border-edge">
@@ -59,7 +60,29 @@ export const Both: Story = {
           </p>
         ))}
       </div>
-      <ScrollBar orientation="horizontal" />
+    </ScrollArea>
+  ),
+};
+
+/**
+ * `fade={false}` turns the edge fade off. To change its size instead, set
+ * `--scroll-area-fade` on the scroll area (`[--scroll-area-fade:4rem]`).
+ */
+export const WithoutFade: Story = {
+  render: () => (
+    <ScrollArea
+      fade={false}
+      className="h-72 w-48 rounded-md border border-edge"
+    >
+      <div className="p-4">
+        <h4 className="mb-4 text-sm font-medium leading-none">Tags</h4>
+        {tags.map((tag, i) => (
+          <div key={tag}>
+            {i > 0 && <Separator className="my-2" />}
+            <div className="text-sm">{tag}</div>
+          </div>
+        ))}
+      </div>
     </ScrollArea>
   ),
 };
