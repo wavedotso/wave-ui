@@ -30,6 +30,16 @@ export const CustomColor: Story = {
   },
 };
 
+export const Speeds: Story = {
+  render: () => (
+    <div className="flex items-center gap-6">
+      <Spinner className="size-8 motion-spin-sm" />
+      <Spinner className="size-8 motion-spin-md" />
+      <Spinner className="size-8 motion-spin-lg" />
+    </div>
+  ),
+};
+
 export const AllSizes: Story = {
   render: () => (
     <div className="flex items-center gap-4">
