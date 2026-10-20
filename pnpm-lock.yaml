@@ -83,6 +83,9 @@ importers:
       react-hook-form:
         specifier: ^7.89.0
         version: 7.89.0(@types/react@19.3.0)(react@19.3.0)
+      react-resizable-panels:
+        specifier: ^4.14.6
+        version: 4.14.6(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       storybook:
         specifier: ~10.6.0
         version: 10.6.0(@types/react@19.3.0)(prettier@2.8.8)(react@19.3.0)
@@ -2791,6 +2794,12 @@ packages:
   react-is@17.0.2:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
 
+  react-resizable-panels@4.14.6:
+    resolution: {integrity: sha512-YqkTuTDV1ncknnR5YN/iI8icpClippc9/10job9zJIppt2r8yUwaVfVxhzFNO+3DIxrnAwhcMMs1FdX5xt9C9A==}
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
+
   react@19.3.0:
     resolution: {integrity: sha512-E8LUcbtBWt20bbl2YoHfx4ZDBdxVTfOKtCZn9cDSJ4l6/nuoApcpIBcj47t2wZoVX8g2ZHuMHbiShgCR1T5Sog==}
     engines: {node: '>=0.10.0'}
@@ -5408,6 +5417,11 @@ snapshots:
       '@types/react': 19.3.0
 
   react-is@17.0.2: {}
+
+  react-resizable-panels@4.14.6(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
+    dependencies:
+      react: 19.3.0
+      react-dom: 19.3.0(react@19.3.0)
 
   react@19.3.0: {}
 
