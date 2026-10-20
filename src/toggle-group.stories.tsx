@@ -58,9 +58,25 @@ export const Vertical: Story = {
   ),
 };
 
-export const WithSpacing: Story = {
+export const Joined: Story = {
   render: () => (
-    <ToggleGroup spacing={1} defaultValue={["center"]}>
+    <ToggleGroup spacing={0} defaultValue={["center"]}>
+      <ToggleGroupItem value="left" aria-label="Align left">
+        <AlignLeftIcon />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="center" aria-label="Align center">
+        <AlignCenterIcon />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="right" aria-label="Align right">
+        <AlignRightIcon />
+      </ToggleGroupItem>
+    </ToggleGroup>
+  ),
+};
+
+export const JoinedOutline: Story = {
+  render: () => (
+    <ToggleGroup variant="outline" spacing={0} defaultValue={["center"]}>
       <ToggleGroupItem value="left" aria-label="Align left">
         <AlignLeftIcon />
       </ToggleGroupItem>

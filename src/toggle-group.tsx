@@ -24,7 +24,7 @@ type ToggleGroupItemProps = TogglePrimitive.Props &
 const ToggleGroupContext = React.createContext<ToggleGroupContextValue>({
   size: undefined,
   variant: undefined,
-  spacing: 0,
+  spacing: 2,
   orientation: "horizontal",
 });
 
@@ -32,7 +32,7 @@ function ToggleGroup({
   className,
   variant,
   size,
-  spacing = 0,
+  spacing = 2,
   orientation = "horizontal",
   style,
   children,
@@ -80,7 +80,7 @@ function ToggleGroupItem({
       data-size={context.size ?? size}
       data-spacing={context.spacing}
       className={cn(
-        "shrink-0 group-data-[spacing=0]/toggle-group:rounded-none group-data-[spacing=0]/toggle-group:px-2 focus:z-10 focus-visible:z-10 group-data-[orientation=horizontal]/toggle-group:data-[spacing=0]:first:rounded-l-md group-data-[orientation=vertical]/toggle-group:data-[spacing=0]:first:rounded-t-md group-data-[orientation=horizontal]/toggle-group:data-[spacing=0]:last:rounded-r-md group-data-[orientation=vertical]/toggle-group:data-[spacing=0]:last:rounded-b-md group-data-[orientation=horizontal]/toggle-group:data-[spacing=0]:data-[variant=outline]:border-l-0 group-data-[orientation=vertical]/toggle-group:data-[spacing=0]:data-[variant=outline]:border-t-0 group-data-[orientation=horizontal]/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-l group-data-[orientation=vertical]/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-t",
+        "shrink-0 group-data-[spacing=0]/toggle-group:px-2 focus:z-10 focus-visible:z-10 group-data-[orientation=horizontal]/toggle-group:data-[spacing=0]:data-[variant=outline]:not-first:rounded-l-none group-data-[orientation=horizontal]/toggle-group:data-[spacing=0]:data-[variant=outline]:not-last:rounded-r-none group-data-[orientation=vertical]/toggle-group:data-[spacing=0]:data-[variant=outline]:not-first:rounded-t-none group-data-[orientation=vertical]/toggle-group:data-[spacing=0]:data-[variant=outline]:not-last:rounded-b-none group-data-[orientation=horizontal]/toggle-group:data-[spacing=0]:data-[variant=outline]:border-l-0 group-data-[orientation=vertical]/toggle-group:data-[spacing=0]:data-[variant=outline]:border-t-0 group-data-[orientation=horizontal]/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-l group-data-[orientation=vertical]/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-t",
         toggleVariants({
           variant: context.variant ?? variant,
           size: context.size ?? size,
