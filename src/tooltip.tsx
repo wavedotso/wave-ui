@@ -28,6 +28,8 @@ type TooltipContentProps = React.ComponentProps<
   >["alignOffset"];
   anchor?: React.ComponentProps<typeof TooltipPrimitive.Positioner>["anchor"];
   positionerClassName?: string;
+  /** Render the pointer arrow. Defaults to `false`. */
+  arrow?: boolean;
 };
 
 /**
@@ -86,13 +88,17 @@ function TooltipContent({
   className,
   positionerClassName,
   side = "top",
-  sideOffset = 4,
+  sideOffset,
   align = "center",
   alignOffset = 0,
   anchor,
+  arrow = false,
   children,
   ...props
 }: TooltipContentProps) {
+  // Give the arrow room: a bit more gap from the anchor when it's shown.
+  const resolvedSideOffset = sideOffset ?? (arrow ? 12 : 8);
+
   return (
     <TooltipPrimitive.Portal>
       <TooltipPrimitive.Positioner
@@ -101,18 +107,25 @@ function TooltipContent({
         align={align}
         alignOffset={alignOffset}
         side={side}
-        sideOffset={sideOffset}
+        sideOffset={resolvedSideOffset}
         className={cn("isolate z-50", positionerClassName)}
       >
         <TooltipPrimitive.Popup
           data-slot="tooltip-content"
           className={cn(
             "motion-pop-md bg-surface-inverse text-contrast-inverse z-50 w-fit max-w-xs rounded-sm px-3 py-1.5 text-xs",
+            "inline-flex items-center gap-1.5 has-data-[slot=kbd]:pe-1.5 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-lg",
             className,
           )}
           {...props}
         >
           {children}
+          {arrow ? (
+            <TooltipPrimitive.Arrow
+              data-slot="tooltip-arrow"
+              className="bg-surface-inverse size-2.5 rounded-[2px] translate-y-[calc(-50%-2px)] rotate-45 data-[side=bottom]:top-1 data-[side=inline-end]:top-1/2! data-[side=inline-end]:-start-1 data-[side=inline-end]:translate-x-[1.5px] rtl:data-[side=inline-end]:-translate-x-[1.5px] data-[side=inline-end]:-translate-y-1/2 data-[side=inline-start]:top-1/2! data-[side=inline-start]:-end-1 data-[side=inline-start]:translate-x-[-1.5px] rtl:data-[side=inline-start]:-translate-x-[-1.5px] data-[side=inline-start]:-translate-y-1/2 data-[side=left]:top-1/2! data-[side=left]:-right-1 data-[side=left]:translate-x-[-1.5px] rtl:data-[side=left]:-translate-x-[-1.5px] data-[side=left]:-translate-y-1/2 data-[side=right]:top-1/2! data-[side=right]:-left-1 data-[side=right]:translate-x-[1.5px] rtl:data-[side=right]:-translate-x-[1.5px] data-[side=right]:-translate-y-1/2 data-[side=top]:-bottom-2.5"
+            />
+          ) : null}
         </TooltipPrimitive.Popup>
       </TooltipPrimitive.Positioner>
     </TooltipPrimitive.Portal>

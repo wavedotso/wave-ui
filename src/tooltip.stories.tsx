@@ -35,6 +35,18 @@ export const Default: Story = {
   ),
 };
 
+export const WithArrow: Story = {
+  args: {},
+  render: () => (
+    <Tooltip>
+      <TooltipTrigger>
+        <Button variant="outline">Hover me</Button>
+      </TooltipTrigger>
+      <TooltipContent arrow>Tooltip with arrow</TooltipContent>
+    </Tooltip>
+  ),
+};
+
 export const Positions: Story = {
   args: {},
   render: () => (
@@ -43,25 +55,33 @@ export const Positions: Story = {
         <TooltipTrigger>
           <Button variant="outline">Top</Button>
         </TooltipTrigger>
-        <TooltipContent side="top">Top tooltip</TooltipContent>
+        <TooltipContent side="top" arrow>
+          Top tooltip
+        </TooltipContent>
       </Tooltip>
       <Tooltip>
         <TooltipTrigger>
           <Button variant="outline">Right</Button>
         </TooltipTrigger>
-        <TooltipContent side="right">Right tooltip</TooltipContent>
+        <TooltipContent side="right" arrow>
+          Right tooltip
+        </TooltipContent>
       </Tooltip>
       <Tooltip>
         <TooltipTrigger>
           <Button variant="outline">Bottom</Button>
         </TooltipTrigger>
-        <TooltipContent side="bottom">Bottom tooltip</TooltipContent>
+        <TooltipContent side="bottom" arrow>
+          Bottom tooltip
+        </TooltipContent>
       </Tooltip>
       <Tooltip>
         <TooltipTrigger>
           <Button variant="outline">Left</Button>
         </TooltipTrigger>
-        <TooltipContent side="left">Left tooltip</TooltipContent>
+        <TooltipContent side="left" arrow>
+          Left tooltip
+        </TooltipContent>
       </Tooltip>
     </div>
   ),
