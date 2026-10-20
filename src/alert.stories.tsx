@@ -2,7 +2,12 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Alert, AlertTitle, AlertDescription, AlertAction } from "./alert";
 import { Button } from "./button";
-import { InfoCircleIcon } from "./lib/internal-icons";
+import {
+  AlertTriangleIcon,
+  ErrorCircleIcon,
+  InfoCircleIcon,
+  SuccessCircleIcon,
+} from "./lib/internal-icons";
 
 const meta = {
   title: "Feedback/Alert",
@@ -10,7 +15,7 @@ const meta = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["default", "destructive"],
+      options: ["default", "info", "success", "warning", "destructive"],
     },
   },
 } satisfies Meta<typeof Alert>;
@@ -69,9 +74,54 @@ export const WrappedIcon: Story = {
   ),
 };
 
+/**
+ * Status variants put the colour in the icon and the border; the text stays
+ * neutral. Give each a distinct icon shape so the meaning doesn't rest on
+ * colour alone.
+ */
+export const Info: Story = {
+  render: (args) => (
+    <Alert {...args} variant="info" className="w-[420px]">
+      <InfoCircleIcon data-icon="inline-start" />
+      <AlertTitle>A new version is out</AlertTitle>
+      <AlertDescription>
+        Restart the app to get the latest features.
+      </AlertDescription>
+    </Alert>
+  ),
+};
+
+export const Success: Story = {
+  render: (args) => (
+    <Alert {...args} variant="success" className="w-[420px]">
+      <SuccessCircleIcon data-icon="inline-start" />
+      <AlertTitle>Payment received</AlertTitle>
+      <AlertDescription>
+        Your receipt is on its way to your inbox.
+      </AlertDescription>
+    </Alert>
+  ),
+};
+
+export const Warning: Story = {
+  render: (args) => (
+    <Alert {...args} variant="warning" className="w-[420px]">
+      <AlertTriangleIcon data-icon="inline-start" />
+      <AlertTitle>Storage almost full</AlertTitle>
+      <AlertDescription>You've used 90% of your plan's space.</AlertDescription>
+    </Alert>
+  ),
+};
+
+/**
+ * An error that appears after an action is urgent, so it takes
+ * `role="alert"` and screen readers announce it at once. A static callout
+ * needs no role.
+ */
 export const Destructive: Story = {
   render: (args) => (
-    <Alert {...args} variant="destructive" className="w-[420px]">
+    <Alert {...args} variant="destructive" role="alert" className="w-[420px]">
+      <ErrorCircleIcon data-icon="inline-start" />
       <AlertTitle>Something went wrong</AlertTitle>
       <AlertDescription>
         Your session has expired. Please log in again.
