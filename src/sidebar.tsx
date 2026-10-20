@@ -569,7 +569,7 @@ function SidebarMenuItem({ className, ...props }: SidebarMenuItemProps) {
 }
 
 const sidebarMenuButtonVariants = cva(
-  "ring-focus/50 hover:bg-primary hover:text-white active:bg-primary active:text-white data-active:bg-primary data-active:text-white data-open:hover:bg-primary data-open:hover:text-white gap-2 rounded-md p-2 text-left text-sm transition-[width,height,padding] group-has-data-[slot=sidebar-menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:w-full group-data-[collapsible=icon]:aspect-square group-data-[collapsible=icon]:h-11 focus-visible:ring-3 data-active:font-medium peer/menu-button flex w-full items-center overflow-hidden outline-hidden group/menu-button disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&_svg]:shrink-0",
+  "ring-focus/50 hover:bg-primary hover:text-white active:bg-primary active:text-white data-active:bg-primary data-active:text-white data-open:hover:bg-primary data-open:hover:text-white gap-2 rounded-md p-2 text-left text-sm transition-[width,height,padding] group-has-data-[slot=sidebar-menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:w-full group-data-[collapsible=icon]:aspect-square group-data-[collapsible=icon]:h-11 focus-visible:ring-3 data-active:font-medium peer/menu-button flex w-full items-center overflow-hidden outline-hidden group/menu-button disabled:pointer-events-none disabled:opacity-30 aria-disabled:pointer-events-none aria-disabled:opacity-30 [&>span:last-child]:truncate [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -776,7 +776,7 @@ function SidebarMenuSubButton({
     props: mergeProps<"a">(
       {
         className: cn(
-          "text-contrast ring-focus/50 hover:bg-primary hover:text-white active:bg-primary active:text-white [&>svg]:text-white data-active:bg-primary data-active:text-white h-7 gap-2 rounded-md px-2 focus-visible:ring-3 data-[size=md]:text-sm data-[size=sm]:text-xs [&>svg]:size-4 flex min-w-0 -translate-x-px items-center overflow-hidden outline-hidden group-data-[collapsible=icon]:hidden disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:shrink-0",
+          "text-contrast ring-focus/50 hover:bg-primary hover:text-white active:bg-primary active:text-white [&>svg]:text-white data-active:bg-primary data-active:text-white h-7 gap-2 rounded-md px-2 focus-visible:ring-3 data-[size=md]:text-sm data-[size=sm]:text-xs [&>svg]:size-4 flex min-w-0 -translate-x-px items-center overflow-hidden outline-hidden group-data-[collapsible=icon]:hidden disabled:pointer-events-none disabled:opacity-30 aria-disabled:pointer-events-none aria-disabled:opacity-30 [&>span:last-child]:truncate [&>svg]:shrink-0",
           className,
         ),
       },
