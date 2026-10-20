@@ -155,20 +155,23 @@ function FormField<
             <FieldLabel>
               {label}
               {isRequired ? (
-                <span aria-hidden="true" className="text-destructive ml-1">
+                <span aria-hidden="true" className="text-destructive ms-1">
                   *
                 </span>
               ) : null}
             </FieldLabel>
           ) : null}
-          {description ? (
-            <FieldDescription>{description}</FieldDescription>
-          ) : null}
-
           {render({ id: controlId, field, fieldState })}
 
+          {/* Below the control, the error comes first and the description
+           * stays under it, so the hint is still there when it's needed. */}
           {fieldState.error ? (
-            <FieldError>{fieldState.error.message}</FieldError>
+            // `match`: Base UI only shows an error for an externally set
+            // `invalid` when told to; this renders only when there is one.
+            <FieldError match>{fieldState.error.message}</FieldError>
+          ) : null}
+          {description ? (
+            <FieldDescription>{description}</FieldDescription>
           ) : null}
         </Field>
       )}
