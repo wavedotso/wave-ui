@@ -1,6 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import { Button } from "./button";
+import { InputGroup, InputGroupAddon, InputGroupInput } from "./input-group";
 import { Kbd, KbdGroup } from "./kbd";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./tooltip";
 
 const meta = {
   title: "Data Display/Kbd",
@@ -70,5 +78,40 @@ export const AllKeys: Story = {
       <Kbd>←</Kbd>
       <Kbd>→</Kbd>
     </div>
+  ),
+};
+
+/** Inside a tooltip, the key takes the tooltip's inverse colors. */
+export const InTooltip: Story = {
+  render: () => (
+    <TooltipProvider>
+      <Tooltip defaultOpen>
+        <TooltipTrigger>
+          <Button variant="outline">Search</Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          Search
+          <KbdGroup>
+            <Kbd>⌘</Kbd>
+            <Kbd>K</Kbd>
+          </KbdGroup>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  ),
+};
+
+/** A shortcut hint at the end of a search field. */
+export const InInputGroup: Story = {
+  render: () => (
+    <InputGroup className="max-w-xs">
+      <InputGroupInput placeholder="Search..." />
+      <InputGroupAddon align="inline-end">
+        <KbdGroup>
+          <Kbd>⌘</Kbd>
+          <Kbd>K</Kbd>
+        </KbdGroup>
+      </InputGroupAddon>
+    </InputGroup>
   ),
 };
