@@ -409,7 +409,7 @@ function ActionBarProvider({
                   ) : (
                     <>
                       {text.save}
-                      <Kbd className="ml-1.5">{isMac ? "⌘S" : "Ctrl+S"}</Kbd>
+                      <Kbd className="ms-1.5">{isMac ? "⌘S" : "Ctrl+S"}</Kbd>
                     </>
                   )}
                 </Button>
