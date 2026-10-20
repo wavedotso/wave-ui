@@ -191,9 +191,9 @@ const INTERFACE_GROUPS: Group[] = [
     label: "Shadow",
     tokens: [
       {
-        name: "--shadow-color",
+        name: "--shadow-strength",
         label: "shadow",
-        bg: "hsl(var(--shadow-color) / var(--shadow-strength))",
+        bg: "oklch(from var(--shadow-color, var(--foundation)) calc(l * 0.16) c h / var(--shadow-strength))",
       },
     ],
   },

@@ -292,8 +292,7 @@
   --line: color-mix(in srgb, var(--paper-950) 7%, transparent);
   --edge: color-mix(in srgb, var(--paper-950) 14%, transparent);
   --solid: var(--paper-300);
-  --shadow-color: 0.159 0.021 263;
-  --shadow-strength: 0.22;
+  --shadow-strength: 0.055;
   --destructive: oklch(0.620 0.200 25);
   --success: oklch(0.710 0.185 155);
   --warning: oklch(0.830 0.156 93);
@@ -322,8 +321,7 @@
     --line: color-mix(in srgb, var(--graphite-50) 5%, transparent);
     --edge: color-mix(in srgb, var(--graphite-50) 13%, transparent);
     --solid: var(--graphite-700);
-    --shadow-color: 0.125 0.011 259;
-    --shadow-strength: 0.18;
+    --shadow-strength: 0.045;
     --destructive: oklch(0.630 0.200 25);
     --success: oklch(0.735 0.185 155);
     --warning: oklch(0.850 0.156 93);
@@ -342,8 +340,7 @@
   --line: color-mix(in srgb, var(--graphite-50) 5%, transparent);
   --edge: color-mix(in srgb, var(--graphite-50) 13%, transparent);
   --solid: var(--graphite-700);
-  --shadow-color: 0.125 0.011 259;
-  --shadow-strength: 0.18;
+  --shadow-strength: 0.045;
   --destructive: oklch(0.630 0.200 25);
   --success: oklch(0.735 0.185 155);
   --warning: oklch(0.850 0.156 93);
@@ -367,8 +364,7 @@
   --line: color-mix(in srgb, var(--ink-50) 5%, transparent);
   --edge: color-mix(in srgb, var(--ink-50) 13%, transparent);
   --solid: var(--ink-700);
-  --shadow-color: 0.125 0.011 259;
-  --shadow-strength: 0.18;
+  --shadow-strength: 0.045;
   --destructive: oklch(0.630 0.200 25);
   --success: oklch(0.735 0.185 155);
   --warning: oklch(0.850 0.156 93);
@@ -436,29 +432,31 @@
   --font-mono: var(--font-mono);
 }
 
-/* Shadow scale — layered, tinted by `--shadow-color` and dimmed by
- * `--shadow-strength` (both resolve per theme, so retinting or dimming
- * every shadow is one token). Tiers differ by layer count + spread, not alpha.
+/* Shadow scale — layered, in a dark version of the page's own colour: the
+ * active theme's `--foundation` at 16% of its lightness, same hue and chroma,
+ * so a shadow belongs to its surface in every theme (an app's own and nested
+ * ones included, as it resolves where it's used). Set `--shadow-color` to
+ * tint them from another colour instead. `--shadow-strength` sets each
+ * theme's opacity. Tiers differ by layer count + spread, not alpha: each adds
+ * one layer and reaches about 2.5–3× further (sm 3 layers / 3px, md 4 /
+ * 10px, lg 5 / 24px), so the darkness under an element steps evenly.
  * Overrides Tailwind's shadow-sm/md/lg. */
 @theme {
   --shadow-sm:
-    0px 0.5px 0.7px oklch(var(--shadow-color) / var(--shadow-strength)),
-    0px 0.8px 1px -1.2px oklch(var(--shadow-color) / var(--shadow-strength)),
-    0px 2px 2.5px -2.5px oklch(var(--shadow-color) / var(--shadow-strength));
+    0px 0.5px 0.9px oklch(from var(--shadow-color, var(--foundation)) calc(l * 0.16) c h / var(--shadow-strength)),
+    0px 1.2px 1.8px -0.9px oklch(from var(--shadow-color, var(--foundation)) calc(l * 0.16) c h / var(--shadow-strength)),
+    0px 3px 4.3px -2px oklch(from var(--shadow-color, var(--foundation)) calc(l * 0.16) c h / var(--shadow-strength));
   --shadow-md:
-    0px 0.5px 0.7px oklch(var(--shadow-color) / var(--shadow-strength)),
-    0px 1.6px 2px -0.8px oklch(var(--shadow-color) / var(--shadow-strength)),
-    0px 4.1px 5.2px -1.7px oklch(var(--shadow-color) / var(--shadow-strength)),
-    0px 10px 12.6px -2.5px oklch(var(--shadow-color) / var(--shadow-strength));
+    0px 0.5px 0.7px oklch(from var(--shadow-color, var(--foundation)) calc(l * 0.16) c h / var(--shadow-strength)),
+    0px 1.6px 2px -0.8px oklch(from var(--shadow-color, var(--foundation)) calc(l * 0.16) c h / var(--shadow-strength)),
+    0px 4.1px 5.2px -1.7px oklch(from var(--shadow-color, var(--foundation)) calc(l * 0.16) c h / var(--shadow-strength)),
+    0px 10px 12.6px -2.5px oklch(from var(--shadow-color, var(--foundation)) calc(l * 0.16) c h / var(--shadow-strength));
   --shadow-lg:
-    0px 0.5px 0.7px oklch(var(--shadow-color) / var(--shadow-strength)),
-    0px 2.9px 3.7px -0.4px oklch(var(--shadow-color) / var(--shadow-strength)),
-    0px 5.4px 6.8px -0.7px oklch(var(--shadow-color) / var(--shadow-strength)),
-    0px 8.9px 11.2px -1.1px oklch(var(--shadow-color) / var(--shadow-strength)),
-    0px 14.3px 18px -1.4px oklch(var(--shadow-color) / var(--shadow-strength)),
-    0px 22.3px 28.1px -1.8px oklch(var(--shadow-color) / var(--shadow-strength)),
-    0px 33.9px 42.7px -2.1px oklch(var(--shadow-color) / var(--shadow-strength)),
-    0px 50px 62.9px -2.5px oklch(var(--shadow-color) / var(--shadow-strength));
+    0px 0.5px 0.7px oklch(from var(--shadow-color, var(--foundation)) calc(l * 0.16) c h / var(--shadow-strength)),
+    0px 2.2px 2.8px -0.6px oklch(from var(--shadow-color, var(--foundation)) calc(l * 0.16) c h / var(--shadow-strength)),
+    0px 5px 6.3px -1.2px oklch(from var(--shadow-color, var(--foundation)) calc(l * 0.16) c h / var(--shadow-strength)),
+    0px 11px 13.9px -1.9px oklch(from var(--shadow-color, var(--foundation)) calc(l * 0.16) c h / var(--shadow-strength)),
+    0px 24px 30.2px -2.5px oklch(from var(--shadow-color, var(--foundation)) calc(l * 0.16) c h / var(--shadow-strength));
 }
 
 /* ---------------------------------------------------------------------------
