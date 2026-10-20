@@ -91,7 +91,7 @@ function AlertDialogContent({
         data-slot="alert-dialog-content"
         data-size={size}
         className={cn(
-          "motion-scale-lg bg-foundation ring-contrast/10 group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 gap-4 rounded-lg p-4 ring-1 outline-hidden data-[size=default]:max-w-xs data-[size=sm]:max-w-xs data-[size=lg]:max-w-lg data-[size=xl]:max-w-xl data-[size=default]:sm:max-w-sm data-[size=lg]:sm:max-w-lg data-[size=xl]:sm:max-w-xl",
+          "motion-scale-lg bg-foundation ring-contrast/10 group/alert-dialog-content fixed top-1/2 start-1/2 z-50 grid w-[calc(100%-2rem)] -translate-x-1/2 rtl:translate-x-1/2 -translate-y-1/2 gap-6 rounded-lg p-6 ring-1 outline-hidden data-[size=default]:max-w-xs data-[size=sm]:max-w-xs data-[size=lg]:max-w-lg data-[size=xl]:max-w-xl data-[size=default]:sm:max-w-sm data-[size=lg]:sm:max-w-lg data-[size=xl]:sm:max-w-xl shadow-lg",
           className,
         )}
         {...props}
@@ -105,7 +105,7 @@ function AlertDialogHeader({ className, ...props }: AlertDialogHeaderProps) {
     <div
       data-slot="alert-dialog-header"
       className={cn(
-        "grid grid-rows-[auto_1fr] place-items-center gap-1.5 text-center has-data-[slot=alert-dialog-media]:grid-rows-[auto_auto_1fr] has-data-[slot=alert-dialog-media]:gap-x-4 sm:group-data-[size=default]/alert-dialog-content:place-items-start sm:group-data-[size=default]/alert-dialog-content:text-left sm:group-data-[size=default]/alert-dialog-content:has-data-[slot=alert-dialog-media]:grid-rows-[auto_1fr] group-data-[size=lg]/alert-dialog-content:place-items-start group-data-[size=lg]/alert-dialog-content:text-left group-data-[size=xl]/alert-dialog-content:place-items-start group-data-[size=xl]/alert-dialog-content:text-left",
+        "grid grid-rows-[auto_1fr] place-items-center gap-3 text-center has-data-[slot=alert-dialog-media]:grid-rows-[auto_auto_1fr] has-data-[slot=alert-dialog-media]:gap-x-6 sm:group-data-[size=default]/alert-dialog-content:place-items-start sm:group-data-[size=default]/alert-dialog-content:text-start sm:group-data-[size=default]/alert-dialog-content:has-data-[slot=alert-dialog-media]:grid-rows-[auto_1fr] group-data-[size=lg]/alert-dialog-content:place-items-start group-data-[size=lg]/alert-dialog-content:text-start group-data-[size=xl]/alert-dialog-content:place-items-start group-data-[size=xl]/alert-dialog-content:text-start",
         className,
       )}
       {...props}
@@ -118,7 +118,7 @@ function AlertDialogFooter({ className, ...props }: AlertDialogFooterProps) {
     <div
       data-slot="alert-dialog-footer"
       className={cn(
-        "bg-secondary/50 -mx-4 -mb-4 flex flex-col-reverse gap-2 rounded-b-lg border-t border-line p-4 group-data-[size=sm]/alert-dialog-content:grid group-data-[size=sm]/alert-dialog-content:grid-cols-2 sm:flex-row sm:justify-end",
+        "flex flex-col-reverse gap-2 group-data-[size=sm]/alert-dialog-content:grid group-data-[size=sm]/alert-dialog-content:grid-cols-2 sm:flex-row sm:justify-end",
         className,
       )}
       {...props}
@@ -131,7 +131,7 @@ function AlertDialogMedia({ className, ...props }: AlertDialogMediaProps) {
     <div
       data-slot="alert-dialog-media"
       className={cn(
-        "bg-secondary mb-2 inline-flex size-10 items-center justify-center rounded-md sm:group-data-[size=default]/alert-dialog-content:row-span-2 *:[svg:not([class*='size-'])]:size-6",
+        "bg-secondary mb-2 inline-flex size-16 items-center justify-center rounded-md sm:group-data-[size=default]/alert-dialog-content:row-span-2 *:[svg:not([class*='size-'])]:size-8",
         className,
       )}
       {...props}
@@ -144,7 +144,7 @@ function AlertDialogTitle({ className, ...props }: AlertDialogTitleProps) {
     <AlertDialogPrimitive.Title
       data-slot="alert-dialog-title"
       className={cn(
-        "text-base font-medium sm:group-data-[size=default]/alert-dialog-content:group-has-data-[slot=alert-dialog-media]/alert-dialog-content:col-start-2",
+        "text-lg font-medium leading-none sm:group-data-[size=default]/alert-dialog-content:group-has-data-[slot=alert-dialog-media]/alert-dialog-content:col-start-2",
         className,
       )}
       {...props}

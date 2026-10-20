@@ -85,7 +85,7 @@ function DialogContent({
       <DialogPrimitive.Popup
         data-slot="dialog-content"
         className={cn(
-          "motion-scale-lg bg-foundation ring-contrast/10 fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-lg p-4 text-sm ring-1 outline-hidden sm:max-w-sm",
+          "motion-scale-lg bg-foundation ring-contrast/10 fixed top-1/2 start-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 rtl:translate-x-1/2 -translate-y-1/2 gap-6 rounded-lg p-6 text-sm ring-1 outline-hidden sm:max-w-sm shadow-lg",
           className,
         )}
         {...props}
@@ -97,7 +97,7 @@ function DialogContent({
             render={
               <Button
                 variant="ghost"
-                className="absolute top-2 right-2"
+                className="absolute top-3 end-3"
                 size="icon-sm"
               />
             }
@@ -115,7 +115,7 @@ function DialogHeader({ className, ...props }: DialogHeaderProps) {
   return (
     <div
       data-slot="dialog-header"
-      className={cn("flex flex-col gap-2", className)}
+      className={cn("flex flex-col gap-3", className)}
       {...props}
     />
   );
@@ -126,7 +126,7 @@ function DialogFooter({ className, ...props }: DialogFooterProps) {
     <div
       data-slot="dialog-footer"
       className={cn(
-        "bg-secondary/50 -mx-4 -mb-4 flex flex-col-reverse gap-2 rounded-b-lg border-t border-line p-4 sm:flex-row sm:justify-end",
+        "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
         className,
       )}
       {...props}
@@ -138,9 +138,9 @@ function DialogTitle({ className, ...props }: DialogTitleProps) {
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
-      // pr-8 reserves room for the close button (absolute, top-2 right-2) so a
+      // pe-8 reserves room for the close button (absolute, top-2 end-2) so a
       // long title wraps before it instead of running underneath.
-      className={cn("text-base leading-none font-medium pr-8", className)}
+      className={cn("text-lg font-medium leading-none pe-8", className)}
       {...props}
     />
   );
