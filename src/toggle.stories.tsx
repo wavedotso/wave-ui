@@ -12,7 +12,16 @@ const meta = {
     },
     size: {
       control: "select",
-      options: ["default", "sm", "lg"],
+      options: [
+        "xs",
+        "sm",
+        "default",
+        "lg",
+        "icon",
+        "icon-xs",
+        "icon-sm",
+        "icon-lg",
+      ],
     },
   },
 } satisfies Meta<typeof Toggle>;
@@ -29,6 +38,13 @@ export const Default: Story = {
 export const Outline: Story = {
   args: {
     variant: "outline",
+    children: "B",
+  },
+};
+
+export const ExtraSmall: Story = {
+  args: {
+    size: "xs",
     children: "B",
   },
 };
