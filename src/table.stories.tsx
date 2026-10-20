@@ -305,7 +305,10 @@ function SelectableTable() {
           {invoices.map((invoice) => {
             const isSelected = selected.has(invoice.id);
             return (
-              <TableRow key={invoice.id} aria-selected={isSelected}>
+              <TableRow
+                key={invoice.id}
+                data-selected={isSelected || undefined}
+              >
                 <TableCell>
                   <Checkbox
                     id={`select-${invoice.id}`}
@@ -339,8 +342,8 @@ function SelectableTable() {
 
 /**
  * Selectable rows: a `[role=checkbox]` cell (Base UI `Checkbox`) tightens
- * its own padding via `[&:has([role=checkbox])]:pr-0`, and a selected
- * `TableRow` gets `aria-selected` styling. The header checkbox drives a
+ * its own padding via `[&:has([role=checkbox])]:pe-0`, and a selected
+ * `TableRow` gets `data-selected` styling. The header checkbox drives a
  * select-all with an indeterminate state.
  */
 export const Selectable: Story = {
