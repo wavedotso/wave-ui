@@ -1,7 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { RadioGroup, RadioGroupItem } from "./radio-group";
-import { Field, FieldItem, FieldLabel, FieldDescription } from "./field";
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldItem,
+  FieldLabel,
+} from "./field";
 import { Label } from "./label";
 
 const meta = {
@@ -54,7 +60,6 @@ export const WithField: Story = {
   render: () => (
     <Field className="w-64">
       <FieldLabel>Notification preference</FieldLabel>
-      <FieldDescription>Choose how you want to be notified.</FieldDescription>
       <RadioGroup defaultValue="email">
         <FieldItem>
           <RadioGroupItem id="notify-email" value="email" />
@@ -69,6 +74,7 @@ export const WithField: Story = {
           <Label htmlFor="notify-push">Push notification</Label>
         </FieldItem>
       </RadioGroup>
+      <FieldDescription>Choose how you want to be notified.</FieldDescription>
     </Field>
   ),
 };
@@ -96,9 +102,9 @@ export const WithDisabled: Story = {
 
 export const Invalid: Story = {
   render: () => (
-    <div className="w-64 grid gap-2">
-      <Label>Plan</Label>
-      <RadioGroup aria-invalid="true">
+    <Field invalid className="w-64">
+      <FieldLabel>Plan</FieldLabel>
+      <RadioGroup>
         <div className="flex items-center gap-2">
           <RadioGroupItem id="plan-free" value="free" />
           <Label htmlFor="plan-free">Free</Label>
@@ -108,7 +114,8 @@ export const Invalid: Story = {
           <Label htmlFor="plan-pro">Pro</Label>
         </div>
       </RadioGroup>
-      <p className="text-destructive text-sm">Please select a plan.</p>
-    </div>
+      <FieldError match>Please select a plan.</FieldError>
+      <FieldDescription>You can change it at any time.</FieldDescription>
+    </Field>
   ),
 };

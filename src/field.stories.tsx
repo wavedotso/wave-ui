@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import {
   Field,
+  FieldContent,
   FieldControl,
   FieldDescription,
   FieldError,
@@ -11,6 +12,7 @@ import {
 } from "./field";
 import { Checkbox } from "./checkbox";
 import { Input } from "./input";
+import { Switch } from "./switch";
 
 const meta = {
   title: "Forms/Field",
@@ -50,7 +52,23 @@ export const WithError: Story = {
     <Field invalid>
       <FieldLabel>Email</FieldLabel>
       <FieldControl render={<Input placeholder="you@example.com" />} />
-      <FieldError>Please enter a valid email address.</FieldError>
+      <FieldError match>Please enter a valid email address.</FieldError>
+    </Field>
+  ),
+};
+
+/**
+ * With both messages, the error comes first, right under the control, and
+ * the description stays below it.
+ */
+export const WithErrorAndDescription: Story = {
+  args: {},
+  render: () => (
+    <Field invalid>
+      <FieldLabel>Password</FieldLabel>
+      <FieldControl render={<Input type="password" />} />
+      <FieldError match>Your password is too short.</FieldError>
+      <FieldDescription>Use at least 8 characters.</FieldDescription>
     </Field>
   ),
 };
@@ -108,6 +126,39 @@ export const Validity: Story = {
           </FieldDescription>
         )}
       </FieldValidity>
+    </Field>
+  ),
+};
+
+/**
+ * `orientation="horizontal"` puts the label beside the control, as in a
+ * settings row.
+ */
+export const Horizontal: Story = {
+  args: {},
+  render: () => (
+    <Field orientation="horizontal" className="w-80">
+      <FieldLabel>Email notifications</FieldLabel>
+      <FieldControl render={<Switch />} />
+    </Field>
+  ),
+};
+
+/**
+ * In a horizontal row, `FieldContent` stacks the label and its description
+ * together beside the control.
+ */
+export const HorizontalWithContent: Story = {
+  args: {},
+  render: () => (
+    <Field orientation="horizontal" className="w-80">
+      <FieldControl render={<Checkbox />} />
+      <FieldContent>
+        <FieldLabel>Share usage data</FieldLabel>
+        <FieldDescription>
+          Help us improve Wave by sending anonymous usage statistics.
+        </FieldDescription>
+      </FieldContent>
     </Field>
   ),
 };
