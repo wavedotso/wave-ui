@@ -41,4 +41,29 @@ rendered a level down via Base UI's `render`-prop composition, so the group must
 state anywhere inside it. The rule of thumb: **structure keys off direct children; state keys
 off any descendant.**
 
+## A field's messages sit below it, error first
+
+A field's description and its error both go **below** the control, in that order: the error
+right under the field it's about, the description beneath it. The error is the most urgent
+thing on the field, so it sits closest; the hint stays visible, because the moment something
+goes wrong is exactly when a reader needs it. We don't swap one for the other, and we don't put
+the hint above the input — one place, one order, in every field and every form.
+
+The error carries the state on its own: the control gets the destructive ring and the message
+says what's wrong, while the label stays neutral rather than turning red.
+
+## Opacity comes in four steps
+
+Translucency is picked from a short scale, each step tied to a job, never tuned by eye per
+component:
+
+- **10** — hairlines and faint tints: `ring-contrast/10` around every surface
+- **30** — invalid and disabled: `ring-destructive/30`, `opacity-30`
+- **50** — focus and muted fills: `ring-focus/50`, `bg-secondary/50`
+- **80** — hover: `hover:bg-secondary/80`
+
+A value outside the scale is a question to answer, not a tweak to keep: if 10 reads too faint
+and 30 too strong, the role is usually wrong, not the number. Fewer values also means the same
+job looks the same everywhere, which is most of what makes a set of components feel like one.
+
 _This page is where that thinking lives — add to it as the system grows._
