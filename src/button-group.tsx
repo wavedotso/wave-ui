@@ -9,7 +9,7 @@ import { cn } from "./lib/utils";
 import { Separator } from "./separator";
 
 const buttonGroupVariants = cva(
-  "has-[>[data-slot=button-group]]:gap-2 has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:rounded-r-md flex w-fit items-stretch *:focus-visible:z-10 *:focus-visible:relative [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1",
+  "group/button-group has-[>[data-slot=button-group]]:gap-2 has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:rounded-r-md flex w-fit items-stretch *:focus-visible:z-10 *:focus-visible:relative [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1 has-[>[data-variant=outline]]:*:data-[slot=input-group]:border-edge has-[>[data-variant=outline]]:*:data-[slot=select-trigger]:border-edge has-[>[data-variant=outline]]:[&>input]:border-edge has-[>[data-variant=outline]]:[&>[data-slot=input-group]:has(:focus-visible)]:border-focus has-[>[data-variant=outline]]:[&>[data-slot=select-trigger]:focus-visible]:border-focus has-[>[data-variant=outline]]:[&>input:focus-visible]:border-focus [&>[data-variant=default]]:border-primary [&>[data-variant=secondary]]:border-secondary [&>[data-variant=destructive]]:border-destructive",
   {
     variants: {
       orientation: {
@@ -26,16 +26,24 @@ const buttonGroupVariants = cva(
 );
 
 type ButtonGroupProps = React.ComponentProps<"div"> &
-  VariantProps<typeof buttonGroupVariants>;
+  VariantProps<typeof buttonGroupVariants> & {
+    size?: "xs" | "sm" | "default" | "lg";
+  };
 type ButtonGroupTextProps = useRender.ComponentProps<"div">;
 type ButtonGroupSeparatorProps = React.ComponentProps<typeof Separator>;
 
-function ButtonGroup({ className, orientation, ...props }: ButtonGroupProps) {
+function ButtonGroup({
+  className,
+  orientation,
+  size = "default",
+  ...props
+}: ButtonGroupProps) {
   return (
     <div
       role="group"
       data-slot="button-group"
       data-orientation={orientation}
+      data-size={size}
       className={cn(buttonGroupVariants({ orientation }), className)}
       {...props}
     />
@@ -52,7 +60,7 @@ function ButtonGroupText({
     props: mergeProps<"div">(
       {
         className: cn(
-          "bg-secondary gap-2 rounded-md border border-edge px-2.5 text-sm font-medium [&_svg:not([class*='size-'])]:size-4 flex items-center [&_svg]:pointer-events-none",
+          "bg-secondary gap-2 rounded-md border border-edge px-3 text-base font-medium group-data-[size=xs]/button-group:px-2 group-data-[size=xs]/button-group:text-xs group-data-[size=sm]/button-group:text-sm group-data-[size=lg]/button-group:px-4 group-data-[size=lg]/button-group:text-lg [&_svg:not([class*='size-'])]:size-4 flex items-center [&_svg]:pointer-events-none",
           className,
         ),
       },
@@ -75,7 +83,7 @@ function ButtonGroupSeparator({
       data-slot="button-group-separator"
       orientation={orientation}
       className={cn(
-        "bg-edge relative self-stretch data-[orientation=horizontal]:mx-px data-[orientation=horizontal]:w-auto data-[orientation=vertical]:my-px data-[orientation=vertical]:h-auto",
+        "bg-edge relative self-stretch data-[orientation=horizontal]:w-auto data-[orientation=vertical]:h-auto",
         className,
       )}
       {...props}

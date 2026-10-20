@@ -6,6 +6,7 @@ import {
   ButtonGroupSeparator,
   ButtonGroupText,
 } from "./button-group";
+import { Input } from "./input";
 
 const meta = {
   title: "Actions/ButtonGroup",
@@ -15,6 +16,10 @@ const meta = {
       control: "select",
       options: ["horizontal", "vertical"],
     },
+    size: {
+      control: "select",
+      options: ["xs", "sm", "default", "lg"],
+    },
   },
 } satisfies Meta<typeof ButtonGroup>;
 
@@ -23,8 +28,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {},
-  render: () => (
-    <ButtonGroup>
+  render: (args) => (
+    <ButtonGroup {...args}>
       <Button variant="outline">Left</Button>
       <Button variant="outline">Center</Button>
       <Button variant="outline">Right</Button>
@@ -52,6 +57,46 @@ export const WithText: Story = {
       <ButtonGroupText>Label</ButtonGroupText>
       <Button variant="outline">Action</Button>
     </ButtonGroup>
+  ),
+};
+
+export const WithInput: Story = {
+  args: {},
+  render: () => (
+    <ButtonGroup>
+      <Input placeholder="Search…" />
+      <Button variant="outline">Go</Button>
+    </ButtonGroup>
+  ),
+};
+
+export const Sizes: Story = {
+  args: {},
+  render: () => (
+    <div className="flex flex-col items-start gap-4">
+      <ButtonGroup size="xs">
+        <ButtonGroupText>Size</ButtonGroupText>
+        <Button size="xs" variant="outline">
+          XS
+        </Button>
+      </ButtonGroup>
+      <ButtonGroup size="sm">
+        <ButtonGroupText>Size</ButtonGroupText>
+        <Button size="sm" variant="outline">
+          SM
+        </Button>
+      </ButtonGroup>
+      <ButtonGroup size="default">
+        <ButtonGroupText>Size</ButtonGroupText>
+        <Button variant="outline">Default</Button>
+      </ButtonGroup>
+      <ButtonGroup size="lg">
+        <ButtonGroupText>Size</ButtonGroupText>
+        <Button size="lg" variant="outline">
+          LG
+        </Button>
+      </ButtonGroup>
+    </div>
   ),
 };
 
