@@ -211,3 +211,45 @@ export const WithFooter: Story = {
     </Item>
   ),
 };
+
+/** A long title truncates to one line; the badge beside it keeps its size. */
+export const LongTitle: Story = {
+  args: {},
+  render: () => (
+    <Item variant="outline" className="w-80">
+      <ItemContent>
+        <ItemTitle>
+          Quarterly planning notes for the design system team
+          <Badge variant="success">Active</Badge>
+        </ItemTitle>
+        <ItemDescription>Truncates instead of wrapping.</ItemDescription>
+      </ItemContent>
+      <ItemActions>
+        <Button variant="ghost" size="sm">
+          Edit
+        </Button>
+      </ItemActions>
+    </Item>
+  ),
+};
+
+/** Rendered as a button, the item gets a hover and a clickable cursor. */
+export const AsButton: Story = {
+  args: {},
+  render: () => (
+    <ItemGroup className="w-80">
+      <Item render={<button type="button" />} variant="outline">
+        <ItemContent>
+          <ItemTitle>Choose a plan</ItemTitle>
+          <ItemDescription>Hover or press the whole row.</ItemDescription>
+        </ItemContent>
+      </Item>
+      <Item render={<button type="button" disabled />} variant="outline">
+        <ItemContent>
+          <ItemTitle>Unavailable plan</ItemTitle>
+          <ItemDescription>Disabled: no hover, faded.</ItemDescription>
+        </ItemContent>
+      </Item>
+    </ItemGroup>
+  ),
+};

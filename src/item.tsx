@@ -1,6 +1,6 @@
 "use client";
 
-import type * as React from "react";
+import * as React from "react";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
 import { cva, type VariantProps } from "class-variance-authority";
@@ -9,7 +9,10 @@ import { cn } from "./lib/utils";
 import { Separator } from "./separator";
 
 const itemVariants = cva(
-  "[a]:hover:bg-secondary rounded-md border text-sm w-full group/item focus-visible:border-focus focus-visible:ring-focus/50 flex items-center flex-wrap outline-hidden motion-color focus-visible:ring-3",
+  // Rendered as a link or a button (`render`), the item gets a hover and a
+  // clickable cursor; as a polymorphic element it styles disabled with both
+  // `disabled:` (a native button) and `aria-disabled:` (a link).
+  "[a,button]:hover:bg-secondary/80 [a,button]:cursor-clickable rounded-md border text-sm w-full group/item focus-visible:border-focus focus-visible:ring-focus/50 flex items-center flex-wrap outline-hidden motion-color focus-visible:ring-3 disabled:pointer-events-none disabled:opacity-30 aria-disabled:pointer-events-none aria-disabled:opacity-30",
   {
     variants: {
       variant: {
@@ -18,9 +21,9 @@ const itemVariants = cva(
         muted: "bg-secondary/50 border-transparent",
       },
       size: {
-        default: "gap-2.5 px-3 py-2.5",
-        sm: "gap-2 px-3 py-2",
-        xs: "gap-2 px-2.5 py-2 in-data-[slot=menu-content]:p-0",
+        default: "gap-3.5 px-4 py-3.5",
+        sm: "gap-3.5 px-3.5 py-3",
+        xs: "gap-2.5 px-3 py-2.5 in-data-[slot=dropdown-menu-content]:p-0",
       },
     },
     defaultVariants: {
@@ -128,7 +131,9 @@ function ItemContent({ className, ...props }: ItemContentProps) {
     <div
       data-slot="item-content"
       className={cn(
-        "flex flex-1 flex-col gap-1 group-data-[size=xs]/item:gap-0 [&+[data-slot=item-content]]:flex-none",
+        // `min-w-0` lets the content shrink beside actions, so a long title
+        // truncates instead of pushing the row wider.
+        "flex min-w-0 flex-1 flex-col gap-1 group-data-[size=xs]/item:gap-0.5 [&+[data-slot=item-content]]:flex-none",
         className,
       )}
       {...props}
@@ -136,16 +141,29 @@ function ItemContent({ className, ...props }: ItemContentProps) {
   );
 }
 
-function ItemTitle({ className, ...props }: ItemTitleProps) {
+// One line: plain text truncates with an ellipsis, while a badge or icon
+// beside it keeps its size. The text is wrapped in its own span because an
+// ellipsis can't apply to bare text inside a flex row.
+function ItemTitle({ className, children, ...props }: ItemTitleProps) {
   return (
     <div
       data-slot="item-title"
       className={cn(
-        "line-clamp-1 flex w-fit items-center gap-2 text-sm leading-snug font-medium underline-offset-4",
+        "line-clamp-1 flex w-fit max-w-full min-w-0 items-center gap-2 text-sm leading-snug font-medium underline-offset-4 [&>:not([data-slot=item-title-text])]:shrink-0",
         className,
       )}
       {...props}
-    />
+    >
+      {React.Children.map(children, (child) =>
+        typeof child === "string" || typeof child === "number" ? (
+          <span data-slot="item-title-text" className="truncate">
+            {child}
+          </span>
+        ) : (
+          child
+        ),
+      )}
+    </div>
   );
 }
 
@@ -154,7 +172,7 @@ function ItemDescription({ className, ...props }: ItemDescriptionProps) {
     <p
       data-slot="item-description"
       className={cn(
-        "text-muted [&>a:hover]:text-primary line-clamp-2 text-left text-sm leading-normal font-normal group-data-[size=xs]/item:text-xs [&>a]:underline [&>a]:underline-offset-4",
+        "text-muted [&>a:hover]:text-primary line-clamp-2 text-start text-sm leading-normal font-normal group-data-[size=xs]/item:text-xs [&>a]:underline [&>a]:underline-offset-4",
         className,
       )}
       {...props}
