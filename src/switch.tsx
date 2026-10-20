@@ -7,12 +7,12 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "./lib/utils";
 
 const switchVariants = cva(
-  "cursor-clickable data-checked:bg-primary data-unchecked:bg-edge focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-destructive/30 aria-invalid:border-destructive dark:data-unchecked:bg-edge/80 peer relative inline-flex shrink-0 items-center rounded-full border border-transparent motion-color outline-hidden after:absolute after:-inset-x-3 after:-inset-y-2 focus-visible:ring-3 aria-invalid:ring-3 data-disabled:cursor-not-allowed data-disabled:opacity-50",
+  "@container cursor-clickable data-checked:bg-primary data-unchecked:bg-edge data-unchecked:hover:border-focus focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-destructive/30 aria-invalid:border-destructive dark:data-unchecked:bg-edge/80 peer relative inline-flex shrink-0 items-center rounded-full border border-transparent motion-color outline-hidden after:absolute after:-inset-x-3 after:-inset-y-2 focus-visible:ring-3 aria-invalid:ring-3 data-disabled:pointer-events-none data-disabled:opacity-30",
   {
     variants: {
       size: {
-        default: "h-[18.4px] w-[32px]",
-        sm: "h-[14px] w-[24px]",
+        default: "h-6 w-11 p-1",
+        sm: "h-4 w-7 p-0.5",
       },
     },
     defaultVariants: {
@@ -22,12 +22,12 @@ const switchVariants = cva(
 );
 
 const switchThumbVariants = cva(
-  "bg-foundation dark:data-unchecked:bg-contrast dark:data-checked:bg-white pointer-events-none block rounded-full ring-0 transition-transform data-checked:translate-x-[calc(100%-2px)] data-unchecked:translate-x-0",
+  "bg-foundation dark:data-unchecked:bg-contrast dark:data-checked:bg-white pointer-events-none block rounded-full ring-0 transition-transform data-checked:translate-x-[calc(100cqw_-_100%)] rtl:data-checked:-translate-x-[calc(100cqw_-_100%)] data-unchecked:translate-x-0 rtl:data-unchecked:-translate-x-0",
   {
     variants: {
       size: {
-        default: "size-4",
-        sm: "size-3",
+        default: "h-4 w-6",
+        sm: "h-3 w-4",
       },
     },
     defaultVariants: {
