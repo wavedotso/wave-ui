@@ -15,7 +15,7 @@ const meta = {
   argTypes: {
     size: {
       control: "select",
-      options: ["default", "sm", "lg"],
+      options: ["xs", "sm", "default", "lg"],
     },
   },
 } satisfies Meta<typeof Avatar>;
@@ -92,6 +92,9 @@ export const Group: Story = {
 export const AllSizes: Story = {
   render: () => (
     <div className="flex items-center gap-4">
+      <Avatar size="xs">
+        <AvatarFallback>XS</AvatarFallback>
+      </Avatar>
       <Avatar size="sm">
         <AvatarFallback>SM</AvatarFallback>
       </Avatar>
