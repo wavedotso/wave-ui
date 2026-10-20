@@ -16,7 +16,7 @@ function Radio({ className, ...props }: RadioProps) {
     <RadioPrimitive.Root
       data-slot="radio"
       className={cn(
-        "cursor-clickable bg-edge border-transparent data-unchecked:hover:border-focus data-checked:bg-primary data-checked:text-white data-checked:border-primary aria-invalid:aria-checked:border-primary aria-invalid:border-destructive focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-destructive/30 group/radio peer relative flex aspect-square size-4 shrink-0 rounded-full border motion-color outline-hidden group-has-disabled/field:opacity-30 after:absolute after:-inset-x-3 after:-inset-y-2 focus-visible:ring-3 disabled:pointer-events-none data-disabled:pointer-events-none disabled:opacity-30 data-disabled:opacity-30 aria-invalid:ring-3",
+        "cursor-clickable bg-edge border-transparent not-data-disabled:data-unchecked:hover:border-focus not-data-disabled:data-unchecked:group-hover/field:border-focus data-checked:bg-primary data-checked:text-white data-checked:border-primary aria-invalid:aria-checked:border-primary aria-invalid:border-destructive focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-destructive/30 group/radio peer relative flex aspect-square size-6 shrink-0 rounded-full border motion-color outline-hidden group-has-disabled/field:opacity-30 after:absolute after:-inset-x-3 after:-inset-y-2 focus-visible:ring-3 data-disabled:pointer-events-none data-disabled:opacity-30 aria-invalid:ring-3",
         className,
       )}
       {...props}
@@ -32,7 +32,7 @@ function RadioIndicator({ className, ...props }: RadioIndicatorProps) {
       data-slot="radio-indicator"
       className={cn(
         "group-aria-invalid/radio:text-destructive text-white absolute inset-0 flex items-center justify-center data-unchecked:opacity-0",
-        "after:block after:size-2 after:rounded-full after:bg-current",
+        "after:block after:size-3 after:rounded-full after:bg-current",
         className,
       )}
       {...props}

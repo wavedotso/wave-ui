@@ -16,17 +16,17 @@ export const Default: Story = {
   render: () => (
     <RadioGroup defaultValue="comfortable">
       <div className="flex flex-col gap-3">
-        <div className="flex items-center gap-2">
-          <Radio value="compact" />
-          <Label>Compact</Label>
+        <div className="group/field flex items-center gap-2">
+          <Radio id="compact" value="compact" />
+          <Label htmlFor="compact">Compact</Label>
         </div>
-        <div className="flex items-center gap-2">
-          <Radio value="comfortable" />
-          <Label>Comfortable</Label>
+        <div className="group/field flex items-center gap-2">
+          <Radio id="comfortable" value="comfortable" />
+          <Label htmlFor="comfortable">Comfortable</Label>
         </div>
-        <div className="flex items-center gap-2">
-          <Radio value="spacious" />
-          <Label>Spacious</Label>
+        <div className="group/field flex items-center gap-2">
+          <Radio id="spacious" value="spacious" />
+          <Label htmlFor="spacious">Spacious</Label>
         </div>
       </div>
     </RadioGroup>
@@ -37,13 +37,13 @@ export const Disabled: Story = {
   render: () => (
     <RadioGroup defaultValue="option-1" disabled>
       <div className="flex flex-col gap-3">
-        <div className="flex items-center gap-2">
-          <Radio value="option-1" />
-          <Label>Selected but disabled</Label>
+        <div className="group/field flex items-center gap-2">
+          <Radio id="option-1" value="option-1" />
+          <Label htmlFor="option-1">Selected but disabled</Label>
         </div>
-        <div className="flex items-center gap-2">
-          <Radio value="option-2" />
-          <Label>Disabled</Label>
+        <div className="group/field flex items-center gap-2">
+          <Radio id="option-2" value="option-2" />
+          <Label htmlFor="option-2">Disabled</Label>
         </div>
       </div>
     </RadioGroup>
@@ -54,17 +54,17 @@ export const Horizontal: Story = {
   render: () => (
     <RadioGroup defaultValue="light">
       <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2">
-          <Radio value="light" />
-          <Label>Light</Label>
+        <div className="group/field flex items-center gap-2">
+          <Radio id="light" value="light" />
+          <Label htmlFor="light">Light</Label>
         </div>
-        <div className="flex items-center gap-2">
-          <Radio value="dark" />
-          <Label>Dark</Label>
+        <div className="group/field flex items-center gap-2">
+          <Radio id="dark" value="dark" />
+          <Label htmlFor="dark">Dark</Label>
         </div>
-        <div className="flex items-center gap-2">
-          <Radio value="system" />
-          <Label>System</Label>
+        <div className="group/field flex items-center gap-2">
+          <Radio id="system" value="system" />
+          <Label htmlFor="system">System</Label>
         </div>
       </div>
     </RadioGroup>

@@ -42,7 +42,7 @@ export const Disabled: Story = {
 
 export const WithLabel: Story = {
   render: (args) => (
-    <div className="flex items-center gap-2">
+    <div className="group/field flex items-center gap-2">
       <Checkbox id="terms" {...args} />
       <Label htmlFor="terms">Accept terms and conditions</Label>
     </div>
@@ -51,7 +51,7 @@ export const WithLabel: Story = {
 
 export const Invalid: Story = {
   render: () => (
-    <div className="flex items-center gap-2">
+    <div className="group/field flex items-center gap-2">
       <Checkbox id="required" aria-invalid />
       <Label htmlFor="required">This field is required</Label>
     </div>

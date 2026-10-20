@@ -14,14 +14,14 @@ function Checkbox({ className, ...props }: CheckboxProps) {
     <CheckboxPrimitive.Root
       data-slot="checkbox"
       className={cn(
-        "cursor-clickable bg-edge border-transparent data-unchecked:hover:border-focus data-checked:bg-primary data-indeterminate:bg-primary data-checked:text-white data-indeterminate:text-white data-checked:border-primary data-indeterminate:border-primary aria-invalid:aria-checked:border-primary aria-invalid:border-destructive focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-destructive/30 peer relative flex size-4 shrink-0 items-center justify-center rounded-sm border motion-color outline-hidden group-has-disabled/field:opacity-30 after:absolute after:-inset-x-3 after:-inset-y-2 focus-visible:ring-3 disabled:pointer-events-none data-disabled:pointer-events-none disabled:opacity-30 data-disabled:opacity-30 aria-invalid:ring-3",
+        "cursor-clickable bg-edge border-transparent not-data-disabled:data-unchecked:hover:border-focus not-data-disabled:data-unchecked:group-hover/field:border-focus data-checked:bg-primary data-indeterminate:bg-primary data-checked:text-white data-indeterminate:text-white data-checked:border-primary data-indeterminate:border-primary aria-invalid:aria-checked:border-primary aria-invalid:border-destructive focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-destructive/30 peer relative flex size-6 shrink-0 items-center justify-center rounded-sm border motion-color outline-hidden group-has-disabled/field:opacity-30 after:absolute after:-inset-x-3 after:-inset-y-2 focus-visible:ring-3 data-disabled:pointer-events-none data-disabled:opacity-30 aria-invalid:ring-3",
         className,
       )}
       {...props}
     >
       <CheckboxPrimitive.Indicator
         data-slot="checkbox-indicator"
-        className="group/indicator grid place-content-center text-current transition-none [&>svg]:size-3.5"
+        className="group/indicator grid place-content-center text-current transition-none [&>svg]:size-5"
       >
         <CheckIcon className="col-start-1 row-start-1 group-data-indeterminate/indicator:hidden" />
         <MinusIcon className="col-start-1 row-start-1 hidden group-data-indeterminate/indicator:block" />
