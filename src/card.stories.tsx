@@ -108,3 +108,45 @@ export const Small: Story = {
     </Card>
   ),
 };
+
+// An inline gradient, so the story needs no network.
+const COVER =
+  "data:image/svg+xml," +
+  encodeURIComponent(
+    "<svg xmlns='http://www.w3.org/2000/svg' width='760' height='320'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#0074DE'/><stop offset='1' stop-color='#7DD3FC'/></linearGradient></defs><rect width='760' height='320' fill='url(#g)'/></svg>",
+  );
+
+/** An image as the first child runs edge to edge under the card's top corners. */
+export const WithImage: Story = {
+  render: (args) => (
+    <Card {...args} className="w-[380px]">
+      <img src={COVER} alt="" className="aspect-[19/8] w-full object-cover" />
+      <CardHeader>
+        <CardTitle>Wave Blue</CardTitle>
+        <CardDescription>The brand colour, edge to edge.</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>The cover image sits flush with the card's top corners.</p>
+      </CardContent>
+    </Card>
+  ),
+};
+
+/**
+ * `render={<a />}` makes the whole card a link, with a hover, a clickable
+ * cursor and a focus ring; `CardTitle render={<h3 />}` makes its title a
+ * real heading.
+ */
+export const AsLink: Story = {
+  render: (args) => (
+    <Card {...args} render={<a href="#card" />} className="w-[380px]">
+      <CardHeader>
+        <CardTitle render={<h3 />}>Read the release notes</CardTitle>
+        <CardDescription>Everything that changed in 0.13.</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>The whole card is one link: hover it, or tab to it.</p>
+      </CardContent>
+    </Card>
+  ),
+};
