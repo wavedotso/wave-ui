@@ -113,7 +113,7 @@ export const Small: Story = {
 const COVER =
   "data:image/svg+xml," +
   encodeURIComponent(
-    "<svg xmlns='http://www.w3.org/2000/svg' width='760' height='320'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#0074DE'/><stop offset='1' stop-color='#7DD3FC'/></linearGradient></defs><rect width='760' height='320' fill='url(#g)'/></svg>",
+    "<svg xmlns='http://www.w3.org/2000/svg' width='760' height='320'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#0074DE'/><stop offset='1' stop-color='#8EC4FA'/></linearGradient></defs><rect width='760' height='320' fill='url(#g)'/></svg>",
   );
 
 /** An image as the first child runs edge to edge under the card's top corners. */

@@ -40,7 +40,7 @@ function InfiniteScrollDemo() {
   }, []);
 
   return (
-    <div className="border-line h-96 w-80 overflow-y-auto rounded-md border">
+    <div className="border-contour h-96 w-80 overflow-y-auto rounded-md border">
       <InfiniteScroll
         onLoadMore={handleLoadMore}
         hasMore={hasMore}
@@ -48,7 +48,10 @@ function InfiniteScrollDemo() {
         endMessage="You've reached the end!"
       >
         {items.map((item) => (
-          <div key={item.id} className="border-line border-b px-4 py-3 text-sm">
+          <div
+            key={item.id}
+            className="border-contour border-b px-4 py-3 text-sm"
+          >
             {item.title}
           </div>
         ))}
@@ -78,7 +81,7 @@ function WithRootDemo() {
   return (
     <div
       ref={scrollRef}
-      className="border-line h-96 w-80 overflow-y-auto rounded-md border"
+      className="border-contour h-96 w-80 overflow-y-auto rounded-md border"
     >
       <InfiniteScroll
         onLoadMore={handleLoadMore}
@@ -88,7 +91,10 @@ function WithRootDemo() {
         endMessage="All items loaded."
       >
         {items.map((item) => (
-          <div key={item.id} className="border-line border-b px-4 py-3 text-sm">
+          <div
+            key={item.id}
+            className="border-contour border-b px-4 py-3 text-sm"
+          >
             {item.title}
           </div>
         ))}
@@ -124,7 +130,7 @@ function ReverseDemo() {
   }, []);
 
   return (
-    <div className="border-line flex h-96 w-80 flex-col-reverse overflow-y-auto rounded-md border">
+    <div className="border-contour flex h-96 w-80 flex-col-reverse overflow-y-auto rounded-md border">
       <InfiniteScroll
         onLoadMore={handleLoadMore}
         hasMore={hasMore}
@@ -133,7 +139,10 @@ function ReverseDemo() {
         endMessage="Beginning of conversation"
       >
         {messages.map((msg) => (
-          <div key={msg.id} className="border-line border-b px-4 py-3 text-sm">
+          <div
+            key={msg.id}
+            className="border-contour border-b px-4 py-3 text-sm"
+          >
             <span className="text-muted mr-2 text-xs">{msg.time}</span>
             {msg.text}
           </div>
@@ -160,7 +169,7 @@ function CustomLoaderDemo() {
   }, []);
 
   return (
-    <div className="border-line h-96 w-80 overflow-y-auto rounded-md border">
+    <div className="border-contour h-96 w-80 overflow-y-auto rounded-md border">
       <InfiniteScroll
         onLoadMore={handleLoadMore}
         hasMore={items.length < 50}
@@ -169,7 +178,10 @@ function CustomLoaderDemo() {
         endMessage="No more items to load."
       >
         {items.map((item) => (
-          <div key={item.id} className="border-line border-b px-4 py-3 text-sm">
+          <div
+            key={item.id}
+            className="border-contour border-b px-4 py-3 text-sm"
+          >
             {item.title}
           </div>
         ))}

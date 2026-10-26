@@ -2,40 +2,41 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { FilmGrain, type FilmGrainProps } from "./film-grain";
 
-/** Force remount when controls change so WebGL reinitializes */
+/**
+ * Force remount when controls change so WebGL reinitializes. `bg` is the
+ * wrapper's classes: a pinned theme (`ink` / `paper`) and its backdrop.
+ */
 function GrainPreview({
   args,
   bg,
   label,
-  labelColor = "rgba(255,255,255,0.6)",
 }: {
   args: FilmGrainProps;
   bg: string;
   label: string;
-  labelColor?: string;
 }) {
   const key = `${args.density}-${args.opacity}-${args.fps}-${args.color}-${args.blendMode}`;
 
   return (
     <div
+      className={bg}
       style={{
         position: "relative",
         width: 800,
         height: 400,
-        background: bg,
         borderRadius: 12,
         overflow: "hidden",
       }}
     >
       <FilmGrain key={key} {...args} />
       <div
+        className="text-muted"
         style={{
           position: "absolute",
           inset: 0,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          color: labelColor,
           fontSize: 14,
         }}
       >
@@ -83,7 +84,7 @@ export const Default: Story = {
   render: (args) => (
     <GrainPreview
       args={args}
-      bg="linear-gradient(135deg, #030712, #1f2937)"
+      bg="ink bg-linear-135 from-foundation to-elevated text-contrast"
       label="WebGL grain with canvas fallback (overlay blend)"
     />
   ),
@@ -96,7 +97,11 @@ export const OnDarkBackground: Story = {
     blendMode: "overlay",
   },
   render: (args) => (
-    <GrainPreview args={args} bg="#000" label="Film grain on dark background" />
+    <GrainPreview
+      args={args}
+      bg="ink bg-foundation text-contrast"
+      label="Film grain on dark background"
+    />
   ),
 };
 
@@ -104,15 +109,14 @@ export const OnLightBackground: Story = {
   args: {
     density: 0.5,
     opacity: 0.06,
-    color: "#000000",
+    color: "#0C0D0B", // paper-950, the Paper theme's contrast
     blendMode: "overlay",
   },
   render: (args) => (
     <GrainPreview
       args={args}
-      bg="#fff"
+      bg="paper bg-foundation text-contrast"
       label="Dark grain on light background"
-      labelColor="rgba(0,0,0,0.6)"
     />
   ),
 };
@@ -126,7 +130,7 @@ export const SoftLight: Story = {
   render: (args) => (
     <GrainPreview
       args={args}
-      bg="linear-gradient(135deg, #030712, #1f2937)"
+      bg="ink bg-linear-135 from-foundation to-elevated text-contrast"
       label="Soft-light blend — closest to analog film"
     />
   ),
@@ -136,11 +140,15 @@ export const TintedGrain: Story = {
   args: {
     density: 0.5,
     opacity: 0.1,
-    color: "#01c3a8",
+    color: "#37D3DE", // teal-300
     blendMode: "overlay",
   },
   render: (args) => (
-    <GrainPreview args={args} bg="#030712" label="Tinted grain (#01c3a8)" />
+    <GrainPreview
+      args={args}
+      bg="ink bg-foundation text-contrast"
+      label="Tinted grain (teal-300)"
+    />
   ),
 };
 
@@ -155,11 +163,11 @@ export const WithContent: Story = {
 
     return (
       <div
+        className="ink bg-linear-135 from-foundation to-elevated text-contrast"
         style={{
           position: "relative",
           width: 800,
           height: 400,
-          background: "linear-gradient(135deg, #030712, #1f2937)",
           borderRadius: 12,
           overflow: "hidden",
         }}
@@ -177,14 +185,12 @@ export const WithContent: Story = {
             padding: 32,
           }}
         >
-          <h2 style={{ fontSize: 24, fontWeight: 700, color: "#fff" }}>
-            Film Grain Overlay
-          </h2>
+          <h2 style={{ fontSize: 24, fontWeight: 700 }}>Film Grain Overlay</h2>
           <p
+            className="text-muted"
             style={{
               maxWidth: 400,
               textAlign: "center",
-              color: "rgba(255,255,255,0.7)",
             }}
           >
             WebGL shader with dual-layer noise and cinematic smoothstep. Falls

@@ -19,26 +19,19 @@ type Story = StoryObj<typeof meta>;
 const HEIGHTS = [120, 180, 100, 150, 200, 110, 160, 220, 130, 90, 190, 140];
 
 const COLORS = [
-  "#f43f5e",
-  "#f59e0b",
-  "#10b981",
-  "#0ea5e9",
-  "#8b5cf6",
-  "#d946ef",
-  "#f97316",
-  "#14b8a6",
-  "#6366f1",
-  "#ec4899",
-  "#84cc16",
-  "#06b6d4",
+  "var(--wave-red-500)",
+  "var(--wave-yellow-400)",
+  "var(--wave-green-400)",
+  "var(--wave-blue-400)",
+  "var(--wave-purple-500)",
+  "var(--wave-purple-400)",
+  "var(--wave-orange-400)",
+  "var(--wave-teal-400)",
+  "var(--wave-indigo-500)",
+  "var(--wave-pink-500)",
+  "var(--wave-lime-400)",
+  "var(--wave-teal-500)",
 ];
-
-function hexToRgba(hex: string, alpha: number): string {
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-}
 
 function DemoCard({ index, height }: { index: number; height: number }) {
   return (
@@ -46,7 +39,7 @@ function DemoCard({ index, height }: { index: number; height: number }) {
       className="flex flex-col items-center justify-center rounded-lg shadow-sm"
       style={{
         height,
-        backgroundColor: hexToRgba(COLORS[index % COLORS.length]!, 0.4),
+        backgroundColor: `color-mix(in srgb, ${COLORS[index % COLORS.length]!} 40%, transparent)`,
       }}
     >
       <span className="text-sm font-semibold text-contrast">{index + 1}</span>
@@ -104,12 +97,10 @@ export const WithPromoted: Story = {
       </MasonryItem>
       <MasonryItem span={2}>
         <div
-          className="flex items-center justify-center rounded-lg border-2 border-amber-500/30 bg-amber-500/5 shadow-sm"
+          className="flex items-center justify-center rounded-lg border-2 border-warning/30 bg-warning/5 shadow-sm"
           style={{ height: 160 }}
         >
-          <span className="text-sm font-semibold text-amber-600 dark:text-amber-400">
-            Promoted
-          </span>
+          <span className="text-sm font-semibold text-contrast">Promoted</span>
         </div>
       </MasonryItem>
 
@@ -157,13 +148,13 @@ function RemovableDemo() {
             className="flex w-full flex-col items-center justify-center rounded-lg shadow-sm cursor-pointer"
             style={{
               height: item.height,
-              backgroundColor: hexToRgba(COLORS[item.id % COLORS.length]!, 0.4),
+              backgroundColor: `color-mix(in srgb, ${COLORS[item.id % COLORS.length]!} 40%, transparent)`,
             }}
           >
             <span className="text-sm font-semibold text-contrast">
               {item.id + 1}
             </span>
-            <span className="mt-1 flex items-center gap-1 text-xs text-muted">
+            <span className="mt-1 flex items-center gap-1 text-xs text-contrast">
               <TrashIcon width={12} height={12} aria-hidden />
               Click to remove
             </span>

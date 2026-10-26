@@ -23,7 +23,7 @@ export const Default: Story = {
       >
         Toggle content
       </CollapsibleTrigger>
-      <CollapsibleContent className="mt-2 rounded-md border border-edge px-4 py-3 text-sm">
+      <CollapsibleContent className="mt-2 rounded-md border border-shade px-4 py-3 text-sm">
         This is the collapsible content. It can contain anything you want.
       </CollapsibleContent>
     </Collapsible>
@@ -38,7 +38,7 @@ export const DefaultOpen: Story = {
       >
         Toggle content
       </CollapsibleTrigger>
-      <CollapsibleContent className="mt-2 rounded-md border border-edge px-4 py-3 text-sm">
+      <CollapsibleContent className="mt-2 rounded-md border border-shade px-4 py-3 text-sm">
         This content is visible by default.
       </CollapsibleContent>
     </Collapsible>
