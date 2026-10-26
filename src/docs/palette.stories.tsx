@@ -3,6 +3,8 @@
 import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import { rampOf } from "./palette-lab";
+
 const meta = {
   title: "Colors/Palettes",
   parameters: {
@@ -10,7 +12,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Every color token in Wave, grouped by role. **Brand** is the Wave Blue ramp, **Themes** are the three neutral ramps (Graphite · Ink · Paper), and **Interface** is the semantic layer components actually consume. Swatches read the live CSS variables, so they reflect the theme selected in the toolbar.",
+          "Every color token in Wave, grouped by role. **Palettes** are the Wave Palettes: Wave Blue and its nine signature colours, from Wave Indigo to Wave Teal, each hue placed by hand and every step grown on the Wave Light Curve with the Wave Hues Drift. **Themes** are the three neutral ramps (Graphite, Ink and Paper), and **Interface** is the semantic layer components actually consume. Swatches read the live CSS variables, so they reflect the theme selected in the toolbar.",
       },
     },
   },
@@ -20,51 +22,52 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 type Token = { name: string; label?: string; fg?: string; bg?: string };
-type Group = { label: string; note?: string; tokens: Token[] };
+/** A set of single tokens shown as tiles, or a whole ramp shown as one row. */
+type Group = { label: string; note?: string } & (
+  | { tokens: Token[] }
+  | { ramp: string }
+  | { hue: number; share500?: number }
+  | { swatches: readonly string[]; steps?: readonly number[] }
+);
 
-// Wave Blue — the single brand ramp, shared by every theme.
-const BRAND_GROUPS: Group[] = [
-  {
-    label: "Wave — brand",
-    note: "Brand ramp, shared by every theme. `primary` and the focus ring resolve to wave-500.",
-    tokens: [
-      { name: "--wave-50" },
-      { name: "--wave-100" },
-      { name: "--wave-200" },
-      { name: "--wave-300" },
-      { name: "--wave-400" },
-      { name: "--wave-500" },
-      { name: "--wave-600" },
-      { name: "--wave-700" },
-      { name: "--wave-800" },
-      { name: "--wave-900" },
-      { name: "--wave-950" },
-    ],
-  },
-];
+const STEPS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950] as const;
 
-// Status ramps — mode-stable, shared by every theme (like Wave). 500 = the locked status color.
-const rampTokens = (prefix: string): Token[] =>
-  [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map((s) => ({
-    name: `--${prefix}-${s}`,
-  }));
+/**
+ * Graphite's and Paper's mid greys are too light for white text at their 500,
+ * so those two take their text colour by luminance; every other ramp, Ink
+ * included, carries white text from 500.
+ */
+const LUMINANCE_TEXT = new Set(["graphite", "paper"]);
 
-const STATUS_GROUPS: Group[] = [
+// The Wave Palettes, shared by every theme. A step has the same
+// contrast in every palette: dark text below 500, white from 500.
+const PALETTE_GROUPS: Group[] = [
   {
-    label: "Success — green",
-    note: "Emerald ramp (H155). `success-500` is the locked `--success`.",
-    tokens: rampTokens("success"),
+    label: "Wave Blue",
+    note: "The brand ramp. `primary`, `info` and the focus ring resolve to wave-blue-500.",
+    ramp: "wave-blue",
+  },
+  { label: "Wave Indigo", ramp: "wave-indigo" },
+  { label: "Wave Purple", ramp: "wave-purple" },
+  { label: "Wave Pink", ramp: "wave-pink" },
+  {
+    label: "Wave Red",
+    note: "`danger` resolves to wave-red-500.",
+    ramp: "wave-red",
   },
   {
-    label: "Warning — amber",
-    note: "Amber ramp (H93). `warning-500` is the locked `--warning` — it sits light (yellow is intrinsically bright), so the upper swatches compress.",
-    tokens: rampTokens("warning"),
+    label: "Wave Orange",
+    note: "`warning` resolves to wave-orange-500.",
+    ramp: "wave-orange",
   },
+  { label: "Wave Yellow", ramp: "wave-yellow" },
+  { label: "Wave Lime", ramp: "wave-lime" },
   {
-    label: "Destructive — red",
-    note: "Red ramp (H25). `destructive-500` is the locked `--destructive`.",
-    tokens: rampTokens("destructive"),
+    label: "Wave Green",
+    note: "`success` resolves to wave-green-500.",
+    ramp: "wave-green",
   },
+  { label: "Wave Teal", ramp: "wave-teal" },
 ];
 
 // The three neutral ramps — one per theme. Each theme's semantic layer references
@@ -73,53 +76,17 @@ const THEME_GROUPS: Group[] = [
   {
     label: "Graphite — neutral (dark)",
     note: "The neutral dark theme — the dark-OS default, and pinned with `.graphite`.",
-    tokens: [
-      { name: "--graphite-50" },
-      { name: "--graphite-100" },
-      { name: "--graphite-200" },
-      { name: "--graphite-300" },
-      { name: "--graphite-400" },
-      { name: "--graphite-500" },
-      { name: "--graphite-600" },
-      { name: "--graphite-700" },
-      { name: "--graphite-800" },
-      { name: "--graphite-900" },
-      { name: "--graphite-950" },
-    ],
+    ramp: "graphite",
   },
   {
     label: "Ink — navy (night)",
     note: "The premium night theme — opt-in only, active under `.ink`.",
-    tokens: [
-      { name: "--ink-50" },
-      { name: "--ink-100" },
-      { name: "--ink-200" },
-      { name: "--ink-300" },
-      { name: "--ink-400" },
-      { name: "--ink-500" },
-      { name: "--ink-600" },
-      { name: "--ink-700" },
-      { name: "--ink-800" },
-      { name: "--ink-900" },
-      { name: "--ink-950" },
-    ],
+    ramp: "ink",
   },
   {
     label: "Paper — warm (light)",
     note: "The light theme — the light-OS default, and pinned with `.paper`.",
-    tokens: [
-      { name: "--paper-50" },
-      { name: "--paper-100" },
-      { name: "--paper-200" },
-      { name: "--paper-300" },
-      { name: "--paper-400" },
-      { name: "--paper-500" },
-      { name: "--paper-600" },
-      { name: "--paper-700" },
-      { name: "--paper-800" },
-      { name: "--paper-900" },
-      { name: "--paper-950" },
-    ],
+    ramp: "paper",
   },
 ];
 
@@ -159,21 +126,25 @@ const INTERFACE_GROUPS: Group[] = [
   },
   {
     label: "Status",
-    note: "Semantic status colors. `info` resolves to Wave Blue (= `--primary` / `--focus`); `success` is a cool emerald (H155), kept distinct from the warning yellow.",
+    note: "Semantic status colors, each its palette's 500 in every theme: `danger` Wave Red, `success` Wave Green, `warning` Wave Orange, `info` Wave Blue. Each `-text` token is that colour as words and icons: the 600 in Paper, the 400 in Ink, and in Graphite each status a touch lighter than its 400, so it reads on Graphite's menus.",
     tokens: [
-      { name: "--destructive" },
+      { name: "--danger" },
+      { name: "--danger-text" },
       { name: "--success" },
+      { name: "--success-text" },
       { name: "--warning" },
+      { name: "--warning-text" },
       { name: "--info" },
+      { name: "--info-text" },
     ],
   },
   {
-    label: "Structure",
-    note: "Borders = structure (line · edge · solid); the ring is brand-themed (focus = primary).",
+    label: "Form",
+    note: "The theme's foreground made translucent, at three strengths, the way a form is drawn: `contour` (where a shape ends), `highlight` (where attention lands), `shade` (a control's body, and the intense border). The ring is brand-themed (focus = primary).",
     tokens: [
-      { name: "--line" },
-      { name: "--edge" },
-      { name: "--solid" },
+      { name: "--contour" },
+      { name: "--highlight" },
+      { name: "--shade" },
       { name: "--focus" },
     ],
   },
@@ -248,7 +219,7 @@ function Swatch({
           height: 48,
           borderRadius: 10,
           backgroundColor: bg ?? `var(${name})`,
-          border: "1px solid rgba(128, 128, 128, 0.2)",
+          border: "1px solid var(--contour)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -285,6 +256,142 @@ function Swatch({
           {resolved || "..."}
         </div>
       </div>
+    </div>
+  );
+}
+
+let fallbacks: Map<string, string> | null = null;
+
+/**
+ * A token's sRGB fallback: the value its own `:root` rule sets, outside the
+ * Display-P3 block. On a P3 screen the live value is the P3 one, so the hex is
+ * read from this instead, to match the hex written beside the token.
+ */
+function fallbackOf(token: string) {
+  if (!fallbacks) {
+    fallbacks = new Map();
+    for (const sheet of document.styleSheets) {
+      let rules: CSSRuleList;
+      try {
+        rules = sheet.cssRules;
+      } catch {
+        continue; // A sheet from another origin can't be read.
+      }
+      for (const rule of rules) {
+        if (
+          !(rule instanceof CSSStyleRule) ||
+          !rule.selectorText.includes(":root")
+        )
+          continue;
+        for (const name of rule.style) {
+          if (name.startsWith("--") && !fallbacks.has(name)) {
+            fallbacks.set(name, rule.style.getPropertyValue(name).trim());
+          }
+        }
+      }
+    }
+  }
+  return fallbacks.get(token);
+}
+
+/**
+ * One step of a ramp: its colour (a live token, or a preview), its sRGB
+ * fallback as hex, and the contrast of the text it holds. On the Wave Palettes that text follows the
+ * curve's rule, dark below 500 and white from 500; on a neutral ramp it is
+ * whichever of the two reads better.
+ */
+function RampSwatch({
+  color,
+  fallback,
+  step,
+  hasRule = false,
+}: {
+  color: string;
+  /** The sRGB value the hex is read from; the live colour when absent. */
+  fallback?: string;
+  step: number;
+  hasRule?: boolean;
+}) {
+  const ref = React.useRef<HTMLDivElement>(null);
+  const [hex, setHex] = React.useState("");
+  const [isDark, setIsDark] = React.useState(false);
+  const [ratio, setRatio] = React.useState<number | null>(null);
+
+  React.useEffect(() => {
+    if (!ref.current) return;
+    const resolved = getComputedStyle(ref.current).backgroundColor;
+    const linear = (v: number) =>
+      v / 255 <= 0.04045 ? v / 255 / 12.92 : ((v / 255 + 0.055) / 1.055) ** 2.4;
+    // The hex is the token's sRGB fallback, the same on every screen, worked
+    // out with the browser's own colour maths. A canvas read back can come out
+    // a step off per channel once the screen's colour profile gets involved.
+    const probe = document.createElement("span");
+    probe.style.color = `color(from ${fallback ?? resolved} srgb r g b)`;
+    ref.current.append(probe);
+    const [r = 0, g = 0, b = 0] = (
+      getComputedStyle(probe).color.match(/-?[\d.]+(?:e-?\d+)?/g) ?? []
+    )
+      .slice(0, 3)
+      .map((v) => Math.round(Math.min(1, Math.max(0, Number(v))) * 255));
+    probe.remove();
+    // Luminance is read on a Display-P3 canvas, so a P3 colour is measured as
+    // it is on screen, not squeezed into sRGB first.
+    const p3 = document
+      .createElement("canvas")
+      .getContext("2d", { colorSpace: "display-p3" });
+    if (!p3) return;
+    p3.fillStyle = resolved;
+    p3.fillRect(0, 0, 1, 1);
+    const [pr = 0, pg = 0, pb = 0] = p3.getImageData(0, 0, 1, 1, {
+      colorSpace: "display-p3",
+    }).data;
+    // Display-P3's luminance weights (its own primaries, D65 white).
+    const luminance =
+      0.2289746 * linear(pr) + 0.6917385 * linear(pg) + 0.0792869 * linear(pb);
+    // Wave's darkest text, paper-950, as the dark ink.
+    const ink = 0.0039;
+    // Below 0.19, white text reads better than the dark ink.
+    const isWhiteText = hasRule ? step >= 500 : luminance < 0.19;
+    setIsDark(isWhiteText);
+    setRatio(
+      isWhiteText
+        ? 1.05 / (luminance + 0.05)
+        : (luminance + 0.05) / (ink + 0.05),
+    );
+    setHex(
+      `#${[r, g, b].map((v) => v.toString(16).padStart(2, "0")).join("")}`.toUpperCase(),
+    );
+  }, [fallback, hasRule, step]);
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        backgroundColor: color,
+        color: isDark ? "white" : "var(--paper-950)",
+        border: "1px solid var(--contour)",
+        borderRadius: 8,
+        padding: 6,
+        minHeight: 66,
+        display: "grid",
+        alignContent: "space-between",
+        fontFamily: "monospace",
+        fontSize: 10,
+      }}
+    >
+      <span style={{ fontWeight: 700 }}>{step}</span>
+      <span style={{ display: "grid", gap: 2 }}>
+        <span>{hex || "..."}</span>
+        <span
+          title={
+            isDark ? "Contrast with white text" : "Contrast with dark text"
+          }
+        >
+          {ratio === null
+            ? "..."
+            : `${ratio >= 4.5 ? "✓" : "✗"} ${ratio.toFixed(2)}`}
+        </span>
+      </span>
     </div>
   );
 }
@@ -329,23 +436,76 @@ function PaletteView({ groups }: { groups: Group[] }) {
             ) : (
               <div style={{ height: 8 }} />
             )}
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
-                gap: 12,
-              }}
-            >
-              {group.tokens.map((t) => (
-                <Swatch
-                  key={t.name}
-                  token={t.name}
-                  fg={"fg" in t ? t.fg : undefined}
-                  bg={"bg" in t ? t.bg : undefined}
-                  label={"label" in t ? t.label : undefined}
-                />
-              ))}
-            </div>
+            {"ramp" in group || "hue" in group || "swatches" in group ? (
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: `repeat(${"swatches" in group ? group.swatches.length : 11}, minmax(0, 1fr))`,
+                  gap: 4,
+                }}
+              >
+                {"swatches" in group
+                  ? group.swatches.map((color, i) => (
+                      <RampSwatch
+                        key={i}
+                        color={color}
+                        fallback={
+                          color.startsWith("var(")
+                            ? fallbackOf(color.slice(4, -1))
+                            : color
+                        }
+                        step={
+                          ("steps" in group && group.steps
+                            ? group.steps[i]
+                            : STEPS[i]) ?? 0
+                        }
+                      />
+                    ))
+                  : "ramp" in group
+                    ? STEPS.map((step) => (
+                        <RampSwatch
+                          key={step}
+                          color={`var(--${group.ramp}-${step})`}
+                          fallback={fallbackOf(`--${group.ramp}-${step}`)}
+                          step={step}
+                          hasRule={!LUMINANCE_TEXT.has(group.ramp)}
+                        />
+                      ))
+                    : rampOf(group.hue, group.share500).map(
+                        ({ step, p3, srgb }) => (
+                          <RampSwatch
+                            key={step}
+                            color={
+                              window.matchMedia("(color-gamut: p3)").matches
+                                ? p3
+                                : srgb
+                            }
+                            fallback={srgb}
+                            step={step}
+                            hasRule
+                          />
+                        ),
+                      )}
+              </div>
+            ) : (
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
+                  gap: 12,
+                }}
+              >
+                {group.tokens.map((t) => (
+                  <Swatch
+                    key={t.name}
+                    token={t.name}
+                    fg={"fg" in t ? t.fg : undefined}
+                    bg={"bg" in t ? t.bg : undefined}
+                    label={"label" in t ? t.label : undefined}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         ))}
       </div>
@@ -353,12 +513,8 @@ function PaletteView({ groups }: { groups: Group[] }) {
   );
 }
 
-export const Brand: Story = {
-  render: () => <PaletteView groups={BRAND_GROUPS} />,
-};
-
-export const Status: Story = {
-  render: () => <PaletteView groups={STATUS_GROUPS} />,
+export const Palettes: Story = {
+  render: () => <PaletteView groups={PALETTE_GROUPS} />,
 };
 
 export const Themes: Story = {
