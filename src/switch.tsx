@@ -7,7 +7,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "./lib/utils";
 
 const switchVariants = cva(
-  "@container cursor-clickable data-checked:bg-primary data-unchecked:bg-edge data-unchecked:hover:border-focus focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-destructive/30 aria-invalid:border-destructive dark:data-unchecked:bg-edge/80 peer relative inline-flex shrink-0 items-center rounded-full border border-transparent motion-color outline-hidden after:absolute after:-inset-x-3 after:-inset-y-2 focus-visible:ring-3 aria-invalid:ring-3 data-disabled:pointer-events-none data-disabled:opacity-30",
+  "@container cursor-clickable data-checked:bg-primary data-unchecked:bg-shade data-unchecked:hover:border-focus focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-danger/30 aria-invalid:border-danger peer relative inline-flex shrink-0 items-center rounded-full border border-transparent motion-color outline-hidden after:absolute after:-inset-x-3 after:-inset-y-2 focus-visible:ring-3 aria-invalid:ring-3 data-disabled:pointer-events-none data-disabled:opacity-30",
   {
     variants: {
       size: {
@@ -22,7 +22,7 @@ const switchVariants = cva(
 );
 
 const switchThumbVariants = cva(
-  "bg-foundation dark:data-unchecked:bg-contrast dark:data-checked:bg-white pointer-events-none block rounded-full ring-0 transition-transform data-checked:translate-x-[calc(100cqw_-_100%)] rtl:data-checked:-translate-x-[calc(100cqw_-_100%)] data-unchecked:translate-x-0 rtl:data-unchecked:-translate-x-0",
+  "bg-white pointer-events-none block rounded-full ring-0 transition-transform data-checked:translate-x-[calc(100cqw_-_100%)] rtl:data-checked:-translate-x-[calc(100cqw_-_100%)] data-unchecked:translate-x-0 rtl:data-unchecked:-translate-x-0",
   {
     variants: {
       size: {

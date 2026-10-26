@@ -61,7 +61,7 @@ function Slider({
       >
         <SliderPrimitive.Track
           data-slot="slider-track"
-          className="bg-edge relative grow overflow-hidden rounded-full select-none data-[orientation=horizontal]:h-2 data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-2"
+          className="bg-shade relative grow overflow-hidden rounded-full select-none data-[orientation=horizontal]:h-2 data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-2"
         >
           <SliderPrimitive.Indicator
             data-slot="slider-range"
@@ -75,7 +75,7 @@ function Slider({
             aria-label={
               getThumbAriaLabel ? getThumbAriaLabel(index) : ariaLabel
             }
-            className="ring-focus/50 relative block data-[orientation=horizontal]:h-4 data-[orientation=horizontal]:w-6 data-[orientation=vertical]:h-6 data-[orientation=vertical]:w-4 shrink-0 rounded-full bg-foundation dark:bg-contrast motion-color cursor-clickable select-none after:absolute after:-inset-2 hover:ring-3 focus-visible:ring-3 focus-visible:outline-hidden active:ring-3 data-disabled:pointer-events-none"
+            className="ring-focus/50 relative block data-[orientation=horizontal]:h-4 data-[orientation=horizontal]:w-6 data-[orientation=vertical]:h-6 data-[orientation=vertical]:w-4 shrink-0 rounded-full bg-white motion-color cursor-clickable select-none after:absolute after:-inset-2 hover:ring-3 focus-visible:ring-3 focus-visible:outline-hidden active:ring-3 data-disabled:pointer-events-none"
           />
         ))}
       </SliderPrimitive.Control>
