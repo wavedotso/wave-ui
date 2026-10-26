@@ -34,7 +34,7 @@ export const Default: Story = {
   args: {},
   render: () => (
     <ContextMenu>
-      <ContextMenuTrigger className="border-line text-muted flex h-32 w-64 items-center justify-center rounded-md border border-dashed text-sm">
+      <ContextMenuTrigger className="border-contour text-muted flex h-32 w-64 items-center justify-center rounded-md border border-dashed text-sm">
         Right click here
       </ContextMenuTrigger>
       <ContextMenuContent>
@@ -63,7 +63,7 @@ export const WithGroups: Story = {
   args: {},
   render: () => (
     <ContextMenu>
-      <ContextMenuTrigger className="border-line text-muted flex h-32 w-64 items-center justify-center rounded-md border border-dashed text-sm">
+      <ContextMenuTrigger className="border-contour text-muted flex h-32 w-64 items-center justify-center rounded-md border border-dashed text-sm">
         Right click here
       </ContextMenuTrigger>
       <ContextMenuContent>
@@ -82,7 +82,8 @@ export const WithGroups: Story = {
         <ContextMenuSeparator />
         <ContextMenuGroup>
           <ContextMenuLabel>Danger</ContextMenuLabel>
-          <ContextMenuItem variant="destructive">
+          <ContextMenuItem variant="danger">
+            <TrashIcon />
             Delete <ContextMenuShortcut>⌫</ContextMenuShortcut>
           </ContextMenuItem>
         </ContextMenuGroup>
@@ -97,7 +98,7 @@ function CheckboxItemsDemo() {
   const [statusBar, setStatusBar] = useState(true);
   return (
     <ContextMenu>
-      <ContextMenuTrigger className="border-line text-muted flex h-32 w-64 items-center justify-center rounded-md border border-dashed text-sm">
+      <ContextMenuTrigger className="border-contour text-muted flex h-32 w-64 items-center justify-center rounded-md border border-dashed text-sm">
         Right click here
       </ContextMenuTrigger>
       <ContextMenuContent>
@@ -136,7 +137,7 @@ function RadioItemsDemo() {
   const [theme, setTheme] = useState("system");
   return (
     <ContextMenu>
-      <ContextMenuTrigger className="border-line text-muted flex h-32 w-64 items-center justify-center rounded-md border border-dashed text-sm">
+      <ContextMenuTrigger className="border-contour text-muted flex h-32 w-64 items-center justify-center rounded-md border border-dashed text-sm">
         Right click here
       </ContextMenuTrigger>
       <ContextMenuContent>
@@ -167,19 +168,21 @@ export const Inset: Story = {
   args: {},
   render: () => (
     <ContextMenu>
-      <ContextMenuTrigger className="border-line text-muted flex h-32 w-64 items-center justify-center rounded-md border border-dashed text-sm">
+      <ContextMenuTrigger className="border-contour text-muted flex h-32 w-64 items-center justify-center rounded-md border border-dashed text-sm">
         Right click here
       </ContextMenuTrigger>
       <ContextMenuContent>
-        <ContextMenuLabel inset>Manage</ContextMenuLabel>
-        <ContextMenuItem>
-          <StarIcon />
-          Add to favorites
-        </ContextMenuItem>
-        <ContextMenuItem inset>Rename</ContextMenuItem>
-        <ContextMenuItem inset>Duplicate</ContextMenuItem>
+        <ContextMenuGroup>
+          <ContextMenuLabel inset>Manage</ContextMenuLabel>
+          <ContextMenuItem>
+            <StarIcon />
+            Add to favorites
+          </ContextMenuItem>
+          <ContextMenuItem inset>Rename</ContextMenuItem>
+          <ContextMenuItem inset>Duplicate</ContextMenuItem>
+        </ContextMenuGroup>
         <ContextMenuSeparator />
-        <ContextMenuItem variant="destructive">
+        <ContextMenuItem variant="danger">
           <TrashIcon />
           Delete
         </ContextMenuItem>
@@ -192,7 +195,7 @@ export const WithSubmenu: Story = {
   args: {},
   render: () => (
     <ContextMenu>
-      <ContextMenuTrigger className="border-line text-muted flex h-32 w-64 items-center justify-center rounded-md border border-dashed text-sm">
+      <ContextMenuTrigger className="border-contour text-muted flex h-32 w-64 items-center justify-center rounded-md border border-dashed text-sm">
         Right click here
       </ContextMenuTrigger>
       <ContextMenuContent>

@@ -46,7 +46,8 @@ type ContextMenuItemProps = React.ComponentProps<
   typeof ContextMenuPrimitive.Item
 > & {
   inset?: boolean;
-  variant?: "default" | "destructive";
+  /** `danger` turns the item's text and leading icon red. */
+  variant?: "default" | "danger";
 };
 
 type ContextMenuSubProps = React.ComponentProps<
@@ -108,7 +109,7 @@ function ContextMenuContent({
   className,
   align = "start",
   alignOffset = 4,
-  side = "right",
+  side = "inline-end",
   sideOffset = 0,
   restoreFocusOnClose,
   finalFocus,
@@ -127,7 +128,13 @@ function ContextMenuContent({
         <ContextMenuPrimitive.Popup
           data-slot="context-menu-content"
           className={cn(
-            "motion-pop-md ring-contrast/10 bg-elevated text-contrast z-50 max-h-(--available-height) min-w-36 overflow-x-hidden overflow-y-auto rounded-md p-1 shadow-md ring-1 outline-hidden",
+            // Glass: a translucent fill with the blur on the popup itself (a
+            // blur on a ::before layer only half-blurs the page behind it and
+            // scrolls away with a long menu's content). Where the browser
+            // can't blur, the fill stays at 90% so text stays readable. Items
+            // round to the popup's radius minus its padding, so their corners
+            // follow the popup's curve.
+            "motion-pop-md bg-elevated/80 not-supports-backdrop-filter:bg-elevated/90 text-contrast ring-contrast/10 z-50 max-h-(--available-height) min-w-48 overflow-x-hidden overflow-y-auto rounded-lg p-1.5 shadow-md ring-1 backdrop-blur-xl backdrop-saturate-150 outline-hidden",
             className,
           )}
           finalFocus={resolveFinalFocus(restoreFocusOnClose, finalFocus)}
@@ -154,7 +161,7 @@ function ContextMenuLabel({
       data-slot="context-menu-label"
       data-inset={inset}
       className={cn(
-        "text-muted px-1.5 py-1 text-xs font-medium data-inset:pl-7",
+        "text-muted px-3 py-2.5 text-xs font-medium data-inset:ps-9.5",
         className,
       )}
       {...props}
@@ -174,7 +181,7 @@ function ContextMenuItem({
       data-inset={inset}
       data-variant={variant}
       className={cn(
-        "focus:bg-primary focus:text-white data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive focus:*:[svg]:text-white data-[variant=destructive]:focus:*:[svg]:text-destructive group/context-menu-item relative flex cursor-clickable items-center gap-1.5 rounded-sm px-1.5 py-1 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 data-inset:pl-7 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-highlight data-[variant=danger]:text-danger data-[variant=danger]:*:[svg]:text-danger data-[variant=danger]:focus:bg-danger data-[variant=danger]:focus:text-white data-[variant=danger]:focus:**:text-white group/context-menu-item relative flex cursor-clickable items-center gap-2.5 rounded-[calc(var(--radius)+var(--spacing)-var(--spacing)*1.5)] px-3 py-2 text-sm font-medium outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 data-inset:ps-9.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -199,23 +206,23 @@ function ContextMenuSubTrigger({
       data-slot="context-menu-sub-trigger"
       data-inset={inset}
       className={cn(
-        "focus:bg-primary focus:text-white data-popup-open:bg-primary data-popup-open:text-white flex cursor-clickable items-center gap-1.5 rounded-sm px-1.5 py-1 text-sm outline-hidden select-none data-inset:pl-7 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-highlight data-popup-open:bg-highlight flex cursor-clickable items-center gap-2.5 rounded-[calc(var(--radius)+var(--spacing)-var(--spacing)*1.5)] px-3 py-2 text-sm font-medium outline-hidden select-none data-inset:ps-9.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
     >
       {children}
-      <ChevronRightIcon className="ml-auto" />
+      <ChevronRightIcon className="ms-auto rtl:rotate-180" />
     </ContextMenuPrimitive.SubmenuTrigger>
   );
 }
 
 function ContextMenuSubContent({
   align = "start",
-  // -4 cancels the popup's p-1 (4px) top padding so the submenu's first
+  // -6 cancels the popup's p-1.5 (6px) top padding so the submenu's first
   // item lines up with the parent item row, not the popup container edge.
-  alignOffset = -4,
-  side = "right",
+  alignOffset = -6,
+  side = "inline-end",
   sideOffset = 0,
   className,
   ...props
@@ -223,7 +230,7 @@ function ContextMenuSubContent({
   return (
     <ContextMenuContent
       data-slot="context-menu-sub-content"
-      className={cn("w-auto min-w-24 shadow-md", className)}
+      className={cn("w-auto min-w-24", className)}
       align={align}
       alignOffset={alignOffset}
       side={side}
@@ -245,7 +252,7 @@ function ContextMenuCheckboxItem({
       data-slot="context-menu-checkbox-item"
       data-inset={inset}
       className={cn(
-        "focus:bg-primary focus:text-white focus:*:[svg]:text-white relative flex cursor-clickable items-center gap-1.5 rounded-sm py-1 pr-8 pl-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 data-inset:pl-7 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-highlight relative flex cursor-clickable items-center gap-2.5 rounded-[calc(var(--radius)+var(--spacing)-var(--spacing)*1.5)] py-2 pe-8 ps-3 text-sm font-medium outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 data-inset:ps-9.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       checked={checked}
@@ -253,7 +260,7 @@ function ContextMenuCheckboxItem({
     >
       <span
         data-slot="context-menu-checkbox-item-indicator"
-        className="absolute right-2 pointer-events-none"
+        className="absolute end-2 pointer-events-none"
       >
         <ContextMenuPrimitive.CheckboxItemIndicator>
           <CheckIcon />
@@ -284,14 +291,14 @@ function ContextMenuRadioItem({
       data-slot="context-menu-radio-item"
       data-inset={inset}
       className={cn(
-        "focus:bg-primary focus:text-white focus:*:[svg]:text-white relative flex cursor-clickable items-center gap-1.5 rounded-sm py-1 pr-8 pl-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 data-inset:pl-7 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-highlight relative flex cursor-clickable items-center gap-2.5 rounded-[calc(var(--radius)+var(--spacing)-var(--spacing)*1.5)] py-2 pe-8 ps-3 text-sm font-medium outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 data-inset:ps-9.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
     >
       <span
         data-slot="context-menu-radio-item-indicator"
-        className="absolute right-2 pointer-events-none"
+        className="absolute end-2 pointer-events-none"
       >
         <ContextMenuPrimitive.RadioItemIndicator>
           <CheckIcon />
@@ -309,7 +316,7 @@ function ContextMenuSeparator({
   return (
     <ContextMenuPrimitive.Separator
       data-slot="context-menu-separator"
-      className={cn("bg-line -mx-1 my-1 h-px", className)}
+      className={cn("bg-contour -mx-1.5 my-1.5 h-px", className)}
       {...props}
     />
   );
@@ -322,10 +329,7 @@ function ContextMenuShortcut({
   return (
     <span
       data-slot="context-menu-shortcut"
-      className={cn(
-        "text-muted group-focus/context-menu-item:text-white ml-auto text-xs tracking-widest",
-        className,
-      )}
+      className={cn("text-muted ms-auto text-xs tracking-widest", className)}
       {...props}
     />
   );
