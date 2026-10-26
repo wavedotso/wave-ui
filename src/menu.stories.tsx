@@ -54,7 +54,7 @@ export const Default: Story = {
           </MenuItem>
         </MenuGroup>
         <MenuSeparator />
-        <MenuItem variant="destructive">
+        <MenuItem>
           Log out<MenuShortcut>⇧⌘Q</MenuShortcut>
         </MenuItem>
       </MenuContent>
@@ -147,15 +147,17 @@ export const Inset: Story = {
     <Menu>
       <MenuTrigger render={<Button variant="outline" />}>Actions</MenuTrigger>
       <MenuContent>
-        <MenuLabel inset>Manage</MenuLabel>
-        <MenuItem>
-          <StarIcon />
-          Add to favorites
-        </MenuItem>
-        <MenuItem inset>Rename</MenuItem>
-        <MenuItem inset>Duplicate</MenuItem>
+        <MenuGroup>
+          <MenuLabel inset>Manage</MenuLabel>
+          <MenuItem>
+            <StarIcon />
+            Add to favorites
+          </MenuItem>
+          <MenuItem inset>Rename</MenuItem>
+          <MenuItem inset>Duplicate</MenuItem>
+        </MenuGroup>
         <MenuSeparator />
-        <MenuItem variant="destructive">
+        <MenuItem variant="danger">
           <TrashIcon />
           Delete
         </MenuItem>
@@ -173,7 +175,8 @@ export const WithDisabled: Story = {
         <MenuItem>Duplicate</MenuItem>
         <MenuItem disabled>Archive</MenuItem>
         <MenuSeparator />
-        <MenuItem variant="destructive" disabled>
+        <MenuItem variant="danger" disabled>
+          <TrashIcon />
           Delete
         </MenuItem>
       </MenuContent>
@@ -195,7 +198,7 @@ export const RestoreFocusOnClose: Story = {
   render: () => (
     <div
       tabIndex={0}
-      className="group flex w-72 items-center justify-between rounded-md border border-edge p-3 text-sm"
+      className="group flex w-72 items-center justify-between rounded-md border border-shade p-3 text-sm"
     >
       <span>Hover or focus this row</span>
       <Menu>
@@ -209,7 +212,10 @@ export const RestoreFocusOnClose: Story = {
           <MenuItem>Edit</MenuItem>
           <MenuItem>Duplicate</MenuItem>
           <MenuSeparator />
-          <MenuItem variant="destructive">Delete</MenuItem>
+          <MenuItem variant="danger">
+            <TrashIcon />
+            Delete
+          </MenuItem>
         </MenuContent>
       </Menu>
     </div>

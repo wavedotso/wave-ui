@@ -166,7 +166,7 @@ export const Inset: Story = {
           <MenubarItem inset>Rename</MenubarItem>
           <MenubarItem inset>Duplicate</MenubarItem>
           <MenubarSeparator />
-          <MenubarItem variant="destructive">
+          <MenubarItem variant="danger">
             <TrashIcon />
             Delete
           </MenubarItem>

@@ -36,7 +36,8 @@ type MenuLabelProps = React.ComponentProps<typeof MenuPrimitive.GroupLabel> & {
 
 type MenuItemProps = React.ComponentProps<typeof MenuPrimitive.Item> & {
   inset?: boolean;
-  variant?: "default" | "destructive";
+  /** `danger` turns the item's text and leading icon red. */
+  variant?: "default" | "danger";
 };
 
 type MenuSubProps = React.ComponentProps<typeof MenuPrimitive.SubmenuRoot>;
@@ -145,7 +146,7 @@ function MenuItem({
       data-inset={inset}
       data-variant={variant}
       className={cn(
-        "focus:bg-primary focus:text-white data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive not-data-[variant=destructive]:focus:**:text-white group/menu-item relative flex cursor-clickable items-center gap-1.5 rounded-sm px-1.5 py-1 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 data-inset:pl-7 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-highlight data-[variant=danger]:text-danger data-[variant=danger]:*:[svg]:text-danger data-[variant=danger]:focus:bg-danger data-[variant=danger]:focus:text-white data-[variant=danger]:focus:**:text-white group/menu-item relative flex cursor-clickable items-center gap-1.5 rounded-sm px-1.5 py-1 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 data-inset:pl-7 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -168,7 +169,7 @@ function MenuSubTrigger({
       data-slot="menu-sub-trigger"
       data-inset={inset}
       className={cn(
-        "focus:bg-primary focus:text-white focus:**:text-white data-popup-open:bg-primary data-popup-open:text-white flex cursor-clickable items-center gap-1.5 rounded-sm px-1.5 py-1 text-sm outline-hidden select-none data-inset:pl-7 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-highlight data-popup-open:bg-highlight flex cursor-clickable items-center gap-1.5 rounded-sm px-1.5 py-1 text-sm outline-hidden select-none data-inset:pl-7 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -214,7 +215,7 @@ function MenuCheckboxItem({
       data-slot="menu-checkbox-item"
       data-inset={inset}
       className={cn(
-        "focus:bg-primary focus:text-white focus:**:text-white relative flex cursor-clickable items-center gap-1.5 rounded-sm py-1 pr-8 pl-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 data-inset:pl-7 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-highlight relative flex cursor-clickable items-center gap-1.5 rounded-sm py-1 pr-8 pl-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 data-inset:pl-7 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       checked={checked}
@@ -248,7 +249,7 @@ function MenuRadioItem({
       data-slot="menu-radio-item"
       data-inset={inset}
       className={cn(
-        "focus:bg-primary focus:text-white focus:**:text-white relative flex cursor-clickable items-center gap-1.5 rounded-sm py-1 pr-8 pl-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 data-inset:pl-7 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-highlight relative flex cursor-clickable items-center gap-1.5 rounded-sm py-1 pr-8 pl-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 data-inset:pl-7 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -270,7 +271,7 @@ function MenuSeparator({ className, ...props }: MenuSeparatorProps) {
   return (
     <MenuPrimitive.Separator
       data-slot="menu-separator"
-      className={cn("bg-line -mx-1 my-1 h-px", className)}
+      className={cn("bg-contour -mx-1 my-1 h-px", className)}
       {...props}
     />
   );
@@ -280,10 +281,7 @@ function MenuShortcut({ className, ...props }: MenuShortcutProps) {
   return (
     <span
       data-slot="menu-shortcut"
-      className={cn(
-        "text-muted group-focus/menu-item:text-white ml-auto text-xs tracking-widest",
-        className,
-      )}
+      className={cn("text-muted ml-auto text-xs tracking-widest", className)}
       {...props}
     />
   );
