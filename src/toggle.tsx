@@ -7,14 +7,14 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "./lib/utils";
 
 const toggleVariants = cva(
-  "cursor-clickable focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-destructive/30 aria-invalid:border-destructive rounded-md border border-transparent bg-clip-padding font-medium focus-visible:ring-3 aria-invalid:ring-3 [&_svg:not([class*='size-'])]:size-4 inline-flex items-center justify-center whitespace-nowrap motion-color data-disabled:pointer-events-none data-disabled:opacity-30 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-hidden group/toggle select-none active:scale-[0.97]",
+  "cursor-clickable focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-danger/30 aria-invalid:border-danger rounded-md border border-transparent bg-clip-padding font-medium focus-visible:ring-3 aria-invalid:ring-3 [&_svg:not([class*='size-'])]:size-4 inline-flex items-center justify-center whitespace-nowrap motion-color data-disabled:pointer-events-none data-disabled:opacity-30 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-hidden group/toggle select-none active:scale-[0.97]",
   {
     variants: {
       variant: {
         default:
-          "text-contrast hover:bg-secondary/80 data-pressed:bg-secondary data-pressed:text-contrast",
+          "text-contrast hover:bg-highlight data-pressed:bg-primary data-pressed:text-white data-pressed:hover:bg-primary/80 not-supports-backdrop-filter:data-pressed:hover:bg-primary/90 data-pressed:hover:backdrop-blur-xl data-pressed:hover:backdrop-saturate-150",
         outline:
-          "border-edge bg-foundation hover:bg-secondary/80 hover:text-contrast dark:bg-edge/30 data-pressed:bg-secondary data-pressed:text-contrast",
+          "border-shade bg-foundation hover:bg-highlight hover:text-contrast data-pressed:border-primary data-pressed:bg-primary data-pressed:text-white data-pressed:hover:bg-primary/80 not-supports-backdrop-filter:data-pressed:hover:bg-primary/90 data-pressed:hover:backdrop-blur-xl data-pressed:hover:backdrop-saturate-150",
       },
       size: {
         default:
