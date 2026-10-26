@@ -26,6 +26,40 @@ type FormProps<TFieldValues extends FieldValues> = {
 } & Omit<React.ComponentProps<"form">, "onSubmit">;
 
 type FormRootProps = React.ComponentProps<"form">;
+
+type FormFieldRenderArgs<
+  TFieldValues extends FieldValues,
+  TName extends FieldPath<TFieldValues>,
+> = {
+  id: string;
+  field: ControllerRenderProps<TFieldValues, TName>;
+  fieldState: ControllerFieldState;
+};
+
+type FormFieldProps<
+  TFieldValues extends FieldValues,
+  TName extends FieldPath<TFieldValues>,
+> = {
+  name: TName;
+  id?: string;
+  required?: boolean;
+  label?: React.ReactNode;
+  description?: React.ReactNode;
+  rules?: RegisterOptions<TFieldValues, TName>;
+  /**
+   * Render the actual control.
+   *
+   * - For Base UI controls, prefer `onValueChange`.
+   * - For native/standard inputs, use `onChange`.
+   *
+   * Use `fieldControlProps(field)` to get both.
+   */
+  render: (args: FormFieldRenderArgs<TFieldValues, TName>) => React.ReactNode;
+} & Omit<
+  React.ComponentProps<typeof Field>,
+  "children" | "name" | "invalid" | "touched" | "dirty" | "render"
+>;
+
 type FormErrorProps = React.ComponentProps<"p">;
 type FormActionsProps = React.ComponentProps<"div">;
 type FormMessageProps = React.ComponentProps<"p">;
@@ -61,39 +95,6 @@ function FormRoot({ className, ...props }: FormRootProps) {
     />
   );
 }
-
-type FormFieldRenderArgs<
-  TFieldValues extends FieldValues,
-  TName extends FieldPath<TFieldValues>,
-> = {
-  id: string;
-  field: ControllerRenderProps<TFieldValues, TName>;
-  fieldState: ControllerFieldState;
-};
-
-type FormFieldProps<
-  TFieldValues extends FieldValues,
-  TName extends FieldPath<TFieldValues>,
-> = {
-  name: TName;
-  id?: string;
-  required?: boolean;
-  label?: React.ReactNode;
-  description?: React.ReactNode;
-  rules?: RegisterOptions<TFieldValues, TName>;
-  /**
-   * Render the actual control.
-   *
-   * - For Base UI controls, prefer `onValueChange`.
-   * - For native/standard inputs, use `onChange`.
-   *
-   * Use `fieldControlProps(field)` to get both.
-   */
-  render: (args: FormFieldRenderArgs<TFieldValues, TName>) => React.ReactNode;
-} & Omit<
-  React.ComponentProps<typeof Field>,
-  "children" | "name" | "invalid" | "touched" | "dirty" | "render"
->;
 
 /**
  * Base UI + React Hook Form field helper.
@@ -155,7 +156,7 @@ function FormField<
             <FieldLabel>
               {label}
               {isRequired ? (
-                <span aria-hidden="true" className="text-destructive ms-1">
+                <span aria-hidden="true" className="text-danger ms-1">
                   *
                 </span>
               ) : null}
@@ -198,7 +199,7 @@ function FormError({ className, ...props }: FormErrorProps) {
       data-slot="form-error"
       role="alert"
       className={cn(
-        "text-destructive rounded-lg border border-destructive/30 bg-destructive/5 p-4 text-sm",
+        "text-danger rounded-lg border border-danger/30 bg-danger/5 p-4 text-sm",
         className,
       )}
       {...props}

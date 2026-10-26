@@ -40,7 +40,7 @@ type FieldControlProps = React.ComponentProps<typeof FieldPrimitive.Control>;
  * A labelled control with its messages. Below the control, `FieldError`
  * comes first and `FieldDescription` under it, so the hint stays visible
  * while the error is showing. An invalid field doesn't tint its text: the
- * control's destructive ring and the error carry the state, and the label
+ * control's danger ring and the error carry the state, and the label
  * stays neutral.
  */
 function Field({ className, orientation, ...props }: FieldProps) {
@@ -129,7 +129,7 @@ function FieldError({ className, ...props }: FieldErrorProps) {
   return (
     <FieldPrimitive.Error
       data-slot="field-error"
-      className={cn("text-destructive text-sm font-normal -mb-3", className)}
+      className={cn("text-danger text-sm font-normal -mb-3", className)}
       {...props}
     />
   );
