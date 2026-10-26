@@ -87,7 +87,7 @@ function ResizableHandle({
         // Disabled keeps the line (it still divides the content) and drops
         // pointer events, which also hides the library's inline
         // `cursor: not-allowed`.
-        "group/resizable-handle bg-line z-10 flex items-center justify-center motion-color outline-hidden focus-visible:ring-3 focus-visible:ring-focus/50 data-[separator=active]:bg-focus data-[separator=hover]:bg-focus data-[separator=disabled]:pointer-events-none aria-[orientation=horizontal]:h-px aria-[orientation=vertical]:w-px",
+        "group/resizable-handle bg-contour z-10 flex items-center justify-center motion-color outline-hidden focus-visible:ring-3 focus-visible:ring-focus/50 data-[separator=active]:bg-focus data-[separator=hover]:bg-focus data-[separator=disabled]:pointer-events-none aria-[orientation=horizontal]:h-px aria-[orientation=vertical]:w-px",
         className,
       )}
       {...props}
@@ -95,7 +95,7 @@ function ResizableHandle({
       {grip && (
         <div
           data-slot="resizable-handle-grip"
-          className="bg-edge h-6 w-1 shrink-0 rounded-full motion-color group-data-[separator=active]/resizable-handle:bg-focus group-data-[separator=hover]/resizable-handle:bg-focus group-data-[separator=disabled]/resizable-handle:opacity-30 group-aria-[orientation=horizontal]/resizable-handle:h-1 group-aria-[orientation=horizontal]/resizable-handle:w-6"
+          className="bg-shade h-6 w-1 shrink-0 rounded-full motion-color group-data-[separator=active]/resizable-handle:bg-focus group-data-[separator=hover]/resizable-handle:bg-focus group-data-[separator=disabled]/resizable-handle:opacity-30 group-aria-[orientation=horizontal]/resizable-handle:h-1 group-aria-[orientation=horizontal]/resizable-handle:w-6"
         />
       )}
     </SeparatorPrimitive>

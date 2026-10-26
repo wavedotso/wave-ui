@@ -80,7 +80,7 @@ function DrawerContent({
           data-slot="drawer-content"
           className={cn(
             // Base layout & appearance
-            "group/drawer-content bg-foundation fixed z-50 flex flex-col overflow-y-auto border-edge text-sm shadow-lg outline-hidden",
+            "group/drawer-content bg-foundation fixed z-50 flex flex-col overflow-y-auto border-shade text-sm shadow-lg outline-hidden",
             // Transition — animate translate at the lg tier + the one curve; disable during swipe
             "transition-[translate] duration-(--duration-lg) ease-(--ease) data-[swiping]:duration-0",
             // Bottom drawer (swipeDirection="down")

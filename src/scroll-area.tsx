@@ -13,6 +13,10 @@ type ScrollAreaProps = React.ComponentProps<typeof ScrollAreaPrimitive.Root> & {
   fade?: boolean;
 };
 
+type ScrollBarProps = React.ComponentProps<
+  typeof ScrollAreaPrimitive.Scrollbar
+>;
+
 /**
  * The edge fade is a mask, so the content itself turns transparent and
  * whatever is behind it shows through: no shadow color to match, in any
@@ -67,10 +71,6 @@ function ScrollArea({
   );
 }
 
-type ScrollBarProps = React.ComponentProps<
-  typeof ScrollAreaPrimitive.Scrollbar
->;
-
 // Hidden until the area is hovered or scrolling: it appears at once when
 // scrolling starts and fades out on the motion tokens once it stops. The 1px
 // transparent border is a spacer between the content and the bar.
@@ -91,7 +91,7 @@ function ScrollBar({
     >
       <ScrollAreaPrimitive.Thumb
         data-slot="scroll-area-thumb"
-        className="bg-edge relative flex-1 rounded-full"
+        className="bg-shade relative flex-1 rounded-full"
       />
     </ScrollAreaPrimitive.Scrollbar>
   );
