@@ -18,7 +18,7 @@ function Kbd({ className, ...props }: KbdProps) {
         // deliberate: Tailwind's base styles set `kbd` to the mono font, and
         // keys read like keys in the body font everywhere (mono widens
         // "Ctrl" and lacks ⌘⌥⇧ in many fonts).
-        "bg-secondary text-muted in-data-[slot=tooltip-content]:bg-contrast-inverse/10 in-data-[slot=tooltip-content]:text-contrast-inverse pointer-events-none inline-flex h-5.5 w-fit min-w-5.5 items-center justify-center gap-1 rounded-sm px-1.5 font-sans text-xs font-medium select-none [&_svg:not([class*='size-'])]:size-3 in-data-[slot=input-group]:bg-contrast-inverse/50",
+        "bg-secondary text-contrast in-data-[slot=tooltip-content]:bg-contrast-inverse/10 in-data-[slot=tooltip-content]:text-contrast-inverse pointer-events-none inline-flex h-5.5 w-fit min-w-5.5 items-center justify-center gap-1 rounded-sm px-1.5 font-sans text-xs font-medium select-none [&_svg:not([class*='size-'])]:size-3 in-data-[slot=input-group]:bg-contrast-inverse/50",
         className,
       )}
       {...props}

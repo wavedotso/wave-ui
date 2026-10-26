@@ -56,7 +56,7 @@ export const WithPlaceholder: Story = {
   render: () => (
     <div className="w-80">
       <AspectRatio ratio={16 / 9}>
-        <div className="bg-secondary text-muted flex size-full items-center justify-center rounded-md text-sm">
+        <div className="bg-secondary text-contrast flex size-full items-center justify-center rounded-md text-sm">
           16:9
         </div>
       </AspectRatio>
