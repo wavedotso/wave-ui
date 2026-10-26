@@ -8,7 +8,7 @@ interface GradientRevealTextProps {
   text: string;
   /** Spotlight follow speed in seconds. Default: 0 (instant) */
   duration?: number;
-  /** Gradient colors for the reveal effect. Default: rainbow */
+  /** Gradient colors for the reveal effect, any CSS color (`var(--wave-teal-400)` too). Default: rainbow */
   colors?: string[];
   /** Base stroke opacity when not hovered. Default: 0.3 */
   baseOpacity?: number;
@@ -20,12 +20,18 @@ interface GradientRevealTextProps {
   spotlightSize?: number;
   /** Stroke width in px. Default: auto (1.5% of text height) */
   strokeWidth?: number;
-  /** Base stroke color. Default: neutral-200 (light) / neutral-800 (dark) via Tailwind */
+  /** Base stroke color. Default: the `contour` token, so it follows the theme */
   baseColor?: string;
   className?: string;
 }
 
-const DEFAULT_COLORS = ["#eab308", "#ef4444", "#3b82f6", "#06b6d4", "#8b5cf6"];
+const DEFAULT_COLORS = [
+  "var(--wave-yellow-400)",
+  "var(--wave-red-400)",
+  "var(--wave-blue-400)",
+  "var(--wave-teal-400)",
+  "var(--wave-purple-400)",
+];
 
 /**
  * Large decorative text with a gradient spotlight that follows the cursor.
@@ -37,7 +43,7 @@ const DEFAULT_COLORS = ["#eab308", "#ef4444", "#3b82f6", "#06b6d4", "#8b5cf6"];
  * @example
  * ```tsx
  * <GradientRevealText text="HELLO" />
- * <GradientRevealText text="BRAND" colors={["#ff0000", "#00ff00"]} />
+ * <GradientRevealText text="BRAND" colors={["var(--wave-red-400)", "var(--wave-green-400)"]} />
  * ```
  */
 function GradientRevealText({
@@ -229,7 +235,11 @@ function GradientRevealText({
         <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="0%">
           {hovered &&
             stops.map((s) => (
-              <stop key={s.offset} offset={s.offset} stopColor={s.color} />
+              <stop
+                key={s.offset}
+                offset={s.offset}
+                style={{ stopColor: s.color }}
+              />
             ))}
         </linearGradient>
 
@@ -275,11 +285,7 @@ function GradientRevealText({
         y="50%"
         textAnchor="middle"
         dominantBaseline="central"
-        className={
-          baseColor
-            ? "font-bold"
-            : "font-bold stroke-neutral-200 dark:stroke-neutral-800"
-        }
+        className={baseColor ? "font-bold" : "font-bold stroke-contour"}
         style={{
           ...textStyle,
           ...(baseColor ? { stroke: baseColor } : {}),

@@ -25,14 +25,7 @@ const meta: Meta<typeof GradientRevealText> = {
   },
   decorators: [
     (Story) => (
-      <div
-        style={{
-          width: 600,
-          background: "black",
-          padding: 32,
-          borderRadius: 12,
-        }}
-      >
+      <div className="ink w-150 max-w-full rounded-lg bg-foundation p-8 text-contrast">
         <Story />
       </div>
     ),
@@ -49,7 +42,11 @@ export const Default: Story = {
 export const CustomColors: Story = {
   args: {
     text: "WAVE",
-    colors: ["#22d3ee", "#a78bfa", "#f472b6"],
+    colors: [
+      "var(--wave-teal-300)",
+      "var(--wave-purple-400)",
+      "var(--wave-pink-400)",
+    ],
   },
 };
 
@@ -83,7 +80,7 @@ export const CustomBaseColor: Story = {
   name: "Custom Base Color",
   args: {
     text: "TINT",
-    baseColor: "#0074de",
+    baseColor: "var(--primary)",
     baseOpacity: 0.5,
   },
 };
@@ -96,14 +93,7 @@ export const OnLightBackground: Story = {
   },
   decorators: [
     (Story) => (
-      <div
-        style={{
-          width: 600,
-          background: "white",
-          padding: 32,
-          borderRadius: 12,
-        }}
-      >
+      <div className="paper w-150 max-w-full rounded-lg bg-foundation p-8 text-contrast">
         <Story />
       </div>
     ),
