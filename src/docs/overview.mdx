@@ -1,13 +1,72 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 
-import { ColorGuide } from './color-guide';
-
-{/*
-  Colors / Overview — the color guide, authored once as an MDX docs page.
-  Rendering the `ColorGuide` component here (rather than as a story) means the
-  article appears exactly once, with no autodocs primary/story echo.
-*/}
-
 <Meta title="Colors/Overview" />
 
-<ColorGuide />
+# Color
+
+Color in Wave communicates status, expresses the brand, and guides attention. Every color is
+_semantic_ — defined by its job, adaptive to light and dark, and built to stay legible. Here's
+how the palette is designed, and how to use it well.
+
+## Use the token, never the value
+
+**Avoid hard-coding a color.** Documented hex values are for reference only — the real values
+shift with theme and appearance. Reach for a semantic token — `bg-primary`, `text-muted`,
+`border-shade` — and let the system resolve it. Re-skin the entire library by overriding the
+semantic layer; the components never change.
+
+**Use a color consistently.** One color, one meaning. For example, Wave Blue means
+"primary / interactive," so don't reuse it to style text that isn't.
+
+## One brand color, kept constant
+
+Wave's brand is **Wave Blue** — a calm, trustable cobalt, chosen to be _ownable_ rather than
+the blue every app already ships. It drives `--primary`, the focus ring, links (`--info`), and
+the bright signal (`--accent`). It stays the **same in light and dark** on purpose: a constant
+color is a constant brand.
+
+## Work in light, dark, and increased contrast
+
+**Supply a light and a dark variant for anything colored.** Surfaces, text and borders flip
+between the light theme (Paper) and the two dark themes (Graphite · Ink) through the theme's
+tokens, never a `dark:` variant. Status colors keep their palette's 500 as a fill in every
+theme, with white text on it; as words and icons they take their `-text` step, the 600 on
+Paper and the 400 on Graphite and Ink, so they read on each theme's own surfaces. Graphite is the one
+exception: each status is a touch lighter than its 400 there, so it reads on Graphite's mid-tone menus.
+
+## Put color in fills and symbols — not in text
+
+The rule that shapes the whole status system: **vivid colors belong on fills, icons and dots;
+text stays neutral.** Success is a green checkmark beside plain words — not green words.
+Coloring text forces you to darken it for contrast until a yellow turns to brown, destroying the
+very identity the color exists to carry. Keep the color in the glyph and the label neutral, and
+you get identity _and_ legibility at no cost.
+
+## Never rely on color alone
+
+**Pair color with shape and text.** A status is an icon (eg. check, triangle) _and_ a word so
+meaning survives color blindness and cultural differences (a rising stock reads green in the
+US, red in China). Color reinforces meaning; it never carries it alone.
+
+## The status palette
+
+Four semantic roles. Calm where they can be, loud where they must be:
+
+- **Success** — Wave Green, clearly apart from the warning orange.
+- **Warning** — Wave Orange, held well away from the green.
+- **Danger** — Wave Red, the most saturated of the set; an error is the one thing that should
+  genuinely alarm.
+- **Info** — Wave Blue. Informational _is_ the brand.
+
+## Authored in OKLCH, wide-gamut ready
+
+Every color is defined in **OKLCH**, so lightness is perceptually even and adjusting one channel
+doesn't skew the others. On Display-P3 screens the palette renders in wide gamut; on sRGB it
+falls back cleanly.
+
+## Accessibility is the floor
+
+**Meet contrast, and respect the person's settings.** Text targets WCAG AA (4.5:1); never
+override someone's chosen appearance or contrast level. The structure tokens (`--contour`,
+`--highlight`, `--shade`, `--focus`) and the layered surfaces are tuned to keep text and
+controls legible on every theme.
