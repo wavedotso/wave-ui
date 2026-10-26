@@ -49,8 +49,21 @@ thing on the field, so it sits closest; the hint stays visible, because the mome
 goes wrong is exactly when a reader needs it. We don't swap one for the other, and we don't put
 the hint above the input — one place, one order, in every field and every form.
 
-The error carries the state on its own: the control gets the destructive ring and the message
+The error carries the state on its own: the control gets the danger ring and the message
 says what's wrong, while the label stays neutral rather than turning red.
+
+## Solid colour for action, neutral for information
+
+Solid colour is for what asks to be acted on or noticed now: buttons, badges, unread counts
+and critical states take their palette's 500 with white text, the same in every theme.
+
+Everything that informs stays neutral. Sections, callouts, alerts and tags keep the theme's own
+background and text, and carry their colour in the icon and the edge: a stronger border, or the
+signature gradient.
+
+Information stays calm and readable, holds up on cheap screens and in sunlight, and never
+competes with people's own content. Colour only reinforces the meaning; the icon and the words
+carry it, so it reads the same for everyone, whatever colours they see.
 
 ## Opacity comes in four steps
 
@@ -58,12 +71,72 @@ Translucency is picked from a short scale, each step tied to a job, never tuned 
 component:
 
 - **10** — hairlines and faint tints: `ring-contrast/10` around every surface
-- **30** — invalid and disabled: `ring-destructive/30`, `opacity-30`
+- **30** — invalid and disabled: `ring-danger/30`, `opacity-30`
 - **50** — focus and muted fills: `ring-focus/50`, `bg-secondary/50`
-- **80** — hover: `hover:bg-secondary/80`
+- **80** — a filled control's hover and the glass fill: `hover:bg-primary/80`, `bg-elevated/80`
 
 A value outside the scale is a question to answer, not a tweak to keep: if 10 reads too faint
 and 30 too strong, the role is usually wrong, not the number. Fewer values also means the same
 job looks the same everywhere, which is most of what makes a set of components feel like one.
+The one standing exception is 90, the fill that glass falls back to where the browser can't
+blur (below).
+
+## Controls are drawn with contour, highlight and shade
+
+A draughtsman renders any form with three marks: the contour where it ends, the highlight where
+the light lands, and the shade that gives it body. Wave draws its controls the same way, with
+the theme's own foreground made translucent, at three strengths. Each mark keeps one job, whether it lands on a border
+or a background:
+
+- **`contour`** — 7% of the foreground (5% in Ink): where a shape ends. Hairline
+  borders, separators, the dividers between rows and sections.
+- **`highlight`** — 10% (9%): where attention lands. The hovered row, the item picked with the
+  arrow keys, a trigger whose menu is open.
+- **`shade`** — 14% (13%): what gives a control its body. The fill of fields, tracks and
+  unchecked boxes, a scrollbar thumb, the border of an outline button.
+
+All three are translucent, so each sits the same distance from whatever is beneath it — the
+page, a card, a menu or glass — and a theme only has to supply its foreground. They step from faint to
+strong, so a hovered row always reads lighter than the empty field beside it. A colour is named
+for its job, not for where it lands: `border-shade` and `bg-shade` are the same body,
+`border-contour` and `bg-contour` the same line. When a boundary has to be intense — a layout
+region, a control's outline — it takes `shade`.
+
+## Hover points, primary chooses
+
+Every item, row and button takes its background from one of three recipes, so a highlight
+means the same thing wherever it appears:
+
+- **Hover and highlight** — `bg-highlight`, on anything without a fill of its own: menu and
+  list items, ghost and outline buttons, toggles, sidebar items, table rows, items rendered as
+  links. In a menu or a list, the row under the pointer and the row picked with the arrow keys
+  are one state, so they look the same.
+- **Hover on a filled control** — the fill fades to 80 (`hover:bg-primary/80`) with the same
+  backdrop blur as glass, so a button and a menu over the same picture read as one material.
+  Where the browser can't blur, it fades only to 90.
+- **Selected, current or on** — `bg-primary` with white text: the active tab, the sidebar's
+  current page, a pressed toggle, a selected row, a checked control. Primary means _chosen_,
+  never merely _pointed at_, which is why hover never fills with it: a hovered row that looks
+  like the current page makes the current page impossible to find.
+
+Focus stays separate and sits on top of any of these, as the `ring-focus/50` ring.
+
+A few things show hover another way, on purpose. Form fields already carry the shade fill, so
+hover reveals their border (`hover:border-focus`). Inactive tabs and breadcrumb links brighten
+their text, and the accordion trigger underlines. A surface that is a link steps up a level
+instead: a card lifts to the elevated surface, a muted item to the full secondary fill. Small
+fills that never sit over a picture, such as link badges and the native file button, fade to
+80 without the blur.
+
+## Floating surfaces are glass
+
+A menu floats over the page as glass: the elevated surface at 80 with a 24px backdrop blur
+(`backdrop-blur-xl backdrop-saturate-150`), so what's beneath shows as a soft glow of colour
+rather than shapes you could read. On a plain page it simply looks solid, and that's fine.
+Where the browser can't blur, the fill holds at 90 (`not-supports-backdrop-filter:` carries
+the fallback), so text never sits over a sharp, busy background.
+
+The blur goes on the surface itself, never on a `::before` layer: a layer blurs only part of
+what's behind it and scrolls away with a long menu's content.
 
 _This page is where that thinking lives — add to it as the system grows._
