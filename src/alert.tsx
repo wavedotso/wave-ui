@@ -4,21 +4,21 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "./lib/utils";
 
 const alertVariants = cva(
-  "grid gap-0.5 rounded-md border border-edge px-4 py-3 text-start text-sm has-data-[slot=alert-action]:pe-18 has-data-[icon]:grid-cols-[auto_1fr] has-data-[icon]:gap-x-2.5 *:data-[icon]:col-start-1 *:data-[icon]:row-span-2 *:data-[icon]:translate-y-0.5 *:data-[icon]:text-current *:[svg]:text-current *:[svg:not([class*='size-'])]:size-4 w-full relative group/alert",
+  "grid gap-0.5 rounded-md border border-shade px-4 py-3 text-start text-sm has-data-[slot=alert-action]:pe-18 has-data-[icon]:grid-cols-[auto_1fr] has-data-[icon]:gap-x-2.5 *:data-[icon]:col-start-1 *:data-[icon]:row-span-2 *:data-[icon]:translate-y-0.5 *:data-[icon]:text-current *:[svg]:text-current *:[svg:not([class*='size-'])]:size-4 w-full relative group/alert",
   {
     variants: {
-      // Status lives in the icon and the border, never the text: the
-      // title and description stay neutral so they're readable in every
-      // theme (colored text on a neutral surface fails contrast).
+      // Status lives in the icon only, never the border or the text: the
+      // surface, border, title and description stay neutral so they read
+      // in every theme, and the icon's shape and colour carry the status.
       variant: {
         default: "bg-surface text-contrast",
-        info: "bg-surface text-contrast border-info/30 *:data-[icon]:text-info *:[svg]:text-info",
+        info: "bg-surface text-contrast *:data-[icon]:text-info *:[svg]:text-info",
         success:
-          "bg-surface text-contrast border-success/30 *:data-[icon]:text-success *:[svg]:text-success",
+          "bg-surface text-contrast *:data-[icon]:text-success *:[svg]:text-success",
         warning:
-          "bg-surface text-contrast border-warning/30 *:data-[icon]:text-warning *:[svg]:text-warning",
-        destructive:
-          "bg-surface text-contrast border-destructive/30 *:data-[icon]:text-destructive *:[svg]:text-destructive",
+          "bg-surface text-contrast *:data-[icon]:text-warning *:[svg]:text-warning",
+        danger:
+          "bg-surface text-contrast *:data-[icon]:text-danger *:[svg]:text-danger",
       },
     },
     defaultVariants: {

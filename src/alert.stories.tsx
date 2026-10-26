@@ -15,7 +15,7 @@ const meta = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["default", "info", "success", "warning", "destructive"],
+      options: ["default", "info", "success", "warning", "danger"],
     },
   },
 } satisfies Meta<typeof Alert>;
@@ -118,9 +118,9 @@ export const Warning: Story = {
  * `role="alert"` and screen readers announce it at once. A static callout
  * needs no role.
  */
-export const Destructive: Story = {
+export const Danger: Story = {
   render: (args) => (
-    <Alert {...args} variant="destructive" role="alert" className="w-[420px]">
+    <Alert {...args} variant="danger" role="alert" className="w-[420px]">
       <ErrorCircleIcon data-icon="inline-start" />
       <AlertTitle>Something went wrong</AlertTitle>
       <AlertDescription>
