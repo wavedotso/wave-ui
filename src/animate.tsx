@@ -479,7 +479,7 @@ function Stagger({ children, interval = 0.08, baseDelay = 0 }: StaggerProps) {
  * @example
  * ```tsx
  * <Pulse>
- *   <span className="size-3 rounded-full bg-green-500" />
+ *   <span className="size-3 rounded-full bg-success" />
  * </Pulse>
  * ```
  */
