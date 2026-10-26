@@ -48,7 +48,7 @@ const currency = new Intl.NumberFormat("en-US", {
 const statusVariant = {
   Paid: "success",
   Pending: "warning",
-  Overdue: "destructive",
+  Overdue: "danger",
 } as const;
 
 /**

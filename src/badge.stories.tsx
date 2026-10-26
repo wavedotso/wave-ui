@@ -12,7 +12,7 @@ const meta = {
       options: [
         "default",
         "success",
-        "destructive",
+        "danger",
         "warning",
         "secondary",
         "outline",
@@ -46,10 +46,10 @@ export const Success: Story = {
   },
 };
 
-export const Destructive: Story = {
+export const Danger: Story = {
   args: {
-    variant: "destructive",
-    children: "Destructive",
+    variant: "danger",
+    children: "Danger",
   },
 };
 
@@ -72,7 +72,7 @@ export const AllVariants: Story = {
     <div className="flex flex-wrap items-center gap-2">
       <Badge variant="default">Default</Badge>
       <Badge variant="success">Success</Badge>
-      <Badge variant="destructive">Destructive</Badge>
+      <Badge variant="danger">Danger</Badge>
       <Badge variant="warning">Warning</Badge>
       <Badge variant="secondary">Secondary</Badge>
       <Badge variant="outline">Outline</Badge>
@@ -159,7 +159,7 @@ export const WithIcons: Story = {
         <CheckIcon data-icon="inline-start" />
         Active
       </Badge>
-      <Badge variant="destructive" aria-label="Error" className="p-1">
+      <Badge variant="danger" aria-label="Error" className="p-1">
         <CloseIcon />
       </Badge>
     </div>
