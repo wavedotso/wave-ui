@@ -74,7 +74,7 @@ const preview: Preview = {
           "Welcome",
           "Principles",
           "Colors",
-          ["Overview", "Palettes"],
+          ["Overview", "Wave Light Curve and Hues Drift", "Palettes"],
           "Actions",
           "Data Display",
           "Feedback",

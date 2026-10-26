@@ -1,0 +1,33 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+import { WaveHuesDrift, WaveLightCurve } from './palette-lab';
+
+<Meta title="Colors/Wave Light Curve and Hues Drift" />
+
+# Wave Light Curve and Wave Hues Drift
+
+Every Wave Palette, Wave Blue and its nine signature colours, is built from two rules. The Wave Light Curve sets how light each step
+is. The Wave Hues Drift sets which colour each step is.
+
+## Wave Light Curve
+
+Every palette takes the same luminance at each step, so a step has the same contrast in
+every colour. That is what lets one rule hold for all of them: steps below 500 carry dark
+text, steps from 500 carry white text, 400 reads as text on Graphite and Ink, and 600 reads
+as text on Paper. The steps are spaced evenly in lightness, with the widest gaps in the
+middle, where the roles change.
+
+<WaveLightCurve />
+
+## Wave Hues Drift
+
+A hue looks different as it gets lighter or darker. A yellow that keeps one hue turns olive
+when it darkens, and an orange turns brown. The Wave Hues Drift turns each hue slightly as it
+moves away from 500, so the light tints warm toward peach or lemon, while the darks deepen
+into amber, rust or indigo. It never changes contrast, because luminance comes from the
+curve alone.
+
+The maps show every palette's path. The hue wheel runs across, the steps run down, and each
+point is the colour that hue takes at that step.
+
+<WaveHuesDrift />
