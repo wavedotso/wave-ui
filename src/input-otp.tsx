@@ -10,6 +10,14 @@ type InputOTPProps = React.ComponentProps<typeof OTPInput> & {
   containerClassName?: string;
 };
 
+type InputOTPGroupProps = React.ComponentProps<"div">;
+
+type InputOTPSlotProps = React.ComponentProps<"div"> & {
+  index: number;
+};
+
+type InputOTPSeparatorProps = React.ComponentProps<"div">;
+
 function InputOTP({ className, containerClassName, ...props }: InputOTPProps) {
   return (
     <OTPInput
@@ -25,8 +33,6 @@ function InputOTP({ className, containerClassName, ...props }: InputOTPProps) {
   );
 }
 
-type InputOTPGroupProps = React.ComponentProps<"div">;
-
 function InputOTPGroup({ className, ...props }: InputOTPGroupProps) {
   return (
     <div
@@ -37,10 +43,6 @@ function InputOTPGroup({ className, ...props }: InputOTPGroupProps) {
   );
 }
 
-type InputOTPSlotProps = React.ComponentProps<"div"> & {
-  index: number;
-};
-
 function InputOTPSlot({ index, className, ...props }: InputOTPSlotProps) {
   const inputOTPContext = React.useContext(OTPInputContext);
   const { char, hasFakeCaret, isActive } = inputOTPContext?.slots[index] ?? {};
@@ -50,9 +52,9 @@ function InputOTPSlot({ index, className, ...props }: InputOTPSlotProps) {
       data-slot="input-otp-slot"
       data-active={isActive || undefined}
       className={cn(
-        "border-edge dark:bg-edge/30 relative flex size-9 items-center justify-center border-y border-r text-sm motion-color outline-hidden first:rounded-l-md first:border-l last:rounded-r-md",
+        "border-shade relative flex size-9 items-center justify-center border-y border-r text-sm motion-color outline-hidden first:rounded-l-md first:border-l last:rounded-r-md",
         "data-active:border-focus data-active:ring-3 data-active:ring-focus/50 data-active:z-10",
-        "group-has-aria-invalid/input-otp:border-destructive group-has-aria-invalid/input-otp:data-active:ring-3 group-has-aria-invalid/input-otp:data-active:ring-destructive/30",
+        "group-has-aria-invalid/input-otp:border-danger group-has-aria-invalid/input-otp:data-active:ring-3 group-has-aria-invalid/input-otp:data-active:ring-danger/30",
         className,
       )}
       {...props}
@@ -66,8 +68,6 @@ function InputOTPSlot({ index, className, ...props }: InputOTPSlotProps) {
     </div>
   );
 }
-
-type InputOTPSeparatorProps = React.ComponentProps<"div">;
 
 function InputOTPSeparator({ className, ...props }: InputOTPSeparatorProps) {
   return (

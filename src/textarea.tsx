@@ -6,7 +6,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "./lib/utils";
 
 const textareaVariants = cva(
-  "bg-edge hover:border-focus focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-destructive/30 aria-invalid:border-destructive resize-y resize-handle disabled:pointer-events-none placeholder:text-soft flex field-sizing-content w-full rounded-md border border-transparent motion-color outline-hidden focus-visible:ring-3 disabled:opacity-30 aria-invalid:ring-3",
+  "bg-shade hover:border-focus focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-danger/30 aria-invalid:border-danger resize-y resize-handle disabled:pointer-events-none placeholder:text-soft flex field-sizing-content w-full rounded-md border border-transparent motion-color outline-hidden focus-visible:ring-3 disabled:opacity-30 aria-invalid:ring-3",
   {
     variants: {
       // Shared control ladder — same tiers/names as Button and Input. Textarea

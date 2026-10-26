@@ -84,7 +84,7 @@ export const WithBothAddons: Story = {
 export const WithBlockStartAddon: Story = {
   render: () => (
     <InputGroup className="max-w-xs">
-      <InputGroupAddon align="block-start" className="border-edge border-b">
+      <InputGroupAddon align="block-start" className="border-shade border-b">
         <InputGroupText>Compose</InputGroupText>
         <InputGroupButton size="icon" className="ml-auto" aria-label="Favorite">
           <StarIcon />
@@ -99,7 +99,7 @@ export const WithBlockEndAddon: Story = {
   render: () => (
     <InputGroup className="max-w-xs">
       <InputGroupTextarea placeholder="Write a message..." />
-      <InputGroupAddon align="block-end" className="border-edge border-t">
+      <InputGroupAddon align="block-end" className="border-shade border-t">
         <InputGroupText>0 / 280</InputGroupText>
         <InputGroupButton variant="default" className="ml-auto">
           Send
