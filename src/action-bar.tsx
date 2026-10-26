@@ -366,7 +366,7 @@ function ActionBarProvider({
             <div
               data-slot="action-bar-content"
               className={cn(
-                "flex items-center gap-6 rounded-lg border border-line/60 bg-surface px-5 py-2.5 shadow-lg ring-1 ring-line",
+                "flex items-center gap-6 rounded-lg border border-contour/60 bg-surface px-5 py-2.5 shadow-lg ring-1 ring-contour",
                 className,
               )}
             >
@@ -374,7 +374,7 @@ function ActionBarProvider({
                 data-slot="action-bar-message"
                 className={cn(
                   "whitespace-nowrap text-sm font-medium",
-                  saveError ? "text-destructive" : "text-contrast",
+                  saveError ? "text-danger" : "text-contrast",
                 )}
               >
                 {saveError ? text.saveError : displayMessage}
@@ -389,7 +389,7 @@ function ActionBarProvider({
                   variant="ghost"
                   disabled={anySaving}
                   onClick={handleResetAll}
-                  className="h-9 px-3 text-sm hover:text-destructive"
+                  className="h-9 px-3 text-sm"
                 >
                   {text.reset}
                 </Button>
@@ -409,7 +409,9 @@ function ActionBarProvider({
                   ) : (
                     <>
                       {text.save}
-                      <Kbd className="ms-1.5">{isMac ? "⌘S" : "Ctrl+S"}</Kbd>
+                      <Kbd className="ms-1.5 bg-transparent text-current">
+                        {isMac ? "⌘S" : "Ctrl+S"}
+                      </Kbd>
                     </>
                   )}
                 </Button>

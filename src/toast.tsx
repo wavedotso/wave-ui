@@ -28,7 +28,7 @@ const toastIconVariants = cva("mt-0.5 size-4 shrink-0", {
       success: "text-success",
       info: "text-info",
       warning: "text-warning",
-      error: "text-destructive",
+      error: "text-danger",
     },
   },
 });
@@ -221,7 +221,7 @@ function ToastAction({ className, ...props }: ToastActionProps) {
     <ToastPrimitive.Action
       data-slot="toast-action"
       className={cn(
-        "hover:bg-secondary inline-flex h-7 items-center rounded-md border border-line px-2.5 text-xs font-medium transition-colors outline-hidden focus-visible:border-focus focus-visible:ring-focus/50 focus-visible:ring-3",
+        "hover:bg-highlight inline-flex h-7 items-center rounded-md border border-contour px-2.5 text-xs font-medium transition-colors outline-hidden focus-visible:border-focus focus-visible:ring-focus/50 focus-visible:ring-3",
         className,
       )}
       {...props}
@@ -234,7 +234,7 @@ function ToastClose({ className, children, ...props }: ToastCloseProps) {
     <ToastPrimitive.Close
       data-slot="toast-close"
       className={cn(
-        "text-muted hover:text-contrast shrink-0 rounded-md p-0.5 transition-colors outline-hidden focus-visible:ring-focus/50 focus-visible:ring-3",
+        "text-muted hover:bg-highlight hover:text-contrast shrink-0 rounded-md p-0.5 transition-colors outline-hidden focus-visible:ring-focus/50 focus-visible:ring-3",
         className,
       )}
       {...props}
