@@ -85,11 +85,13 @@ Wave pays close attention to token taxonomy. Surfaces encode elevation; borders 
 - `--muted` — body text, icons, any mark
 - `--soft` — placeholders, hints
 
-### Borders
+### Form
 
-- `--line` — subtle separators
-- `--edge` — component boundary
-- `--solid` — structural definition
+The theme's foreground made translucent, at three strengths — the way a draughtsman renders a form. Each is translucent, so it reads the same on any surface, and each keeps one job on a border or a background.
+
+- `--contour` — where a shape ends: hairline borders, separators, dividers
+- `--highlight` — where attention lands: hovered, keyboard-highlighted and open items
+- `--shade` — what gives a control its body: field and track fills, and the intense border (control outlines, layout regions)
 
 ### Ring
 
@@ -105,22 +107,21 @@ Wave pays close attention to token taxonomy. Surfaces encode elevation; borders 
 
 This is the sophisticated move most libraries skip.
 
-Wave biases heavily toward **transparent (alpha) borders as the default**, with a **solid token reserved for functional states**.
+Wave uses **transparent (alpha) borders only**: `contour` by default, and `shade` where a boundary has to be intense.
 
-Wave's palette behaves like a layered _material system_, not a flat UI. Dark surfaces, a soft text hierarchy, and subtle elevation shifts (low-contrast steps) mean borders should not introduce a new "color layer" — that would break the illusion of depth — yet structure still needs a solid option.
+Wave's palette behaves like a layered _material system_, not a flat UI. Dark surfaces, a soft text hierarchy, and subtle elevation shifts (low-contrast steps) mean borders should not introduce a new "color layer" — that would break the illusion of depth — yet structure still needs an intense option.
 
 Alpha borders **inherit the surface beneath them**, take the **content color as their luminance source**, keep hue consistent across surfaces, and scale naturally.
 
-Solid borders compete with the surface ladder and create visual "grid noise" if overused, so use them sparingly. Overusing them flattens everything into "outlined boxes" with reduced perceived elevation — the "Bootstrap feel."
+Intense borders compete with the surface ladder and create visual "grid noise" if overused, so use them sparingly. Overusing them flattens everything into "outlined boxes" with reduced perceived elevation — the "Bootstrap feel."
 
-The default **alpha** borders are ideal for:
+The default **`contour`** borders are ideal for:
 
 - Cards
 - Panels
-- Inputs
 - Subtle separators
 
-The **solid** borders are ideal for:
+The intense **`shade`** borders are ideal for:
 
 - Layout definition (sidebar vs. content)
 - Component grouping
@@ -129,8 +130,8 @@ The **solid** borders are ideal for:
 
 **Rule of thumb:**
 
-- If it separates **surface from surface** → alpha border
-- If it separates **layout regions** → solid border
+- If it separates **surface from surface** → `contour`
+- If it separates **layout regions** → `shade`
 - If it indicates **interaction / state** → colored alpha border
 
 ---
