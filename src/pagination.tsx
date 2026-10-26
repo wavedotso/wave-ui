@@ -66,7 +66,7 @@ function PaginationLink({
 }: PaginationLinkProps) {
   return (
     <Button
-      variant={isActive ? "outline" : "ghost"}
+      variant={isActive ? "default" : "ghost"}
       size={size}
       className={cn(disabled && "pointer-events-none opacity-50", className)}
       render={
