@@ -12,18 +12,19 @@ const itemVariants = cva(
   // Rendered as a link or a button (`render`), the item gets a hover and a
   // clickable cursor; as a polymorphic element it styles disabled with both
   // `disabled:` (a native button) and `aria-disabled:` (a link).
-  "[a,button]:hover:bg-secondary/80 [a,button]:cursor-clickable rounded-md border text-sm w-full group/item focus-visible:border-focus focus-visible:ring-focus/50 flex items-center flex-wrap outline-hidden motion-color focus-visible:ring-3 disabled:pointer-events-none disabled:opacity-30 aria-disabled:pointer-events-none aria-disabled:opacity-30",
+  "[a,button]:hover:bg-highlight [a,button]:cursor-clickable rounded-md border text-sm w-full group/item focus-visible:border-focus focus-visible:ring-focus/50 flex items-center flex-wrap outline-hidden motion-color focus-visible:ring-3 disabled:pointer-events-none disabled:opacity-30 aria-disabled:pointer-events-none aria-disabled:opacity-30",
   {
     variants: {
       variant: {
         default: "border-transparent",
-        outline: "border-line",
-        muted: "bg-secondary/50 border-transparent",
+        outline: "border-contour",
+        muted:
+          "bg-secondary/50 border-transparent [a,button]:hover:bg-secondary",
       },
       size: {
         default: "gap-3.5 px-4 py-3.5",
         sm: "gap-3.5 px-3.5 py-3",
-        xs: "gap-2.5 px-3 py-2.5 in-data-[slot=dropdown-menu-content]:p-0",
+        xs: "gap-2.5 px-3 py-2.5 in-data-[slot=menu-content]:p-0",
       },
     },
     defaultVariants: {
