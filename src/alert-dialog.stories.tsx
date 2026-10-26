@@ -26,7 +26,7 @@ export const Default: Story = {
   args: {},
   render: () => (
     <AlertDialog>
-      <AlertDialogTrigger render={<Button variant="destructive" />}>
+      <AlertDialogTrigger render={<Button variant="danger" />}>
         Delete Account
       </AlertDialogTrigger>
       <AlertDialogContent>
@@ -39,7 +39,7 @@ export const Default: Story = {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction variant="destructive">Delete</AlertDialogAction>
+          <AlertDialogAction variant="danger">Delete</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
@@ -78,7 +78,7 @@ export const WithMedia: Story = {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogMedia className="text-destructive">
+          <AlertDialogMedia className="text-danger">
             <svg viewBox="0 0 16 16" fill="none" aria-hidden>
               <path
                 d="M8 1.5 15 14H1L8 1.5Zm0 4.5v3.5m0 2v.5"
@@ -97,7 +97,7 @@ export const WithMedia: Story = {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Keep Access</AlertDialogCancel>
-          <AlertDialogAction variant="destructive">Revoke</AlertDialogAction>
+          <AlertDialogAction variant="danger">Revoke</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
@@ -122,7 +122,7 @@ export const Large: Story = {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction variant="destructive">Reset</AlertDialogAction>
+          <AlertDialogAction variant="danger">Reset</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

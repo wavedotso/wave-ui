@@ -40,7 +40,7 @@ export const Default: Story = {
           <DialogClose render={<Button variant="outline" />}>
             Cancel
           </DialogClose>
-          <Button variant="destructive">Delete Account</Button>
+          <Button variant="danger">Delete Account</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

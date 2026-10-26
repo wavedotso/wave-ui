@@ -7,19 +7,20 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "./lib/utils";
 
 const buttonVariants = cva(
-  "cursor-clickable focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-destructive/30 aria-invalid:border-destructive rounded-md border border-transparent bg-clip-padding font-medium focus-visible:ring-3 aria-invalid:ring-3 [&_svg:not([class*='size-'])]:size-4 inline-flex items-center justify-center whitespace-nowrap motion-color data-disabled:pointer-events-none data-disabled:opacity-30 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-hidden group/button select-none active:not-aria-[haspopup]:scale-[0.97]",
+  "cursor-clickable focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-danger/30 aria-invalid:border-danger rounded-md border border-transparent bg-clip-padding font-medium focus-visible:ring-3 aria-invalid:ring-3 [&_svg:not([class*='size-'])]:size-4 inline-flex items-center justify-center whitespace-nowrap motion-color data-disabled:pointer-events-none data-disabled:opacity-30 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-hidden group/button select-none active:not-aria-[haspopup]:scale-[0.97]",
   {
     variants: {
       variant: {
-        default: "bg-primary text-white hover:bg-primary/80",
+        default:
+          "bg-primary text-white hover:bg-primary/80 not-supports-backdrop-filter:hover:bg-primary/90 hover:backdrop-blur-xl hover:backdrop-saturate-150",
         outline:
-          "border-edge bg-foundation hover:bg-secondary/80 hover:text-contrast dark:bg-edge/30 aria-expanded:bg-secondary aria-expanded:text-contrast",
+          "border-shade bg-foundation hover:bg-highlight hover:text-contrast aria-expanded:bg-highlight aria-expanded:text-contrast",
         secondary:
-          "bg-secondary text-contrast hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-contrast",
+          "bg-secondary text-contrast hover:bg-secondary/80 not-supports-backdrop-filter:hover:bg-secondary/90 hover:backdrop-blur-xl hover:backdrop-saturate-150 aria-expanded:bg-secondary aria-expanded:text-contrast",
         ghost:
-          "text-contrast hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-contrast",
-        destructive:
-          "bg-destructive text-white hover:bg-destructive/80 focus-visible:ring-destructive/50",
+          "text-contrast hover:bg-highlight aria-expanded:bg-highlight aria-expanded:text-contrast",
+        danger:
+          "bg-danger text-white hover:bg-danger/80 not-supports-backdrop-filter:hover:bg-danger/90 hover:backdrop-blur-xl hover:backdrop-saturate-150 focus-visible:ring-danger/50",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
