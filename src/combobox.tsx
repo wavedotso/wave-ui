@@ -202,7 +202,7 @@ function ComboboxContent({
         <ComboboxPrimitive.Popup
           data-slot="combobox-content"
           className={cn(
-            "motion-pop-md bg-elevated text-contrast ring-contrast/10 *:data-[slot=input-group]:bg-edge/30 *:data-[slot=input-group]:border-edge/30 group/combobox-content relative max-h-(--available-height) max-w-(--available-width) min-w-(--anchor-width) overflow-hidden rounded-md shadow-md ring-1 *:data-[slot=input-group]:m-1 *:data-[slot=input-group]:mb-0 *:data-[slot=input-group]:h-8 *:data-[slot=input-group]:shadow-none",
+            "motion-pop-md bg-elevated text-contrast ring-contrast/10 *:data-[slot=input-group]:bg-shade/30 *:data-[slot=input-group]:border-shade/30 group/combobox-content relative max-h-(--available-height) max-w-(--available-width) min-w-(--anchor-width) overflow-hidden rounded-md shadow-md ring-1 *:data-[slot=input-group]:m-1 *:data-[slot=input-group]:mb-0 *:data-[slot=input-group]:h-8 *:data-[slot=input-group]:shadow-none",
             className,
           )}
           {...props}
@@ -230,7 +230,7 @@ function ComboboxItem({ className, children, ...props }: ComboboxItemProps) {
     <ComboboxPrimitive.Item
       data-slot="combobox-item"
       className={cn(
-        "data-highlighted:bg-primary data-highlighted:text-white not-data-[variant=destructive]:data-highlighted:**:text-white relative flex w-full cursor-clickable items-center gap-2 rounded-sm py-1 pr-8 pl-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "data-highlighted:bg-highlight relative flex w-full cursor-clickable items-center gap-2 rounded-sm py-1 pr-8 pl-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -293,14 +293,14 @@ function ComboboxSeparator({ className, ...props }: ComboboxSeparatorProps) {
   return (
     <ComboboxPrimitive.Separator
       data-slot="combobox-separator"
-      className={cn("bg-line -mx-1 my-1 h-px", className)}
+      className={cn("bg-contour -mx-1 my-1 h-px", className)}
       {...props}
     />
   );
 }
 
 const comboboxChipsVariants = cva(
-  "bg-edge hover:border-focus focus-within:border-focus focus-within:ring-focus/50 has-aria-invalid:ring-destructive/30 has-aria-invalid:border-destructive flex flex-wrap items-center gap-1 rounded-md border border-transparent motion-color focus-within:ring-3 has-aria-invalid:ring-3 has-data-[slot=combobox-chip]:px-1",
+  "bg-shade hover:border-focus focus-within:border-focus focus-within:ring-focus/50 has-aria-invalid:ring-danger/30 has-aria-invalid:border-danger flex flex-wrap items-center gap-1 rounded-md border border-transparent motion-color focus-within:ring-3 has-aria-invalid:ring-3 has-data-[slot=combobox-chip]:px-1",
   {
     variants: {
       // Multi-select field surface — mirrors the family ladder, but as a `min-h`
