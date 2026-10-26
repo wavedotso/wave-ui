@@ -158,13 +158,15 @@ export const Inset: Story = {
           Item
         </MenubarTrigger>
         <MenubarContent>
-          <MenubarLabel inset>Manage</MenubarLabel>
-          <MenubarItem>
-            <StarIcon />
-            Add to favorites
-          </MenubarItem>
-          <MenubarItem inset>Rename</MenubarItem>
-          <MenubarItem inset>Duplicate</MenubarItem>
+          <MenubarGroup>
+            <MenubarLabel inset>Manage</MenubarLabel>
+            <MenubarItem>
+              <StarIcon />
+              Add to favorites
+            </MenubarItem>
+            <MenubarItem inset>Rename</MenubarItem>
+            <MenubarItem inset>Duplicate</MenubarItem>
+          </MenubarGroup>
           <MenubarSeparator />
           <MenubarItem variant="danger">
             <TrashIcon />
