@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Button } from "./button";
 import { Count, easeOut } from "./count";
 
 const meta = {
@@ -21,10 +22,11 @@ function Replay({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="relative w-[800px] py-[120px] flex items-center justify-center mx-auto">
-      <button
-        type="button"
+      <Button
+        variant="outline"
+        size="xs"
         onClick={replay}
-        className="absolute top-3 right-3 z-50 flex items-center gap-1.5 rounded-md bg-white/10 px-2.5 py-1.5 text-xs font-medium text-white/70 backdrop-blur-sm border border-white/10 hover:bg-white/20 hover:text-white transition-colors cursor-pointer"
+        className="absolute top-3 right-3 z-50"
         aria-label="Replay animation"
       >
         <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden>
@@ -34,7 +36,7 @@ function Replay({ children }: { children: React.ReactNode }) {
           />
         </svg>
         Replay
-      </button>
+      </Button>
       <div key={key} className="w-full max-w-2xl">
         {children}
       </div>
@@ -51,23 +53,23 @@ export const CountUpDefault: StoryObj = {
       <div className="p-8 grid grid-cols-3 gap-8 text-center">
         <div>
           <Count to={1234}>
-            <span className="block text-4xl font-extrabold tabular-nums text-white" />
+            <span className="block text-4xl font-extrabold tabular-nums text-contrast" />
           </Count>
-          <span className="text-sm text-neutral-400 mt-2 block">Users</span>
+          <span className="text-sm text-muted mt-2 block">Users</span>
         </div>
 
         <div>
           <Count to={99.9} prefix="$" suffix="M" format={(n) => n.toFixed(1)}>
-            <span className="block text-4xl font-extrabold tabular-nums text-white" />
+            <span className="block text-4xl font-extrabold tabular-nums text-contrast" />
           </Count>
-          <span className="text-sm text-neutral-400 mt-2 block">Revenue</span>
+          <span className="text-sm text-muted mt-2 block">Revenue</span>
         </div>
 
         <div>
           <Count to={42069} suffix="+">
-            <span className="block text-4xl font-extrabold tabular-nums text-white" />
+            <span className="block text-4xl font-extrabold tabular-nums text-contrast" />
           </Count>
-          <span className="text-sm text-neutral-400 mt-2 block">Commits</span>
+          <span className="text-sm text-muted mt-2 block">Commits</span>
         </div>
       </div>
     </Replay>
@@ -83,23 +85,23 @@ export const CountDown: StoryObj = {
       <div className="p-8 grid grid-cols-3 gap-8 text-center">
         <div>
           <Count from={100} to={0}>
-            <span className="block text-4xl font-extrabold tabular-nums text-white" />
+            <span className="block text-4xl font-extrabold tabular-nums text-contrast" />
           </Count>
-          <span className="text-sm text-neutral-400 mt-2 block">Countdown</span>
+          <span className="text-sm text-muted mt-2 block">Countdown</span>
         </div>
 
         <div>
           <Count from={50} to={0} suffix="%" duration={2000}>
-            <span className="block text-4xl font-extrabold tabular-nums text-white" />
+            <span className="block text-4xl font-extrabold tabular-nums text-contrast" />
           </Count>
-          <span className="text-sm text-neutral-400 mt-2 block">Remaining</span>
+          <span className="text-sm text-muted mt-2 block">Remaining</span>
         </div>
 
         <div>
           <Count from={999} to={0} prefix="-" duration={1500}>
-            <span className="block text-4xl font-extrabold tabular-nums text-white" />
+            <span className="block text-4xl font-extrabold tabular-nums text-contrast" />
           </Count>
-          <span className="text-sm text-neutral-400 mt-2 block">Draining</span>
+          <span className="text-sm text-muted mt-2 block">Draining</span>
         </div>
       </div>
     </Replay>
@@ -123,20 +125,18 @@ export const DateCountdown: StoryObj = {
         <div className="p-8 flex flex-col gap-8 text-center">
           <div>
             <Count to={threeDays}>
-              <span className="block text-4xl font-extrabold tabular-nums text-white font-mono" />
+              <span className="block text-4xl font-extrabold tabular-nums text-contrast font-mono" />
             </Count>
-            <span className="text-sm text-neutral-400 mt-2 block">
+            <span className="text-sm text-muted mt-2 block">
               Proposal Deadline
             </span>
           </div>
 
           <div>
             <Count to={twoHours}>
-              <span className="block text-4xl font-extrabold tabular-nums text-white font-mono" />
+              <span className="block text-4xl font-extrabold tabular-nums text-contrast font-mono" />
             </Count>
-            <span className="text-sm text-neutral-400 mt-2 block">
-              Auction Ends
-            </span>
+            <span className="text-sm text-muted mt-2 block">Auction Ends</span>
           </div>
 
           <div>
@@ -144,9 +144,9 @@ export const DateCountdown: StoryObj = {
               to={thirtySeconds}
               onComplete={() => console.log("Timer complete!")}
             >
-              <span className="block text-4xl font-extrabold tabular-nums text-red-400 font-mono" />
+              <span className="block text-4xl font-extrabold tabular-nums text-danger font-mono" />
             </Count>
-            <span className="text-sm text-neutral-400 mt-2 block">
+            <span className="text-sm text-muted mt-2 block">
               Expiring Soon (30s)
             </span>
           </div>
@@ -171,11 +171,9 @@ export const CustomDateFormat: StoryObj = {
               to={future}
               format={(ms) => `${Math.ceil(ms / 86400000)} days`}
             >
-              <span className="block text-5xl font-extrabold text-white" />
+              <span className="block text-5xl font-extrabold text-contrast" />
             </Count>
-            <span className="text-sm text-neutral-400 mt-2 block">
-              Until Launch
-            </span>
+            <span className="text-sm text-muted mt-2 block">Until Launch</span>
           </div>
 
           <div>
@@ -186,9 +184,9 @@ export const CustomDateFormat: StoryObj = {
                 return `${hours.toLocaleString()} hours`;
               }}
             >
-              <span className="block text-3xl font-bold text-neutral-300" />
+              <span className="block text-3xl font-bold text-contrast" />
             </Count>
-            <span className="text-sm text-neutral-400 mt-2 block">
+            <span className="text-sm text-muted mt-2 block">
               Same deadline, different format
             </span>
           </div>
@@ -207,16 +205,16 @@ export const Formatting: StoryObj = {
       <div className="p-8 grid grid-cols-2 gap-8 text-center">
         <div>
           <Count to={249.99} prefix="$" format={(n) => n.toFixed(2)}>
-            <span className="block text-4xl font-extrabold tabular-nums text-white" />
+            <span className="block text-4xl font-extrabold tabular-nums text-contrast" />
           </Count>
-          <span className="text-sm text-neutral-400 mt-2 block">Price</span>
+          <span className="text-sm text-muted mt-2 block">Price</span>
         </div>
 
         <div>
           <Count to={99.8} suffix="%" format={(n) => n.toFixed(1)}>
-            <span className="block text-4xl font-extrabold tabular-nums text-white" />
+            <span className="block text-4xl font-extrabold tabular-nums text-contrast" />
           </Count>
-          <span className="text-sm text-neutral-400 mt-2 block">Uptime</span>
+          <span className="text-sm text-muted mt-2 block">Uptime</span>
         </div>
       </div>
     </Replay>
@@ -232,27 +230,23 @@ export const Delay: StoryObj = {
       <div className="p-8 grid grid-cols-3 gap-8 text-center">
         <div>
           <Count to={1200} delay={0}>
-            <span className="block text-4xl font-extrabold tabular-nums text-white" />
+            <span className="block text-4xl font-extrabold tabular-nums text-contrast" />
           </Count>
-          <span className="text-sm text-neutral-400 mt-2 block">No delay</span>
+          <span className="text-sm text-muted mt-2 block">No delay</span>
         </div>
 
         <div>
           <Count to={2400} delay={0.4}>
-            <span className="block text-4xl font-extrabold tabular-nums text-white" />
+            <span className="block text-4xl font-extrabold tabular-nums text-contrast" />
           </Count>
-          <span className="text-sm text-neutral-400 mt-2 block">
-            0.4s delay
-          </span>
+          <span className="text-sm text-muted mt-2 block">0.4s delay</span>
         </div>
 
         <div>
           <Count to={3600} delay={0.8}>
-            <span className="block text-4xl font-extrabold tabular-nums text-white" />
+            <span className="block text-4xl font-extrabold tabular-nums text-contrast" />
           </Count>
-          <span className="text-sm text-neutral-400 mt-2 block">
-            0.8s delay
-          </span>
+          <span className="text-sm text-muted mt-2 block">0.8s delay</span>
         </div>
       </div>
     </Replay>
@@ -274,25 +268,25 @@ export const Easing: StoryObj = {
       <div className="p-8 grid grid-cols-3 gap-8 text-center">
         <div>
           <Count to={5000} duration={2000} easing={easeOut}>
-            <span className="block text-4xl font-extrabold tabular-nums text-white" />
+            <span className="block text-4xl font-extrabold tabular-nums text-contrast" />
           </Count>
-          <span className="text-sm text-neutral-400 mt-2 block">
+          <span className="text-sm text-muted mt-2 block">
             easeOut (default)
           </span>
         </div>
 
         <div>
           <Count to={5000} duration={2000} easing={linear}>
-            <span className="block text-4xl font-extrabold tabular-nums text-white" />
+            <span className="block text-4xl font-extrabold tabular-nums text-contrast" />
           </Count>
-          <span className="text-sm text-neutral-400 mt-2 block">linear</span>
+          <span className="text-sm text-muted mt-2 block">linear</span>
         </div>
 
         <div>
           <Count to={5000} duration={2000} easing={easeInOut}>
-            <span className="block text-4xl font-extrabold tabular-nums text-white" />
+            <span className="block text-4xl font-extrabold tabular-nums text-contrast" />
           </Count>
-          <span className="text-sm text-neutral-400 mt-2 block">easeInOut</span>
+          <span className="text-sm text-muted mt-2 block">easeInOut</span>
         </div>
       </div>
     </Replay>
@@ -304,8 +298,8 @@ export const Easing: StoryObj = {
 export const Retrigger: StoryObj = {
   name: "Retrigger (once={false})",
   render: () => (
-    <div className="h-[500px] w-[800px] mx-auto overflow-y-auto rounded-lg border border-white/10">
-      <div className="flex h-[420px] items-center justify-center text-center text-sm text-neutral-400 px-8">
+    <div className="h-[500px] w-[800px] mx-auto overflow-y-auto rounded-lg border border-contour">
+      <div className="flex h-[420px] items-center justify-center text-center text-sm text-muted px-8">
         Scroll down to bring the counters into view — then scroll back up and
         down again to see the difference.
       </div>
@@ -313,24 +307,24 @@ export const Retrigger: StoryObj = {
       <div className="grid grid-cols-2 gap-8 p-8 text-center">
         <div>
           <Count to={2500} once>
-            <span className="block text-4xl font-extrabold tabular-nums text-white" />
+            <span className="block text-4xl font-extrabold tabular-nums text-contrast" />
           </Count>
-          <span className="text-sm text-neutral-400 mt-2 block">
+          <span className="text-sm text-muted mt-2 block">
             once (default) — counts once
           </span>
         </div>
 
         <div>
           <Count to={2500} once={false}>
-            <span className="block text-4xl font-extrabold tabular-nums text-white" />
+            <span className="block text-4xl font-extrabold tabular-nums text-contrast" />
           </Count>
-          <span className="text-sm text-neutral-400 mt-2 block">
+          <span className="text-sm text-muted mt-2 block">
             once={"{false}"} — recounts on re-entry
           </span>
         </div>
       </div>
 
-      <div className="flex h-[420px] items-center justify-center text-center text-sm text-neutral-400 px-8">
+      <div className="flex h-[420px] items-center justify-center text-center text-sm text-muted px-8">
         Scroll back up, then down again — only the right counter replays.
       </div>
     </div>
