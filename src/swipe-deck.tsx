@@ -1129,9 +1129,6 @@ function SwipeDeckItem({
       inert={isLeaving || (position !== undefined && position > 0)}
       className={cn(
         "motion-fade-lg relative col-start-1 row-start-1 rounded-lg select-none",
-        // At rest, no filter: the recipe's resting blur(0.001px) softens the
-        // whole card in WebKit. Its start and end blurs still apply.
-        "not-data-starting-style:not-data-ending-style:filter-none",
         // Where it sits: its place less the lift, turned into an offset, a
         // turn and a size by the deck's layout, plus the drag on top. Cards
         // past `--swipe-deck-visible` fade out.

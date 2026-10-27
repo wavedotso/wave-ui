@@ -842,8 +842,12 @@
  * cascade, with NO `!important` (banned — see feedback_security). The
  * resting/enter/exit declarations stay layered so `group-has` still wins.
  *
- * `0.001px` resting blur defeats Lightning CSS's `blur(0) → blur()`
- * minification (which emits invalid CSS); it is visually equivalent to 0. */
+ * The resting state declares NO `filter`. It stays `none`, and `none` blends
+ * with the starting/ending `blur()` as a zero blur (how CSS interpolates
+ * `none` with a filter list), so the transitions still run. Don't add a
+ * resting `blur()`: Lightning CSS minifies `blur(0)` to the invalid `blur()`,
+ * and a stand-in like `blur(0.001px)` is not invisible in WebKit, which draws
+ * any non-zero blur at a minimum radius and softens the whole surface. */
 
 /* `motion-scrim` — opacity only, no blur. For full-screen backdrops: animating
  * blur across the whole viewport janks (a flat dim shows none anyway). The
@@ -865,7 +869,6 @@
  * tier per surface (don't compose — each declares its own unlayered transition).
  * Companion idioms: `motion-color` (controls) and `motion-scrim` (backdrops). */
 @utility motion-scale-sm {
-  filter: blur(0.001px);
   scale: 1;
   &[data-starting-style],
   &[data-ending-style] {
@@ -875,7 +878,6 @@
   }
 }
 @utility motion-scale-md {
-  filter: blur(0.001px);
   scale: 1;
   &[data-starting-style],
   &[data-ending-style] {
@@ -885,7 +887,6 @@
   }
 }
 @utility motion-scale-lg {
-  filter: blur(0.001px);
   scale: 1;
   &[data-starting-style],
   &[data-ending-style] {
@@ -899,7 +900,6 @@
  * trigger's `data-[side]` (Base UI sets it) and settles toward it; default /
  * side=bottom rises up. Opacity + blur + translate (`--offset-*`), NO scale. */
 @utility motion-slide-sm {
-  filter: blur(0.001px);
   translate: 0;
   &[data-starting-style],
   &[data-ending-style] {
@@ -919,7 +919,6 @@
   &[data-side=inline-end][data-ending-style] { translate: var(--offset-sm) 0; }
 }
 @utility motion-slide-md {
-  filter: blur(0.001px);
   translate: 0;
   &[data-starting-style],
   &[data-ending-style] {
@@ -939,7 +938,6 @@
   &[data-side=inline-end][data-ending-style] { translate: var(--offset-md) 0; }
 }
 @utility motion-slide-lg {
-  filter: blur(0.001px);
   translate: 0;
   &[data-starting-style],
   &[data-ending-style] {
@@ -962,7 +960,6 @@
 /* `motion-fade-*` — fade in place: opacity + blur, no transform. The signature
  * blur-fade for content that should appear without moving or scaling. */
 @utility motion-fade-sm {
-  filter: blur(0.001px);
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
@@ -970,7 +967,6 @@
   }
 }
 @utility motion-fade-md {
-  filter: blur(0.001px);
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
@@ -978,7 +974,6 @@
   }
 }
 @utility motion-fade-lg {
-  filter: blur(0.001px);
   &[data-starting-style],
   &[data-ending-style] {
     opacity: 0;
@@ -991,7 +986,6 @@
  * recipe with one transition. Don't try `motion-scale-md motion-slide-md`: their
  * transitions collide and scale won't animate. md only (no sm/lg consumer). */
 @utility motion-pop-md {
-  filter: blur(0.001px);
   scale: 1;
   translate: 0;
   /* Pop from the anchored EDGE, centered along it — symmetric left/right for
