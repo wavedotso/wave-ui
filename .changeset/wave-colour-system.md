@@ -15,6 +15,7 @@ A new colour system: the Wave Palettes, rebuilt themes and a clearer status mode
 **New**
 
 - Nine Wave Palettes beside Wave Blue: `--wave-indigo-*`, `--wave-purple-*`, `--wave-pink-*`, `--wave-red-*`, `--wave-orange-*`, `--wave-yellow-*`, `--wave-lime-*`, `--wave-green-*` and `--wave-teal-*`, each 50–950, with Display-P3 versions. Every palette's 500 holds white text.
+- `--wave-gray-*`: pure grey on the same curve, 50–950, for neutral badges and labels. Its 500 holds white text too.
 - `--danger-text`, `--success-text`, `--warning-text` and `--info-text`: the status colour as words and icons, tuned per theme. `text-danger` and the other status text utilities use them automatically; `bg-`, `border-` and `ring-` keep the fill.
 
 **Changed**

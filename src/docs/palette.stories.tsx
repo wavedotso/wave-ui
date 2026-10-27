@@ -12,7 +12,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Every color token in Wave, grouped by role. **Palettes** are the Wave Palettes: Wave Blue and its nine signature colours, from Wave Indigo to Wave Teal, each hue placed by hand and every step grown on the Wave Light Curve with the Wave Hues Drift. **Themes** are the three neutral ramps (Graphite, Ink and Paper), and **Interface** is the semantic layer components actually consume. Swatches read the live CSS variables, so they reflect the theme selected in the toolbar.",
+          "Every color token in Wave, grouped by role. **Palettes** are the Wave Palettes: Wave Blue and its nine signature colours, from Wave Indigo to Wave Teal, each hue placed by hand and every step grown on the Wave Light Curve with the Wave Hues Drift, plus Wave Gray, the curve in pure grey. **Themes** are the three neutral ramps (Graphite, Ink and Paper), and **Interface** is the semantic layer components actually consume. Swatches read the live CSS variables, so they reflect the theme selected in the toolbar.",
       },
     },
   },
@@ -68,6 +68,11 @@ const PALETTE_GROUPS: Group[] = [
     ramp: "wave-green",
   },
   { label: "Wave Teal", ramp: "wave-teal" },
+  {
+    label: "Wave Gray",
+    note: "Pure grey on the Wave Light Curve, for neutral badges and labels beside the colours.",
+    ramp: "wave-gray",
+  },
 ];
 
 // The three neutral ramps — one per theme. Each theme's semantic layer references

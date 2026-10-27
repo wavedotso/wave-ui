@@ -223,6 +223,22 @@
   --wave-teal-900: oklch(0.252 0.037 219.9); /* #09262E */
   --wave-teal-950: oklch(0.198 0.028 222.5); /* #06181F */
 
+  /* Wave Gray — pure grey, the Wave Light Curve itself: each step at the
+   * curve's lightness with no chroma, so its 500 holds white text like every
+   * Wave Palette's. With no hue there's nothing to drift, and it's the same on
+   * Display-P3 screens. */
+  --wave-gray-50:  oklch(0.975 0 0); /* #F7F7F7 */
+  --wave-gray-100: oklch(0.945 0 0); /* #EDEDED */
+  --wave-gray-200: oklch(0.890 0 0); /* #DBDBDB */
+  --wave-gray-300: oklch(0.806 0 0); /* #BFBFBF */
+  --wave-gray-400: oklch(0.686 0 0); /* #9A9A9A */
+  --wave-gray-500: oklch(0.565 0 0); /* #767676 */
+  --wave-gray-600: oklch(0.465 0 0); /* #595959 */
+  --wave-gray-700: oklch(0.385 0 0); /* #444444 */
+  --wave-gray-800: oklch(0.315 0 0); /* #313131 */
+  --wave-gray-900: oklch(0.255 0 0); /* #232323 */
+  --wave-gray-950: oklch(0.200 0 0); /* #161616 */
+
   /* ── Neutral ramps (primitives) ───────────────────────────────────────────
    * Three complete neutral ramps. Each theme's semantic block below references
    * exactly one of them directly: Paper → light, Graphite → default dark, Ink →
