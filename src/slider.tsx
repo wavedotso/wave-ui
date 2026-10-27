@@ -75,7 +75,7 @@ function Slider({
             aria-label={
               getThumbAriaLabel ? getThumbAriaLabel(index) : ariaLabel
             }
-            className="ring-focus/50 relative block data-[orientation=horizontal]:h-4 data-[orientation=horizontal]:w-6 data-[orientation=vertical]:h-6 data-[orientation=vertical]:w-4 shrink-0 rounded-full bg-white motion-color cursor-clickable select-none after:absolute after:-inset-2 hover:ring-3 focus-visible:ring-3 focus-visible:outline-hidden active:ring-3 data-disabled:pointer-events-none"
+            className="ring-focus/50 relative block data-[orientation=horizontal]:h-4 data-[orientation=horizontal]:w-6 data-[orientation=vertical]:h-6 data-[orientation=vertical]:w-4 shrink-0 rounded-full border border-shade bg-white motion-color cursor-clickable select-none after:absolute after:-inset-2 hover:ring-3 focus-visible:ring-3 focus-visible:outline-hidden active:ring-3 data-disabled:pointer-events-none"
           />
         ))}
       </SliderPrimitive.Control>
