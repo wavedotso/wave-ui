@@ -24,3 +24,4 @@ A new colour system: the Wave Palettes, rebuilt themes and a clearer status mode
 - ContextMenu's popup is glass (a translucent, blurred surface) and mirrors in right-to-left layouts.
 - Alerts keep their status colour in the icon only; status Badges carry white text.
 - `dark:` variants are gone from every component: the theme tokens adapt on their own.
+- Ink's text is now its 50, the colour its borders and fills are made from, so it reads a touch brighter.

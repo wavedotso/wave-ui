@@ -646,7 +646,7 @@
   --foundation: var(--ink-950);
   --surface: var(--ink-900);
   --elevated: var(--ink-800);
-  --contrast: var(--ink-100);
+  --contrast: var(--ink-50);
   --muted: var(--ink-400);
   --soft: var(--ink-600);
   --secondary: var(--ink-700);
