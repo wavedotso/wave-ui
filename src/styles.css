@@ -542,9 +542,9 @@
   --muted: var(--paper-600);
   --soft: var(--paper-500);
   --secondary: var(--paper-100);
-  --contour: color-mix(in srgb, var(--paper-950) 7%, transparent);
+  --contour: color-mix(in srgb, var(--paper-950) 5%, transparent);
   --highlight: color-mix(in srgb, var(--paper-950) 10%, transparent);
-  --shade: color-mix(in srgb, var(--paper-950) 14%, transparent);
+  --shade: color-mix(in srgb, var(--paper-950) 15%, transparent);
   --shadow-strength: 0.055;
   --danger: var(--wave-red-500);
   --danger-text: var(--wave-red-600);
@@ -575,9 +575,9 @@
     --muted: var(--graphite-300);
     --soft: var(--graphite-500);
     --secondary: var(--graphite-700);
-    --contour: color-mix(in srgb, var(--graphite-50) 7%, transparent);
-    --highlight: color-mix(in srgb, var(--graphite-50) 9%, transparent);
-    --shade: color-mix(in srgb, var(--graphite-50) 13%, transparent);
+    --contour: color-mix(in srgb, var(--graphite-50) 5%, transparent);
+    --highlight: color-mix(in srgb, var(--graphite-50) 10%, transparent);
+    --shade: color-mix(in srgb, var(--graphite-50) 15%, transparent);
     --shadow-strength: 0.045;
     --danger: var(--wave-red-500);
     --danger-text: oklch(0.738 0.158 16.8); /* #FE7C86, see below */
@@ -598,9 +598,9 @@
   --muted: var(--graphite-300);
   --soft: var(--graphite-500);
   --secondary: var(--graphite-700);
-  --contour: color-mix(in srgb, var(--graphite-50) 7%, transparent);
-  --highlight: color-mix(in srgb, var(--graphite-50) 9%, transparent);
-  --shade: color-mix(in srgb, var(--graphite-50) 13%, transparent);
+  --contour: color-mix(in srgb, var(--graphite-50) 5%, transparent);
+  --highlight: color-mix(in srgb, var(--graphite-50) 10%, transparent);
+  --shade: color-mix(in srgb, var(--graphite-50) 15%, transparent);
   --shadow-strength: 0.045;
   --danger: var(--wave-red-500);
   --danger-text: oklch(0.738 0.158 16.8); /* #FE7C86, see below */
@@ -651,8 +651,8 @@
   --soft: var(--ink-600);
   --secondary: var(--ink-700);
   --contour: color-mix(in srgb, var(--ink-50) 5%, transparent);
-  --highlight: color-mix(in srgb, var(--ink-50) 9%, transparent);
-  --shade: color-mix(in srgb, var(--ink-50) 13%, transparent);
+  --highlight: color-mix(in srgb, var(--ink-50) 10%, transparent);
+  --shade: color-mix(in srgb, var(--ink-50) 15%, transparent);
   --shadow-strength: 0.045;
   --danger: var(--wave-red-500);
   --danger-text: var(--wave-red-400);
@@ -691,15 +691,16 @@
   --color-secondary: var(--secondary);
   --color-accent: var(--accent);
 
-  /* Form — the theme's foreground made translucent, at three strengths, the
-   * way a form is drawn: `contour` (7%, 5% in Ink) marks where a shape ends:
-   * hairline borders and separators. `highlight` (10% / 9%) marks where
-   * attention lands: hovered, keyboard-highlighted and open items. `shade`
-   * (14% / 13%) gives a control its body: field and track fills and
-   * outline-control borders. All three are translucent, so each reads the
-   * same on any surface beneath it, and `shade` doubles as the intense
-   * border (layout regions, control outlines). `focus` is the brand-themed
-   * ring (= primary). */
+  /* Form — the theme's foreground (its text colour) made translucent, at
+   * three strengths, the way a form is drawn: `contour` marks where a shape
+   * ends: hairline borders and separators. `highlight` marks where attention
+   * lands: hovered, keyboard-highlighted and open items. `shade` gives a
+   * control its body: field and track fills and outline-control borders.
+   * Every theme uses the same strengths: contour 5%, highlight 10%, shade
+   * 15% of its text colour (Graphite's and Ink's 50, Paper's 950).
+   * All three are translucent, so each reads the same on any surface beneath
+   * it, and `shade` doubles as the intense border (layout regions, control
+   * outlines). `focus` is the brand-themed ring (= primary). */
   --color-contour: var(--contour);
   --color-highlight: var(--highlight);
   --color-shade: var(--shade);

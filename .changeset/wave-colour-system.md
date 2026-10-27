@@ -25,3 +25,4 @@ A new colour system: the Wave Palettes, rebuilt themes and a clearer status mode
 - Alerts keep their status colour in the icon only; status Badges carry white text.
 - `dark:` variants are gone from every component: the theme tokens adapt on their own.
 - Ink's text is now its 50, the colour its borders and fills are made from, so it reads a touch brighter.
+- `contour`, `highlight` and `shade` are now 5%, 10% and 15% of the theme's text colour in every theme.
