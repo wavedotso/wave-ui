@@ -10,7 +10,7 @@ A new colour system: the Wave Palettes, rebuilt themes and a clearer status mode
 - Wave Blue's ramp is now `--wave-blue-*` (was `--wave-*`).
 - The `--success-*`, `--warning-*` and `--destructive-*` ramps are removed; the status tokens point at the Wave Palettes. Warning is now orange.
 - The form tokens `line`, `edge` and `solid` are replaced by `contour` (hairlines), `highlight` (hover and keyboard focus) and `shade` (field fills and strong borders).
-- Graphite, Ink and Paper's neutral ramps are rebuilt, so `--graphite-*`, `--ink-*` and `--paper-*` hold new values. Graphite's page is now `#25262A` with cards on `#2F3036`.
+- Graphite, Ink and Paper's neutral ramps are rebuilt, so `--graphite-*`, `--ink-*` and `--paper-*` hold new values. Graphite's page is now `#25262A` with cards on `#2F3036`. Paper is now a warm stone ramp: its page and popups are white, cards and the sidebar sit on `#FCFBFA`, and its borders and fills are warm. Its light steps moved the most (`--paper-200` is now `#D4D0CC`), so read Paper through the theme tokens rather than its ramp.
 
 **New**
 

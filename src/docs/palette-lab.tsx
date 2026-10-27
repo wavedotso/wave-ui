@@ -16,7 +16,7 @@ const STEPS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950] as const;
 type Step = (typeof STEPS)[number];
 
 /** Wave's darkest text and the white used on fills: the two inks of the rule. */
-const DARK_INK = "#0C0D09";
+const DARK_INK = "#0D0D0D";
 const WHITE_INK = "#FFFFFF";
 
 type Gamut = "srgb" | "p3";
@@ -500,7 +500,7 @@ function DriftMap({
               <polyline
                 points={points}
                 fill="none"
-                stroke="#0C0D09"
+                stroke={DARK_INK}
                 strokeWidth={1.6}
               />
             </g>
@@ -512,7 +512,7 @@ function DriftMap({
               cy={y(i)}
               r={2.6}
               fill="#FFFFFF"
-              stroke="#0C0D09"
+              stroke={DARK_INK}
               strokeWidth={1.2}
             />
           ))}

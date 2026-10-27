@@ -109,7 +109,7 @@ export const OnLightBackground: Story = {
   args: {
     density: 0.5,
     opacity: 0.06,
-    color: "#0C0D0B", // paper-950, the Paper theme's contrast
+    color: "#0D0D0D", // paper-950, the Paper theme's contrast
     blendMode: "overlay",
   },
   render: (args) => (

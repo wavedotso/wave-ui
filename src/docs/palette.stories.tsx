@@ -349,7 +349,7 @@ function RampSwatch({
     const luminance =
       0.2289746 * linear(pr) + 0.6917385 * linear(pg) + 0.0792869 * linear(pb);
     // Wave's darkest text, paper-950, as the dark ink.
-    const ink = 0.0039;
+    const ink = 0.004;
     // Below 0.19, white text reads better than the dark ink.
     const isWhiteText = hasRule ? step >= 500 : luminance < 0.19;
     setIsDark(isWhiteText);
