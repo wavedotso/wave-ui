@@ -304,3 +304,18 @@ export const Layouts: Story = {
     </div>
   ),
 };
+
+/** In right-to-left text, `fan` and `cascade` open to the right. */
+export const RightToLeft: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div dir="rtl" className="grid grid-cols-2 gap-x-24 gap-y-16 p-16">
+      {(["fan", "cascade"] as const).map((layout) => (
+        <div key={layout} className="flex flex-col items-center gap-4">
+          <CycleDemo layout={layout} />
+          <p className="text-muted text-sm">{layout}</p>
+        </div>
+      ))}
+    </div>
+  ),
+};
