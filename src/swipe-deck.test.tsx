@@ -40,12 +40,12 @@ function Deck(props: Omit<SwipeDeckProps, "children">) {
 const FLIGHT = { timeout: 2000 };
 
 describe("SwipeDeck", () => {
-  it("stacks the cards by default and takes another layout", () => {
+  it("fans the cards by default and takes another layout", () => {
     const { rerender } = render(<Deck />);
     const deck = screen.getByRole("group", { name: "Cards" });
-    expect(deck).toHaveAttribute("data-layout", "stack");
-    rerender(<Deck layout="fan" />);
     expect(deck).toHaveAttribute("data-layout", "fan");
+    rerender(<Deck layout="stack" />);
+    expect(deck).toHaveAttribute("data-layout", "stack");
   });
 
   it("keeps spread, depth and visible within range", () => {

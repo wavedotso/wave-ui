@@ -35,8 +35,8 @@ type SwipeDeckProps = React.ComponentProps<"div"> & {
   /**
    * How the cards behind the front one sit: `stack` peeks them above it, `fan`
    * turns them out like a hand of cards, `cascade` steps them up and to the
-   * side, and `pile` scatters them. Defaults to `stack`. `fan` and `cascade`
-   * open toward the start of the line: left in left-to-right text, right in
+   * side, and `pile` scatters them. Defaults to `fan`. `fan` and `cascade`
+   * open toward the end of the line: right in left-to-right text, left in
    * right-to-left.
    */
   layout?: SwipeDeckLayout;
@@ -386,7 +386,7 @@ function SwipeDeck({
   onSwipe,
   directions = DEFAULT_DIRECTIONS,
   disabled = false,
-  layout = "stack",
+  layout = "fan",
   spread = 0.5,
   depth = 0.5,
   visible = 4,
@@ -668,8 +668,8 @@ function SwipeDeck({
           // Its own stacking context: the cards' z-indexes rank only among
           // themselves, never against the page.
           "group/swipe-deck relative isolate grid outline-hidden",
-          // Which way `fan` and `cascade` open: toward the start of the line.
-          "[--swipe-deck-side:-1] rtl:[--swipe-deck-side:1]",
+          // Which way `fan` and `cascade` open: toward the end of the line.
+          "[--swipe-deck-side:1] rtl:[--swipe-deck-side:-1]",
           // The focus ring sits on the front card; with no cards left, on the
           // deck itself.
           "ring-focus/50 rounded-lg focus-visible:not-has-data-front:ring-3",
@@ -1216,12 +1216,12 @@ function SwipeDeckItem({
         "group-data-[layout=stack]/swipe-deck:origin-top",
         "group-data-[layout=stack]/swipe-deck:[--swipe-deck-layout-y:calc(var(--swipe-deck-layout-slot)_*_var(--swipe-deck-spread,0.5)_*_-32px)]",
         "group-data-[layout=stack]/swipe-deck:[--swipe-deck-layout-scale:max(0,calc(1_-_var(--swipe-deck-layout-slot)_*_var(--swipe-deck-depth,0.5)_*_0.1))]",
-        // fan: turned out from the bottom corner on the line's start side,
-        // like a hand of cards.
-        "group-data-[layout=fan]/swipe-deck:origin-[10%_90%] group-data-[layout=fan]/swipe-deck:rtl:origin-[90%_90%]",
+        // fan: turned out from the bottom corner on the line's end side, like
+        // a hand of cards.
+        "group-data-[layout=fan]/swipe-deck:origin-[90%_90%] group-data-[layout=fan]/swipe-deck:rtl:origin-[10%_90%]",
         "group-data-[layout=fan]/swipe-deck:[--swipe-deck-layout-rotate:calc(var(--swipe-deck-layout-slot)_*_var(--swipe-deck-spread,0.5)_*_8deg_*_var(--swipe-deck-side,1))]",
         "group-data-[layout=fan]/swipe-deck:[--swipe-deck-layout-scale:max(0,calc(1_-_var(--swipe-deck-layout-slot)_*_var(--swipe-deck-depth,0.5)_*_0.12))]",
-        // cascade: stepping up and toward the line's start.
+        // cascade: stepping up and toward the line's end.
         "group-data-[layout=cascade]/swipe-deck:[--swipe-deck-layout-x:calc(var(--swipe-deck-layout-slot)_*_var(--swipe-deck-spread,0.5)_*_28px_*_var(--swipe-deck-side,1))]",
         "group-data-[layout=cascade]/swipe-deck:[--swipe-deck-layout-y:calc(var(--swipe-deck-layout-slot)_*_var(--swipe-deck-spread,0.5)_*_-28px)]",
         "group-data-[layout=cascade]/swipe-deck:[--swipe-deck-layout-scale:max(0,calc(1_-_var(--swipe-deck-layout-slot)_*_var(--swipe-deck-depth,0.5)_*_0.07))]",

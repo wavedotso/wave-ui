@@ -31,7 +31,7 @@ const meta = {
       },
     },
   },
-  args: { layout: "stack", spread: 0.5, depth: 0.5, visible: 4 },
+  args: { layout: "fan", spread: 0.5, depth: 0.5, visible: 4 },
   argTypes: {
     layout: {
       control: "inline-radio",
@@ -306,7 +306,7 @@ export const Layouts: Story = {
   ),
 };
 
-/** In right-to-left text, `fan` and `cascade` open to the right. */
+/** In right-to-left text, `fan` and `cascade` open to the left. */
 export const RightToLeft: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
