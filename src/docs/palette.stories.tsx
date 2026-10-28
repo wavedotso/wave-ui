@@ -12,7 +12,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Every color token in Wave, grouped by role. **Palettes** are the Wave Palettes: Wave Blue and its nine signature colours, from Wave Indigo to Wave Teal, each hue placed by hand and every step grown on the Wave Light Curve with the Wave Hues Drift, plus Wave Gray, the curve in pure grey. **Themes** are the three neutral ramps (Graphite, Ink and Paper), and **Interface** is the semantic layer components actually consume. Swatches read the live CSS variables, so they reflect the theme selected in the toolbar.",
+          "Every color token in Wave, grouped by role. **Brand** is Wave Blue, Wave's own colour. **Palettes** are its nine signature colours, from Wave Indigo to Wave Teal, each hue placed by hand and every step grown on the Wave Light Curve with the Wave Hues Drift, like Wave Blue, plus Wave Gray, the curve in pure grey. **Themes** are the three neutral ramps (Graphite, Ink and Paper), and **Interface** is the semantic layer components actually consume. Swatches read the live CSS variables, so they reflect the theme selected in the toolbar.",
       },
     },
   },
@@ -39,14 +39,19 @@ const STEPS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950] as const;
  */
 const LUMINANCE_TEXT = new Set(["graphite", "paper"]);
 
+// Wave Blue, the brand. Grown on the same curve as the palettes, and the
+// colour the interface uses when it means Wave.
+const BRAND_GROUPS: Group[] = [
+  {
+    label: "Wave Blue",
+    note: "Wave's brand colour, #0074DE at its 500. `primary`, `info` and the focus ring resolve to wave-blue-500, `accent` to wave-blue-300, and `info-text` to a deeper or lighter step for each theme.",
+    ramp: "wave-blue",
+  },
+];
+
 // The Wave Palettes, shared by every theme. A step has the same
 // contrast in every palette: dark text below 500, white from 500.
 const PALETTE_GROUPS: Group[] = [
-  {
-    label: "Wave Blue",
-    note: "The brand ramp. `primary`, `info` and the focus ring resolve to wave-blue-500.",
-    ramp: "wave-blue",
-  },
   { label: "Wave Indigo", ramp: "wave-indigo" },
   { label: "Wave Purple", ramp: "wave-purple" },
   { label: "Wave Pink", ramp: "wave-pink" },
@@ -402,7 +407,7 @@ function RampSwatch({
 }
 
 /** Shared swatch layout — one focused set of token groups, centered. */
-function PaletteView({ groups }: { groups: Group[] }) {
+function PaletteView({ groups, intro }: { groups: Group[]; intro?: string }) {
   return (
     <div className="bg-foundation text-contrast p-10">
       <div
@@ -414,6 +419,11 @@ function PaletteView({ groups }: { groups: Group[] }) {
           margin: "0 auto",
         }}
       >
+        {intro ? (
+          <p style={{ fontSize: 12, color: "var(--soft)", margin: 0 }}>
+            {intro}
+          </p>
+        ) : null}
         {groups.map((group) => (
           <div key={group.label}>
             <h3
@@ -518,8 +528,17 @@ function PaletteView({ groups }: { groups: Group[] }) {
   );
 }
 
+export const Brand: Story = {
+  render: () => <PaletteView groups={BRAND_GROUPS} />,
+};
+
 export const Palettes: Story = {
-  render: () => <PaletteView groups={PALETTE_GROUPS} />,
+  render: () => (
+    <PaletteView
+      groups={PALETTE_GROUPS}
+      intro="Wave Blue, the brand colour, grows on the same curve. It lives in Brand, above."
+    />
+  ),
 };
 
 export const Themes: Story = {
