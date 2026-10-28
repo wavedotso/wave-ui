@@ -124,6 +124,12 @@ const KEY_DIRECTIONS: Partial<Record<string, SwipeDirection>> = {
 
 /** How far (px) a press moves before it becomes a drag, so taps stay clicks. */
 const DRAG_SLOP = 6;
+/**
+ * How hard a card resists being pulled toward a side it can't leave by: the
+ * factor in iOS's rubber band, under which a pull moves it less and less,
+ * never past its own length.
+ */
+const RUBBER_BAND = 0.55;
 /** A card leaves when it comes to rest past this share of its width (or height). */
 const LEAVE_SHARE = 0.25;
 /** Only pointer samples this recent (ms) set the release speed. */
@@ -176,6 +182,49 @@ function touchAction(directions: readonly SwipeDirection[]) {
 
 function isHorizontal(direction: SwipeDirection) {
   return direction === "left" || direction === "right";
+}
+
+/** Whether `offset` on an axis is on a side the card can leave by. */
+function isOpenSide(
+  directions: readonly SwipeDirection[],
+  horizontal: boolean,
+  offset: number,
+) {
+  if (offset === 0) return true;
+  const toward = horizontal
+    ? offset > 0
+      ? "right"
+      : "left"
+    : offset > 0
+      ? "down"
+      : "up";
+  return directions.includes(toward);
+}
+
+/** Where a pull of `offset` toward a closed side leaves the card. */
+function resist(offset: number, length: number) {
+  if (length <= 0) return 0;
+  const pull = Math.abs(offset);
+  return (
+    Math.sign(offset) * (1 - 1 / ((pull * RUBBER_BAND) / length + 1)) * length
+  );
+}
+
+/** The pull that `resist` turns into `offset`, to catch a resisted card. */
+function unresist(offset: number, length: number) {
+  if (length <= 0) return 0;
+  const share = Math.min(Math.abs(offset) / length, 0.99);
+  return (Math.sign(offset) * (1 / (1 - share) - 1) * length) / RUBBER_BAND;
+}
+
+/** A drag's offset on one axis, resisted when it points to a closed side. */
+function follow(
+  directions: readonly SwipeDirection[],
+  horizontal: boolean,
+  pull: number,
+  length: number,
+) {
+  return isOpenSide(directions, horizontal, pull) ? pull : resist(pull, length);
 }
 
 /** Lets the cards behind settle back from a lift. */
@@ -1003,7 +1052,15 @@ function SwipeDeckItem({
         time: event.timeStamp,
       });
     }
-    const velocity = releaseVelocity(drag.samples, event.timeStamp);
+    // A resisted axis moved slower than the pointer: it brings no throw.
+    const [pointerVx, pointerVy] = releaseVelocity(
+      drag.samples,
+      event.timeStamp,
+    );
+    const velocity: [number, number] = [
+      isOpenSide(directionsRef.current, true, x.get()) ? pointerVx : 0,
+      isOpenSide(directionsRef.current, false, y.get()) ? pointerVy : 0,
+    ];
     if (event.type === "pointerup" && !disabledRef.current) {
       // Where the card is, plus what its throw adds: far enough, and it leaves.
       const ahead = lean(
@@ -1042,13 +1099,21 @@ function SwipeDeckItem({
     deck.lift.stop();
     x.stop();
     y.stop();
-    sizeRef.current = sizeOf(element);
+    const size = sizeOf(element);
+    sizeRef.current = size;
+    // A card caught while resisted sits short of the pointer's pull: start
+    // from that pull, so it doesn't jump.
+    const openAtPress = directionsRef.current;
     const drag: Drag = {
       pointerId: event.pointerId,
       startX: event.clientX,
       startY: event.clientY,
-      originX: x.get(),
-      originY: y.get(),
+      originX: isOpenSide(openAtPress, true, x.get())
+        ? x.get()
+        : unresist(x.get(), size.width),
+      originY: isOpenSide(openAtPress, false, y.get())
+        ? y.get()
+        : unresist(y.get(), size.height),
       moved: false,
       samples: [{ x: event.clientX, y: event.clientY, time: event.timeStamp }],
     };
@@ -1068,8 +1133,12 @@ function SwipeDeckItem({
         element.setPointerCapture(drag.pointerId);
         setIsSwiping(true);
       }
-      x.set(drag.originX + dx);
-      y.set(drag.originY + dy);
+      // Free toward a side it can leave by; resisting toward one it can't,
+      // so the drag shows that way won't work before letting go does.
+      const allowed = directionsRef.current;
+      const { width, height } = sizeRef.current;
+      x.set(follow(allowed, true, drag.originX + dx, width));
+      y.set(follow(allowed, false, drag.originY + dy, height));
       drag.samples.push({
         x: moveEvent.clientX,
         y: moveEvent.clientY,
