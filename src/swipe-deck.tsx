@@ -1161,7 +1161,9 @@ function SwipeDeckItem({
         "group-data-[layout=pile]/swipe-deck:[--swipe-deck-layout-y:calc(var(--swipe-deck-scatter-y)_*_var(--swipe-deck-spread,0.5)_*_44px)]",
         "group-data-[layout=pile]/swipe-deck:[--swipe-deck-layout-rotate:calc(var(--swipe-deck-scatter-rotate)_*_var(--swipe-deck-spread,0.5)_*_40deg)]",
         "group-data-[layout=pile]/swipe-deck:[--swipe-deck-layout-scale:max(0,calc(1_-_var(--swipe-deck-layout-slot)_*_var(--swipe-deck-depth,0.5)_*_0.03))]",
-        "ring-focus/50 group-focus-visible/swipe-deck:data-front:ring-3",
+        // The focus ring's colour only while focused, as Card does, so a ring
+        // of your own on the card (its edge) keeps its colour at rest.
+        "group-focus-visible/swipe-deck:data-front:ring-focus/50 group-focus-visible/swipe-deck:data-front:ring-3",
         "data-front:cursor-grab data-swiping:cursor-grabbing group-data-disabled/swipe-deck:data-front:cursor-auto",
         touchAction(directions),
         className,

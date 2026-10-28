@@ -91,9 +91,10 @@ function SwatchItem({ swatch }: { swatch: Swatch }) {
     <SwipeDeckItem
       value={swatch.id}
       aria-label={swatch.label}
-      // One shadow, on the card on top: stacked cards would stack shadows.
+      // The same 1px edge as Card and Toast. One shadow, on the card on top:
+      // stacked cards would stack shadows.
       className={cn(
-        "aspect-square data-front:shadow-md data-leaving:shadow-md",
+        "ring-contrast/10 aspect-square ring-1 data-front:shadow-md data-leaving:shadow-md",
         swatch.color,
       )}
     />
