@@ -1160,3 +1160,22 @@
   0%, 70%, 100% { opacity: 1; }
   20%, 50% { opacity: 0; }
 }
+
+/* ---------------------------------------------------------------------------
+ * SwipeDeck — the numbers each card works out its place from change every
+ * frame of a drag (the cards behind lift toward the front). Unregistered,
+ * custom properties inherit, so each change would restyle everything inside
+ * the cards in sight; registered as not inheriting, it stops at the card.
+ * Measured with heavy cards: about 2.5x less style work in Chromium, and
+ * WebKit back to 60 fps from about 30. The card's public hooks
+ * (`--swipe-deck-progress`, `-movement-x`/`-y`, `-place`, `-index`) still
+ * inherit, so what's inside a card can read them. */
+@property --swipe-deck-lift { syntax: "*"; inherits: false; }
+@property --swipe-deck-slot { syntax: "*"; inherits: false; }
+@property --swipe-deck-layout-slot { syntax: "*"; inherits: false; }
+@property --swipe-deck-layout-x { syntax: "*"; inherits: false; }
+@property --swipe-deck-layout-y { syntax: "*"; inherits: false; }
+@property --swipe-deck-layout-rotate { syntax: "*"; inherits: false; }
+@property --swipe-deck-layout-scale { syntax: "*"; inherits: false; }
+@property --swipe-deck-enter-scale { syntax: "*"; inherits: false; }
+@property --swipe-deck-pose { syntax: "*"; inherits: false; }
