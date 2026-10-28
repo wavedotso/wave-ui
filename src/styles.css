@@ -247,21 +247,21 @@
    * `--contrast`…).
    * ──────────────────────────────────────────────────────────────────────── */
 
-  /* Graphite — the mid-tone grey (default). Built around its card colour, the
-   * 900 (#2F3036): the page (950) and menus (800) one even contrast step
-   * either side, the steps above evenly spaced up to the text colour at the
-   * 50. One hue, 278.2; chroma arcs to 0.014 through the middle. */
-  --graphite-50:  oklch(0.964 0.001 278.2); /* #F3F3F4 */
-  --graphite-100: oklch(0.911 0.004 278.2); /* #E1E1E4 */
-  --graphite-200: oklch(0.840 0.007 278.2); /* #C9CACF */
-  --graphite-300: oklch(0.757 0.009 278.2); /* #AEB0B6 */
-  --graphite-400: oklch(0.678 0.011 278.2); /* #96979F */
-  --graphite-500: oklch(0.589 0.013 278.2); /* #7B7C85 */
-  --graphite-600: oklch(0.498 0.014 278.2); /* #61626B */
-  --graphite-700: oklch(0.415 0.013 278.2); /* #4A4B53 */
-  --graphite-800: oklch(0.348 0.012 278.2); /* #383940 */
-  --graphite-900: oklch(0.311 0.011 278.2); /* #2F3036 */
-  --graphite-950: oklch(0.268 0.009 278.2); /* #25262A */
+  /* Graphite — the mid-tone grey (default). Built around its original card
+   * colour, the 900 (#323339): the page (950) and menus (800) one 1.15
+   * contrast step either side, the steps above evenly spaced up to the text
+   * colour at the 50. One hue, 278.3; chroma arcs to 0.014 through the middle. */
+  --graphite-50:  oklch(0.964 0.001 278.3); /* #F3F3F4 */
+  --graphite-100: oklch(0.912 0.003 278.3); /* #E1E2E4 */
+  --graphite-200: oklch(0.842 0.007 278.3); /* #CACBD0 */
+  --graphite-300: oklch(0.761 0.009 278.3); /* #B0B1B7 */
+  --graphite-400: oklch(0.683 0.011 278.3); /* #9799A0 */
+  --graphite-500: oklch(0.595 0.013 278.3); /* #7D7E87 */
+  --graphite-600: oklch(0.506 0.014 278.3); /* #63646D */
+  --graphite-700: oklch(0.424 0.014 278.3); /* #4C4E56 */
+  --graphite-800: oklch(0.359 0.012 278.3); /* #3B3C43 */
+  --graphite-900: oklch(0.322 0.011 278.3); /* #323339 */
+  --graphite-950: oklch(0.283 0.009 278.3); /* #28292E */
 
   /* Ink — deep navy surfaces, neutral-cool structure (page #020812, surface #0B1627).
    * Graphite's even lightness steps between Ink's 50 and its page. Chroma fades
@@ -498,17 +498,17 @@
     --wave-teal-900: oklch(0.251 0.049 219.9);
     --wave-teal-950: oklch(0.197 0.037 222.5);
     /* Graphite */
-    --graphite-50:  oklch(0.964 0.001 278.2);
-    --graphite-100: oklch(0.911 0.004 278.2);
-    --graphite-200: oklch(0.840 0.007 278.2);
-    --graphite-300: oklch(0.757 0.009 278.2);
-    --graphite-400: oklch(0.678 0.011 278.2);
-    --graphite-500: oklch(0.589 0.013 278.2);
-    --graphite-600: oklch(0.498 0.014 278.2);
-    --graphite-700: oklch(0.415 0.013 278.2);
-    --graphite-800: oklch(0.348 0.012 278.2);
-    --graphite-900: oklch(0.311 0.011 278.2);
-    --graphite-950: oklch(0.268 0.009 278.2);
+    --graphite-50:  oklch(0.964 0.001 278.3);
+    --graphite-100: oklch(0.912 0.003 278.3);
+    --graphite-200: oklch(0.842 0.007 278.3);
+    --graphite-300: oklch(0.761 0.009 278.3);
+    --graphite-400: oklch(0.683 0.011 278.3);
+    --graphite-500: oklch(0.595 0.013 278.3);
+    --graphite-600: oklch(0.506 0.014 278.3);
+    --graphite-700: oklch(0.424 0.014 278.3);
+    --graphite-800: oklch(0.359 0.012 278.3);
+    --graphite-900: oklch(0.322 0.011 278.3);
+    --graphite-950: oklch(0.283 0.009 278.3);
     /* Ink */
     --ink-50:  oklch(0.966 0.003 248);
     --ink-100: oklch(0.906 0.007 265);
@@ -596,13 +596,13 @@
     --shade: color-mix(in srgb, var(--graphite-50) 15%, transparent);
     --shadow-strength: 0.045;
     --danger: var(--wave-red-500);
-    --danger-text: oklch(0.738 0.158 16.8); /* #FE7C86, see below */
+    --danger-text: oklch(0.749 0.152 16.8); /* #FF828B, see below */
     --success: var(--wave-green-500);
-    --success-text: oklch(0.700 0.155 160); /* #14BB7C, see below */
+    --success-text: oklch(0.712 0.161 160); /* #00C07E, see below */
     --warning: var(--wave-orange-500);
-    --warning-text: oklch(0.732 0.173 57.3); /* #F78711, see below */
+    --warning-text: oklch(0.745 0.179 57.3); /* #FE8A04, see below */
     --info: var(--wave-blue-500);
-    --info-text: oklch(0.717 0.150 250.4); /* #52A8FD, see below */
+    --info-text: oklch(0.730 0.145 250.4); /* #5AADFF, see below */
   }
 }
 
@@ -619,13 +619,13 @@
   --shade: color-mix(in srgb, var(--graphite-50) 15%, transparent);
   --shadow-strength: 0.045;
   --danger: var(--wave-red-500);
-  --danger-text: oklch(0.738 0.158 16.8); /* #FE7C86, see below */
+  --danger-text: oklch(0.749 0.152 16.8); /* #FF828B, see below */
   --success: var(--wave-green-500);
-  --success-text: oklch(0.700 0.155 160); /* #14BB7C, see below */
+  --success-text: oklch(0.712 0.161 160); /* #00C07E, see below */
   --warning: var(--wave-orange-500);
-  --warning-text: oklch(0.732 0.173 57.3); /* #F78711, see below */
+  --warning-text: oklch(0.745 0.179 57.3); /* #FE8A04, see below */
   --info: var(--wave-blue-500);
-  --info-text: oklch(0.717 0.150 250.4); /* #52A8FD, see below */
+  --info-text: oklch(0.730 0.145 250.4); /* #5AADFF, see below */
 }
 
 /* Graphite's status text. Its mid-tone menus need each status a touch lighter
@@ -636,19 +636,19 @@
  * palette steps. */
 @media (color-gamut: p3) {
   .graphite {
-    --danger-text: oklch(0.743 0.198 16.8);
-    --success-text: oklch(0.693 0.212 160);
-    --warning-text: oklch(0.734 0.198 57.3);
-    --info-text: oklch(0.717 0.162 250.4);
+    --danger-text: oklch(0.755 0.190 16.8);
+    --success-text: oklch(0.705 0.219 160);
+    --warning-text: oklch(0.748 0.205 57.3);
+    --info-text: oklch(0.730 0.157 250.4);
   }
 }
 
 @media (prefers-color-scheme: dark) and (color-gamut: p3) {
   :where(:root:not(.paper):not(.graphite):not(.ink)) {
-    --danger-text: oklch(0.743 0.198 16.8);
-    --success-text: oklch(0.693 0.212 160);
-    --warning-text: oklch(0.734 0.198 57.3);
-    --info-text: oklch(0.717 0.162 250.4);
+    --danger-text: oklch(0.755 0.190 16.8);
+    --success-text: oklch(0.705 0.219 160);
+    --warning-text: oklch(0.748 0.205 57.3);
+    --info-text: oklch(0.730 0.157 250.4);
   }
 }
 

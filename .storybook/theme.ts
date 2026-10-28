@@ -6,8 +6,8 @@ import { create } from "storybook/theming";
 // manager is themed once, at boot). So we pin it to the Graphite-dark default
 // and mirror just those two token values. This is the ONLY place a token has to
 // be hardcoded; keep it in sync with src/styles.css (the `.graphite` block).
-const FOUNDATION = "#25262A"; // graphite-950 → `.graphite` `--foundation`
-const SURFACE = "#2F3036"; // graphite-900 → `.graphite` `--surface`
+const FOUNDATION = "#28292E"; // graphite-950 → `.graphite` `--foundation`
+const SURFACE = "#323339"; // graphite-900 → `.graphite` `--surface`
 
 export const waveTheme = create({
   base: "dark",
