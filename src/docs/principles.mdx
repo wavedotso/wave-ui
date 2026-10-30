@@ -70,9 +70,9 @@ carry it, so it reads the same for everyone, whatever colours they see.
 Translucency is picked from a short scale, each step tied to a job, never tuned by eye per
 component:
 
-- **10** — hairlines and faint tints: `ring-contrast/10` around every surface
+- **10** — faint tints: `bg-contrast-inverse/10`, a key cap on a tooltip
 - **30** — invalid and disabled: `ring-danger/30`, `opacity-30`
-- **50** — focus and muted fills: `ring-focus/50`, `bg-secondary/50`
+- **50** — focus halos: `ring-focus/50`
 - **80** — a filled control's hover and the glass fill: `hover:bg-primary/80`, `bg-elevated/80`
 
 A value outside the scale is a question to answer, not a tweak to keep: if 10 reads too faint
@@ -81,33 +81,110 @@ job looks the same everywhere, which is most of what makes a set of components f
 The one standing exception is 90, the fill that glass falls back to where the browser can't
 blur (below).
 
-## Controls are drawn with contour, highlight and shade
+## Lines divide and bound
 
-A draughtsman renders any form with three marks: the contour where it ends, the highlight where
-the light lands, and the shade that gives it body. Wave draws its controls the same way, with
-the theme's own foreground made translucent, at three strengths. Each mark keeps one job, whether it lands on a border
-or a background:
+Wave draws the lines between and around things with the theme's own foreground made
+translucent, at three strengths, one job each:
 
-- **`contour`** — 5% of the foreground: where a shape ends. Hairline
-  borders, separators, the dividers between rows and sections.
-- **`highlight`** — 10%: where attention lands. The hovered row, the item picked with the
-  arrow keys, a trigger whose menu is open.
-- **`shade`** — 15%: what gives a control its body. The fill of fields, tracks and
-  unchecked boxes, a scrollbar thumb, the border of an outline button.
+- **`line`** — 5% of the foreground: what divides. Separators, the dividers between rows and
+  sections, hairlines.
+- **`edge`** — 10%: what bounds a surface. The edge around a card, a dialog, a menu or a toast.
+- **`contour`** — 15%: what outlines a control or a region. The border of an outline button, a
+  badge or a toggle, the slider thumb, a menubar, a layout region.
 
-All three are translucent, so each sits the same distance from whatever is beneath it — the
+All three are borders, part of the thing they belong to.
+
+<img
+  src="/principles/lines.png"
+  alt="A menubar outlined in contour, its open menu bounded by an edge, and the separators inside the menu drawn as lines, in the Paper and Graphite themes."
+  style={{ width: '100%', maxWidth: 532 }}
+/>
+
+## Rings are halos
+
+A ring is drawn outside a thing, like a halo around it, so Wave keeps rings for the states that
+sit around a control: focus (`ring-focus/50`, and `ring-danger/50` on a red control) and invalid
+(`ring-danger/30`). A surface's edge is never a ring. Drawn outside, it lies past a menu's glass,
+on the page behind it: where it crosses text it flickers between the letters and the page, on in
+some places and gone in others. Windows' high contrast mode also drops every ring, which would
+leave a menu with no edge at all. A border is part of the surface: it sits on the glass, stays
+even, and high contrast keeps it.
+
+<img
+  src="/principles/ring-vs-border.png"
+  alt="A glass menu's edge crossing text: drawn as a ring it breaks up inside the letters, drawn as a border it runs straight through. Below, a Select list in Windows high contrast: with a ring it has no edge, with a border it keeps one."
+  style={{ width: '100%', maxWidth: 664 }}
+/>
+
+_The ring is put back with test CSS on today's components, to compare the two._
+
+Overlapping things are kept apart the same way, without a ring in the page's colour, which is
+only right on the page itself. Avatars in a group, and a badge on an avatar, are separated by a
+gap cut through the one underneath, so whatever is behind them shows through it: the page, a
+card or a picture.
+
+<img
+  src="/principles/avatar-cutout.png"
+  alt="An avatar group and an avatar with a badge, on a card and on a picture. With a ring in the page colour each avatar wears a dark halo; with the cut-out the card or the picture shows through the gap."
+  style={{ width: '100%', maxWidth: 768 }}
+/>
+
+_The ring is put back with test CSS on today's components, to compare the two._
+
+## Focus survives high contrast
+
+Windows' high contrast mode drops every ring, the focus halo included, and repaints the page in
+a few system colours, so a highlight fill disappears too. Something else has to show where
+focus is, and that's the browser's outline. Tailwind's `outline-hidden` is a rule with two
+halves: normally it hides the outline, so the halo can show focus instead; in high contrast it
+draws one. The variant in front of it decides which element the rule is switched on for, and
+it must be the one that shows focus or the highlight, never every element:
+
+- **`focus-visible:outline-hidden`** on anything whose halo is a `focus-visible:` ring: buttons,
+  fields, checkboxes, tabs, cards that are links. Also on what can take focus without a halo of
+  its own: popups, dialogs, tab panels.
+- **`focus:outline-hidden`** on menu items, whose highlight follows focus, even under the
+  pointer.
+- **`data-highlighted:outline-hidden`** on list options (Select, Combobox, Autocomplete). In a
+  combobox the text field keeps focus and the options are only highlighted, so this is the
+  only way high contrast can show which one is.
+- **`data-active:outline-hidden`** on the active one-time-code slot.
+
+Plain `outline-hidden` is never used: switched on for every element, its high contrast half
+outlines all of them, so every item is boxed and the focused one looks like the rest. An element
+that never takes focus, such as a popup's positioner, needs none. In normal mode none of this
+changes anything you can see.
+
+<img
+  src="/principles/high-contrast-focus.png"
+  alt="Menu, Combobox and buttons in Windows high contrast mode. With plain outline-hidden every item and button is boxed; with outline-hidden behind its variant only the highlighted item and the focused button are outlined."
+  style={{ width: '100%', maxWidth: 768 }}
+/>
+
+_High contrast mode as Chromium emulates it, on Wave's own components._
+
+## Fills have one job each
+
+Wave fills things with the theme's own foreground made translucent, one job each:
+
+- **`highlighted`** — 10% of the foreground: where attention lands. The hovered row, the item
+  picked with the arrow keys, a trigger whose menu is open.
+- **`neutral`** — 15%: what gives a control its body, its look before anything is chosen.
+  The fill of fields, tracks and unchecked boxes, a scrollbar thumb. (Tailwind's own
+  `neutral-50` … `neutral-950` greys are a separate palette Wave doesn't use.)
+
+All of these are translucent, so each sits the same distance from whatever is beneath it — the
 page, a card, a menu or glass — and a theme only has to supply its foreground. They step from faint to
 strong, so a hovered row always reads lighter than the empty field beside it. A colour is named
-for its job, not for where it lands: `border-shade` and `bg-shade` are the same body,
-`border-contour` and `bg-contour` the same line. When a boundary has to be intense — a layout
-region, a control's outline — it takes `shade`.
+for its job, not for where it lands: a separator drawn as a 1px fill is still `bg-line`. When a
+boundary has to be intense — a layout region, a control's outline — it takes `contour`.
 
 ## Hover points, primary chooses
 
 Every item, row and button takes its background from one of three recipes, so a highlight
 means the same thing wherever it appears:
 
-- **Hover and highlight** — `bg-highlight`, on anything without a fill of its own: menu and
+- **Hover and highlight** — `bg-highlighted`, on anything without a fill of its own: menu and
   list items, ghost and outline buttons, toggles, sidebar items, table rows, items rendered as
   links. In a menu or a list, the row under the pointer and the row picked with the arrow keys
   are one state, so they look the same.
@@ -119,9 +196,9 @@ means the same thing wherever it appears:
   never merely _pointed at_, which is why hover never fills with it: a hovered row that looks
   like the current page makes the current page impossible to find.
 
-Focus stays separate and sits on top of any of these, as the `ring-focus/50` ring.
+Focus stays separate and sits on top of any of these, as the focus halo (`ring-focus/50`).
 
-A few things show hover another way, on purpose. Form fields already carry the shade fill, so
+A few things show hover another way, on purpose. Form fields already carry the neutral fill, so
 hover reveals their border (`hover:border-focus`). Inactive tabs and breadcrumb links brighten
 their text, and the accordion trigger underlines. A surface that is a link steps up a level
 instead: a card lifts to the elevated surface, a muted item to the full secondary fill. Small
@@ -137,6 +214,6 @@ Where the browser can't blur, the fill holds at 90 (`not-supports-backdrop-filte
 the fallback), so text never sits over a sharp, busy background.
 
 The blur goes on the surface itself, never on a `::before` layer: a layer blurs only part of
-what's behind it and scrolls away with a long menu's content.
+what's behind it.
 
 _This page is where that thinking lives — add to it as the system grows._
