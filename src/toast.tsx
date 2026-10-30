@@ -19,7 +19,7 @@ import {
 // ---------------------------------------------------------------------------
 
 const toastRootClass =
-  "bg-elevated text-contrast ring-contrast/10 rounded-md p-4 text-sm shadow-md ring-1 outline-hidden";
+  "bg-elevated text-contrast border-edge rounded-md p-4 text-sm shadow-md border focus-visible:outline-hidden";
 
 const toastIconVariants = cva("mt-0.5 size-4 shrink-0", {
   variants: {
@@ -34,7 +34,7 @@ const toastIconVariants = cva("mt-0.5 size-4 shrink-0", {
 });
 
 const toastViewportVariants = cva(
-  "fixed z-[100] flex w-full outline-hidden sm:max-w-sm",
+  "fixed z-[100] flex w-full focus-visible:outline-hidden sm:max-w-sm",
   {
     variants: {
       position: {
@@ -221,7 +221,7 @@ function ToastAction({ className, ...props }: ToastActionProps) {
     <ToastPrimitive.Action
       data-slot="toast-action"
       className={cn(
-        "hover:bg-highlight inline-flex h-7 items-center rounded-md border border-contour px-2.5 text-xs font-medium transition-colors outline-hidden focus-visible:border-focus focus-visible:ring-focus/50 focus-visible:ring-3",
+        "hover:bg-highlighted inline-flex h-7 items-center rounded-md border border-line px-2.5 text-xs font-medium transition-colors focus-visible:outline-hidden focus-visible:border-focus focus-visible:ring-focus/50 focus-visible:ring-3",
         className,
       )}
       {...props}
@@ -234,7 +234,7 @@ function ToastClose({ className, children, ...props }: ToastCloseProps) {
     <ToastPrimitive.Close
       data-slot="toast-close"
       className={cn(
-        "text-muted hover:bg-highlight hover:text-contrast shrink-0 rounded-md p-0.5 transition-colors outline-hidden focus-visible:ring-focus/50 focus-visible:ring-3",
+        "text-muted hover:bg-highlighted hover:text-contrast shrink-0 rounded-md p-0.5 transition-colors focus-visible:outline-hidden focus-visible:ring-focus/50 focus-visible:ring-3",
         className,
       )}
       {...props}
