@@ -7,7 +7,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "./lib/utils";
 
 const switchVariants = cva(
-  "@container cursor-clickable data-checked:bg-primary data-unchecked:bg-shade data-unchecked:hover:border-focus focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-danger/30 aria-invalid:border-danger peer relative inline-flex shrink-0 items-center rounded-full border border-transparent motion-color outline-hidden after:absolute after:-inset-x-3 after:-inset-y-2 focus-visible:ring-3 aria-invalid:ring-3 data-disabled:pointer-events-none data-disabled:opacity-30",
+  "@container cursor-clickable data-checked:bg-primary data-unchecked:bg-neutral data-unchecked:hover:border-focus focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-danger/30 aria-invalid:border-danger peer relative inline-flex shrink-0 items-center rounded-full border border-transparent motion-color focus-visible:outline-hidden after:absolute after:-inset-x-3 after:-inset-y-2 focus-visible:ring-3 aria-invalid:ring-3 data-disabled:pointer-events-none data-disabled:opacity-30",
   {
     variants: {
       size: {
