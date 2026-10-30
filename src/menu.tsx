@@ -1,6 +1,6 @@
 "use client";
 
-import type * as React from "react";
+import * as React from "react";
 import { Menu as MenuPrimitive } from "@base-ui/react/menu";
 
 import { cn } from "./lib/utils";
@@ -90,13 +90,16 @@ function MenuContent({
   className,
   restoreFocusOnClose,
   finalFocus,
+  onKeyDown,
+  children,
   ...props
 }: MenuContentProps) {
+  const listRef = React.useRef<HTMLDivElement>(null);
   return (
     <MenuPortal>
       <MenuPrimitive.Positioner
         data-slot="menu-positioner"
-        className="isolate z-50 outline-hidden"
+        className="isolate z-50"
         align={align}
         alignOffset={alignOffset}
         side={side}
@@ -105,12 +108,40 @@ function MenuContent({
         <MenuPrimitive.Popup
           data-slot="menu-content"
           className={cn(
-            "motion-pop-md ring-contrast/10 bg-elevated text-contrast z-50 max-h-(--available-height) max-w-(--available-width) w-auto min-w-32 overflow-x-hidden overflow-y-auto rounded-md p-1 shadow-md ring-1 outline-hidden data-closed:overflow-hidden",
+            "motion-pop-md border-edge bg-elevated text-contrast z-50 flex max-h-(--available-height) max-w-(--available-width) w-auto min-w-32 flex-col overflow-hidden rounded-md shadow-md border focus-visible:outline-hidden",
             className,
           )}
           finalFocus={resolveFinalFocus(restoreFocusOnClose, finalFocus)}
+          onKeyDown={(event) => {
+            onKeyDown?.(event);
+            // Opened with the pointer, the popup itself has focus, so the
+            // browser's PageUp/PageDown would find nothing to scroll: the list
+            // inside it scrolls. Page it by what's in view, less a little
+            // overlap, as browsers do.
+            const list = listRef.current;
+            if (
+              list &&
+              !event.defaultPrevented &&
+              event.target === event.currentTarget &&
+              (event.key === "PageDown" || event.key === "PageUp")
+            ) {
+              event.preventDefault();
+              const direction = event.key === "PageDown" ? 1 : -1;
+              list.scrollBy({ top: direction * list.clientHeight * 0.875 });
+            }
+          }}
           {...props}
-        />
+        >
+          {/* The list scrolls, not the popup, so its edges can fade without
+              the popup's own background, edge and shadow fading with them. */}
+          <div
+            ref={listRef}
+            data-slot="menu-list"
+            className="scroll-fade supports-[animation-timeline:scroll()]:scrollbar-none min-h-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain p-1"
+          >
+            {children}
+          </div>
+        </MenuPrimitive.Popup>
       </MenuPrimitive.Positioner>
     </MenuPortal>
   );
@@ -146,7 +177,7 @@ function MenuItem({
       data-inset={inset}
       data-variant={variant}
       className={cn(
-        "focus:bg-highlight data-[variant=danger]:text-danger data-[variant=danger]:*:[svg]:text-danger data-[variant=danger]:focus:bg-danger data-[variant=danger]:focus:text-white data-[variant=danger]:focus:**:text-white group/menu-item relative flex cursor-clickable items-center gap-1.5 rounded-sm px-1.5 py-1 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 data-inset:pl-7 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-highlighted data-[variant=danger]:text-danger data-[variant=danger]:*:[svg]:text-danger data-[variant=danger]:focus:bg-danger data-[variant=danger]:focus:text-white data-[variant=danger]:focus:**:text-white group/menu-item relative flex cursor-clickable items-center gap-1.5 rounded-sm px-1.5 py-1 text-sm focus:outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 data-inset:pl-7 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -169,7 +200,7 @@ function MenuSubTrigger({
       data-slot="menu-sub-trigger"
       data-inset={inset}
       className={cn(
-        "focus:bg-highlight data-popup-open:bg-highlight flex cursor-clickable items-center gap-1.5 rounded-sm px-1.5 py-1 text-sm outline-hidden select-none data-inset:pl-7 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-highlighted data-popup-open:bg-highlighted flex cursor-clickable items-center gap-1.5 rounded-sm px-1.5 py-1 text-sm focus:outline-hidden select-none data-inset:pl-7 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -182,9 +213,10 @@ function MenuSubTrigger({
 
 function MenuSubContent({
   align = "start",
-  // -4 cancels the popup's p-1 (4px) top padding so the submenu's first
-  // item lines up with the parent item row, not the popup container edge.
-  alignOffset = -4,
+  // -5 cancels the popup's 1px edge and the list's p-1 (4px) top padding,
+  // so the submenu's first item lines up with the parent item row, not the
+  // popup container edge.
+  alignOffset = -5,
   side = "right",
   sideOffset = 0,
   className,
@@ -215,7 +247,7 @@ function MenuCheckboxItem({
       data-slot="menu-checkbox-item"
       data-inset={inset}
       className={cn(
-        "focus:bg-highlight relative flex cursor-clickable items-center gap-1.5 rounded-sm py-1 pr-8 pl-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 data-inset:pl-7 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-highlighted relative flex cursor-clickable items-center gap-1.5 rounded-sm py-1 pr-8 pl-1.5 text-sm focus:outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 data-inset:pl-7 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       checked={checked}
@@ -249,7 +281,7 @@ function MenuRadioItem({
       data-slot="menu-radio-item"
       data-inset={inset}
       className={cn(
-        "focus:bg-highlight relative flex cursor-clickable items-center gap-1.5 rounded-sm py-1 pr-8 pl-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 data-inset:pl-7 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-highlighted relative flex cursor-clickable items-center gap-1.5 rounded-sm py-1 pr-8 pl-1.5 text-sm focus:outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 data-inset:pl-7 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -271,7 +303,7 @@ function MenuSeparator({ className, ...props }: MenuSeparatorProps) {
   return (
     <MenuPrimitive.Separator
       data-slot="menu-separator"
-      className={cn("bg-contour -mx-1 my-1 h-px", className)}
+      className={cn("bg-line -mx-1 my-1 h-px", className)}
       {...props}
     />
   );
