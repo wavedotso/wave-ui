@@ -12,7 +12,7 @@ const tabsListVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-shade",
+        default: "bg-neutral",
         line: "gap-1 bg-transparent",
       },
     },
@@ -62,7 +62,7 @@ function TabsTrigger({ className, ...props }: TabsTriggerProps) {
     <TabsPrimitive.Tab
       data-slot="tabs-trigger"
       className={cn(
-        "cursor-clickable text-muted hover:text-contrast relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-2 rounded-sm border border-transparent px-3 py-1 has-data-[icon=inline-end]:pe-2 has-data-[icon=inline-start]:ps-2 text-sm font-medium whitespace-nowrap motion-color outline-hidden focus-visible:border-focus focus-visible:ring-focus/50 focus-visible:ring-3 data-disabled:pointer-events-none data-disabled:opacity-30 group-data-[orientation=vertical]/tabs:w-full group-data-[orientation=vertical]/tabs:justify-start group-data-[orientation=vertical]/tabs:py-1.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "cursor-clickable text-muted hover:text-contrast relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-2 rounded-sm border border-transparent px-3 py-1 has-data-[icon=inline-end]:pe-2 has-data-[icon=inline-start]:ps-2 text-sm font-medium whitespace-nowrap motion-color focus-visible:outline-hidden focus-visible:border-focus focus-visible:ring-focus/50 focus-visible:ring-3 data-disabled:pointer-events-none data-disabled:opacity-30 group-data-[orientation=vertical]/tabs:w-full group-data-[orientation=vertical]/tabs:justify-start group-data-[orientation=vertical]/tabs:py-1.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         "data-active:bg-primary data-active:text-white",
         "group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-active:bg-transparent group-data-[variant=line]/tabs-list:data-active:text-contrast",
         "after:bg-contrast after:absolute after:opacity-0 after:transition-opacity group-data-[orientation=horizontal]/tabs:after:inset-x-0 group-data-[orientation=horizontal]/tabs:after:bottom-[-5px] group-data-[orientation=horizontal]/tabs:after:h-0.5 group-data-[orientation=vertical]/tabs:after:inset-y-0 group-data-[orientation=vertical]/tabs:after:-end-1 group-data-[orientation=vertical]/tabs:after:w-0.5 group-data-[variant=line]/tabs-list:data-active:after:opacity-100",
@@ -77,7 +77,7 @@ function TabsContent({ className, ...props }: TabsContentProps) {
   return (
     <TabsPrimitive.Panel
       data-slot="tabs-content"
-      className={cn("flex-1 text-sm outline-hidden", className)}
+      className={cn("flex-1 text-sm focus-visible:outline-hidden", className)}
       {...props}
     />
   );
