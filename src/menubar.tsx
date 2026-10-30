@@ -45,7 +45,7 @@ function Menubar({ className, ...props }: MenubarProps) {
     <MenubarPrimitive
       data-slot="menubar"
       className={cn(
-        "bg-foundation flex h-9 items-center gap-0.5 rounded-md border border-shade p-1",
+        "bg-foundation flex h-9 items-center gap-0.5 rounded-md border border-contour p-1",
         className,
       )}
       {...props}
@@ -71,7 +71,9 @@ function MenubarTrigger({ ...props }: MenubarTriggerProps) {
 
 function MenubarContent({
   align = "start",
-  alignOffset = -4,
+  // -5 cancels the popup's 1px edge and the list's p-1 (4px), so the menu's
+  // items line up with the trigger.
+  alignOffset = -5,
   sideOffset = 8,
   className,
   ...props
