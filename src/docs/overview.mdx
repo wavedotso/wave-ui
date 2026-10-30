@@ -12,7 +12,7 @@ how the palette is designed, and how to use it well.
 
 **Avoid hard-coding a color.** Documented hex values are for reference only — the real values
 shift with theme and appearance. Reach for a semantic token — `bg-primary`, `text-muted`,
-`border-shade` — and let the system resolve it. Re-skin the entire library by overriding the
+`border-line` — and let the system resolve it. Re-skin the entire library by overriding the
 semantic layer; the components never change.
 
 **Use a color consistently.** One color, one meaning. For example, Wave Blue means
@@ -67,6 +67,6 @@ falls back cleanly.
 ## Accessibility is the floor
 
 **Meet contrast, and respect the person's settings.** Text targets WCAG AA (4.5:1); never
-override someone's chosen appearance or contrast level. The structure tokens (`--contour`,
-`--highlight`, `--shade`, `--focus`) and the layered surfaces are tuned to keep text and
+override someone's chosen appearance or contrast level. The structure tokens (`--line`,
+`--edge`, `--contour`, `--highlighted`, `--neutral`, `--focus`) and the layered surfaces are tuned to keep text and
 controls legible on every theme.

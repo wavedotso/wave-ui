@@ -114,8 +114,8 @@ const INTERFACE_GROUPS: Group[] = [
   },
   {
     label: "Contrast",
-    note: "Text / icons = emphasis (contrast → muted → soft).",
-    tokens: [{ name: "--contrast" }, { name: "--muted" }, { name: "--soft" }],
+    note: "Text and icons, strongest to faintest: contrast → muted → subtle.",
+    tokens: [{ name: "--contrast" }, { name: "--muted" }, { name: "--subtle" }],
   },
   {
     label: "Inverse",
@@ -127,11 +127,12 @@ const INTERFACE_GROUPS: Group[] = [
   },
   {
     label: "Brand roles",
-    note: "primary · secondary · accent. Text on the saturated fills is white; on the neutral secondary it is contrast.",
+    note: "primary · secondary · accent, and selected: the chosen, current or on state, primary by default. Text on the saturated fills is white; on the neutral secondary it is contrast.",
     tokens: [
       { name: "--primary", fg: "white" },
       { name: "--secondary", fg: "--contrast" },
       { name: "--accent", fg: "white" },
+      { name: "--selected", fg: "white" },
     ],
   },
   {
@@ -149,12 +150,14 @@ const INTERFACE_GROUPS: Group[] = [
     ],
   },
   {
-    label: "Form",
-    note: "The theme's foreground made translucent, at three strengths, the way a form is drawn: `contour` (where a shape ends), `highlight` (where attention lands), `shade` (a control's body, and the intense border). The ring is brand-themed (focus = primary).",
+    label: "Lines and fills",
+    note: "The theme's foreground made translucent. Lines, one job each: `line` (5%, divides), `edge` (10%, bounds a surface), `contour` (15%, outlines a control or a region). Fills, one job each: `highlighted` (10%, where attention lands), `neutral` (15%, a control's body). The ring is brand-themed (focus = primary).",
     tokens: [
+      { name: "--line" },
+      { name: "--edge" },
       { name: "--contour" },
-      { name: "--highlight" },
-      { name: "--shade" },
+      { name: "--highlighted" },
+      { name: "--neutral" },
       { name: "--focus" },
     ],
   },
@@ -229,7 +232,7 @@ function Swatch({
           height: 48,
           borderRadius: 10,
           backgroundColor: bg ?? `var(${name})`,
-          border: "1px solid var(--contour)",
+          border: "1px solid var(--line)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -255,7 +258,7 @@ function Swatch({
         <div
           style={{
             fontSize: 11,
-            color: "var(--soft)",
+            color: "var(--subtle)",
             fontFamily: "monospace",
             whiteSpace: "nowrap",
             overflow: "hidden",
@@ -379,7 +382,7 @@ function RampSwatch({
       style={{
         backgroundColor: color,
         color: isDark ? "white" : "var(--paper-950)",
-        border: "1px solid var(--contour)",
+        border: "1px solid var(--line)",
         borderRadius: 8,
         padding: 6,
         minHeight: 66,
@@ -420,7 +423,7 @@ function PaletteView({ groups, intro }: { groups: Group[]; intro?: string }) {
         }}
       >
         {intro ? (
-          <p style={{ fontSize: 12, color: "var(--soft)", margin: 0 }}>
+          <p style={{ fontSize: 12, color: "var(--subtle)", margin: 0 }}>
             {intro}
           </p>
         ) : null}
@@ -442,7 +445,7 @@ function PaletteView({ groups, intro }: { groups: Group[]; intro?: string }) {
               <p
                 style={{
                   fontSize: 12,
-                  color: "var(--soft)",
+                  color: "var(--subtle)",
                   margin: "0 0 12px",
                 }}
               >

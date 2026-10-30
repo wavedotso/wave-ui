@@ -66,7 +66,7 @@ const CALLOUTS = [
  * whole gradient at once: every pool around the edge, with no window,
  * highlight or spark. The moving window lights about 45% of the edge at any
  * moment, so the still beam's glow and edge are scaled to about that share
- * (19% and 12% instead of 42% and 26%) to read as strong. The Alert's own border goes transparent and a `shade`
+ * (19% and 12% instead of 42% and 26%) to read as strong. The Alert's own border goes transparent and a `contour`
  * hairline sits exactly where the lit edge runs, so the two read as one line.
  */
 const BEAM_CSS = `
@@ -79,7 +79,7 @@ const BEAM_CSS = `
   overflow: hidden;
   border-color: transparent;
   background-clip: padding-box;
-  box-shadow: inset 0 0 0 1px var(--shade);
+  box-shadow: inset 0 0 0 1px var(--contour);
   animation: beam-spin 2.4s linear infinite, beam-fade-in 0.6s ease forwards;
 }
 .beam > :not([data-beam-bloom]) { position: relative; z-index: 10; }
@@ -265,7 +265,7 @@ function IconBox({
   return (
     <span
       data-icon="inline-start"
-      className="bg-elevated border-contour flex size-[42px] items-center justify-center rounded-md border shadow-sm"
+      className="bg-elevated border-line flex size-[42px] items-center justify-center rounded-md border shadow-sm"
       style={{ translate: "none" }}
     >
       <Icon className="size-5" aria-hidden />

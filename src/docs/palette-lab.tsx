@@ -619,7 +619,7 @@ function CurveRow({ curve }: { curve: Curve }) {
   // Sizes set on every line, so a docs page's own type can't override them.
   const line = { fontFamily: mono, fontSize: 11, lineHeight: 1.5 };
   const rule = (
-    <div className="border-t border-contour" style={{ margin: "6px 0" }} />
+    <div className="border-t border-line" style={{ margin: "6px 0" }} />
   );
   return (
     <div
@@ -637,7 +637,7 @@ function CurveRow({ curve }: { curve: Curve }) {
         return (
           <div
             key={step}
-            className="bg-surface ring-1 ring-contour"
+            className="bg-surface border border-edge"
             style={{ borderRadius: 8, padding: 8, display: "grid" }}
           >
             <span style={{ ...line, fontWeight: 700 }}>{step}</span>
