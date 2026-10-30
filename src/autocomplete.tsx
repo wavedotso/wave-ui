@@ -178,7 +178,7 @@ function AutocompletePopup({ className, ...props }: AutocompletePopupProps) {
     <AutocompletePrimitive.Popup
       data-slot="autocomplete-popup"
       className={cn(
-        "motion-pop-md bg-elevated text-contrast ring-contrast/10 group/autocomplete-content relative max-h-(--available-height) min-w-(--anchor-width) max-w-(--available-width) overflow-x-hidden overflow-y-auto rounded-md shadow-md ring-1",
+        "motion-pop-md bg-elevated text-contrast border-edge group/autocomplete-content relative flex max-h-(--available-height) min-w-(--anchor-width) max-w-(--available-width) flex-col overflow-hidden rounded-md shadow-md border",
         className,
       )}
       {...props}
@@ -226,8 +226,10 @@ function AutocompleteList({ className, ...props }: AutocompleteListProps) {
   return (
     <AutocompletePrimitive.List
       data-slot="autocomplete-list"
+      // The list scrolls, not the popup, so its edges can fade without the
+      // popup's own background, edge and shadow fading with them.
       className={cn(
-        "scroll-py-1 overflow-y-auto overscroll-contain p-1 data-empty:p-0",
+        "scroll-fade supports-[animation-timeline:scroll()]:scrollbar-none min-h-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain p-1 data-empty:p-0",
         className,
       )}
       {...props}
@@ -250,7 +252,7 @@ function AutocompleteItem({ className, ...props }: AutocompleteItemProps) {
     <AutocompletePrimitive.Item
       data-slot="autocomplete-item"
       className={cn(
-        "data-highlighted:bg-highlight relative flex w-full cursor-clickable items-center gap-2 rounded-sm py-1 pl-1.5 pr-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "data-highlighted:bg-highlighted relative flex w-full cursor-clickable items-center gap-2 rounded-sm py-1 pl-1.5 pr-1.5 text-sm data-highlighted:outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -265,7 +267,7 @@ function AutocompleteSeparator({
   return (
     <AutocompletePrimitive.Separator
       data-slot="autocomplete-separator"
-      className={cn("bg-contour -mx-1 my-1 h-px", className)}
+      className={cn("bg-line -mx-1 my-1 h-px", className)}
       {...props}
     />
   );
