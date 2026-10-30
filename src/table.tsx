@@ -66,7 +66,7 @@ function TableHeader({ className, ...props }: TableHeaderProps) {
   return (
     <thead
       data-slot="table-header"
-      className={cn("[&_tr]:border-b [&_tr]:border-contour", className)}
+      className={cn("[&_tr]:border-b [&_tr]:border-line", className)}
       {...props}
     />
   );
@@ -87,7 +87,7 @@ function TableFooter({ className, ...props }: TableFooterProps) {
     <tfoot
       data-slot="table-footer"
       className={cn(
-        "bg-secondary/50 border-t border-contour font-medium [&>tr]:last:border-b-0",
+        "bg-secondary/50 border-t border-line font-medium [&>tr]:last:border-b-0",
         className,
       )}
       {...props}
@@ -103,10 +103,9 @@ function TableRow({ className, ...props }: TableRowProps) {
         // Selection is a plain `data-selected` attribute: `aria-selected`
         // isn't allowed on the rows of a plain table (only grid/treegrid), and
         // the row's own checkbox already tells assistive tech it's selected.
-        // A selected row is primary, the same colour as a checked checkbox and
-        // the focus ring, so inside it the checkbox gets a white edge and any
-        // focused control a white ring.
-        "hover:bg-highlight data-selected:bg-primary data-selected:text-white data-selected:**:data-[slot=checkbox]:border-white data-selected:**:focus-visible:ring-white/50 border-b border-contour motion-color",
+        // A selected row is primary, the same colour as a checked checkbox, so
+        // inside it the checkbox gets a white edge.
+        "hover:bg-highlighted data-selected:bg-primary data-selected:text-white data-selected:**:data-[slot=checkbox]:border-white border-b border-line motion-color",
         className,
       )}
       {...props}
