@@ -83,19 +83,30 @@ Wave pays close attention to token taxonomy. Surfaces encode elevation; borders 
 
 - `--contrast` — titles, primary text
 - `--muted` — body text, icons, any mark
-- `--soft` — placeholders, hints
+- `--subtle` — placeholders, hints
 
-### Form
+### Lines and fills
 
-The theme's foreground made translucent, at three strengths — the way a draughtsman renders a form. Each is translucent, so it reads the same on any surface, and each keeps one job on a border or a background.
+The theme's foreground made translucent, so each reads the same on any surface, and each keeps one job.
 
-- `--contour` — where a shape ends: hairline borders, separators, dividers
-- `--highlight` — where attention lands: hovered, keyboard-highlighted and open items
-- `--shade` — what gives a control its body: field and track fills, and the intense border (control outlines, layout regions)
+Lines:
+
+- `--line` (5%) — what divides: separators, dividers, hairlines
+- `--edge` (10%) — what bounds a surface: cards, dialogs, popups, toasts
+- `--contour` (15%) — what outlines a control or a region: outline buttons, badges, toggles, layout regions
+
+Fills:
+
+- `--highlighted` (10%) — where attention lands: hovered, keyboard-highlighted and open items
+- `--neutral` (15%) — what gives a control its body, its look before anything is chosen: field and track fills, unchecked boxes. Not Tailwind's `neutral-*` grey palette, which Wave doesn't use
 
 ### Ring
 
 - `--focus` — active / focus states
+
+### Selected
+
+- `--selected` — chosen, current or on: the current tab, a pressed toggle, a checked box, a selected row. Primary by default; set it to restyle every chosen state at once
 
 ### Brand
 
@@ -107,7 +118,7 @@ The theme's foreground made translucent, at three strengths — the way a draugh
 
 This is the sophisticated move most libraries skip.
 
-Wave uses **transparent (alpha) borders only**: `contour` by default, and `shade` where a boundary has to be intense.
+Wave uses **transparent (alpha) borders only**: `line` and `edge` by default, and `contour` where a boundary has to be intense. Rings are halos, kept for focus and invalid states, never a surface's edge: a ring is drawn outside the surface (past a menu's glass, so it flickers where it crosses text) and disappears in Windows high contrast mode, while a border is part of the surface.
 
 Wave's palette behaves like a layered _material system_, not a flat UI. Dark surfaces, a soft text hierarchy, and subtle elevation shifts (low-contrast steps) mean borders should not introduce a new "color layer" — that would break the illusion of depth — yet structure still needs an intense option.
 
@@ -115,13 +126,12 @@ Alpha borders **inherit the surface beneath them**, take the **content color as 
 
 Intense borders compete with the surface ladder and create visual "grid noise" if overused, so use them sparingly. Overusing them flattens everything into "outlined boxes" with reduced perceived elevation — the "Bootstrap feel."
 
-The default **`contour`** borders are ideal for:
+The default **`edge`** and **`line`** borders are ideal for:
 
-- Cards
-- Panels
-- Subtle separators
+- Cards, panels and popups (`edge`)
+- Subtle separators (`line`)
 
-The intense **`shade`** borders are ideal for:
+The intense **`contour`** borders are ideal for:
 
 - Layout definition (sidebar vs. content)
 - Component grouping
@@ -130,8 +140,9 @@ The intense **`shade`** borders are ideal for:
 
 **Rule of thumb:**
 
-- If it separates **surface from surface** → `contour`
-- If it separates **layout regions** → `shade`
+- If it bounds **a surface** → `edge`
+- If it divides **content within a surface** → `line`
+- If it separates **layout regions** or outlines a control → `contour`
 - If it indicates **interaction / state** → colored alpha border
 
 ---
