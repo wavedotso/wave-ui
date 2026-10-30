@@ -18,18 +18,6 @@ type ScrollBarProps = React.ComponentProps<
 >;
 
 /**
- * The edge fade is a mask, so the content itself turns transparent and
- * whatever is behind it shows through: no shadow color to match, in any
- * theme. Each edge has a fixed fade (`--scroll-area-fade`) that switches on
- * when Base UI marks that edge as having more content (`data-overflow-*`):
- * its edge opacity goes from 1 (none) to 0 (fully faded).
- * The two axes are intersected; the horizontal one flips in right-to-left
- * layouts, where Base UI's "start" is the right edge.
- */
-const FADE_MASK =
-  "[--scroll-area-fade-x:to_right] rtl:[--scroll-area-fade-x:to_left] data-overflow-y-start:[--scroll-area-fade-top:0] data-overflow-y-end:[--scroll-area-fade-bottom:0] data-overflow-x-start:[--scroll-area-fade-start:0] data-overflow-x-end:[--scroll-area-fade-end:0] [mask-composite:intersect] [mask-image:linear-gradient(to_bottom,rgb(0_0_0/var(--scroll-area-fade-top,1)),#000_var(--scroll-area-fade,2.5rem),#000_calc(100%_-_var(--scroll-area-fade,2.5rem)),rgb(0_0_0/var(--scroll-area-fade-bottom,1))),linear-gradient(var(--scroll-area-fade-x),rgb(0_0_0/var(--scroll-area-fade-start,1)),#000_var(--scroll-area-fade,2.5rem),#000_calc(100%_-_var(--scroll-area-fade,2.5rem)),rgb(0_0_0/var(--scroll-area-fade-end,1)))]";
-
-/**
  * A scrollable region with styled scrollbars. Both scrollbars are built in:
  * Base UI only mounts one when its axis overflows, so pass content and the
  * right bars appear. They fade in while the area is hovered or scrolling.
@@ -54,8 +42,10 @@ function ScrollArea({
       <ScrollAreaPrimitive.Viewport
         data-slot="scroll-area-viewport"
         className={cn(
-          "size-full rounded-[inherit] outline-hidden",
-          fade && FADE_MASK,
+          "size-full rounded-[inherit] focus-visible:outline-hidden",
+          // The edges fade where there is more to scroll (`scroll-fade` in
+          // styles.css).
+          fade && "scroll-fade",
         )}
       >
         {/* Content is what Base UI watches for size changes, so the thumb
@@ -91,7 +81,7 @@ function ScrollBar({
     >
       <ScrollAreaPrimitive.Thumb
         data-slot="scroll-area-thumb"
-        className="bg-shade relative flex-1 rounded-full"
+        className="bg-neutral relative flex-1 rounded-full"
       />
     </ScrollAreaPrimitive.Scrollbar>
   );
