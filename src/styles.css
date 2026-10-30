@@ -556,7 +556,7 @@
   --elevated: white;
   --contrast: var(--paper-950);
   --muted: var(--paper-600);
-  --soft: var(--paper-500);
+  --subtle: var(--paper-500);
   --secondary: var(--paper-100);
   --line: color-mix(in srgb, var(--paper-950) 5%, transparent);
   --edge: color-mix(in srgb, var(--paper-950) 10%, transparent);
@@ -591,7 +591,7 @@
     --elevated: var(--graphite-800);
     --contrast: var(--graphite-50);
     --muted: var(--graphite-300);
-    --soft: var(--graphite-500);
+    --subtle: var(--graphite-500);
     --secondary: var(--graphite-700);
     --line: color-mix(in srgb, var(--graphite-50) 5%, transparent);
     --edge: color-mix(in srgb, var(--graphite-50) 10%, transparent);
@@ -616,7 +616,7 @@
   --elevated: var(--graphite-800);
   --contrast: var(--graphite-50);
   --muted: var(--graphite-300);
-  --soft: var(--graphite-500);
+  --subtle: var(--graphite-500);
   --secondary: var(--graphite-700);
   --line: color-mix(in srgb, var(--graphite-50) 5%, transparent);
   --edge: color-mix(in srgb, var(--graphite-50) 10%, transparent);
@@ -670,7 +670,7 @@
   --elevated: var(--ink-800);
   --contrast: var(--ink-50);
   --muted: var(--ink-400);
-  --soft: var(--ink-600);
+  --subtle: var(--ink-600);
   --secondary: var(--ink-700);
   --line: color-mix(in srgb, var(--ink-50) 5%, transparent);
   --edge: color-mix(in srgb, var(--ink-50) 10%, transparent);
@@ -700,10 +700,10 @@
   --color-surface: var(--surface);
   --color-elevated: var(--elevated);
 
-  /* Contrast / text — `contrast` (highest emphasis) → `muted` → `soft`. */
+  /* Contrast / text, strongest to faintest — `contrast` → `muted` → `subtle`. */
   --color-contrast: var(--contrast);
   --color-muted: var(--muted);
-  --color-soft: var(--soft);
+  --color-subtle: var(--subtle);
 
   /* Inverse — maps the `:root` inverse aliases to utilities. */
   --color-surface-inverse: var(--surface-inverse);
