@@ -102,7 +102,7 @@ function PopoverContent({
         <PopoverPrimitive.Popup
           data-slot="popover-content"
           className={cn(
-            "motion-pop-md bg-elevated text-contrast ring-contrast/10 z-50 flex w-72 flex-col gap-2.5 rounded-md p-2.5 text-sm shadow-md ring-1 outline-hidden",
+            "motion-pop-md bg-elevated text-contrast border-edge z-50 flex w-72 flex-col gap-2.5 rounded-md p-2.5 text-sm shadow-md border focus-visible:outline-hidden",
             className,
           )}
           finalFocus={resolveFinalFocus(restoreFocusOnClose, finalFocus)}
