@@ -42,7 +42,7 @@ type SelectScrollDownButtonProps = React.ComponentProps<
 >;
 
 const selectTriggerVariants = cva(
-  "data-placeholder:text-soft bg-shade hover:border-focus focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-danger/30 aria-invalid:border-danger flex w-fit items-center justify-between gap-1.5 rounded-md border border-transparent whitespace-nowrap motion-color outline-hidden select-none focus-visible:ring-3 data-disabled:pointer-events-none data-disabled:opacity-30 aria-invalid:ring-3 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "data-placeholder:text-subtle bg-neutral hover:border-focus focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-danger/30 aria-invalid:border-danger flex w-fit items-center justify-between gap-1.5 rounded-md border border-transparent whitespace-nowrap motion-color focus-visible:outline-hidden select-none focus-visible:ring-3 data-disabled:pointer-events-none data-disabled:opacity-30 aria-invalid:ring-3 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       // Shared control ladder — same tiers/names as Input and Button, so a `sm`
@@ -95,7 +95,15 @@ function SelectList({ className, ...props }: SelectListProps) {
   return (
     <SelectPrimitive.List
       data-slot="select-list"
-      className={className}
+      // The list scrolls, not the popup, so its edges can fade without the
+      // popup's own background, edge and shadow fading with them.
+      // Its fade starts below and above the scroll arrows (1.5rem tall).
+      // Lined up with its trigger (side "none"), it keeps no scroll padding,
+      // or scrolling the chosen option into view would move it off the trigger.
+      className={cn(
+        "scroll-fade supports-[animation-timeline:scroll()]:scrollbar-none min-h-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain [--scroll-fade-inset:1.5rem] in-data-[side=none]:scroll-py-0",
+        className,
+      )}
       {...props}
     />
   );
@@ -168,7 +176,7 @@ function SelectContent({
         <SelectPrimitive.Popup
           data-slot="select-content"
           className={cn(
-            "motion-pop-md bg-elevated text-contrast ring-contrast/10 relative isolate z-50 max-h-(--available-height) min-w-(--anchor-width) max-w-(--available-width) overflow-x-hidden overflow-y-auto rounded-md shadow-md ring-1",
+            "motion-pop-md bg-elevated text-contrast border-edge relative isolate z-50 max-h-(--available-height) min-w-(--anchor-width) max-w-(--available-width) flex flex-col overflow-hidden rounded-md shadow-md border",
             className,
           )}
           {...props}
@@ -197,7 +205,7 @@ function SelectItem({ className, children, ...props }: SelectItemProps) {
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "data-highlighted:bg-highlight relative flex w-full cursor-clickable items-center gap-1.5 rounded-sm py-1 pr-8 pl-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
+        "data-highlighted:bg-highlighted relative flex w-full cursor-clickable items-center gap-1.5 rounded-sm py-1 pr-8 pl-1.5 text-sm data-highlighted:outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
         className,
       )}
       {...props}
@@ -226,10 +234,7 @@ function SelectSeparator({ className, ...props }: SelectSeparatorProps) {
   return (
     <SelectPrimitive.Separator
       data-slot="select-separator"
-      className={cn(
-        "bg-contour pointer-events-none -mx-1 my-1 h-px",
-        className,
-      )}
+      className={cn("bg-line pointer-events-none -mx-1 my-1 h-px", className)}
       {...props}
     />
   );
