@@ -27,11 +27,11 @@ function Card({ className, size = "default", render, ...props }: CardProps) {
     props: mergeProps<"div">(
       {
         className: cn(
-          "ring-contrast/10 bg-surface text-contrast group/card flex flex-col gap-6 overflow-hidden rounded-lg py-6 text-sm ring-1 has-[>img:first-child]:pt-0 has-[>img:last-child]:pb-0 data-[size=sm]:gap-4 data-[size=sm]:py-4 *:[img:first-child]:rounded-t-lg *:[img:last-child]:rounded-b-lg",
+          "border-edge bg-surface text-contrast group/card flex flex-col gap-6 overflow-hidden rounded-lg py-6 text-sm border has-[>img:first-child]:pt-0 has-[>img:last-child]:pb-0 data-[size=sm]:gap-4 data-[size=sm]:py-4 *:[img:first-child]:rounded-t-lg *:[img:last-child]:rounded-b-lg",
           // As a link or button: a hover, a cursor, a focus ring in place of
           // the outline, start-aligned text (buttons center by default), and
           // disabled styled both ways since the element is polymorphic.
-          "[a,button]:cursor-clickable [a,button]:hover:bg-elevated [button]:text-start motion-color outline-hidden focus-visible:ring-3 focus-visible:ring-focus/50 disabled:pointer-events-none disabled:opacity-30 aria-disabled:pointer-events-none aria-disabled:opacity-30",
+          "[a,button]:cursor-clickable [a,button]:hover:bg-elevated [button]:text-start motion-color focus-visible:outline-hidden focus-visible:ring-3 focus-visible:ring-focus/50 disabled:pointer-events-none disabled:opacity-30 aria-disabled:pointer-events-none aria-disabled:opacity-30",
           className,
         ),
       },
