@@ -35,8 +35,8 @@ const DemoCard = forwardRef<
     ref={ref}
     className={`rounded-lg p-6 text-center text-sm font-medium ${
       color
-        ? "border border-contour text-white"
-        : "bg-elevated text-contrast ring-1 ring-contrast/10"
+        ? "border border-line text-white"
+        : "bg-elevated text-contrast border border-edge"
     }`}
     style={{ background: color, ...style }}
     {...rest}

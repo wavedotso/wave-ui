@@ -298,7 +298,7 @@ export const Easing: StoryObj = {
 export const Retrigger: StoryObj = {
   name: "Retrigger (once={false})",
   render: () => (
-    <div className="h-[500px] w-[800px] mx-auto overflow-y-auto rounded-lg border border-contour">
+    <div className="h-[500px] w-[800px] mx-auto overflow-y-auto rounded-lg border border-line">
       <div className="flex h-[420px] items-center justify-center text-center text-sm text-muted px-8">
         Scroll down to bring the counters into view — then scroll back up and
         down again to see the difference.
