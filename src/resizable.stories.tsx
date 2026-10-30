@@ -15,7 +15,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // The group fills its parent, so the frame carries the size.
-const frame = "h-64 w-[480px] overflow-hidden rounded-lg border border-contour";
+const frame = "h-64 w-[480px] overflow-hidden rounded-lg border border-line";
 const panel = "flex items-center justify-center p-6 text-sm font-medium";
 
 /** Drag the line, or focus it with Tab and use the arrow keys. */
