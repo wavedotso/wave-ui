@@ -833,6 +833,81 @@
   }
 }
 
+/* `scroll-fade` — fades the edges of anything that scrolls, where there is
+ * more to scroll. It's a mask, so the content itself turns transparent and
+ * whatever is behind shows through: no colour to match, in any theme. Each
+ * fade grows with the first 2.5rem of scroll and shrinks over the last, so it
+ * never pops in. Two things drive it, so it works on any scroller:
+ * - the element's own scroll position, through scroll-driven animations
+ *   (Chrome, Edge, Safari 26+): a Combobox list, a plain `overflow-auto` box;
+ * - ScrollArea, which reports how far each edge is (`--scroll-area-overflow-*`),
+ *   so its viewport fades in every browser, Firefox included.
+ * A plain scroller in a browser without scroll-driven animations (Firefox,
+ * for now) simply doesn't fade. `--scroll-fade-size` sets the length, up to a
+ * quarter of the box; the horizontal fade follows the text direction. */
+@property --scroll-fade-top { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --scroll-fade-bottom { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --scroll-fade-start { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --scroll-fade-end { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@utility scroll-fade {
+  --scroll-fade-x: to right;
+  --scroll-fade-top: min(var(--scroll-fade-size, 2.5rem), var(--scroll-area-overflow-y-start, 0px));
+  --scroll-fade-bottom: min(var(--scroll-fade-size, 2.5rem), var(--scroll-area-overflow-y-end, 0px));
+  --scroll-fade-start: min(var(--scroll-fade-size, 2.5rem), var(--scroll-area-overflow-x-start, 0px));
+  --scroll-fade-end: min(var(--scroll-fade-size, 2.5rem), var(--scroll-area-overflow-x-end, 0px));
+  /* Controls laid over an edge (Select's scroll arrows) set
+   * `--scroll-fade-inset` to their height: the fade then starts where they
+   * end, only while that edge is fading. */
+  --scroll-fade-inset-top: min(var(--scroll-fade-inset, 0px), var(--scroll-fade-top) * 1000);
+  --scroll-fade-inset-bottom: min(var(--scroll-fade-inset, 0px), var(--scroll-fade-bottom) * 1000);
+  /* Each fade at most a quarter of the box, so a short list still keeps a
+   * row clear between its two fades. */
+  --scroll-fade-top-size: min(var(--scroll-fade-top), 25%);
+  --scroll-fade-bottom-size: min(var(--scroll-fade-bottom), 25%);
+  --scroll-fade-start-size: min(var(--scroll-fade-start), 25%);
+  --scroll-fade-end-size: min(var(--scroll-fade-end), 25%);
+  mask-image:
+    linear-gradient(to bottom, transparent var(--scroll-fade-inset-top), #000 calc(var(--scroll-fade-inset-top) + var(--scroll-fade-top-size)), #000 calc(100% - var(--scroll-fade-inset-bottom) - var(--scroll-fade-bottom-size)), transparent calc(100% - var(--scroll-fade-inset-bottom))),
+    linear-gradient(var(--scroll-fade-x), transparent, #000 var(--scroll-fade-start-size), #000 calc(100% - var(--scroll-fade-end-size)), transparent);
+  mask-composite: intersect;
+  /* What's scrolled into view (an option picked with the arrow keys) stops
+   * clear of whatever is faded at that moment, and nowhere is padded where
+   * nothing fades (Firefox's plain lists, an edge scrolled to its end). */
+  scroll-padding-block:
+    calc(var(--scroll-fade-inset-top) + var(--scroll-fade-top-size))
+    calc(var(--scroll-fade-inset-bottom) + var(--scroll-fade-bottom-size));
+  @variant rtl {
+    --scroll-fade-x: to left;
+  }
+  @supports (animation-timeline: scroll()) {
+    animation-name: scroll-fade-top, scroll-fade-bottom, scroll-fade-start, scroll-fade-end;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-timeline: scroll(self block), scroll(self block), scroll(self inline), scroll(self inline);
+    animation-range:
+      0 var(--scroll-fade-size, 2.5rem),
+      calc(100% - var(--scroll-fade-size, 2.5rem)) 100%,
+      0 var(--scroll-fade-size, 2.5rem),
+      calc(100% - var(--scroll-fade-size, 2.5rem)) 100%;
+  }
+}
+@keyframes scroll-fade-top {
+  from { --scroll-fade-top: 0px; }
+  to { --scroll-fade-top: var(--scroll-fade-size, 2.5rem); }
+}
+@keyframes scroll-fade-bottom {
+  from { --scroll-fade-bottom: var(--scroll-fade-size, 2.5rem); }
+  to { --scroll-fade-bottom: 0px; }
+}
+@keyframes scroll-fade-start {
+  from { --scroll-fade-start: 0px; }
+  to { --scroll-fade-start: var(--scroll-fade-size, 2.5rem); }
+}
+@keyframes scroll-fade-end {
+  from { --scroll-fade-end: var(--scroll-fade-size, 2.5rem); }
+  to { --scroll-fade-end: 0px; }
+}
+
 /* `motion-color` — interaction-state transition for controls: smoothly
  * animates color / background / border / ring (box-shadow) / backdrop blur on hover, focus,
  * pressed, checked, etc. Runs at the `sm` tier (controls are small + fast). A
