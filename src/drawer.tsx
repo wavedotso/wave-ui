@@ -60,7 +60,10 @@ function DrawerViewport({ className, ...props }: DrawerViewportProps) {
   return (
     <DrawerPrimitive.Viewport
       data-slot="drawer-viewport"
-      className={cn("fixed inset-0 z-50 outline-hidden", className)}
+      className={cn(
+        "fixed inset-0 z-50 focus-visible:outline-hidden",
+        className,
+      )}
       {...props}
     />
   );
@@ -80,7 +83,7 @@ function DrawerContent({
           data-slot="drawer-content"
           className={cn(
             // Base layout & appearance
-            "group/drawer-content bg-foundation fixed z-50 flex flex-col overflow-y-auto border-shade text-sm shadow-lg outline-hidden",
+            "group/drawer-content bg-foundation fixed z-50 flex flex-col overflow-y-auto border-contour text-sm shadow-lg focus-visible:outline-hidden",
             // Transition — animate translate at the lg tier + the one curve; disable during swipe
             "transition-[translate] duration-(--duration-lg) ease-(--ease) data-[swiping]:duration-0",
             // Bottom drawer (swipeDirection="down")
