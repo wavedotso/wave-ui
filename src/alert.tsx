@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "./lib/utils";
 
 const alertVariants = cva(
-  "grid gap-0.5 rounded-md border border-shade px-4 py-3 text-start text-sm has-data-[slot=alert-action]:pe-18 has-data-[icon]:grid-cols-[auto_1fr] has-data-[icon]:gap-x-2.5 *:data-[icon]:col-start-1 *:data-[icon]:row-span-2 *:data-[icon]:translate-y-0.5 *:data-[icon]:text-current *:[svg]:text-current *:[svg:not([class*='size-'])]:size-4 w-full relative group/alert",
+  "grid gap-0.5 rounded-md border border-contour px-4 py-3 text-start text-sm has-data-[slot=alert-action]:pe-18 has-data-[icon]:grid-cols-[auto_1fr] has-data-[icon]:gap-x-2.5 *:data-[icon]:col-start-1 *:data-[icon]:row-span-2 *:data-[icon]:translate-y-0.5 *:data-[icon]:text-current *:[svg]:text-current *:[svg:not([class*='size-'])]:size-4 w-full relative group/alert",
   {
     variants: {
       // Status lives in the icon only, never the border or the text: the
