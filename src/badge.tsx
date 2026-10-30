@@ -18,8 +18,8 @@ const badgeVariants = cva(
         warning: "bg-warning text-white [a]:hover:bg-warning/80",
         secondary: "bg-secondary text-contrast [a]:hover:bg-secondary/80",
         outline:
-          "border-shade bg-foundation [a]:hover:bg-highlight [a]:hover:text-contrast",
-        ghost: "text-muted [a]:hover:bg-highlight",
+          "border-contour bg-foundation [a]:hover:bg-highlighted [a]:hover:text-contrast",
+        ghost: "text-muted [a]:hover:bg-highlighted",
         link: "text-primary [a]:underline-offset-4 [a]:hover:underline",
       },
     },
