@@ -285,7 +285,7 @@ function GradientRevealText({
         y="50%"
         textAnchor="middle"
         dominantBaseline="central"
-        className={baseColor ? "font-bold" : "font-bold stroke-contour"}
+        className={baseColor ? "font-bold" : "font-bold stroke-line"}
         style={{
           ...textStyle,
           ...(baseColor ? { stroke: baseColor } : {}),
