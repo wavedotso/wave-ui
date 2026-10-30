@@ -1,6 +1,6 @@
 "use client";
 
-import type * as React from "react";
+import * as React from "react";
 import { ContextMenu as ContextMenuPrimitive } from "@base-ui/react/context-menu";
 
 import { ChevronRightIcon, CheckIcon } from "./lib/internal-icons";
@@ -113,13 +113,16 @@ function ContextMenuContent({
   sideOffset = 0,
   restoreFocusOnClose,
   finalFocus,
+  onKeyDown,
+  children,
   ...props
 }: ContextMenuContentProps) {
+  const listRef = React.useRef<HTMLDivElement>(null);
   return (
     <ContextMenuPrimitive.Portal>
       <ContextMenuPrimitive.Positioner
         data-slot="context-menu-positioner"
-        className="isolate z-50 outline-hidden"
+        className="isolate z-50"
         align={align}
         alignOffset={alignOffset}
         side={side}
@@ -129,17 +132,44 @@ function ContextMenuContent({
           data-slot="context-menu-content"
           className={cn(
             // Glass: a translucent fill with the blur on the popup itself (a
-            // blur on a ::before layer only half-blurs the page behind it and
-            // scrolls away with a long menu's content). Where the browser
-            // can't blur, the fill stays at 90% so text stays readable. Items
-            // round to the popup's radius minus its padding, so their corners
-            // follow the popup's curve.
-            "motion-pop-md bg-elevated/80 not-supports-backdrop-filter:bg-elevated/90 text-contrast ring-contrast/10 z-50 max-h-(--available-height) min-w-48 overflow-x-hidden overflow-y-auto rounded-lg p-1.5 shadow-md ring-1 backdrop-blur-xl backdrop-saturate-150 outline-hidden",
+            // blur on a ::before layer only half-blurs the page behind it).
+            // Where the browser can't blur, the fill stays at 90% so text
+            // stays readable. Items round to the popup's radius minus the
+            // list's padding, so their corners follow the popup's curve.
+            "motion-pop-md bg-elevated/80 not-supports-backdrop-filter:bg-elevated/90 text-contrast border-edge z-50 flex max-h-(--available-height) min-w-48 flex-col overflow-hidden rounded-lg shadow-md border backdrop-blur-xl backdrop-saturate-150 focus-visible:outline-hidden",
             className,
           )}
           finalFocus={resolveFinalFocus(restoreFocusOnClose, finalFocus)}
+          onKeyDown={(event) => {
+            onKeyDown?.(event);
+            // Opened with the pointer, the popup itself has focus, so the
+            // browser's PageUp/PageDown would find nothing to scroll: the list
+            // inside it scrolls. Page it by what's in view, less a little
+            // overlap, as browsers do.
+            const list = listRef.current;
+            if (
+              list &&
+              !event.defaultPrevented &&
+              event.target === event.currentTarget &&
+              (event.key === "PageDown" || event.key === "PageUp")
+            ) {
+              event.preventDefault();
+              const direction = event.key === "PageDown" ? 1 : -1;
+              list.scrollBy({ top: direction * list.clientHeight * 0.875 });
+            }
+          }}
           {...props}
-        />
+        >
+          {/* The list scrolls, not the popup, so its edges can fade without
+              the popup's own glass, edge and shadow fading with them. */}
+          <div
+            ref={listRef}
+            data-slot="context-menu-list"
+            className="scroll-fade supports-[animation-timeline:scroll()]:scrollbar-none min-h-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain p-1.5"
+          >
+            {children}
+          </div>
+        </ContextMenuPrimitive.Popup>
       </ContextMenuPrimitive.Positioner>
     </ContextMenuPrimitive.Portal>
   );
@@ -181,7 +211,7 @@ function ContextMenuItem({
       data-inset={inset}
       data-variant={variant}
       className={cn(
-        "focus:bg-highlight data-[variant=danger]:text-danger data-[variant=danger]:*:[svg]:text-danger data-[variant=danger]:focus:bg-danger data-[variant=danger]:focus:text-white data-[variant=danger]:focus:**:text-white group/context-menu-item relative flex cursor-clickable items-center gap-2.5 rounded-[calc(var(--radius)+var(--spacing)-var(--spacing)*1.5)] px-3 py-2 text-sm font-medium outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 data-inset:ps-9.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-highlighted data-[variant=danger]:text-danger data-[variant=danger]:*:[svg]:text-danger data-[variant=danger]:focus:bg-danger data-[variant=danger]:focus:text-white data-[variant=danger]:focus:**:text-white group/context-menu-item relative flex cursor-clickable items-center gap-2.5 rounded-[calc(var(--radius)+var(--spacing)-var(--spacing)*1.5)] px-3 py-2 text-sm font-medium focus:outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 data-inset:ps-9.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -206,7 +236,7 @@ function ContextMenuSubTrigger({
       data-slot="context-menu-sub-trigger"
       data-inset={inset}
       className={cn(
-        "focus:bg-highlight data-popup-open:bg-highlight flex cursor-clickable items-center gap-2.5 rounded-[calc(var(--radius)+var(--spacing)-var(--spacing)*1.5)] px-3 py-2 text-sm font-medium outline-hidden select-none data-inset:ps-9.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-highlighted data-popup-open:bg-highlighted flex cursor-clickable items-center gap-2.5 rounded-[calc(var(--radius)+var(--spacing)-var(--spacing)*1.5)] px-3 py-2 text-sm font-medium focus:outline-hidden select-none data-inset:ps-9.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -219,9 +249,10 @@ function ContextMenuSubTrigger({
 
 function ContextMenuSubContent({
   align = "start",
-  // -6 cancels the popup's p-1.5 (6px) top padding so the submenu's first
-  // item lines up with the parent item row, not the popup container edge.
-  alignOffset = -6,
+  // -7 cancels the popup's 1px edge and the list's p-1.5 (6px) top
+  // padding, so the submenu's first item lines up with the parent item row,
+  // not the popup container edge.
+  alignOffset = -7,
   side = "inline-end",
   sideOffset = 0,
   className,
@@ -252,7 +283,7 @@ function ContextMenuCheckboxItem({
       data-slot="context-menu-checkbox-item"
       data-inset={inset}
       className={cn(
-        "focus:bg-highlight relative flex cursor-clickable items-center gap-2.5 rounded-[calc(var(--radius)+var(--spacing)-var(--spacing)*1.5)] py-2 pe-8 ps-3 text-sm font-medium outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 data-inset:ps-9.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-highlighted relative flex cursor-clickable items-center gap-2.5 rounded-[calc(var(--radius)+var(--spacing)-var(--spacing)*1.5)] py-2 pe-8 ps-3 text-sm font-medium focus:outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 data-inset:ps-9.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       checked={checked}
@@ -291,7 +322,7 @@ function ContextMenuRadioItem({
       data-slot="context-menu-radio-item"
       data-inset={inset}
       className={cn(
-        "focus:bg-highlight relative flex cursor-clickable items-center gap-2.5 rounded-[calc(var(--radius)+var(--spacing)-var(--spacing)*1.5)] py-2 pe-8 ps-3 text-sm font-medium outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 data-inset:ps-9.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-highlighted relative flex cursor-clickable items-center gap-2.5 rounded-[calc(var(--radius)+var(--spacing)-var(--spacing)*1.5)] py-2 pe-8 ps-3 text-sm font-medium focus:outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 data-inset:ps-9.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -316,7 +347,7 @@ function ContextMenuSeparator({
   return (
     <ContextMenuPrimitive.Separator
       data-slot="context-menu-separator"
-      className={cn("bg-contour -mx-1.5 my-1.5 h-px", className)}
+      className={cn("bg-line -mx-1.5 my-1.5 h-px", className)}
       {...props}
     />
   );
