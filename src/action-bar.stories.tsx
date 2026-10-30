@@ -237,14 +237,14 @@ function GuardDemo() {
         </Button>
       </nav>
 
-      <p className="text-soft text-sm">
+      <p className="text-subtle text-sm">
         Current route:{" "}
         <span className="text-contrast font-medium">{route}</span>
       </p>
 
       <FieldForm id="guarded" label="Display name" />
 
-      <p className="text-soft text-sm">
+      <p className="text-subtle text-sm">
         Edit the field, then try switching tabs — navigation is blocked and the
         page jiggles until you save or reset.
       </p>
