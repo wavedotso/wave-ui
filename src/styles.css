@@ -546,8 +546,8 @@
  * dark system as on a light one. A pinned theme class still beats both.
  *
  * The page and popups are white; cards and the sidebar sit on the 50, a faint
- * warm tint, so the contour does most of the separating. The marks are its
- * text colour, the 950, made translucent, as in every theme.
+ * warm tint, so their edge does most of the separating. Lines and fills are
+ * its text colour, the 950, made translucent, as in every theme.
  * ------------------------------------------------------------------------- */
 :where(:root),
 .paper {
@@ -558,7 +558,9 @@
   --muted: var(--paper-600);
   --soft: var(--paper-500);
   --secondary: var(--paper-100);
-  --contour: color-mix(in srgb, var(--paper-950) 5%, transparent);
+  --line: color-mix(in srgb, var(--paper-950) 5%, transparent);
+  --edge: color-mix(in srgb, var(--paper-950) 10%, transparent);
+  --contour: color-mix(in srgb, var(--paper-950) 15%, transparent);
   --highlight: color-mix(in srgb, var(--paper-950) 10%, transparent);
   --shade: color-mix(in srgb, var(--paper-950) 15%, transparent);
   --shadow-strength: 0.055;
@@ -591,7 +593,9 @@
     --muted: var(--graphite-300);
     --soft: var(--graphite-500);
     --secondary: var(--graphite-700);
-    --contour: color-mix(in srgb, var(--graphite-50) 5%, transparent);
+    --line: color-mix(in srgb, var(--graphite-50) 5%, transparent);
+    --edge: color-mix(in srgb, var(--graphite-50) 10%, transparent);
+    --contour: color-mix(in srgb, var(--graphite-50) 15%, transparent);
     --highlight: color-mix(in srgb, var(--graphite-50) 10%, transparent);
     --shade: color-mix(in srgb, var(--graphite-50) 15%, transparent);
     --shadow-strength: 0.045;
@@ -614,7 +618,9 @@
   --muted: var(--graphite-300);
   --soft: var(--graphite-500);
   --secondary: var(--graphite-700);
-  --contour: color-mix(in srgb, var(--graphite-50) 5%, transparent);
+  --line: color-mix(in srgb, var(--graphite-50) 5%, transparent);
+  --edge: color-mix(in srgb, var(--graphite-50) 10%, transparent);
+  --contour: color-mix(in srgb, var(--graphite-50) 15%, transparent);
   --highlight: color-mix(in srgb, var(--graphite-50) 10%, transparent);
   --shade: color-mix(in srgb, var(--graphite-50) 15%, transparent);
   --shadow-strength: 0.045;
@@ -666,7 +672,9 @@
   --muted: var(--ink-400);
   --soft: var(--ink-600);
   --secondary: var(--ink-700);
-  --contour: color-mix(in srgb, var(--ink-50) 5%, transparent);
+  --line: color-mix(in srgb, var(--ink-50) 5%, transparent);
+  --edge: color-mix(in srgb, var(--ink-50) 10%, transparent);
+  --contour: color-mix(in srgb, var(--ink-50) 15%, transparent);
   --highlight: color-mix(in srgb, var(--ink-50) 10%, transparent);
   --shade: color-mix(in srgb, var(--ink-50) 15%, transparent);
   --shadow-strength: 0.045;
@@ -683,7 +691,7 @@
 /* ---------------------------------------------------------------------------
  * Tailwind v4 theme mapping — maps CSS variables to Tailwind color tokens.
  * Consumers MUST include this for Tailwind classes like `bg-primary`,
- * `text-muted`, `border-contour` etc. to work.
+ * `text-muted`, `border-line` etc. to work.
  * ------------------------------------------------------------------------- */
 
 @theme inline {
@@ -707,16 +715,20 @@
   --color-secondary: var(--secondary);
   --color-accent: var(--accent);
 
-  /* Form — the theme's foreground (its text colour) made translucent, at
-   * three strengths, the way a form is drawn: `contour` marks where a shape
-   * ends: hairline borders and separators. `highlight` marks where attention
-   * lands: hovered, keyboard-highlighted and open items. `shade` gives a
-   * control its body: field and track fills and outline-control borders.
-   * Every theme uses the same strengths: contour 5%, highlight 10%, shade
-   * 15% of its text colour (Graphite's and Ink's 50, Paper's 950).
-   * All three are translucent, so each reads the same on any surface beneath
-   * it, and `shade` doubles as the intense border (layout regions, control
-   * outlines). `focus` is the brand-themed ring (= primary). */
+  /* Lines and fills — the theme's text colour made translucent (Graphite's
+   * and Ink's 50, Paper's 950), so each reads the same on any surface beneath
+   * it. Every theme uses the same strengths.
+   * Lines, one job each: `line` (5%) divides: separators, table rows,
+   * hairlines. `edge` (10%) bounds a surface: cards, dialogs, popups, toasts,
+   * always as a border (rings are kept for focus and invalid halos).
+   * `contour` (15%) outlines a control or a region: outline buttons, badges,
+   * toggles, the slider thumb, menubars.
+   * Fills, one job each: `highlight` (10%) marks where attention lands:
+   * hovered, keyboard-highlighted and open items. `shade` (15%) gives a
+   * control its body: field and track fills, unchecked boxes. `focus` is the
+   * brand-themed ring (= primary). */
+  --color-line: var(--line);
+  --color-edge: var(--edge);
   --color-contour: var(--contour);
   --color-highlight: var(--highlight);
   --color-shade: var(--shade);
