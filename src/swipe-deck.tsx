@@ -476,13 +476,21 @@ function isPoseAtRest(
   );
 }
 
-/** Whether a card moved by (x, y) is off the pile. */
-function isClear(x: number, y: number, extents: Extents) {
+/**
+ * Whether a card moved by (x, y) is off the pile on the side it's heading for
+ * (ux, uy): one dragged out to the right and sent left still has to cross it.
+ */
+function isClear(
+  x: number,
+  y: number,
+  extents: Extents,
+  [ux, uy]: readonly [number, number],
+) {
   return (
-    x >= extents.right ||
-    -x >= extents.left ||
-    y >= extents.down ||
-    -y >= extents.up
+    (ux > 0 && x >= extents.right) ||
+    (ux < 0 && -x >= extents.left) ||
+    (uy > 0 && y >= extents.down) ||
+    (uy < 0 && -y >= extents.up)
   );
 }
 
@@ -1077,7 +1085,7 @@ function SwipeDeck({
         className={cn(
           // Its own stacking context: the cards' z-indexes rank only among
           // themselves, never against the page.
-          "group/swipe-deck relative isolate grid outline-hidden",
+          "group/swipe-deck relative isolate grid focus-visible:outline-hidden",
           // Which way `fan` and `cascade` open: toward the end of the line.
           "[--swipe-deck-side:1] rtl:[--swipe-deck-side:-1]",
           // The focus ring sits on the front card; with no cards left, on the
@@ -1405,7 +1413,10 @@ function SwipeDeckItem({
       // spring, so its limit shows before the card goes.
       const check = () => {
         const outward = x.getVelocity() * ux + y.getVelocity() * uy;
-        if (isClear(x.get(), y.get(), extents) && outward <= CAUGHT_SPEED) {
+        if (
+          isClear(x.get(), y.get(), extents, [ux, uy]) &&
+          outward <= CAUGHT_SPEED
+        ) {
           leaveSight();
         }
       };
@@ -1897,8 +1908,8 @@ function SwipeDeckItem({
         "group-data-[layout=pile]/swipe-deck:[--swipe-deck-layout-y:calc(var(--swipe-deck-scatter-y)_*_var(--swipe-deck-spread,0.5)_*_44px)]",
         "group-data-[layout=pile]/swipe-deck:[--swipe-deck-layout-rotate:calc(var(--swipe-deck-scatter-rotate)_*_var(--swipe-deck-spread,0.5)_*_40deg)]",
         "group-data-[layout=pile]/swipe-deck:[--swipe-deck-layout-scale:max(0,calc(1_-_var(--swipe-deck-layout-slot)_*_var(--swipe-deck-depth,0.5)_*_0.03))]",
-        // The focus ring's colour only while focused, as Card does, so a ring
-        // of your own on the card (its edge) keeps its colour at rest.
+        // The focus halo only while focused, as Card does, so a ring of your
+        // own on the card keeps its colour at rest (its edge is a border).
         "group-focus-visible/swipe-deck:data-front:ring-focus/50 group-focus-visible/swipe-deck:data-front:ring-3",
         "data-front:cursor-grab data-swiping:cursor-grabbing group-data-disabled/swipe-deck:data-front:cursor-auto",
         // No iOS image menu or tap flash from a long press mid-swipe.
@@ -2018,7 +2029,7 @@ function DashedOutline() {
         d={outline.d}
         pathLength={pathLength}
         strokeDasharray={`${OUTLINE_DASH} ${OUTLINE_GAP}`}
-        className="stroke-shade fill-none"
+        className="stroke-contour fill-none"
       />
     </svg>
   );

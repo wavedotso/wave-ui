@@ -118,10 +118,10 @@ const CHEVRONS: Record<
   down: ChevronDownIcon,
 };
 
-// The same 1px edge as Card and Toast. One shadow, on the card on top:
+// The same 1px edge as Card and Toast, a border. One shadow, on the card on top:
 // stacked cards would stack shadows.
 const SWATCH_CARD =
-  "ring-contrast/10 aspect-square ring-1 data-front:shadow-md data-leaving:shadow-md";
+  "border-edge aspect-square border data-front:shadow-md data-leaving:shadow-md";
 
 function SwatchItem({ swatch }: { swatch: Swatch }) {
   return (
@@ -354,7 +354,7 @@ export const AllDirections: Story = {
 };
 
 const STAMP =
-  "bg-surface/90 text-contrast ring-contrast/10 absolute top-5 rounded-md px-3 py-1 text-lg font-semibold opacity-0 ring-1";
+  "bg-surface/90 text-contrast border-edge absolute top-5 rounded-md px-3 py-1 text-lg font-semibold opacity-0 border";
 
 function StampsDemo({ look, actions = true }: DemoProps) {
   const [swatches, setSwatches] = React.useState(SWATCHES);
@@ -457,7 +457,7 @@ function FlashcardItem({
   return (
     <SwipeDeckItem
       value={card.id}
-      className="bg-surface text-contrast ring-contrast/10 flex aspect-[4/3] flex-col gap-3 p-6 ring-1 data-front:shadow-md data-leaving:shadow-md"
+      className="bg-surface text-contrast border-edge flex aspect-[4/3] flex-col gap-3 p-6 border data-front:shadow-md data-leaving:shadow-md"
     >
       <p className="text-base font-medium">{card.question}</p>
       {isAnswerShown && <p className="text-muted text-sm">{card.answer}</p>}

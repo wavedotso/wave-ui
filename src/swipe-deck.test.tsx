@@ -884,9 +884,24 @@ describe("SwipeDeck", () => {
       deckOf().focus();
       await userEvent.keyboard("{ArrowRight}");
       await waitFor(() => expect(screen.queryByText("a")).toBeNull(), FLIGHT);
+      // Recorded as it happens: the starting style lasts only a frame or two.
+      const seen = new Set<string>();
+      const observer = new MutationObserver((records) => {
+        for (const record of records) {
+          for (const node of record.addedNodes) {
+            if (
+              node instanceof HTMLElement &&
+              node.hasAttribute("data-starting-style")
+            )
+              seen.add(node.getAttribute("aria-label") ?? "");
+          }
+        }
+      });
+      observer.observe(deckOf(), { childList: true });
       await userEvent.click(screen.getByRole("button", { name: "Undo" }));
+      observer.disconnect();
       expect(card("a")).toHaveAttribute("data-front");
-      expect(card("a")).toHaveAttribute("data-starting-style");
+      expect(seen.has("Card a")).toBe(true);
       await waitFor(() =>
         expect(card("a")).not.toHaveAttribute("data-starting-style"),
       );
