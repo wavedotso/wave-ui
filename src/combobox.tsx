@@ -202,7 +202,14 @@ function ComboboxContent({
         <ComboboxPrimitive.Popup
           data-slot="combobox-content"
           className={cn(
-            "motion-pop-md bg-elevated text-contrast ring-contrast/10 *:data-[slot=input-group]:bg-shade/30 *:data-[slot=input-group]:border-shade/30 group/combobox-content relative max-h-(--available-height) max-w-(--available-width) min-w-(--anchor-width) overflow-hidden rounded-md shadow-md ring-1 *:data-[slot=input-group]:m-1 *:data-[slot=input-group]:mb-0 *:data-[slot=input-group]:h-8 *:data-[slot=input-group]:shadow-none",
+            "motion-pop-md bg-elevated text-contrast border-edge group/combobox-content relative max-h-(--available-height) max-w-(--available-width) min-w-(--anchor-width) overflow-hidden rounded-md border shadow-md",
+            // A search field inside the menu is a row, not a box: no fill, no
+            // halo, only a line under it. Its hover and focus states are set
+            // too, or the field's own blue border and halo would win.
+            "*:data-[slot=input-group]:h-8 *:data-[slot=input-group]:rounded-none *:data-[slot=input-group]:bg-transparent *:data-[slot=input-group]:shadow-none",
+            "*:data-[slot=input-group]:border-transparent *:data-[slot=input-group]:border-b-line",
+            "*:data-[slot=input-group]:hover:border-transparent *:data-[slot=input-group]:hover:border-b-line",
+            "*:data-[slot=input-group]:has-[[data-slot=input-group-control]:focus-visible]:border-transparent *:data-[slot=input-group]:has-[[data-slot=input-group-control]:focus-visible]:border-b-line *:data-[slot=input-group]:has-[[data-slot=input-group-control]:focus-visible]:ring-0",
             className,
           )}
           {...props}
@@ -217,7 +224,7 @@ function ComboboxList({ className, ...props }: ComboboxListProps) {
     <ComboboxPrimitive.List
       data-slot="combobox-list"
       className={cn(
-        "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden max-h-[min(calc(--spacing(72)---spacing(9)),calc(var(--available-height)---spacing(9)))] scroll-py-1 overflow-y-auto overscroll-contain p-1 data-empty:p-0",
+        "scroll-fade supports-[animation-timeline:scroll()]:scrollbar-none max-h-[min(calc(--spacing(72)---spacing(9)),calc(var(--available-height)---spacing(9)))] overflow-x-hidden overflow-y-auto overscroll-contain p-1 data-empty:p-0",
         className,
       )}
       {...props}
@@ -230,7 +237,7 @@ function ComboboxItem({ className, children, ...props }: ComboboxItemProps) {
     <ComboboxPrimitive.Item
       data-slot="combobox-item"
       className={cn(
-        "data-highlighted:bg-highlight relative flex w-full cursor-clickable items-center gap-2 rounded-sm py-1 pr-8 pl-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "data-highlighted:bg-highlighted relative flex w-full cursor-clickable items-center gap-2 rounded-sm py-1 pr-8 pl-1.5 text-sm data-highlighted:outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-30 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -293,14 +300,14 @@ function ComboboxSeparator({ className, ...props }: ComboboxSeparatorProps) {
   return (
     <ComboboxPrimitive.Separator
       data-slot="combobox-separator"
-      className={cn("bg-contour -mx-1 my-1 h-px", className)}
+      className={cn("bg-line -mx-1 my-1 h-px", className)}
       {...props}
     />
   );
 }
 
 const comboboxChipsVariants = cva(
-  "bg-shade hover:border-focus focus-within:border-focus focus-within:ring-focus/50 has-aria-invalid:ring-danger/30 has-aria-invalid:border-danger flex flex-wrap items-center gap-1 rounded-md border border-transparent motion-color focus-within:ring-3 has-aria-invalid:ring-3 has-data-[slot=combobox-chip]:px-1",
+  "bg-neutral hover:border-focus focus-within:border-focus focus-within:ring-focus/50 has-aria-invalid:ring-danger/30 has-aria-invalid:border-danger flex flex-wrap items-center gap-1 rounded-md border border-transparent motion-color focus-within:ring-3 has-aria-invalid:ring-3 has-data-[slot=combobox-chip]:px-1",
   {
     variants: {
       // Multi-select field surface — mirrors the family ladder, but as a `min-h`
@@ -368,7 +375,7 @@ function ComboboxChipsInput({ className, ...props }: ComboboxChipsInputProps) {
   return (
     <ComboboxPrimitive.Input
       data-slot="combobox-chip-input"
-      className={cn("min-w-16 flex-1 outline-hidden", className)}
+      className={cn("min-w-16 flex-1 focus-visible:outline-hidden", className)}
       {...props}
     />
   );
