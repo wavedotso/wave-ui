@@ -12,12 +12,12 @@ const itemVariants = cva(
   // Rendered as a link or a button (`render`), the item gets a hover and a
   // clickable cursor; as a polymorphic element it styles disabled with both
   // `disabled:` (a native button) and `aria-disabled:` (a link).
-  "[a,button]:hover:bg-highlight [a,button]:cursor-clickable rounded-md border text-sm w-full group/item focus-visible:border-focus focus-visible:ring-focus/50 flex items-center flex-wrap outline-hidden motion-color focus-visible:ring-3 disabled:pointer-events-none disabled:opacity-30 aria-disabled:pointer-events-none aria-disabled:opacity-30",
+  "[a,button]:hover:bg-highlighted [a,button]:cursor-clickable rounded-md border text-sm w-full group/item focus-visible:border-focus focus-visible:ring-focus/50 flex items-center flex-wrap focus-visible:outline-hidden motion-color focus-visible:ring-3 disabled:pointer-events-none disabled:opacity-30 aria-disabled:pointer-events-none aria-disabled:opacity-30",
   {
     variants: {
       variant: {
         default: "border-transparent",
-        outline: "border-contour",
+        outline: "border-line",
         muted:
           "bg-secondary/50 border-transparent [a,button]:hover:bg-secondary",
       },
