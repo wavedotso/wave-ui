@@ -167,19 +167,21 @@ _High contrast mode as Chromium emulates it, on Wave's own components._
 
 Wave fills things with the theme's own foreground made translucent, one job each:
 
-- **`highlighted`** — 10% of the foreground: where attention lands. The hovered row, the item
-  picked with the arrow keys, a trigger whose menu is open.
-- **`neutral`** — 15%: what gives a control its body, its look before anything is chosen.
-  The fill of fields, tracks and unchecked boxes, a scrollbar thumb. (Tailwind's own
-  `neutral-50` … `neutral-950` greys are a separate palette Wave doesn't use.)
+- **`neutral`** — 10% of the foreground: the look before anything is chosen or pointed at.
+  A control's body (the fill of fields, tracks and unchecked boxes, a scrollbar thumb) and a
+  quiet region (a table footer, a muted item). (Tailwind's own `neutral-50` … `neutral-950`
+  greys are a separate palette Wave doesn't use.)
+- **`highlighted`** — 15%: where attention lands. The hovered row, the item picked with the
+  arrow keys, a trigger whose menu is open.
 
 All of these are translucent, so each sits the same distance from whatever is beneath it — the
-page, a card, a menu or glass — and a theme only has to supply its foreground. They step from faint to
-strong, so a hovered row always reads lighter than the empty field beside it. A colour is named
+page, a card, a menu or glass — and a theme only has to supply its foreground. Pointing always shows
+more than resting: `highlighted` is a step stronger than `neutral`, so a hovered row reads
+stronger than the empty field or the table footer beside it. A colour is named
 for its job, not for where it lands: a separator drawn as a 1px fill is still `bg-line`. When a
 boundary has to be intense — a layout region, a control's outline — it takes `contour`.
 
-## Hover points, primary chooses
+## Hover points, selected chooses
 
 Every item, row and button takes its background from one of three recipes, so a highlight
 means the same thing wherever it appears:
@@ -191,9 +193,10 @@ means the same thing wherever it appears:
 - **Hover on a filled control** — the fill fades to 80 (`hover:bg-primary/80`) with the same
   backdrop blur as glass, so a button and a menu over the same picture read as one material.
   Where the browser can't blur, it fades only to 90.
-- **Selected, current or on** — `bg-primary` with white text: the active tab, the sidebar's
-  current page, a pressed toggle, a selected row, a checked control. Primary means _chosen_,
-  never merely _pointed at_, which is why hover never fills with it: a hovered row that looks
+- **Selected, current or on** — `bg-selected` with white text: the active tab, the sidebar's
+  current page, a pressed toggle, a selected row, a checked control. `selected` is primary by
+  default, so a theme can restyle every chosen state at once. It means _chosen_, never merely
+  _pointed at_, which is why hover never fills with it: a hovered row that looks
   like the current page makes the current page impossible to find.
 
 Focus stays separate and sits on top of any of these, as the focus halo (`ring-focus/50`).
@@ -201,7 +204,7 @@ Focus stays separate and sits on top of any of these, as the focus halo (`ring-f
 A few things show hover another way, on purpose. Form fields already carry the neutral fill, so
 hover reveals their border (`hover:border-focus`). Inactive tabs and breadcrumb links brighten
 their text, and the accordion trigger underlines. A surface that is a link steps up a level
-instead: a card lifts to the elevated surface, a muted item to the full secondary fill. Small
+instead: a card lifts to the elevated surface, a muted item from `neutral` to `highlighted`. Small
 fills that never sit over a picture, such as link badges and the native file button, fade to
 80 without the blur.
 
