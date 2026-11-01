@@ -1,5 +1,13 @@
 # @waveso/ui
 
+## 0.19.0
+
+### Minor Changes
+
+- f1628ae: Hover is now the stronger fill: `highlighted` moves from 10% to 15% of the theme's text colour and `neutral` from 15% to 10%, so pointing at something always shows a step more than resting. Hovered and keyboard-highlighted items in menus, lists and tables read clearer; fields, tracks and unchecked checkboxes, radios and switches are a little lighter. Table's footer and Item's `muted` variant now use `neutral` instead of `bg-secondary/50`, so they look the same in every theme (the old fill was five times stronger in Ink than in Paper), and a muted Item that is a link hovers to `highlighted` instead of the solid secondary fill. If you set `bg-neutral` or `bg-highlighted` yourself, they swap strengths with this release.
+- f1628ae: Paper's ramp now falls smoothly from its cards (50) to its text (950), with the same spacing as Ink, instead of a big jump between the 900 and the 950. The 100–900 steps move darker, so in Paper the secondary fill (Secondary buttons and badges, Progress tracks, Skeletons, Kbd, avatar fallbacks) has a little more definition, and the muted and subtle text colours read stronger: muted from 5.3:1 to 7.0:1 on white, subtle from 3.9:1 to 4.5:1. The 50 and the 950 are unchanged, and so are Graphite and Ink. If you use `--paper-100` … `--paper-900` directly, they hold new values.
+- f1628ae: Every chosen state now uses `selected`: the current tab, the Sidebar's current page, a pressed Toggle, a checked Checkbox, Radio or Switch, and a selected Table row. It is still `primary` by default, so nothing looks different; set `--selected` to restyle all of them at once. Chosen items keep white text, so pick a colour it reads on, such as a darker shade of your brand colour. Brand fills (the default Button, Badge, the Avatar badge, Progress and Slider's range) stay `primary`.
+
 ## 0.18.0
 
 ### Minor Changes
