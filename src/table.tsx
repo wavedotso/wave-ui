@@ -87,7 +87,7 @@ function TableFooter({ className, ...props }: TableFooterProps) {
     <tfoot
       data-slot="table-footer"
       className={cn(
-        "bg-secondary/50 border-t border-line font-medium [&>tr]:last:border-b-0",
+        "bg-neutral border-t border-line font-medium [&>tr]:last:border-b-0",
         className,
       )}
       {...props}
@@ -103,9 +103,9 @@ function TableRow({ className, ...props }: TableRowProps) {
         // Selection is a plain `data-selected` attribute: `aria-selected`
         // isn't allowed on the rows of a plain table (only grid/treegrid), and
         // the row's own checkbox already tells assistive tech it's selected.
-        // A selected row is primary, the same colour as a checked checkbox, so
-        // inside it the checkbox gets a white edge.
-        "hover:bg-highlighted data-selected:bg-primary data-selected:text-white data-selected:**:data-[slot=checkbox]:border-white border-b border-line motion-color",
+        // A selected row takes `selected`, the same colour as a checked
+        // checkbox, so inside it the checkbox gets a white edge.
+        "hover:bg-highlighted data-selected:bg-selected data-selected:text-white data-selected:**:data-[slot=checkbox]:border-white border-b border-line motion-color",
         className,
       )}
       {...props}
