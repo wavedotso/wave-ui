@@ -12,9 +12,9 @@ const toggleVariants = cva(
     variants: {
       variant: {
         default:
-          "text-contrast hover:bg-highlighted data-pressed:bg-primary data-pressed:text-white data-pressed:hover:bg-primary/80 not-supports-backdrop-filter:data-pressed:hover:bg-primary/90 data-pressed:hover:backdrop-blur-xl data-pressed:hover:backdrop-saturate-150",
+          "text-contrast hover:bg-highlighted data-pressed:bg-selected data-pressed:text-white data-pressed:hover:bg-selected/80 not-supports-backdrop-filter:data-pressed:hover:bg-selected/90 data-pressed:hover:backdrop-blur-xl data-pressed:hover:backdrop-saturate-150",
         outline:
-          "border-contour bg-foundation hover:bg-highlighted hover:text-contrast data-pressed:border-primary data-pressed:bg-primary data-pressed:text-white data-pressed:hover:bg-primary/80 not-supports-backdrop-filter:data-pressed:hover:bg-primary/90 data-pressed:hover:backdrop-blur-xl data-pressed:hover:backdrop-saturate-150",
+          "border-contour bg-foundation hover:bg-highlighted hover:text-contrast data-pressed:border-selected data-pressed:bg-selected data-pressed:text-white data-pressed:hover:bg-selected/80 not-supports-backdrop-filter:data-pressed:hover:bg-selected/90 data-pressed:hover:backdrop-blur-xl data-pressed:hover:backdrop-saturate-150",
       },
       size: {
         default:
