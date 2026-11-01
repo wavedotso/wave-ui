@@ -279,22 +279,21 @@
   --ink-900: oklch(0.201 0.038 257); /* #0B1627 */
   --ink-950: oklch(0.132 0.027 252); /* #020812 */
 
-  /* Paper — warm stone on a white page. Built around its own colours: the
-   * cards (50), the neutral fill (100), a warm 300, the secondary text (600)
-   * and the text (950). The steps between are filled with even contrast,
-   * about 1.37 a step from the 100 down. The warmth peaks at the 300 and eases
-   * into the text greys. The page is white, so it isn't a step; these are
-   * sRGB colours, the same on Display-P3 screens. */
+  /* Paper — warm stone on a white page. Its ends are its own colours, the
+   * cards (50) and the text (950); the steps between follow Ink's spacing, so
+   * the ramp falls smoothly all the way into the text colour. The warmth
+   * peaks at the 300 and eases into the text greys. The page is white, so it
+   * isn't a step; these are sRGB colours, the same on Display-P3 screens. */
   --paper-50:  oklch(0.989 0.002 67.8); /* #FCFBFA */
-  --paper-100: oklch(0.959 0.002 67.8); /* #F2F1F0 */
-  --paper-200: oklch(0.860 0.007 67.7); /* #D4D0CC */
-  --paper-300: oklch(0.769 0.010 72.6); /* #B8B3AD */
-  --paper-400: oklch(0.683 0.008 64.9); /* #9D9894 */
-  --paper-500: oklch(0.603 0.006 52.9); /* #84807E */
-  --paper-600: oklch(0.528 0.005 34.3); /* #6E6A69 */
-  --paper-700: oklch(0.452 0.004 34.3); /* #585554 */
-  --paper-800: oklch(0.376 0.003 34.3); /* #434140 */
-  --paper-900: oklch(0.291 0.001 34.3); /* #2C2B2B */
+  --paper-100: oklch(0.929 0.002 67.8); /* #E8E7E6 */
+  --paper-200: oklch(0.850 0.007 67.7); /* #D1CDC9 */
+  --paper-300: oklch(0.756 0.010 72.6); /* #B4AFA9 */
+  --paper-400: oklch(0.668 0.008 64.9); /* #989490 */
+  --paper-500: oklch(0.567 0.006 52.9); /* #797673 */
+  --paper-600: oklch(0.465 0.005 34.3); /* #5C5857 */
+  --paper-700: oklch(0.372 0.004 34.3); /* #423F3F */
+  --paper-800: oklch(0.296 0.003 34.3); /* #2E2C2C */
+  --paper-900: oklch(0.228 0.001 34.3); /* #1D1C1C */
   --paper-950: oklch(0.159 0 0); /* #0D0D0D */
 
   /* ========================================================================
