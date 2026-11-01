@@ -123,7 +123,15 @@ jobs:
             commit=$(git log --merges --ancestry-path --reverse --format=%H "$bump..HEAD" | head -1)
             commit=${commit:-$bump}
             git show "$commit:CHANGELOG.md" | awk -v heading="## $version" '$0 == heading { found = 1; next } /^## / { if (found) exit } found' > release-notes.md
-            gh release create "v$version" --target "$commit" --title "v$version" --notes-file release-notes.md --latest=false
+            # GitHub refuses this token a release that names a commit whose
+            # workflow files differ from main's, even when the tag exists. So
+            # an existing tag is used as it is, and only a commit that has no
+            # tag yet is named: the run's own release commit, which matches
+            # main. A release missed on an older commit needs its tag pushed
+            # by hand first.
+            target="--target=$commit"
+            git rev-parse -q --verify "refs/tags/v$version" >/dev/null && target="--verify-tag"
+            gh release create "v$version" $target --title "v$version" --notes-file release-notes.md --latest=false
             echo "Released v$version at ${commit:0:7}."
             latest=$version
           done
