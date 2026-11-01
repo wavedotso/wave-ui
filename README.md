@@ -47,11 +47,12 @@ Wave builds around an intuitive, intentional **3-tier hierarchy** — for almost
 - 3 offset amounts for transforms
 - …and more
 
-It also builds around 3 semantic intents:
+It builds around semantic intents:
 
 - **Background** colors focus on elevation — how deep a surface sits
 - **Content** colors focus on emphasis — how strongly something reads
 - **Border** colors focus on structure — how functional a boundary is
+- **Control** colors focus on state — whether a control is at rest, pointed at or chosen
 
 This is the right shape for a system centered on an emphasis ladder: clean and minimal, but flexible.
 
@@ -71,48 +72,47 @@ A pinned class always beats the OS — put `.paper`, `.graphite`, or `.ink` on y
 
 ## Taxonomy
 
-Wave pays close attention to token taxonomy. Surfaces encode elevation; borders act as _light interference rather than geometry_.
+Wave pays close attention to token taxonomy. Surfaces encode elevation; borders act as _light interference rather than geometry_. Each of the five families below has three members, each with one job.
 
-### Background
+**Surfaces are solid: they contain. Borders and control fills are see-through:** `line`, `edge`, `contour`, `neutral` and `highlighted` are the theme's text colour made translucent, so they blend into whatever is underneath, for depth and integration. An input inside a primary-coloured banner, or on an accent card, only works if its fill is see-through; a solid control colour can't follow every background. And because controls don't borrow `secondary`, it's free to be a real brand colour.
+
+### Surfaces — solid, to contain
 
 - `--foundation` — the deepest layer, the base where elevation starts
 - `--surface` — the middle layer: cards, sidebars, content boxes
 - `--elevated` — the highest layer: floating windows, modals, dropdowns, dialogs
 
-### Foreground
+### Text — contrast
 
 - `--contrast` — titles, primary text
 - `--muted` — body text, icons, any mark
 - `--subtle` — placeholders, hints
 
-### Lines and fills
+### Brand — colour
 
-The theme's foreground made translucent, so each reads the same on any surface, and each keeps one job.
+- `--primary` — wired to the Wave ramp
+- `--secondary` — the second brand colour, a quiet neutral by default
+- `--accent` — alternative emphasis
 
-Lines:
+### Borders — boundary
+
+The theme's text colour at three strengths, one job each:
 
 - `--line` (5%) — what divides: separators, dividers, hairlines
 - `--edge` (10%) — what bounds a surface: cards, dialogs, popups, toasts
 - `--contour` (15%) — what outlines a control or a region: outline buttons, badges, toggles, layout regions
 
-Fills:
+### Controls — depth
 
-- `--highlighted` (10%) — where attention lands: hovered, keyboard-highlighted and open items
-- `--neutral` (15%) — what gives a control its body, its look before anything is chosen: field and track fills, unchecked boxes. Not Tailwind's `neutral-*` grey palette, which Wave doesn't use
+A control's state, from resting to chosen:
+
+- `--neutral` (10%) — the look before anything is chosen or pointed at: field and track fills, unchecked boxes, table footers, muted items. Not Tailwind's `neutral-*` grey palette, which Wave doesn't use
+- `--highlighted` (15%) — where attention lands: hovered, keyboard-highlighted and open items, a step stronger than `neutral`
+- `--selected` — chosen, current or on: the current tab, a pressed toggle, a checked box, a selected row. `--primary` by default; set it to restyle every chosen state at once. Chosen items keep white text, so pick a colour it reads on, such as a darker shade of your brand colour
 
 ### Ring
 
 - `--focus` — active / focus states
-
-### Selected
-
-- `--selected` — chosen, current or on: the current tab, a pressed toggle, a checked box, a selected row. Primary by default; set it to restyle every chosen state at once
-
-### Brand
-
-- `--primary` — wired to the Wave ramp
-- `--secondary` — neutral fill
-- `--accent` — alternative emphasis
 
 ### Border strategy
 
