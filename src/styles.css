@@ -566,8 +566,8 @@
   --line: color-mix(in srgb, var(--paper-950) 5%, transparent);
   --edge: color-mix(in srgb, var(--paper-950) 10%, transparent);
   --contour: color-mix(in srgb, var(--paper-950) 15%, transparent);
-  --highlighted: color-mix(in srgb, var(--paper-950) 10%, transparent);
-  --neutral: color-mix(in srgb, var(--paper-950) 15%, transparent);
+  --highlighted: color-mix(in srgb, var(--paper-950) 15%, transparent);
+  --neutral: color-mix(in srgb, var(--paper-950) 10%, transparent);
   --shadow-strength: 0.055;
   --danger: var(--wave-red-500);
   --danger-text: var(--wave-red-600);
@@ -601,8 +601,8 @@
     --line: color-mix(in srgb, var(--graphite-50) 5%, transparent);
     --edge: color-mix(in srgb, var(--graphite-50) 10%, transparent);
     --contour: color-mix(in srgb, var(--graphite-50) 15%, transparent);
-    --highlighted: color-mix(in srgb, var(--graphite-50) 10%, transparent);
-    --neutral: color-mix(in srgb, var(--graphite-50) 15%, transparent);
+    --highlighted: color-mix(in srgb, var(--graphite-50) 15%, transparent);
+    --neutral: color-mix(in srgb, var(--graphite-50) 10%, transparent);
     --shadow-strength: 0.045;
     --danger: var(--wave-red-500);
     --danger-text: oklch(0.749 0.152 16.8); /* #FF828B, see below */
@@ -626,8 +626,8 @@
   --line: color-mix(in srgb, var(--graphite-50) 5%, transparent);
   --edge: color-mix(in srgb, var(--graphite-50) 10%, transparent);
   --contour: color-mix(in srgb, var(--graphite-50) 15%, transparent);
-  --highlighted: color-mix(in srgb, var(--graphite-50) 10%, transparent);
-  --neutral: color-mix(in srgb, var(--graphite-50) 15%, transparent);
+  --highlighted: color-mix(in srgb, var(--graphite-50) 15%, transparent);
+  --neutral: color-mix(in srgb, var(--graphite-50) 10%, transparent);
   --shadow-strength: 0.045;
   --danger: var(--wave-red-500);
   --danger-text: oklch(0.749 0.152 16.8); /* #FF828B, see below */
@@ -680,8 +680,8 @@
   --line: color-mix(in srgb, var(--ink-50) 5%, transparent);
   --edge: color-mix(in srgb, var(--ink-50) 10%, transparent);
   --contour: color-mix(in srgb, var(--ink-50) 15%, transparent);
-  --highlighted: color-mix(in srgb, var(--ink-50) 10%, transparent);
-  --neutral: color-mix(in srgb, var(--ink-50) 15%, transparent);
+  --highlighted: color-mix(in srgb, var(--ink-50) 15%, transparent);
+  --neutral: color-mix(in srgb, var(--ink-50) 10%, transparent);
   --shadow-strength: 0.045;
   --danger: var(--wave-red-500);
   --danger-text: var(--wave-red-400);
@@ -729,12 +729,13 @@
    * always as a border (rings are kept for focus and invalid halos).
    * `contour` (15%) outlines a control or a region: outline buttons, badges,
    * toggles, the slider thumb, menubars.
-   * Fills, one job each: `highlighted` (10%) marks where attention lands:
-   * hovered, keyboard-highlighted and open items. `neutral` (15%) gives a
-   * control its body, its look before anything is chosen: field and track
-   * fills, unchecked boxes. (Tailwind's own `neutral-50` … `neutral-950`
-   * greys are a separate palette Wave doesn't use.) `focus` is the
-   * brand-themed ring (= primary). */
+   * Fills, one job each: `neutral` (10%) is the look before anything is
+   * chosen or pointed at: a control's body (field and track fills, unchecked
+   * boxes) and a quiet region (a table footer, a muted item). `highlighted`
+   * (15%) marks where attention lands: hovered, keyboard-highlighted and
+   * open items, always a step stronger than resting. (Tailwind's own
+   * `neutral-50` … `neutral-950` greys are a separate palette Wave doesn't
+   * use.) `focus` is the brand-themed ring (= primary). */
   --color-line: var(--line);
   --color-edge: var(--edge);
   --color-contour: var(--contour);
