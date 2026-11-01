@@ -151,7 +151,7 @@ const INTERFACE_GROUPS: Group[] = [
   },
   {
     label: "Lines and fills",
-    note: "The theme's foreground made translucent. Lines, one job each: `line` (5%, divides), `edge` (10%, bounds a surface), `contour` (15%, outlines a control or a region). Fills, one job each: `highlighted` (10%, where attention lands), `neutral` (15%, a control's body). The ring is brand-themed (focus = primary).",
+    note: "The theme's foreground made translucent. Lines, one job each: `line` (5%, divides), `edge` (10%, bounds a surface), `contour` (15%, outlines a control or a region). Fills, one job each: `neutral` (10%, a control's body and quiet regions), `highlighted` (15%, where attention lands). The ring is brand-themed (focus = primary).",
     tokens: [
       { name: "--line" },
       { name: "--edge" },
