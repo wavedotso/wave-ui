@@ -38,7 +38,7 @@ interface WebGLUniforms {
   buffer: WebGLBuffer | null;
 }
 
-function initWebGL(gl: WebGLRenderingContext): WebGLUniforms | null {
+function initWebGL(gl: WebGL2RenderingContext): WebGLUniforms | null {
   const createShader = (type: number, source: string) => {
     const shader = gl.createShader(type);
     if (!shader) return null;
@@ -98,7 +98,7 @@ function initWebGL(gl: WebGLRenderingContext): WebGLUniforms | null {
 
 /** Safe uniform setters */
 function setUniform1f(
-  gl: WebGLRenderingContext,
+  gl: WebGL2RenderingContext,
   loc: WebGLUniformLocation | null,
   val: number,
 ) {
@@ -106,7 +106,7 @@ function setUniform1f(
 }
 
 function setUniform2f(
-  gl: WebGLRenderingContext,
+  gl: WebGL2RenderingContext,
   loc: WebGLUniformLocation | null,
   x: number,
   y: number,
@@ -115,7 +115,7 @@ function setUniform2f(
 }
 
 function setUniform3f(
-  gl: WebGLRenderingContext,
+  gl: WebGL2RenderingContext,
   loc: WebGLUniformLocation | null,
   x: number,
   y: number,
@@ -198,16 +198,15 @@ export function useFilmGrain({
       };
     };
 
-    // ── Try WebGL ──
+    // ── Try WebGL2 ──
+    // WebGL2 for its integer math (the grain's hash); without it, the 2D
+    // fallback below draws the grain instead.
     // Probe on a throwaway canvas first: requesting a WebGL context permanently
     // taints a canvas so it can never yield a 2D context. Probing off-canvas keeps
     // the real canvas clean, so the 2D fallback stays reachable when shader/program
     // init fails (not only when context creation fails).
 
-    const canGetWebGL = (c: HTMLCanvasElement) =>
-      (c.getContext("webgl") ||
-        (c.getContext("experimental-webgl") as WebGLRenderingContext | null)) ??
-      null;
+    const canGetWebGL = (c: HTMLCanvasElement) => c.getContext("webgl2");
 
     const probe = document.createElement("canvas");
     const probeGl = canGetWebGL(probe);
