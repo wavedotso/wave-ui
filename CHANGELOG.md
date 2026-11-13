@@ -1,5 +1,15 @@
 # @waveso/ui
 
+## 0.20.0
+
+### Minor Changes
+
+- ff2088c: `FilmGrain` now draws with WebGL2 and an integer hash instead of a sine one. The grain looks the same, its finest specks a little softer, and it no longer draws faint stripes on mobile GPUs where a sine hash loses precision. It is also cheaper: its medium and coarse layers and its clumping share one hash per 4×4 block, and the second fine layer it computed for a crossfade it never showed is gone. Where WebGL2 is unavailable, the existing Canvas 2D grain draws instead.
+
+### Patch Changes
+
+- 6c19656: Placeholders in `Input`, `Textarea` and `Select` now use the `muted` text color instead of `subtle`. On the filled fields, `subtle` was too faint in the dark themes, down to 1.4:1 in Ink; `muted` reads clearly in all three themes, and typed text, in `contrast`, still stands out from a placeholder.
+
 ## 0.19.0
 
 ### Minor Changes
