@@ -85,8 +85,8 @@ Wave pays close attention to token taxonomy. Surfaces encode elevation; borders 
 ### Text — contrast
 
 - `--contrast` — titles, primary text
-- `--muted` — body text, icons, any mark
-- `--subtle` — placeholders, hints
+- `--muted` — body text, placeholders, icons, any mark
+- `--subtle` — hints
 
 ### Brand — colour
 

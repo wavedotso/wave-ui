@@ -42,7 +42,7 @@ type SelectScrollDownButtonProps = React.ComponentProps<
 >;
 
 const selectTriggerVariants = cva(
-  "data-placeholder:text-subtle bg-neutral hover:border-focus focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-danger/30 aria-invalid:border-danger flex w-fit items-center justify-between gap-1.5 rounded-md border border-transparent whitespace-nowrap motion-color focus-visible:outline-hidden select-none focus-visible:ring-3 data-disabled:pointer-events-none data-disabled:opacity-30 aria-invalid:ring-3 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "data-placeholder:text-muted bg-neutral hover:border-focus focus-visible:border-focus focus-visible:ring-focus/50 aria-invalid:ring-danger/30 aria-invalid:border-danger flex w-fit items-center justify-between gap-1.5 rounded-md border border-transparent whitespace-nowrap motion-color focus-visible:outline-hidden select-none focus-visible:ring-3 data-disabled:pointer-events-none data-disabled:opacity-30 aria-invalid:ring-3 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       // Shared control ladder — same tiers/names as Input and Button, so a `sm`
