@@ -10,8 +10,7 @@
 
   <br />
 
-  <!-- TODO: replace assets/showcase-placeholder.svg with a real screenshot of the Showcase story across the three themes -->
-  <img src="assets/showcase-placeholder.svg" alt="Wave UI across its three themes — Graphite, Ink, and Paper" width="760" />
+  <img src="assets/showcase.svg" alt="Wave UI across its three themes — Graphite, Ink, and Paper" width="760" />
 
   <br /><br />
 

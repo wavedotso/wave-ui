@@ -1,0 +1,62 @@
+<svg viewBox="0 0 1200 397" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Wave UI themes — Graphite, Ink, Paper" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <!-- A concept of the three themes, not a screenshot: one card per theme,
+       drawn with the theme's real tokens (foundation, surface, contrast,
+       muted, subtle, secondary, primary; edge, line and contour at 10/5/15%)
+       and the real Card, Avatar, Separator and Button measurements. Corners
+       use the plain radii (14px card, 10px button); an SVG rect can't draw
+       the squircle. -->
+
+  <!-- Graphite -->
+  <g>
+    <rect x="0" y="0" width="400" height="397" fill="#28292E"/>
+    <rect x="40.5" y="56.5" width="319" height="236" rx="13.5" fill="#323339" stroke="#F3F3F4" stroke-opacity="0.1"/>
+    <rect x="64" y="89" width="150" height="14" rx="7" fill="#F3F3F4"/>
+    <circle cx="320" cy="96" r="16" fill="#4C4E56"/>
+    <rect x="64" y="136" width="264" height="9" rx="4.5" fill="#B0B1B7"/>
+    <rect x="64" y="156" width="224" height="9" rx="4.5" fill="#B0B1B7"/>
+    <rect x="64" y="176" width="248" height="9" rx="4.5" fill="#7D7E87"/>
+    <line x1="41" y1="209.5" x2="359" y2="209.5" stroke="#F3F3F4" stroke-opacity="0.05"/>
+    <rect x="64" y="233" width="74" height="36" rx="10" fill="#0074DE"/>
+    <text x="101" y="256.6" text-anchor="middle" font-size="16" font-weight="500" fill="#FFFFFF">Action</text>
+    <rect x="146.5" y="233.5" width="79" height="35" rx="9.5" fill="#28292E" stroke="#F3F3F4" stroke-opacity="0.15"/>
+    <text x="186" y="256.6" text-anchor="middle" font-size="16" font-weight="500" fill="#F3F3F4">Outline</text>
+    <text x="40" y="339" font-size="19" font-weight="700" fill="#F3F3F4">Graphite</text>
+    <text x="40" y="361" font-size="12.5" fill="#B0B1B7">neutral · all-day</text>
+  </g>
+
+  <!-- Ink -->
+  <g>
+    <rect x="400" y="0" width="400" height="397" fill="#020812"/>
+    <rect x="440.5" y="56.5" width="319" height="236" rx="13.5" fill="#0B1627" stroke="#F2F4F6" stroke-opacity="0.1"/>
+    <rect x="464" y="89" width="150" height="14" rx="7" fill="#F2F4F6"/>
+    <circle cx="720" cy="96" r="16" fill="#2F3A4A"/>
+    <rect x="464" y="136" width="264" height="9" rx="4.5" fill="#888E96"/>
+    <rect x="464" y="156" width="224" height="9" rx="4.5" fill="#888E96"/>
+    <rect x="464" y="176" width="248" height="9" rx="4.5" fill="#4A535F"/>
+    <line x1="441" y1="209.5" x2="759" y2="209.5" stroke="#F2F4F6" stroke-opacity="0.05"/>
+    <rect x="464" y="233" width="74" height="36" rx="10" fill="#0074DE"/>
+    <text x="501" y="256.6" text-anchor="middle" font-size="16" font-weight="500" fill="#FFFFFF">Action</text>
+    <rect x="546.5" y="233.5" width="79" height="35" rx="9.5" fill="#020812" stroke="#F2F4F6" stroke-opacity="0.15"/>
+    <text x="586" y="256.6" text-anchor="middle" font-size="16" font-weight="500" fill="#F2F4F6">Outline</text>
+    <text x="440" y="339" font-size="19" font-weight="700" fill="#F2F4F6">Ink</text>
+    <text x="440" y="361" font-size="12.5" fill="#888E96">navy · night</text>
+  </g>
+
+  <!-- Paper -->
+  <g>
+    <rect x="800" y="0" width="400" height="397" fill="#FFFFFF"/>
+    <rect x="840.5" y="56.5" width="319" height="236" rx="13.5" fill="#FCFBFA" stroke="#0D0D0D" stroke-opacity="0.1"/>
+    <rect x="864" y="89" width="150" height="14" rx="7" fill="#0D0D0D"/>
+    <circle cx="1120" cy="96" r="16" fill="#E8E7E6"/>
+    <rect x="864" y="136" width="264" height="9" rx="4.5" fill="#5C5857"/>
+    <rect x="864" y="156" width="224" height="9" rx="4.5" fill="#5C5857"/>
+    <rect x="864" y="176" width="248" height="9" rx="4.5" fill="#797673"/>
+    <line x1="841" y1="209.5" x2="1159" y2="209.5" stroke="#0D0D0D" stroke-opacity="0.05"/>
+    <rect x="864" y="233" width="74" height="36" rx="10" fill="#0074DE"/>
+    <text x="901" y="256.6" text-anchor="middle" font-size="16" font-weight="500" fill="#FFFFFF">Action</text>
+    <rect x="946.5" y="233.5" width="79" height="35" rx="9.5" fill="#FFFFFF" stroke="#0D0D0D" stroke-opacity="0.15"/>
+    <text x="986" y="256.6" text-anchor="middle" font-size="16" font-weight="500" fill="#0D0D0D">Outline</text>
+    <text x="840" y="339" font-size="19" font-weight="700" fill="#0D0D0D">Paper</text>
+    <text x="840" y="361" font-size="12.5" fill="#5C5857">cream · day</text>
+  </g>
+</svg>
